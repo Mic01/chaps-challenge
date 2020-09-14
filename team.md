@@ -1,2 +1,8 @@
-Module.              Team Member          GitLab/GitHub (The assignment docs say GitHub but I'm guessing that it's supposed to be GitHub)
-Record & Replay.    Luke Hawinkels.        hawinkluke
+
+| **Module** | **Team Member Name** | **Team Member github account** |
+| ------ | ------ | ------ |
+| maze | Michaiah Thoms | Mic01 |
+| application | Nicholas Woolf-Ben-Avraham | TheHatedGravity |
+| rendering | Connor de Bruyn | Destiro |
+| persistence and levels | Justin Hanrahan | JuiceH |
+| record and replay | Luke Hawinkels | hawadlu |
