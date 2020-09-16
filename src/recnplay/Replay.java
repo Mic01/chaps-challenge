@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class Replay {
   private ArrayList history = new ArrayList();
-  Playback replay;
+  recnplay.Playback replay;
   
   /**
    * Add an action to the history.
@@ -28,12 +28,22 @@ public class Replay {
    * @param timeScale The initial speed of the replay.
    * @return the playback object
    */
-  public Playback loadReplay(String filePath, int timeScale) {
+  public recnplay.Playback loadReplay(String filePath, int timeScale) {
+    parseJson("/Users/luke/Downloads/example_2.json");
+    
     //Get json file and create the playback object
-    Playback replay = new Playback(timeScale);
+    recnplay.Playback replay = new recnplay.Playback(timeScale);
     
     //Return the replay
     return replay;
+  }
+  
+  /**
+   * Parse the json file
+   *
+   * @param filePath the file to parse
+   */
+  private void parseJson(String filePath) {
   }
   
   /**
