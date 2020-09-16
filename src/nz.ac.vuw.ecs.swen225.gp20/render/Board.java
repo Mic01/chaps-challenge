@@ -19,6 +19,10 @@ public class Board {
   //Potential use
   public boolean actorsPresent;
   public int sleepTime = 200; //Time in ms before each draw
+  public enum Soundeffects{
+    metalWalk, waterWalk, iceWalk, fireWalk, slide,
+    pickup_item, finish_level, death, flickSwitch_openDoor
+  }
 
   //Rendering Variables
   public Dimension dimension = new Dimension(tileSize*visionRange, tileSize*visionRange);
@@ -46,19 +50,31 @@ public class Board {
    * Based on Players position, return a new 2D Array
    * of all tiles visible on board to draw.
    */
-  public void setVision(int x, int y){
-    for(int xAxis=player.getX()-reach; xAxis<player.getX()+reach; xAxis++){
-      for(int yAxis=player.getY()-reach; yAxis<player.getY()+reach; yAxis++){
-        vision[xAxis][yAxis] = level[xAxis][yAxis];
+  public void setVision(){
+    int yCount=0;
+    int xCount=0;
+
+    for(int yAxis=player.getY()-reach; yAxis<player.getY()+reach; yAxis++){
+      yCount++;
+      for(int xAxis=player.getX()-reach; xAxis<player.getX()+reach; xAxis++){
+        xCount++;
+        vision[yCount%visionRange][xCount%visionRange] = level[yAxis][xAxis];
       }
     }
   }
 
   /**
    * Draws the visible board and all entities on-top of tiles.
+   *
+   * @param sound Play sound passed.
+   * @param animations Play a frame of each animation
    */
-  public void draw(){
-
+  public void draw(String sound, ArrayList<Actor> animations){
+    setVision();
+    drawTiles();
+    drawEntities();
+    playSound(sound);
+    drawAnimations(animations);
   }
 
   /**
@@ -66,7 +82,12 @@ public class Board {
    * draws all tiles in players current vision.
    */
   public void drawTiles(){
-
+    for(int yAxis=0; yAxis<visionRange; yAxis++){
+      for(int xAxis=0; xAxis<visionRange; xAxis++){
+        //todo draw with passed canvas
+        //todo or by drawing onto positions of static canvas in maze
+      }
+    }
   }
 
   /**
@@ -74,14 +95,60 @@ public class Board {
    * draws entities on-top of tiles (Actors, keys, etc...).
    */
   public void drawEntities(){
-
+    for(int yAxis=0; yAxis<visionRange; yAxis++) {
+      for(int xAxis=0; xAxis<visionRange; xAxis++){
+        //todo draw with passed canvas
+        //todo or by drawing onto positions of static canvas in maze
+      }
+    }
   }
 
   /**
-   * third step of draw method,
+   * Third step of draw method,
+   * Plays a sound from enum by fetching from Maze hashmap.
+   *
+   * @param sound of animation.
+   */
+  public void playSound(String sound){
+    //todo play sound files from michaiahs classes
+    switch(Soundeffects.valueOf(sound)){
+      case metalWalk:
+        break;
+
+      case waterWalk:
+        break;
+
+      case iceWalk:
+        break;
+        
+      case fireWalk:
+        break;
+
+      case slide:
+        break;
+
+      case pickup_item:
+        break;
+
+      case finish_level:
+        break;
+
+      case death:
+        break;
+
+      case flickSwitch_openDoor:
+        break;
+    }
+  }
+
+  /**
+   * forth step of draw method,
    * Animation of actors/player and soundeffects.
    */
-  public void drawAnimations(){
+  public void drawAnimations(ArrayList<Actor> animations){
+    for(Actor actor : animations){
+      //todo add a switch statement for animations
+    }
     //this might change, not too sure how i implement it yet
     //This might be a switch statement for entities to trigger sounds/animations
   }
