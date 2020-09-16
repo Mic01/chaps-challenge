@@ -10,6 +10,13 @@ public abstract class Actor {
   private final Maze maze;
   private FreeTile currentTile;
 
+  /**
+   * A moving entity, typically the player or a enemy creature.
+   *
+   * @param xpos the xpos to start this actor at
+   * @param ypos the ypos to start this actor at
+   * @param maze the maze this actor is being made on
+   */
   public Actor(int xpos, int ypos, Maze maze) {
     this.xpos = xpos;
     this.ypos = ypos;
@@ -93,5 +100,13 @@ public abstract class Actor {
       return true;
     }
     return false;
+  }
+
+  public int getX() {
+    return xpos;
+  }
+
+  public int getY() {
+    return ypos;
   }
 }
