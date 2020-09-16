@@ -4,7 +4,7 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 
-import java.awt.*;
+import java.awt.Dimension;
 import java.util.ArrayList;
 
 /**
@@ -22,6 +22,9 @@ public class Board {
   public enum Soundeffects{
     metalWalk, waterWalk, iceWalk, fireWalk, slide,
     pickup_item, finish_level, death, flickSwitch_openDoor
+  }
+  public enum Animations{
+    walkLeft, walkUp, walkRight, walkDown, explosion, death
   }
 
   //Rendering Variables
@@ -120,7 +123,7 @@ public class Board {
 
       case iceWalk:
         break;
-        
+
       case fireWalk:
         break;
 
@@ -138,6 +141,9 @@ public class Board {
 
       case flickSwitch_openDoor:
         break;
+
+      default:
+        throw new IllegalStateException("Unexpected value: " + Soundeffects.valueOf(sound));
     }
   }
 
@@ -147,9 +153,35 @@ public class Board {
    */
   public void drawAnimations(ArrayList<Actor> animations){
     for(Actor actor : animations){
-      //todo add a switch statement for animations
+      //todo call playAnimations method
+      //todo base off of change in x/y
     }
-    //this might change, not too sure how i implement it yet
-    //This might be a switch statement for entities to trigger sounds/animations
+  }
+
+  public void playAnimations(String animation){
+    //todo get images from michaiahs classes
+    //todo this is still very wishy washy im not sure how its gonna work yet
+    switch(Animations.valueOf(animation)){
+      case walkLeft:
+        break;
+
+      case walkUp:
+        break;
+
+      case walkRight:
+        break;
+
+      case walkDown:
+        break;
+
+      case explosion:
+        break;
+
+      case death:
+        break;
+
+      default:
+        throw new IllegalStateException("Unexpected value: " + Animations.valueOf(animation));
+    }
   }
 }
