@@ -1,4 +1,4 @@
-package nz.ac.vuw.ecs.swen225.gp20.persistence;
+package persistence;
 
 public class placeholder3 {
 }

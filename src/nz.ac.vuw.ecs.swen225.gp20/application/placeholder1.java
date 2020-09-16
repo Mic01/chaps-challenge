@@ -1,4 +1,4 @@
-package nz.ac.vuw.ecs.swen225.gp20.application;
+package application;
 
 public class placeholder1 {
 }

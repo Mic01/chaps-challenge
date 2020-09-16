@@ -1,4 +1,4 @@
-package nz.ac.vuw.ecs.swen225.gp20.render;
+package render;
 
 public class placeholder5 {
 }
