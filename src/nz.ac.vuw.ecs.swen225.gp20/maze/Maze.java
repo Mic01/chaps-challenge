@@ -1,6 +1,6 @@
-package maze;
+package nz.ac.vuw.ecs.swen225.gp20.maze;
 
-import maze.tiles.Tile;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
 
 public class Maze {
     private int levelNum;

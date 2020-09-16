@@ -1,5 +1,8 @@
-package maze.tiles;
+package nz.ac.vuw.ecs.swen225.gp20.maze.tiles;
+
+import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 
 public abstract class Tile {
-    protected boolean traversable = true;
+
+    public abstract boolean isTraversable(Actor actor);
 }
