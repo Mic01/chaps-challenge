@@ -1,6 +1,6 @@
 package render;
 
-import maze.Tile;
+import maze.tiles.Tile;
 
 import java.awt.*;
 
@@ -10,6 +10,7 @@ import java.awt.*;
 public class Board {
   // Constant Variables
   public int visionRange = 9;
+  public int reach = visionRange/2;
   public int tileSize = 80; //Maybe change this
 
   //Potential use
@@ -19,7 +20,7 @@ public class Board {
   //Rendering Variables
   public Dimension dimension = new Dimension(tileSize*visionRange, tileSize*visionRange);
   public Tile[][] level;
-  public Tile[][] vision = new Tile[visionRange][visionRange];
+  public Tile[][] vision;
   public Player player;
   public ArrayList<Actor> actors;
 
@@ -34,6 +35,7 @@ public class Board {
     this.level = level;
     this.Player = player;
     this.actors = actors;
+    this.vision = new Tile[visionRange][visionRange];
     if(actors.size() != 0){ actorsPresent = true; }
   }
 
@@ -42,7 +44,11 @@ public class Board {
    * of all tiles visible on board to draw.
    */
   public void setVision(int x, int y){
-
+    for(int xAxis=player.getX()-reach; xAxis<player.getX()+reach; xAxis++){
+      for(int yAxis=player.getY()-reach; yAxis<player.getY()+reach; yAxis++){
+        vision[xAxis][yAxis] = level[xAxis][yAxis];
+      }
+    }
   }
 
   /**
@@ -74,6 +80,6 @@ public class Board {
    */
   public void drawAnimations(){
     //this might change, not too sure how i implement it yet
-
+    //This might be a switch statement for entities to trigger sounds/animations
   }
 }
