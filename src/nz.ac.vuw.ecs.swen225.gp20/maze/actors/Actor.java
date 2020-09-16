@@ -11,7 +11,7 @@ public abstract class Actor {
   private FreeTile currentTile;
 
   /**
-   * A moving entity, typically the player or a enemy creature.
+   * A moving creature, typically the player or an enemy creature.
    *
    * @param xpos the xpos to start this actor at
    * @param ypos the ypos to start this actor at
@@ -22,6 +22,13 @@ public abstract class Actor {
     this.ypos = ypos;
     this.maze = maze;
     currentTile = (FreeTile) maze.getTile(xpos, ypos);
+
+    // Store this actor in the maze
+    if (this instanceof Player) {
+      maze.setPlayer((Player) this);
+    } else {
+      maze.addActor(this);
+    }
   }
 
   /**
