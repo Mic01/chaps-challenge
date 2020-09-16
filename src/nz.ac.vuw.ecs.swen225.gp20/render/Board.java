@@ -1,8 +1,11 @@
-package render;
+package nz.ac.vuw.ecs.swen225.gp20.render;
 
-import maze.tiles.Tile;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
+import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
+import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Renderer class for displaying the board.
@@ -33,7 +36,7 @@ public class Board {
    */
   public Board(Tile[][] level, Player player, ArrayList<Actor> actors){
     this.level = level;
-    this.Player = player;
+    this.player = player;
     this.actors = actors;
     this.vision = new Tile[visionRange][visionRange];
     if(actors.size() != 0){ actorsPresent = true; }
