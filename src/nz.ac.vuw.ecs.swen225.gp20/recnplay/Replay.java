@@ -1,6 +1,8 @@
-package recnplay;
+package nz.ac.vuw.ecs.swen225.gp20.recnplay;
 
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * This class is responsible for creating, loading and saving replays.
@@ -9,7 +11,7 @@ import java.util.ArrayList;
  */
 public class Replay {
   private ArrayList history = new ArrayList();
-  recnplay.Playback replay;
+  Playback replay;
   
   /**
    * Add an action to the history.
@@ -28,11 +30,11 @@ public class Replay {
    * @param timeScale The initial speed of the replay.
    * @return the playback object
    */
-  public recnplay.Playback loadReplay(String filePath, int timeScale) {
-    parseJson("/Users/luke/Downloads/example_2.json");
+  public Playback loadReplay(String filePath, int timeScale) {
+    parseJson("src/nz.ac.vuw.ecs.swen225.gp20/recnplay/Test Files/example_2.json");
     
     //Get json file and create the playback object
-    recnplay.Playback replay = new recnplay.Playback(timeScale);
+    Playback replay = new Playback(timeScale);
     
     //Return the replay
     return replay;
@@ -44,6 +46,21 @@ public class Replay {
    * @param filePath the file to parse
    */
   private void parseJson(String filePath) {
+    Scanner scanner = null;
+    try {
+      scanner = new Scanner(new File(filePath));
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+
+    scanner.useDelimiter(Regex.scanDelim);
+    
+    //Create the first parser object
+    ParseJson parsed = new ParseJson("", null);
+    
+    //discard the opening '{'
+    scanner.nextLine();
+    parsed.parse(scanner);
   }
   
   /**
