@@ -11,6 +11,7 @@ import java.util.ArrayList;
  * Renderer class for displaying the board.
  */
 public class Board {
+
   // Constant Variables
   public int visionRange = 9;
   public int reach = visionRange/2;
@@ -20,11 +21,10 @@ public class Board {
   public boolean actorsPresent;
   public int sleepTime = 200; //Time in ms before each draw
   public enum Soundeffects{
-    metalWalk, waterWalk, iceWalk, fireWalk, slide,
-    pickup_item, finish_level, death, flickSwitch_openDoor
+    metalWalk, waterSwim, iceWalk, lavaSwim, slide, pickup_item, finish_level, death, openDoor
   }
   public enum Animations{
-    walkLeft, walkUp, walkRight, walkDown, explosion, death
+    walkLeft, walkRight, swimLeft, swimRight, doorOpen, death
   }
 
   //Rendering Variables
@@ -119,13 +119,13 @@ public class Board {
       case metalWalk:
         break;
 
-      case waterWalk:
+      case waterSwim:
         break;
 
       case iceWalk:
         break;
 
-      case fireWalk:
+      case lavaSwim:
         break;
 
       case slide:
@@ -140,7 +140,7 @@ public class Board {
       case death:
         break;
 
-      case flickSwitch_openDoor:
+      case openDoor:
         break;
 
       default:
@@ -160,22 +160,22 @@ public class Board {
   }
 
   public void playAnimations(String animation){
-    //todo get images from michaiahs classes
-    //todo this is still very wishy washy im not sure how its gonna work yet
+    //todo get walk/swim images from michaiahs classes
+    //todo create doorOpen and death myself
     switch(Animations.valueOf(animation)){
       case walkLeft:
-        break;
-
-      case walkUp:
         break;
 
       case walkRight:
         break;
 
-      case walkDown:
+      case swimLeft:
         break;
 
-      case explosion:
+      case swimRight:
+        break;
+
+      case doorOpen:
         break;
 
       case death:
