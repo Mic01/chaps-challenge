@@ -1,4 +1,4 @@
-package recnplay;
+package nz.ac.vuw.ecs.swen225.gp20.recnplay;
 
 /**
  * This class is responsible for playing replays that have been

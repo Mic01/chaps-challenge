@@ -1,5 +1,7 @@
 package nz.ac.vuw.ecs.swen225.gp20.maze.actors;
 
+import javax.swing.*;
+import java.io.IOException;
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.FreeTile;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
@@ -8,7 +10,10 @@ public abstract class Actor {
   private int xpos;
   private int ypos;
   private final Maze maze;
-  private FreeTile currentTile;
+  protected FreeTile currentTile;
+  protected String orientation = "right";
+  protected static final String imageDirectory = "assets/Actors/";
+  protected int frame = 0;
 
   /**
    * A moving creature, typically the player or an enemy creature.
@@ -63,6 +68,7 @@ public abstract class Actor {
    * @return whether this actor successfully moved left or not
    */
   public boolean moveLeft() {
+    orientation = "left";
     if (moveTo(xpos - 1, ypos)) {
       xpos--;
       return true;
@@ -76,6 +82,7 @@ public abstract class Actor {
    * @return whether this actor successfully moved right or not
    */
   public boolean moveRight() {
+    orientation = "right";
     if (moveTo(xpos + 1, ypos)) {
       xpos++;
       return true;
@@ -115,5 +122,20 @@ public abstract class Actor {
 
   public int getY() {
     return ypos;
+  }
+
+  /**
+   * Get this actor's image
+   *
+   * @return a Jlabel containing an image of this actor
+   * @throws IOException thrown if the file cannot be found for the actor
+   */
+  public abstract JLabel getImage() throws IOException;
+
+  /**
+   * Make this actor use the next frame in its animation
+   */
+  public void nextFrame() {
+    frame = frame + 1 % 2;
   }
 }
