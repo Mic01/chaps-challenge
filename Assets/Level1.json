@@ -1,0 +1,297 @@
+{
+	"row1": [{
+			"tile": "Wall",
+			"x": 10,
+			"y": 10
+		},
+		{
+			"tile": "Wall",
+			"x": 10,
+			"y": 11
+		},
+		{
+			"tile": "Wall",
+			"x": 10,
+			"y": 12
+		},
+		{
+			"tile": "Wall",
+			"x": 10,
+			"y": 13
+		},
+		{
+			"tile": "Wall",
+			"x": 10,
+			"y": 14
+		},
+		{
+			"tile": "Wall",
+			"x": 10,
+			"y": 15
+		},
+		{
+			"tile": "Wall",
+			"x": 10,
+			"y": 16
+		},
+		{
+			"tile": "Wall",
+			"x": 10,
+			"y": 17
+		},
+		{
+			"tile": "Wall",
+			"x": 10,
+			"y": 18
+		}
+	],
+	"row2": [{
+			"tile": "Wall",
+			"x": 11,
+			"y": 10
+		},
+		{
+			"tile": "Wall",
+			"x": 11,
+			"y": 12
+		},
+		{
+			"tile": "Floor",
+			"x": 11,
+			"y": 13,
+			"slot": "Chip"
+		},
+		{
+			"tile": "Wall",
+			"x": 11,
+			"y": 14
+		},
+		{
+			"tile": "Wall",
+			"x": 11,
+			"y": 18
+		}
+	],
+	"row3": [{
+			"tile": "Wall",
+			"x": 12,
+			"y": 10
+		},
+		{
+			"tile": "End",
+			"x": 12,
+			"y": 11
+		},
+		{
+			"tile": "Lock",
+			"x": 12,
+			"y": 12
+		},
+		{
+			"tile": "Door",
+			"x": 12,
+			"y": 11,
+			"colour": "Green"
+		},
+		{
+			"tile": "Floor",
+			"x": 12,
+			"y": 12,
+			"slot": "Chip"
+		},
+		{
+			"tile": "Wall",
+			"x": 12,
+			"y": 18
+		}
+	],
+	"row4": [{
+			"tile": "Wall",
+			"x": 13,
+			"y": 10
+		},
+		{
+			"tile": "Wall",
+			"x": 13,
+			"y": 12
+		},
+		{
+			"tile": "Wall",
+			"x": 13,
+			"y": 14
+		},
+		{
+			"tile": "Wall",
+			"x": 13,
+			"y": 18
+		}
+	],
+	"row5": [{
+			"tile": "Wall",
+			"x": 14,
+			"y": 10
+		},
+		{
+			"tile": "Wall",
+			"x": 14,
+			"y": 11
+		},
+		{
+			"tile": "Wall",
+			"x": 14,
+			"y": 12
+		},
+		{
+			"tile": "Wall",
+			"x": 14,
+			"y": 13
+		},
+		{
+			"tile": "Wall",
+			"x": 14,
+			"y": 14
+		},
+		{
+			"tile": "Wall",
+			"x": 14,
+			"y": 15
+		},
+		{
+			"tile": "Door",
+			"x": 14,
+			"y": 16,
+			"colour": "Blue"
+		},
+		{
+			"tile": "Wall",
+			"x": 14,
+			"y": 17
+		},
+		{
+			"tile": "Wall",
+			"x": 14,
+			"y": 18
+		}
+	],
+	"row6": [{
+			"tile": "Wall",
+			"x": 15,
+			"y": 10
+		},
+		{
+			"tile": "Wall",
+			"x": 15,
+			"y": 14
+		},
+		{
+			"tile": "Floor",
+			"x": 15,
+			"y": 15,
+			"slot": "Key",
+			"Colour": "Blue"
+		},
+		{
+			"tile": "Floor",
+			"x": 15,
+			"y": 17,
+			"slot": "Chip"
+		}, {
+			"tile": "Wall",
+			"x": 15,
+			"y": 18
+		}
+	],
+	"row7": [{
+			"tile": "Wall",
+			"x": 16,
+			"y": 10
+		},
+		{
+			"tile": "Floor",
+			"x": 16,
+			"y": 11,
+			"slot": "Key",
+			"colour": "Green"
+		},
+		{
+			"tile": "Floor",
+			"x": 16,
+			"y": 16,
+			"Slot": "Player"
+		},
+		{
+			"tile": "Wall",
+			"x": 16,
+			"y": 18
+		}
+	],
+	"row8": [{
+			"tile": "Wall",
+			"x": 17,
+			"y": 10
+		},
+		{
+			"tile": "Floor",
+			"x": 17,
+			"y": 11,
+			"slot": "Chip"
+		},
+		{
+			"tile": "Wall",
+			"x": 17,
+			"y": 14
+		},
+		{
+			"tile": "Wall",
+			"x": 17,
+			"y": 18
+		}
+	],
+	"row9": [{
+			"tile": "Wall",
+			"x": 18,
+			"y": 10
+		},
+		{
+			"tile": "Wall",
+			"x": 18,
+			"y": 11
+		},
+		{
+			"tile": "Wall",
+			"x": 18,
+			"y": 12
+		},
+		{
+			"tile": "Wall",
+			"x": 18,
+			"y": 13
+		},
+		{
+			"tile": "Wall",
+			"x": 18,
+			"y": 14
+		},
+		{
+			"tile": "Wall",
+			"x": 18,
+			"y": 15
+		},
+		{
+			"tile": "Wall",
+			"x": 18,
+			"y": 16
+		},
+		{
+			"tile": "Wall",
+			"x": 18,
+			"y": 17
+		},
+		{
+			"tile": "Wall",
+			"x": 18,
+			"y": 18
+		}
+	]
+
+}
