@@ -1,8 +1,12 @@
 package nz.ac.vuw.ecs.swen225.gp20.recnplay;
 
-import java.io.*;
+import com.google.gson.Gson;
+import com.google.gson.internal.LinkedTreeMap;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * This class is responsible for creating, loading and saving replays.
@@ -31,36 +35,37 @@ public class Replay {
    * @return the playback object
    */
   public Playback loadReplay(String filePath, int timeScale) {
-    parseJson("src/nz.ac.vuw.ecs.swen225.gp20/recnplay/Test Files/example_2.json");
-    
+    parseJson("src/nz.ac.vuw.ecs.swen225.gp20/recnplay/Test Files/testJson.json");
+
     //Get json file and create the playback object
     Playback replay = new Playback(timeScale);
-    
+
     //Return the replay
     return replay;
   }
-  
+
   /**
-   * Parse the json file
+   * Parse the json file.
    *
-   * @param filePath the file to parse
+   * @param filePath the file to parseObject
    */
   private void parseJson(String filePath) {
-    Scanner scanner = null;
+    File file = new File("src/nz.ac.vuw.ecs.swen225.gp20/recnplay/Test Files/testJson.json");
+    FileReader toRead = null;
     try {
-      scanner = new Scanner(new File(filePath));
-    } catch (FileNotFoundException e) {
+      toRead = new FileReader(file, StandardCharsets.UTF_8);
+    } catch (IOException e) {
       e.printStackTrace();
     }
+    LinkedTreeMap map = new Gson().fromJson(toRead, LinkedTreeMap.class);
 
-    scanner.useDelimiter(Regex.scanDelim);
-    
-    //Create the first parser object
-    ParseJson parsed = new ParseJson("", null);
-    
-    //discard the opening '{'
-    scanner.nextLine();
-    parsed.parse(scanner);
+    System.out.println("Built map");
+
+    //Make the required objects
+    Node baseNode = new Node(map);
+
+    System.out.println("Built nodes");
+
   }
   
   /**
