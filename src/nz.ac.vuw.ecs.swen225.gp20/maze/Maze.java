@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
+import nz.ac.vuw.ecs.swen225.gp20.persistence.Persistence;
 
 public class Maze {
-  private final int levelNum;
-  private Tile[][] tiles;
+  private final Tile[][] tiles;
   private final ArrayList<Actor> nonPlayerActors = new ArrayList<>();
   private Player player;
 
-  public Maze(int levelNum) {
-    this.levelNum = levelNum;
+  public Maze(String levelFile) {
+    tiles = Persistence.loadLevel(levelFile, this);
   }
 
   public void setTile(int x, int y, Tile newTile) {

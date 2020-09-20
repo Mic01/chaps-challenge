@@ -4,7 +4,7 @@ public class Key extends Item {
   private final String colour;
 
   public Key(String colour) {
-    this.colour = colour;
+    this.colour = colour.toLowerCase();
   }
 
   @Override

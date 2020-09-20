@@ -125,7 +125,7 @@ public abstract class Actor {
   }
 
   /**
-   * Get this actor's image
+   * Get this actor's image.
    *
    * @return a Jlabel containing an image of this actor
    * @throws IOException thrown if the file cannot be found for the actor
@@ -133,7 +133,7 @@ public abstract class Actor {
   public abstract JLabel getImage() throws IOException;
 
   /**
-   * Make this actor use the next frame in its animation
+   * Make this actor use the next frame in its animation.
    */
   public void nextFrame() {
     frame = (frame + 1) % 2;

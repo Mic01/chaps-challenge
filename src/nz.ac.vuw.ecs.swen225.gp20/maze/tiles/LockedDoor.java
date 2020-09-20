@@ -8,7 +8,7 @@ public class LockedDoor extends Tile {
   private final String colour;
 
   public LockedDoor(String colour) {
-    this.colour = colour;
+    this.colour = colour.toLowerCase();
   }
 
   @Override
