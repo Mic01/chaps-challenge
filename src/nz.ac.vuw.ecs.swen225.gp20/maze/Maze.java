@@ -6,9 +6,9 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
 
 public class Maze {
-  private int levelNum;
+  private final int levelNum;
   private Tile[][] tiles;
-  private ArrayList<Actor> nonPlayerActors = new ArrayList<>();
+  private final ArrayList<Actor> nonPlayerActors = new ArrayList<>();
   private Player player;
 
   public Maze(int levelNum) {
