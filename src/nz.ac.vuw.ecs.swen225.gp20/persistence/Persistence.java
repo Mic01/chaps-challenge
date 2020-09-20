@@ -1,5 +1,7 @@
 package nz.ac.vuw.ecs.swen225.gp20.persistence;
 
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.FileReader;
@@ -15,14 +17,16 @@ import javax.json.stream.JsonParser.Event;
 import java.math.BigDecimal;
 
 public class Persistence {
+    /**
+     * reads json level file, makes maze array
+     *
+     * @param fileName json file name
+     * @return level tile array
+     */
+    public static Tile[][] loadLevel(String fileName){
 
-    //public static Tile[][] loadLevel(String fileName){
+      Tile[][] maze;
 
-      // Tile[][] maze;
-
-
-    public static void main(String[] args) {
-        String[][] maze;
         try {
             final JsonParser parser = Json.createParser(new FileReader("Assets/Level1.json"));
             while (parser.hasNext()) {
