@@ -12,7 +12,7 @@ public class Maze {
   private Player player;
 
   public Maze(String levelFile) {
-    tiles = Persistence.loadLevel(levelFile);
+    tiles = Persistence.loadLevel(levelFile, this);
   }
 
   public void setTile(int x, int y, Tile newTile) {
