@@ -1,5 +1,9 @@
 package nz.ac.vuw.ecs.swen225.gp20.maze.tiles;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
 import nz.ac.vuw.ecs.swen225.gp20.maze.items.Item;
@@ -52,5 +56,10 @@ public class FreeTile extends Tile {
   @Override
   public boolean isTraversable(Actor actor) {
     return actor instanceof Player || item == null;
+  }
+
+  @Override
+  public BufferedImage getImage() throws IOException {
+    return ImageIO.read(new File(imageDirectory + "floor.png"));
   }
 }
