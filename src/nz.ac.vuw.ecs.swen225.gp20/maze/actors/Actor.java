@@ -115,12 +115,11 @@ public abstract class Actor {
     return false;
   }
 
-  public int getX() {
-    return xpos;
-  }
-
-  public int getY() {
-    return ypos;
+  /**
+   * Make this actor use the next frame in its animation.
+   */
+  public void nextFrame() {
+    frame = (frame + 1) % 2;
   }
 
   /**
@@ -131,10 +130,15 @@ public abstract class Actor {
    */
   public abstract JLabel getImage() throws IOException;
 
-  /**
-   * Make this actor use the next frame in its animation.
-   */
-  public void nextFrame() {
-    frame = (frame + 1) % 2;
+  public int getX() {
+    return xpos;
+  }
+
+  public int getY() {
+    return ypos;
+  }
+
+  public FreeTile getCurrentTile() {
+    return currentTile;
   }
 }
