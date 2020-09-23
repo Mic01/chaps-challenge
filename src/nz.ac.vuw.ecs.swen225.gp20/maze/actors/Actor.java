@@ -31,9 +31,8 @@ public abstract class Actor {
     // Store this actor in the maze
     if (this instanceof Player) {
       maze.setPlayer((Player) this);
-    } else {
-      maze.addActor(this);
     }
+      maze.addActor(this);
   }
 
   /**
