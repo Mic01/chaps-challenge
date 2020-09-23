@@ -119,7 +119,7 @@ public class Board extends JPanel {
     try {
       drawTiles(g, 0);
       drawEntities(g, 0);
-      drawAnimations();
+      drawAnimations(g);
     } catch(IOException e){
       e.printStackTrace();
     }
@@ -147,12 +147,12 @@ public class Board extends JPanel {
       g.drawImage(actor.getImage(),
               (actor.getX()*tileSize)+offset, (actor.getY()*tileSize)+offset, this);
 
-      if(actor.getCurrentTile() instanceof FreeTile)
-        playSound("metalWalk");
-      else if(actor.getCurrentTile() instanceof Ice)
+      if(actor.getCurrentTile() instanceof Ice)
         playSound("slide");
       else if(actor.getCurrentTile() instanceof Water)
         playSound("waterWalk");
+      else
+        playSound("metalWalk");
     }
   }
 
@@ -161,7 +161,7 @@ public class Board extends JPanel {
    * Loops through unique (non-walk) animations and draws them.
    */
   private void drawAnimations(Graphics g){
-    playAnimations(ani, player, g);
+    playAnimations(animation, player, g);
   }
 
   /**
