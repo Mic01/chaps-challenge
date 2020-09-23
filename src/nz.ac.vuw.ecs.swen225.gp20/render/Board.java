@@ -9,7 +9,10 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Water;
 
 import javax.swing.JPanel;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -40,7 +43,7 @@ public class Board extends JPanel {
   public Player player;
   public Maze maze;
   public ArrayList<Actor> moving = new ArrayList<>();
-  public ArrayList<String> animations = new ArrayList<>();
+  public String animation;
 
   /**
    * Construct a new Board when a new level is loaded.
@@ -84,8 +87,13 @@ public class Board extends JPanel {
       xCount++;
       for(int yAxis=player.getY()-reach; yAxis<player.getY()+reach; yAxis++){
         yCount++;
-        //todo add catch for outofbounds exception
-        vision[xCount%visionRange][yCount%visionRange] = level[xAxis][yAxis];
+
+        //Adding tiles only if they in range
+        if((xAxis > 0 && yAxis > 0) && (xAxis < level.length && yAxis < level[0].length)) {
+          vision[xCount % visionRange][yCount % visionRange] = level[xAxis][yAxis];
+        }else{
+          vision[xCount % visionRange][yCount % visionRange] = new EmptyTile();
+        }
       }
     }
   }
@@ -95,12 +103,12 @@ public class Board extends JPanel {
    * Calls the pre-built paint function of the JPanel and draws with graphics.
    *
    * @param moving All moving chars, Draw a frame of each animation
-   * @param animations for non-moving animations
+   * @param animation if non-moving animation is happening
    */
-  public void draw(ArrayList<Actor> moving, ArrayList<String> animations){
+  public void draw(ArrayList<Actor> moving, String animation){
     setVision();
     this.moving = moving;
-    this.animations = animations;
+    this.animation = animation;
 
     this.repaint();
     this.revalidate();
@@ -153,9 +161,7 @@ public class Board extends JPanel {
    * Loops through unique (non-walk) animations and draws them.
    */
   private void drawAnimations(Graphics g){
-    for(String ani : animations){
-      playAnimations(ani, player, g);
-    }
+    playAnimations(ani, player, g);
   }
 
   /**
