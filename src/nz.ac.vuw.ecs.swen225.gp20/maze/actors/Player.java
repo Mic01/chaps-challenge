@@ -1,7 +1,7 @@
 package nz.ac.vuw.ecs.swen225.gp20.maze.actors;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Water;
 public class Player extends Actor {
   private final ArrayList<Item> inventory = new ArrayList<>();
   private int treasures = 0;
-  private static final HashMap<String, JLabel> images = new HashMap<>();
+  private static final HashMap<String, BufferedImage> images = new HashMap<>();
 
   public Player(int xpos, int ypos, Maze maze) {
     super(xpos, ypos, maze);
@@ -72,8 +72,8 @@ public class Player extends Actor {
   }
 
   @Override
-  public JLabel getImage() throws IOException {
-    JLabel image;
+  public BufferedImage getImage() throws IOException {
+    BufferedImage image;
 
     String type = "walk";
     if (currentTile instanceof Water) {
@@ -88,10 +88,12 @@ public class Player extends Actor {
     if (images.containsKey(key)) {
       image = images.get(key);
     } else {
-      image = new JLabel(new ImageIcon(ImageIO.read(new File(
-              imageDirectory + "red/" + type + "_" + frame + "_" + orientation + ".png"))));
+      image = ImageIO.read(new File(
+              imageDirectory + "red/" + type + "_" + frame + "_" + orientation + ".png"));
       images.put(key, image);
     }
+
+    nextFrame();
 
     return image;
   }

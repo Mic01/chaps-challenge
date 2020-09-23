@@ -1,6 +1,6 @@
 package nz.ac.vuw.ecs.swen225.gp20.maze.actors;
 
-import javax.swing.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.FreeTile;
@@ -12,7 +12,7 @@ public abstract class Actor {
   private final Maze maze;
   protected FreeTile currentTile;
   protected String orientation = "right";
-  protected static final String imageDirectory = "assets/Actors/";
+  protected static final String imageDirectory = "assets/actors/";
   protected int frame = 0;
 
   /**
@@ -125,10 +125,10 @@ public abstract class Actor {
   /**
    * Get this actor's image.
    *
-   * @return a Jlabel containing an image of this actor
+   * @return a BufferedImage of this actor
    * @throws IOException thrown if the file cannot be found for the actor
    */
-  public abstract JLabel getImage() throws IOException;
+  public abstract BufferedImage getImage() throws IOException;
 
   public int getX() {
     return xpos;
