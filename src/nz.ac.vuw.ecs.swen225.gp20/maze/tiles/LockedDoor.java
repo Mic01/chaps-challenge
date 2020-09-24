@@ -17,6 +17,14 @@ public class LockedDoor extends Tile {
     this.vertical = vertical;
   }
 
+  public String getColour() {
+    return colour;
+  }
+
+  public boolean isVertical() {
+    return vertical;
+  }
+
   @Override
   public boolean isTraversable(Actor actor) {
     if (actor instanceof Player) {

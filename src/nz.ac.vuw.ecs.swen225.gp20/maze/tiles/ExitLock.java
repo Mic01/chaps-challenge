@@ -14,6 +14,10 @@ public class ExitLock extends Tile {
     this.treasuresNeeded = treasuresNeeded;
   }
 
+  public int getTreasuresNeeded() {
+    return treasuresNeeded;
+  }
+
   @Override
   public boolean isTraversable(Actor actor) {
     if (actor instanceof Player) {
