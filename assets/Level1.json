@@ -1,4 +1,11 @@
-[
+[{
+	"tile": "Inside",
+	"x1": 10,
+	"y1": 10,
+	"x2": 19,
+	"y2": 19
+
+},
 	[{
 		"tile": "Wall",
 		"x": 10,
@@ -92,7 +99,8 @@
 			"tile": "Door",
 			"x": 12,
 			"y": 11,
-			"colour": "Green"
+			"colour": "Green",
+			"vertical": false
 		},
 		{
 			"tile": "Floor",
@@ -161,7 +169,8 @@
 			"tile": "Door",
 			"x": 14,
 			"y": 16,
-			"colour": "Blue"
+			"colour": "Blue",
+			"vertical": true
 		},
 		{
 			"tile": "Wall",
@@ -189,7 +198,7 @@
 			"x": 15,
 			"y": 15,
 			"slot": "Key",
-			"Colour": "Blue"
+			"colour": "Blue"
 		},
 		{
 			"tile": "Floor",
