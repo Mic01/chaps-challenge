@@ -39,4 +39,9 @@ public class LockedDoor extends Tile {
     return ImageIO.read(new File(imageDirectory + "lock" + "_" +
             (vertical ? "vertical" : "horizontal") + "_" + colour + ".png"));
   }
+
+  @Override
+  public String toString() {
+    return "Door";
+  }
 }

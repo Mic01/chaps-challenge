@@ -31,4 +31,9 @@ public class InfoTile extends FreeTile {
   public BufferedImage getImage() throws IOException {
     return ImageIO.read(new File(imageDirectory + "info.png"));
   }
+
+  @Override
+  public String toString() {
+    return "InfoTile";
+  }
 }

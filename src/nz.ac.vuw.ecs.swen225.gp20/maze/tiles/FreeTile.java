@@ -74,4 +74,9 @@ public class FreeTile extends Tile {
   public BufferedImage getImage() throws IOException {
     return ImageIO.read(new File(imageDirectory + "floor.png"));
   }
+
+  @Override
+  public String toString() {
+    return "Floor";
+  }
 }

@@ -18,4 +18,8 @@ public class Wall extends Tile {
     return ImageIO.read(new File(imageDirectory + "wall.png"));
   }
 
+  @Override
+  public String toString() {
+    return "Wall";
+  }
 }

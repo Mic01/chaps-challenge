@@ -31,4 +31,9 @@ public class ExitLock extends Tile {
   public BufferedImage getImage() throws IOException {
     return ImageIO.read(new File(imageDirectory + "gate.png"));
   }
+
+  @Override
+  public String toString() {
+    return "Lock";
+  }
 }

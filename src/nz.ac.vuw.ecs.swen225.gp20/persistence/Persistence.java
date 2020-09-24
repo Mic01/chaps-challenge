@@ -27,7 +27,7 @@ public class Persistence {
         Tile[][] maze = new Tile[80][80];
         for (int i = 0; i < 80; i++) {
             for (int j = 0; j < 80; j++) {
-                maze[j][i] = new EmptyTile();
+                maze[j][i] = new NullTile();
             }
         }
 
@@ -105,7 +105,7 @@ public class Persistence {
         Tile[][] save = new Tile[80][80];
         for (int i = 0; i < 80; i++) {
             for (int j = 0; j < 80; j++) {
-                save[j][i] = new EmptyTile();
+                save[j][i] = new NullTile();
             }
         }
 
@@ -116,7 +116,7 @@ public class Persistence {
                 Tile currentTile = maze[i][j];
                 JsonObjectBuilder object = Json.createObjectBuilder();
 
-                if (currentTile instanceof EmptyTile) {
+                if (currentTile instanceof NullTile) {
                     continue;
                 } else if (currentTile instanceof Exit) {
                     object.add("tile", "End");
