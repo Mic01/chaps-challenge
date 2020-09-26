@@ -22,28 +22,28 @@ import java.util.ArrayList;
 public class Board extends JPanel {
 
   // Constant Variables
-  public int visionRange = 9;
-  public int reach = visionRange/2;
-  public int tileSize = 70;
-  public Dimension dimension = new Dimension(tileSize*visionRange, tileSize*visionRange);
+  private int visionRange = 9;
+  private int reach = visionRange/2;
+  private int tileSize = 70;
+  private Dimension dimension = new Dimension(tileSize*visionRange, tileSize*visionRange);
 
   //Potential use
-  public int sleepTime = 100; //Time in ms before each draw (ill be adding half frames)
-  public enum Soundeffects{
+  private int sleepTime = 100; //Time in ms before each draw (ill be adding half frames)
+  private enum Soundeffects{
     metalWalk, waterSwim, iceWalk, lavaSwim, slide, pickup_item, finish_level, death, openDoor
   }
-  public enum Animations{
+  private enum Animations{
     doorOpen, death
   }
 
   //Rendering Variable
-  public Tile[][] level;
-  public Tile[][] lastVision;
-  public Tile[][] vision;
-  public Player player;
-  public Maze maze;
-  public ArrayList<Actor> moving = new ArrayList<>();
-  public String animation;
+  private Tile[][] level;
+  private Tile[][] lastVision;
+  private Tile[][] vision;
+  private Player player;
+  private Maze maze;
+  private ArrayList<Actor> moving = new ArrayList<>();
+  private String animation;
 
   /**
    * Construct a new Board when a new level is loaded.
@@ -78,7 +78,7 @@ public class Board extends JPanel {
    * Based on Players position, return a new 2D Array
    * of all tiles visible on board to draw.
    */
-  public void setVision(){
+  private void setVision(){
     lastVision = vision;
     int yCount = 0;
     int xCount = 0;
@@ -170,7 +170,7 @@ public class Board extends JPanel {
    *
    * @param animation
    */
-  public void playAnimations(String animation, Actor actor, Graphics g){
+  private void playAnimations(String animation, Actor actor, Graphics g){
     //todo create doorOpen and death myself
     switch(Animations.valueOf(animation)){
       case doorOpen:
@@ -191,7 +191,7 @@ public class Board extends JPanel {
    *
    * @param sound of animation.
    */
-  public void playSound(String sound){
+  private void playSound(String sound){
     //todo make sound files
     //todo play them from here
     switch(Soundeffects.valueOf(sound)){
