@@ -1,11 +1,11 @@
 package nz.ac.vuw.ecs.swen225.gp20.render;
 
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.FreeTile;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Ice;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.EmptyTile;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Ice;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Water;
 
 import javax.swing.JPanel;
@@ -53,15 +53,15 @@ public class Board extends JPanel {
    */
   public Board(Player player, Maze maze){
     //JPanel Variables
-    this.setPreferredSize(dimension);
-    this.setBackground(new Color(255, 0, 255)); //for debugging
-    this.setLayout(new FlowLayout(FlowLayout.LEFT));
+    setPreferredSize(dimension);
+    setBackground(new Color(255, 0, 255)); //for debugging
+    setLayout(new FlowLayout(FlowLayout.LEFT));
 
     //Setting Variables
     this.maze = maze;
     this.player = player;
-    this.vision = new Tile[visionRange][visionRange];
-    this.lastVision = new Tile[visionRange][visionRange];
+    vision = new Tile[visionRange][visionRange];
+    lastVision = new Tile[visionRange][visionRange];
     updateLevel();
   }
 
@@ -80,12 +80,12 @@ public class Board extends JPanel {
    */
   public void setVision(){
     lastVision = vision;
-    int yCount=0;
-    int xCount=0;
+    int yCount = 0;
+    int xCount = 0;
 
-    for(int xAxis=player.getX()-reach; xAxis<player.getX()+reach; xAxis++){
+    for (int xAxis = player.getX() - reach; xAxis < player.getX()+ reach; xAxis++){
       xCount++;
-      for(int yAxis=player.getY()-reach; yAxis<player.getY()+reach; yAxis++){
+      for (int yAxis = player.getY()-reach; yAxis<player.getY()+reach; yAxis++){
         yCount++;
 
         //Adding tiles only if they in range
