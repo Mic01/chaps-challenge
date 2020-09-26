@@ -72,24 +72,27 @@ public class Player extends Actor {
   }
 
   @Override
-  public BufferedImage getImage() throws IOException {
+  public BufferedImage getImage(boolean moving) throws IOException {
     BufferedImage image;
 
-    String type = "walk";
-    if (currentTile instanceof Water) {
-      type = "swim";
-    } else if (currentTile instanceof Ice) {
-      type = "slide";
+    String type = "stand";
+    if (moving) {
+      type = "walk";
+      if (currentTile instanceof Water) {
+        type = "swim";
+      } else if (currentTile instanceof Ice) {
+        type = "slide";
+      }
     }
 
     /* Stored loaded images in a map so they only need to be loaded
     once and can be fetched quicker if they need to be used again */
-    String key = type + frame + orientation;
+    String key = type + (moving ? frame : "") + orientation;
     if (images.containsKey(key)) {
       image = images.get(key);
     } else {
       image = ImageIO.read(new File(
-              imageDirectory + "red/" + type + "_" + frame + "_" + orientation + ".png"));
+              imageDirectory + "red/" + type + "_" + (moving ? (frame + "_") : "") + orientation + ".png"));
       images.put(key, image);
     }
 

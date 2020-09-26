@@ -128,7 +128,7 @@ public abstract class Actor {
    * @return a BufferedImage of this actor
    * @throws IOException thrown if the file cannot be found for the actor
    */
-  public abstract BufferedImage getImage() throws IOException;
+  public abstract BufferedImage getImage(boolean moving) throws IOException;
 
   public int getX() {
     return xpos;
