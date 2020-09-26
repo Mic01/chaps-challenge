@@ -3,8 +3,8 @@ package nz.ac.vuw.ecs.swen225.gp20.render;
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.EmptyTile;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Ice;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.NullTile;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Water;
 
@@ -92,7 +92,7 @@ public class Board extends JPanel {
         if((xAxis > 0 && yAxis > 0) && (xAxis < level.length && yAxis < level[0].length)) {
           vision[xCount % visionRange][yCount % visionRange] = level[xAxis][yAxis];
         }else{
-          vision[xCount % visionRange][yCount % visionRange] = new EmptyTile();
+          vision[xCount % visionRange][yCount % visionRange] = new NullTile();
         }
       }
     }
