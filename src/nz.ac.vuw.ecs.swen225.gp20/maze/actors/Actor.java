@@ -9,6 +9,8 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
 public abstract class Actor {
   private int xpos;
   private int ypos;
+  private int xposPrev;
+  private int yposPrev;
   private final Maze maze;
   protected FreeTile currentTile;
   protected String orientation = "right";
@@ -25,6 +27,8 @@ public abstract class Actor {
   public Actor(int xpos, int ypos, Maze maze) {
     this.xpos = xpos;
     this.ypos = ypos;
+    this.xposPrev = xpos;
+    this.yposPrev = ypos;
     this.maze = maze;
     currentTile = (FreeTile) maze.getTile(xpos, ypos);
 
@@ -42,6 +46,7 @@ public abstract class Actor {
    */
   public boolean moveUp() {
     if (moveTo(xpos, ypos - 1)) {
+      yposPrev = ypos;
       ypos--;
       return true;
     }
@@ -55,6 +60,7 @@ public abstract class Actor {
    */
   public boolean moveDown() {
     if (moveTo(xpos, ypos + 1)) {
+      yposPrev = ypos;
       ypos++;
       return true;
     }
@@ -69,6 +75,7 @@ public abstract class Actor {
   public boolean moveLeft() {
     orientation = "left";
     if (moveTo(xpos - 1, ypos)) {
+      xposPrev = xpos;
       xpos--;
       return true;
     }
@@ -83,6 +90,7 @@ public abstract class Actor {
   public boolean moveRight() {
     orientation = "right";
     if (moveTo(xpos + 1, ypos)) {
+      xposPrev = xpos;
       xpos++;
       return true;
     }
@@ -134,8 +142,16 @@ public abstract class Actor {
     return xpos;
   }
 
+  public int getPrevX() {
+    return xposPrev;
+  }
+
   public int getY() {
     return ypos;
+  }
+
+  public int getPrevY() {
+    return yposPrev;
   }
 
   public FreeTile getCurrentTile() {
