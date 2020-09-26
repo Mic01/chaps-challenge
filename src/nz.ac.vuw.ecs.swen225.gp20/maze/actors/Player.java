@@ -75,14 +75,19 @@ public class Player extends Actor {
   public BufferedImage getImage(boolean moving) throws IOException {
     BufferedImage image;
 
-    String type = "stand";
+    String type;
     if (moving) {
       type = "walk";
       if (currentTile instanceof Water) {
         type = "swim";
+        frame %= 2;
       } else if (currentTile instanceof Ice) {
         type = "slide";
+        frame %= 2;
       }
+    } else {
+      type = "stand";
+      frame = 0;
     }
 
     /* Stored loaded images in a map so they only need to be loaded

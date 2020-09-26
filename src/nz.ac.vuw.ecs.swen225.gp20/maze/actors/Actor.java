@@ -127,7 +127,7 @@ public abstract class Actor {
    * Make this actor use the next frame in its animation.
    */
   public void nextFrame() {
-    frame = (frame + 1) % 2;
+    frame = (frame + 1) % 4;
   }
 
   /**
