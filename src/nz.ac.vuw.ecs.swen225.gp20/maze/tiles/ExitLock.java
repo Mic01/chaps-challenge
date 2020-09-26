@@ -14,6 +14,10 @@ public class ExitLock extends Tile {
     this.treasuresNeeded = treasuresNeeded;
   }
 
+  public int getTreasuresNeeded() {
+    return treasuresNeeded;
+  }
+
   @Override
   public boolean isTraversable(Actor actor) {
     if (actor instanceof Player) {
@@ -26,5 +30,10 @@ public class ExitLock extends Tile {
   @Override
   public BufferedImage getImage() throws IOException {
     return ImageIO.read(new File(imageDirectory + "gate.png"));
+  }
+
+  @Override
+  public String toString() {
+    return "Lock";
   }
 }

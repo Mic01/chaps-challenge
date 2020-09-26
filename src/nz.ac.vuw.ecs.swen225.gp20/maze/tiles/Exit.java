@@ -17,4 +17,9 @@ public class Exit extends Tile {
   public BufferedImage getImage() throws IOException {
     return ImageIO.read(new File(imageDirectory + "finish.png"));
   }
+
+  @Override
+  public String toString() {
+    return "End";
+  }
 }

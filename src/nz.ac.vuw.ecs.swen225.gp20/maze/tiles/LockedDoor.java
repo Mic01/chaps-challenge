@@ -17,6 +17,14 @@ public class LockedDoor extends Tile {
     this.vertical = vertical;
   }
 
+  public String getColour() {
+    return colour;
+  }
+
+  public boolean isVertical() {
+    return vertical;
+  }
+
   @Override
   public boolean isTraversable(Actor actor) {
     if (actor instanceof Player) {
@@ -30,5 +38,10 @@ public class LockedDoor extends Tile {
   public BufferedImage getImage() throws IOException {
     return ImageIO.read(new File(imageDirectory + "lock" + "_" +
             (vertical ? "vertical" : "horizontal") + "_" + colour + ".png"));
+  }
+
+  @Override
+  public String toString() {
+    return "Door";
   }
 }

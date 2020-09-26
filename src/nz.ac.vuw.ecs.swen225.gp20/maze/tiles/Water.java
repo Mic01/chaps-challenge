@@ -10,4 +10,9 @@ public class Water extends FreeTile {
   public BufferedImage getImage() throws IOException {
     return ImageIO.read(new File(imageDirectory + "water.png"));
   }
+
+  @Override
+  public String toString() {
+    return "Water";
+  }
 }

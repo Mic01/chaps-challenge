@@ -7,6 +7,10 @@ public class Key extends Item {
     this.colour = colour.toLowerCase();
   }
 
+  public String getColour() {
+    return colour;
+  }
+
   @Override
   public int hashCode() {
     return super.hashCode();

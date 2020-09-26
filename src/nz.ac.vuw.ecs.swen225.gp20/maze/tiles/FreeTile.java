@@ -53,6 +53,18 @@ public class FreeTile extends Tile {
     actor = null;
   }
 
+  public boolean hasActor() {
+    return actor != null;
+  }
+
+  public boolean hasItem() {
+    return item != null;
+  }
+
+  public Item getItem() {
+    return item;
+  }
+
   @Override
   public boolean isTraversable(Actor actor) {
     return actor instanceof Player || item == null;
@@ -61,5 +73,10 @@ public class FreeTile extends Tile {
   @Override
   public BufferedImage getImage() throws IOException {
     return ImageIO.read(new File(imageDirectory + "floor.png"));
+  }
+
+  @Override
+  public String toString() {
+    return "Floor";
   }
 }

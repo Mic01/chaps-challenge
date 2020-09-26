@@ -10,4 +10,9 @@ public class Ice extends FreeTile {
   public BufferedImage getImage() throws IOException {
     return ImageIO.read(new File(imageDirectory + "ice.png"));
   }
+
+  @Override
+  public String toString() {
+    return "Ice";
+  }
 }
