@@ -1,20 +1,19 @@
 package nz.ac.vuw.ecs.swen225.gp20.render;
 
-import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
-import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
-import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Ice;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.NullTile;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Water;
-
-import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.io.IOException;
 import java.util.ArrayList;
+import javax.swing.JPanel;
+import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
+import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
+import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Ice;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.NullTile;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Water;
 
 /**
  * Renderer class for displaying the board.
@@ -22,17 +21,16 @@ import java.util.ArrayList;
 public class Board extends JPanel {
 
   // Constant Variables
-  private int visionRange = 9;
-  private int reach = visionRange/2;
-  private int tileSize = 70;
-  private Dimension dimension = new Dimension(tileSize*visionRange, tileSize*visionRange);
+  private final int visionRange = 9;
+  private final int tileSize = 70;
+  private final int sleepTime = 100; //Time in ms before each draw (ill be adding half frames)
 
-  //Potential use
-  private int sleepTime = 100; //Time in ms before each draw (ill be adding half frames)
-  private enum Soundeffects{
+  //Method Enums
+  private enum Soundeffects {
     metalWalk, waterSwim, iceWalk, lavaSwim, slide, pickup_item, finish_level, death, openDoor
   }
-  private enum Animations{
+
+  private enum Animations {
     doorOpen, death
   }
 
@@ -51,8 +49,9 @@ public class Board extends JPanel {
    * @param maze Maze object, fetching values of current level
    * @param player current player
    */
-  public Board(Player player, Maze maze){
+  public Board(Player player, Maze maze) {
     //JPanel Variables
+    Dimension dimension = new Dimension(tileSize * visionRange, tileSize * visionRange);
     setPreferredSize(dimension);
     setBackground(new Color(255, 0, 255)); //for debugging
     setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -69,7 +68,7 @@ public class Board extends JPanel {
    * Fetches a new level from maze
    * Called after a level is completed.
    */
-  public void updateLevel(){
+  public void updateLevel() {
     level = maze.getTiles();
     setVision();
   }
@@ -78,21 +77,27 @@ public class Board extends JPanel {
    * Based on Players position, return a new 2D Array
    * of all tiles visible on board to draw.
    */
-  private void setVision(){
+  private void setVision() {
     lastVision = vision;
-    int yCount = 0;
-    int xCount = 0;
+    int ycount = 0;
+    int xcount = 0;
+    int reach = visionRange / 2;
 
-    for (int xAxis = player.getX() - reach; xAxis < player.getX()+ reach; xAxis++){
-      xCount++;
-      for (int yAxis = player.getY()-reach; yAxis<player.getY()+reach; yAxis++){
-        yCount++;
+    for (int x = player.getX() - reach; x < player.getX() + reach; x++) {
+      for (int y = player.getY() - reach; y < player.getY() + reach; y++) {
 
         //Adding tiles only if they in range
-        if((xAxis > 0 && yAxis > 0) && (xAxis < level.length && yAxis < level[0].length)) {
-          vision[xCount % visionRange][yCount % visionRange] = level[xAxis][yAxis];
-        }else{
-          vision[xCount % visionRange][yCount % visionRange] = new NullTile();
+        if ((x > 0 && y > 0) && (x < level.length && y < level[0].length)) {
+          vision[xcount][ycount] = level[x][y];
+          xcount++;
+        } else {
+          vision[xcount][ycount] = new NullTile();
+        }
+
+        //end of line, reset counting variables
+        if (xcount > visionRange) {
+          xcount = 0;
+          ycount++;
         }
       }
     }
@@ -105,7 +110,7 @@ public class Board extends JPanel {
    * @param moving All moving chars, Draw a frame of each animation
    * @param animation if non-moving animation is happening
    */
-  public void draw(ArrayList<Actor> moving, String animation){
+  public void draw(ArrayList<Actor> moving, String animation) {
     setVision();
     this.moving = moving;
     this.animation = animation;
@@ -115,12 +120,12 @@ public class Board extends JPanel {
   }
 
   @Override
-  protected void paintComponent(Graphics g){
+  protected void paintComponent(Graphics g) {
     try {
       drawTiles(g, 0);
       drawEntities(g, 0);
       drawAnimations(g);
-    } catch(IOException e){
+    } catch (IOException e) {
       e.printStackTrace();
     }
   }
@@ -129,11 +134,11 @@ public class Board extends JPanel {
    * First step of draw method,
    * draws all tiles in players current vision.
    */
-  private void drawTiles(Graphics g, int offset) throws IOException{
-    for(int xAxis=0; xAxis<visionRange; xAxis++){
-      for(int yAxis=0; yAxis<visionRange; yAxis++){
-        g.drawImage(vision[xAxis][yAxis].getImage(),
-                (xAxis*tileSize)+offset, (yAxis*tileSize)+offset, this);
+  private void drawTiles(Graphics g, int offset) throws IOException {
+    for (int x = 0; x < visionRange; x++) {
+      for (int y = 0; y < visionRange; y++) {
+        g.drawImage(vision[x][y].getImage(),
+                (x * tileSize) + offset, (y * tileSize) + offset, this);
       }
     }
   }
@@ -143,16 +148,17 @@ public class Board extends JPanel {
    * draws a new frame of every actor that has moved this round.
    */
   private void drawEntities(Graphics g, int offset) throws IOException {
-    for(Actor actor : moving){
+    for (Actor actor : moving) {
       g.drawImage(actor.getImage(),
-              (actor.getX()*tileSize)+offset, (actor.getY()*tileSize)+offset, this);
+              (actor.getX() * tileSize) + offset, (actor.getY() * tileSize) + offset, this);
 
-      if(actor.getCurrentTile() instanceof Ice)
+      if (actor.getCurrentTile() instanceof Ice) {
         playSound("slide");
-      else if(actor.getCurrentTile() instanceof Water)
+      } else if (actor.getCurrentTile() instanceof Water) {
         playSound("waterWalk");
-      else
+      } else {
         playSound("metalWalk");
+      }
     }
   }
 
@@ -160,19 +166,21 @@ public class Board extends JPanel {
    * Third step of draw method,
    * Loops through unique (non-walk) animations and draws them.
    */
-  private void drawAnimations(Graphics g){
+  private void drawAnimations(Graphics g) {
     playAnimations(animation, player, g);
   }
 
   /**
    * Switch statement to draw a frame of an animation
-   * or create a new animation
+   * or create a new animation.
    *
-   * @param animation
+   * @param animation enum value of animation
+   * @param actor actor with animation
+   * @param g passed canvas to draw on
    */
-  private void playAnimations(String animation, Actor actor, Graphics g){
+  private void playAnimations(String animation, Actor actor, Graphics g) {
     //todo create doorOpen and death myself
-    switch(Animations.valueOf(animation)){
+    switch (Animations.valueOf(animation)) {
       case doorOpen:
         playSound("openDoor");
         break;
@@ -187,14 +195,14 @@ public class Board extends JPanel {
   }
 
   /**
-   * Plays a sound from assets folder
+   * Plays a sound from assets folder.
    *
    * @param sound of animation.
    */
-  private void playSound(String sound){
+  private void playSound(String sound) {
     //todo make sound files
     //todo play them from here
-    switch(Soundeffects.valueOf(sound)){
+    switch (Soundeffects.valueOf(sound)) {
       case metalWalk:
         break;
 
