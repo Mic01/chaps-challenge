@@ -1,9 +1,12 @@
 package nz.ac.vuw.ecs.swen225.gp20.render;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.io.IOException;
 import java.util.ArrayList;
+import javax.swing.JPanel;
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
