@@ -17,8 +17,8 @@ public class ApplicationView {
 
     public ApplicationView(Main game){
         this.game = game;
-        //this.maze = new Maze(this.game.levelPath);
-        //this.viewport = new Board(this.maze);
+        this.maze = new Maze(this.game.levelPath);
+        this.viewport = new Board(this.maze);
         this.makeWindow();
     }
 
@@ -40,11 +40,11 @@ public class ApplicationView {
         this.windowContents = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
 
-        JPanel tempMainWindow = new JPanel();
-        tempMainWindow.setMinimumSize(new Dimension(700, 700));
-        tempMainWindow.setMaximumSize(new Dimension(700, 700));
-        tempMainWindow.setPreferredSize(new Dimension(700, 700));
-        tempMainWindow.setBackground(Color.RED);
+        JPanel mainWindow = viewport;
+        mainWindow.setMinimumSize(new Dimension(700, 700));
+        mainWindow.setMaximumSize(new Dimension(700, 700));
+        mainWindow.setPreferredSize(new Dimension(700, 700));
+        mainWindow.setBackground(Color.RED);
 
         JPanel sideWindow = new JPanel();
         sideWindow.setMinimumSize(new Dimension(150, 100));
@@ -68,7 +68,7 @@ public class ApplicationView {
         constraints.fill = GridBagConstraints.BOTH;
         constraints.weightx = 1;
         constraints.weighty = 1;
-        this.windowContents.add(tempMainWindow, constraints);
+        this.windowContents.add(mainWindow, constraints);
 
         constraints.gridx = 0;
         constraints.gridy = 1;
@@ -86,8 +86,6 @@ public class ApplicationView {
         constraints.weightx = 1;
         constraints.weighty = 0;
         this.windowContents.add(sideWindow, constraints);
-
-
 
         this.window.setContentPane(this.windowContents);
     }
