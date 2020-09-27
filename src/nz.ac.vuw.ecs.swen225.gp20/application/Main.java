@@ -4,7 +4,8 @@ import javax.swing.*;
 
 public class Main {
     private static Main gameInstance;
-    private String levelPath;
+    public String levelPath;
+
 
     private Main() {
     }
@@ -15,11 +16,14 @@ public class Main {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
+        //JFrame.setDefaultLookAndFeelDecorated(true);
+        //JDialog.setDefaultLookAndFeelDecorated(true);
         gameInstance = new Main();
         gameInstance.setup();
     }
 
     private void setup(){
         new SetupView(this);
+        new ApplicationView(this);
     }
 }
