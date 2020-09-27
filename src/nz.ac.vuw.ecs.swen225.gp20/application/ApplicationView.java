@@ -14,6 +14,9 @@ public class ApplicationView {
     private JMenuBar saveLoad;
     private JMenu save = new JMenu("Save");
     private JMenu load = new JMenu("Load");
+    private JMenuItem saveGame = new JMenuItem("Save Game");
+    private JMenuItem loadGame = new JMenuItem("Load Game");
+
 
     public ApplicationView(Main game){
         this.game = game;
@@ -34,8 +37,10 @@ public class ApplicationView {
 
     private void addToWindow() {
         this.saveLoad = new JMenuBar();
-        this.saveLoad.add(save);
-        this.saveLoad.add(load);
+        this.save.add(this.saveGame);
+        this.load.add(this.loadGame);
+        this.saveLoad.add(this.save);
+        this.saveLoad.add(this.load);
         this.window.setJMenuBar(this.saveLoad);
         this.windowContents = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
