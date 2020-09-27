@@ -1,12 +1,9 @@
 package nz.ac.vuw.ecs.swen225.gp20.render;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
+import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
-import javax.swing.JPanel;
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
@@ -150,7 +147,7 @@ public class Board extends JPanel {
    */
   private void drawEntities(Graphics g, int offset) throws IOException {
     for (Actor actor : moving) {
-      g.drawImage(actor.getImage(),
+      g.drawImage(actor.getImage(false),
               (actor.getX() * tileSize) + offset, (actor.getY() * tileSize) + offset, this);
 
       if (actor.getCurrentTile() instanceof Ice) {
