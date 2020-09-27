@@ -227,7 +227,7 @@
 			"tile": "Floor",
 			"x": 16,
 			"y": 16,
-			"Slot": "Player"
+			"slot": "Player"
 		},
 		{
 			"tile": "Wall",
