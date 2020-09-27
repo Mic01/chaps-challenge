@@ -41,15 +41,15 @@ public class Board extends JPanel {
   private Player player;
   private Maze maze;
   private ArrayList<Actor> moving = new ArrayList<>();
+  private ArrayList<Actor> actors = new ArrayList<>();
   private String animation;
 
   /**
    * Construct a new Board when a new level is loaded.
    *
    * @param maze Maze object, fetching values of current level
-   * @param player current player
    */
-  public Board(Player player, Maze maze) {
+  public Board(Maze maze) {
     //JPanel Variables
     Dimension dimension = new Dimension(tileSize * visionRange, tileSize * visionRange);
     setPreferredSize(dimension);
@@ -58,18 +58,19 @@ public class Board extends JPanel {
 
     //Setting Variables
     this.maze = maze;
-    this.player = player;
     vision = new Tile[visionRange][visionRange];
     lastVision = new Tile[visionRange][visionRange];
-    updateLevel();
+    updateLevel(maze);
   }
 
   /**
-   * Fetches a new level from maze
-   * Called after a level is completed.
+   * Reconstructs values for a new level,
+   * done with a new Maze objection with level info.
    */
-  public void updateLevel() {
+  public void updateLevel(Maze maze) {
+    player = maze.getPlayer();
     level = maze.getTiles();
+    actors = maze.getActors();
     setVision();
   }
 
@@ -167,7 +168,7 @@ public class Board extends JPanel {
    * Loops through unique (non-walk) animations and draws them.
    */
   private void drawAnimations(Graphics g) {
-    playAnimations(animation, player, g);
+    playAnimations(animation, g);
   }
 
   /**
@@ -175,10 +176,9 @@ public class Board extends JPanel {
    * or create a new animation.
    *
    * @param animation enum value of animation
-   * @param actor actor with animation
    * @param g passed canvas to draw on
    */
-  private void playAnimations(String animation, Actor actor, Graphics g) {
+  private void playAnimations(String animation, Graphics g) {
     //todo create doorOpen and death myself
     switch (Animations.valueOf(animation)) {
       case doorOpen:
