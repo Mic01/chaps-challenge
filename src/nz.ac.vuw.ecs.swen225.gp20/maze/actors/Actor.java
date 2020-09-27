@@ -9,6 +9,8 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
 public abstract class Actor {
   private int xpos;
   private int ypos;
+  private int xposPrev;
+  private int yposPrev;
   private final Maze maze;
   protected FreeTile currentTile;
   protected String orientation = "right";
@@ -25,6 +27,8 @@ public abstract class Actor {
   public Actor(int xpos, int ypos, Maze maze) {
     this.xpos = xpos;
     this.ypos = ypos;
+    this.xposPrev = xpos;
+    this.yposPrev = ypos;
     this.maze = maze;
     currentTile = (FreeTile) maze.getTile(xpos, ypos);
 
@@ -42,6 +46,7 @@ public abstract class Actor {
    */
   public boolean moveUp() {
     if (moveTo(xpos, ypos - 1)) {
+      yposPrev = ypos;
       ypos--;
       return true;
     }
@@ -55,6 +60,7 @@ public abstract class Actor {
    */
   public boolean moveDown() {
     if (moveTo(xpos, ypos + 1)) {
+      yposPrev = ypos;
       ypos++;
       return true;
     }
@@ -69,6 +75,7 @@ public abstract class Actor {
   public boolean moveLeft() {
     orientation = "left";
     if (moveTo(xpos - 1, ypos)) {
+      xposPrev = xpos;
       xpos--;
       return true;
     }
@@ -83,6 +90,7 @@ public abstract class Actor {
   public boolean moveRight() {
     orientation = "right";
     if (moveTo(xpos + 1, ypos)) {
+      xposPrev = xpos;
       xpos++;
       return true;
     }
@@ -119,7 +127,7 @@ public abstract class Actor {
    * Make this actor use the next frame in its animation.
    */
   public void nextFrame() {
-    frame = (frame + 1) % 2;
+    frame = (frame + 1) % 4;
   }
 
   /**
@@ -128,14 +136,22 @@ public abstract class Actor {
    * @return a BufferedImage of this actor
    * @throws IOException thrown if the file cannot be found for the actor
    */
-  public abstract BufferedImage getImage() throws IOException;
+  public abstract BufferedImage getImage(boolean moving) throws IOException;
 
   public int getX() {
     return xpos;
   }
 
+  public int getPrevX() {
+    return xposPrev;
+  }
+
   public int getY() {
     return ypos;
+  }
+
+  public int getPrevY() {
+    return yposPrev;
   }
 
   public FreeTile getCurrentTile() {
