@@ -4,7 +4,17 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
 import nz.ac.vuw.ecs.swen225.gp20.maze.items.Key;
 import nz.ac.vuw.ecs.swen225.gp20.maze.items.Treasure;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.*;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Exit;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.ExitLock;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.FreeTile;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Ice;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.InfoTile;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.LockedDoor;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.NullTile;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Wall;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Water;
+
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -143,7 +153,7 @@ public class Persistence {
                     }
                     if(((FreeTile) save[i][j]).hasItem()){
                         object.add("slot", "Key");
-                        object.add("colour", ((FreeTile) save[i][j]).getKeyColour());
+                        object.add("colour", ((Key)((FreeTile) save[i][j]).getItem()).getColour());
                     }
                 }
                 object.add("x", i);
