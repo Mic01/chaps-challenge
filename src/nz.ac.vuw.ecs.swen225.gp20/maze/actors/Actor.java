@@ -1,6 +1,6 @@
 package nz.ac.vuw.ecs.swen225.gp20.maze.actors;
 
-import javax.swing.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.FreeTile;
@@ -9,10 +9,12 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
 public abstract class Actor {
   private int xpos;
   private int ypos;
+  private int xposPrev;
+  private int yposPrev;
   private final Maze maze;
   protected FreeTile currentTile;
   protected String orientation = "right";
-  protected static final String imageDirectory = "assets/Actors/";
+  protected static final String imageDirectory = "assets/actors/";
   protected int frame = 0;
 
   /**
@@ -25,6 +27,8 @@ public abstract class Actor {
   public Actor(int xpos, int ypos, Maze maze) {
     this.xpos = xpos;
     this.ypos = ypos;
+    this.xposPrev = xpos;
+    this.yposPrev = ypos;
     this.maze = maze;
     currentTile = (FreeTile) maze.getTile(xpos, ypos);
 
@@ -42,6 +46,7 @@ public abstract class Actor {
    */
   public boolean moveUp() {
     if (moveTo(xpos, ypos - 1)) {
+      yposPrev = ypos;
       ypos--;
       return true;
     }
@@ -55,6 +60,7 @@ public abstract class Actor {
    */
   public boolean moveDown() {
     if (moveTo(xpos, ypos + 1)) {
+      yposPrev = ypos;
       ypos++;
       return true;
     }
@@ -69,6 +75,7 @@ public abstract class Actor {
   public boolean moveLeft() {
     orientation = "left";
     if (moveTo(xpos - 1, ypos)) {
+      xposPrev = xpos;
       xpos--;
       return true;
     }
@@ -83,6 +90,7 @@ public abstract class Actor {
   public boolean moveRight() {
     orientation = "right";
     if (moveTo(xpos + 1, ypos)) {
+      xposPrev = xpos;
       xpos++;
       return true;
     }
@@ -115,26 +123,38 @@ public abstract class Actor {
     return false;
   }
 
+  /**
+   * Make this actor use the next frame in its animation.
+   */
+  public void nextFrame() {
+    frame = (frame + 1) % 4;
+  }
+
+  /**
+   * Get this actor's image.
+   *
+   * @return a BufferedImage of this actor
+   * @throws IOException thrown if the file cannot be found for the actor
+   */
+  public abstract BufferedImage getImage(boolean moving) throws IOException;
+
   public int getX() {
     return xpos;
+  }
+
+  public int getPrevX() {
+    return xposPrev;
   }
 
   public int getY() {
     return ypos;
   }
 
-  /**
-   * Get this actor's image.
-   *
-   * @return a Jlabel containing an image of this actor
-   * @throws IOException thrown if the file cannot be found for the actor
-   */
-  public abstract JLabel getImage() throws IOException;
+  public int getPrevY() {
+    return yposPrev;
+  }
 
-  /**
-   * Make this actor use the next frame in its animation.
-   */
-  public void nextFrame() {
-    frame = (frame + 1) % 2;
+  public FreeTile getCurrentTile() {
+    return currentTile;
   }
 }

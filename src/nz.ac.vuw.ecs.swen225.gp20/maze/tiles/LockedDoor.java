@@ -1,14 +1,28 @@
 package nz.ac.vuw.ecs.swen225.gp20.maze.tiles;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
 import nz.ac.vuw.ecs.swen225.gp20.maze.items.Key;
 
 public class LockedDoor extends Tile {
   private final String colour;
+  private final boolean vertical;
 
-  public LockedDoor(String colour) {
+  public LockedDoor(String colour, boolean vertical) {
     this.colour = colour.toLowerCase();
+    this.vertical = vertical;
+  }
+
+  public String getColour() {
+    return colour;
+  }
+
+  public boolean isVertical() {
+    return vertical;
   }
 
   @Override
@@ -18,5 +32,16 @@ public class LockedDoor extends Tile {
       return player.isHolding(new Key(colour));
     }
     return false;
+  }
+
+  @Override
+  public BufferedImage getImage() throws IOException {
+    return ImageIO.read(new File(imageDirectory + "lock" + "_" +
+            (vertical ? "vertical" : "horizontal") + "_" + colour + ".png"));
+  }
+
+  @Override
+  public String toString() {
+    return "Door";
   }
 }
