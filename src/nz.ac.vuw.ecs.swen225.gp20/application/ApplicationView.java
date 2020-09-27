@@ -1,9 +1,8 @@
 package nz.ac.vuw.ecs.swen225.gp20.application;
-import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
-import nz.ac.vuw.ecs.swen225.gp20.render.Board;
-
 import javax.swing.*;
 import java.awt.*;
+import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
+import nz.ac.vuw.ecs.swen225.gp20.render.Board;
 
 public class ApplicationView {
     private Main game;
@@ -17,8 +16,8 @@ public class ApplicationView {
 
     public ApplicationView(Main game){
         this.game = game;
-        //this.maze = new Maze(this.game.levelPath);
-        //this.viewport = new Board(this.maze);
+        this.maze = new Maze(this.game.levelPath);
+        this.viewport = new Board(this.maze);
         this.makeWindow();
     }
 
