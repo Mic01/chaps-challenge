@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.JPanel;
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
@@ -80,28 +81,18 @@ public class Board extends JPanel {
    */
   private void setVision() {
     lastVision = vision;
-    int ycount = 0;
-    int xcount = 0;
     int reach = visionRange / 2;
 
-    System.out.println("Level overall size: x:"+level.length+", y: "+level[0].length);
-    for (int x = player.getX() - reach; x < player.getX() + reach; x++) {
-      for (int y = player.getY() - reach; y < player.getY() + reach; y++) {
-        System.out.println(xcount+", "+ycount);
+    for (int x = player.getX() - reach, xcount = 0; x <= player.getX() + reach; x++, xcount++) {
+      for (int y = player.getY() - reach, ycount = 0; y <= player.getY() + reach; y++, ycount++) {
 
         //Adding tiles only if they in range
         if ((x > 0 && y > 0) && (x < level.length && y < level[0].length)) {
           vision[xcount][ycount] = level[x][y];
-          xcount++;
         } else {
           vision[xcount][ycount] = new NullTile();
         }
 
-        //end of line, reset counting variables
-        if (xcount >= visionRange) {
-          xcount = 0;
-          ycount++;
-        }
       }
     }
   }
@@ -126,8 +117,8 @@ public class Board extends JPanel {
   protected void paintComponent(Graphics g) {
     try {
       drawTiles(g, 0);
-      drawEntities(g, 0);
-      drawAnimations(g);
+      //drawEntities(g, 0);
+      //drawAnimations(g);
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -138,8 +129,13 @@ public class Board extends JPanel {
    * draws all tiles in players current vision.
    */
   private void drawTiles(Graphics g, int offset) throws IOException {
-    for (int x = 0; x < visionRange; x++) {
-      for (int y = 0; y < visionRange; y++) {
+    System.out.println(vision.toString());
+    System.out.println(level.toString());
+    System.out.println(maze.getTiles().toString());
+    for (int x = 0; x <= visionRange-1; x++) {
+      for (int y = 0; y <= visionRange-1; y++) {
+        System.out.println("Im here x: "+x+", y:"+y);
+        System.out.println(vision[x][y].toString());
         g.drawImage(vision[x][y].getImage(),
                 (x * tileSize) + offset, (y * tileSize) + offset, this);
       }

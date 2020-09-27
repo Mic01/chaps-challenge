@@ -1,3 +1,1 @@
-Your program code should include a ​README.md​ (in the root folder of the eclipse project) which details exactly how to start up your game and provides any necessary information on how to play the game (this information is essential for the markers). The
- 
-instructions should be kept simple, for instance, a single sentence “Start the game by running nz.ac.vuw.ecs.swen225.gp20.application.Main​ from Eclipse” could be sufficient.
+To start the game run "src/nz.ac.vuw.ecs.swen225.gp20/application/Main.java" from eclipse or IntelliJ.
