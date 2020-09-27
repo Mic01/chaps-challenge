@@ -98,14 +98,14 @@
 		{
 			"tile": "Door",
 			"x": 12,
-			"y": 11,
+			"y": 14,
 			"colour": "Green",
 			"vertical": false
 		},
 		{
 			"tile": "Floor",
 			"x": 12,
-			"y": 12,
+			"y": 16,
 			"slot": "Chip"
 		},
 		{
