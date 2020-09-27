@@ -58,6 +58,7 @@ public class Persistence {
                                     maze[j][i] = new FreeTile();
                                 }
                             }
+                            break;
 
                         case "Wall":
                             maze[obj.getInt("x")][obj.getInt("y")] = new Wall();
@@ -78,7 +79,7 @@ public class Persistence {
                                     maze[x][y] = new FreeTile(new Player(x, y, mazeObject));
                                     break;
                                 case "Null":
-                                    maze[x][y] = new FreeTile();
+                                    maze[obj.getInt("x")][obj.getInt("y")] = new FreeTile();
                                     break;
                             }
                             break;
