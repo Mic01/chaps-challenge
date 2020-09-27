@@ -9,7 +9,7 @@ public class SetupView {
     private Main game;
     private JDialog dialog;
     private final CardLayout panes = new CardLayout();
-    JPanel mainPanel;
+    private JPanel mainPanel;
 
     public SetupView(Main game) {
         this.game = game;
@@ -19,6 +19,7 @@ public class SetupView {
     private void setupWindow() {
 
         dialog = new JDialog();
+        dialog.setLocationRelativeTo(null);
         dialog.setResizable(false);
         dialog.setSize(400, 330);
         dialog.setModal(true);
@@ -117,10 +118,10 @@ public class SetupView {
             if (model == null) return;
             switch (model.getActionCommand()) {
                 case "1":
-                    //load level 1
+                    this.game.levelPath = "assets/Level1.json";
                     break;
                 case "2":
-                    //load level 2
+                    this.game.levelPath = "assets/Level2.json";
                     break;
                 //etc
                 default:
@@ -135,7 +136,6 @@ public class SetupView {
         panel2.add(next2, constraints2);
 
         mainPanel.add(titleScreen);
-        //mainPanel.add(panel1);
         mainPanel.add(panel2);
 
         pane.add(mainPanel);
