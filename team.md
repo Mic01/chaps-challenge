@@ -6,3 +6,6 @@
 | rendering | Connor de Bruyn | Destiro |
 | persistence and levels | Justin Hanrahan | JuiceH |
 | record and replay | Luke Hawinkels | hawadlu |
+
+
+To start the game run "src/nz.ac.vuw.ecs.swen225.gp20/application/Main.java" from eclipse or IntelliJ.
