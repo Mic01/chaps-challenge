@@ -38,7 +38,7 @@ public class Persistence {
       }
 
         try {
-            final JsonParser parser = Json.createParser(new FileReader("Assets/Level1.json"));
+            final JsonParser parser = Json.createParser(new FileReader("assets/Level1.json"));
             while (parser.hasNext()) {
                 final Event event = parser.next();
                 if (event == Event.START_OBJECT) {
