@@ -19,7 +19,6 @@ public class SetupView {
     private void setupWindow() {
 
         dialog = new JDialog();
-        dialog.setLocationRelativeTo(null);
         dialog.setResizable(false);
         dialog.setSize(400, 330);
         dialog.setModal(true);
@@ -33,6 +32,7 @@ public class SetupView {
         dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
         addToDialog(dialog.getContentPane());
         dialog.pack();
+        dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
     }

@@ -26,9 +26,9 @@ public class ApplicationView {
         this.window = new JFrame("Chap's Challenge");
         this.window.setLayout(new BorderLayout());
         this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.window.setLocationRelativeTo(null);
         this.addToWindow();
         this.window.pack();
+        this.window.setLocationRelativeTo(null);
         this.window.setVisible(true);
     }
 
