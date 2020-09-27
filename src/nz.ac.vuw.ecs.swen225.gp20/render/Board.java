@@ -84,8 +84,10 @@ public class Board extends JPanel {
     int xcount = 0;
     int reach = visionRange / 2;
 
+    System.out.println("Level overall size: x:"+level.length+", y: "+level[0].length);
     for (int x = player.getX() - reach; x < player.getX() + reach; x++) {
       for (int y = player.getY() - reach; y < player.getY() + reach; y++) {
+        System.out.println(xcount+", "+ycount);
 
         //Adding tiles only if they in range
         if ((x > 0 && y > 0) && (x < level.length && y < level[0].length)) {
@@ -96,7 +98,7 @@ public class Board extends JPanel {
         }
 
         //end of line, reset counting variables
-        if (xcount > visionRange) {
+        if (xcount >= visionRange) {
           xcount = 0;
           ycount++;
         }
@@ -150,7 +152,7 @@ public class Board extends JPanel {
    */
   private void drawEntities(Graphics g, int offset) throws IOException {
     for (Actor actor : moving) {
-      g.drawImage(actor.getImage(),
+      g.drawImage(actor.getImage(true),
               (actor.getX() * tileSize) + offset, (actor.getY() * tileSize) + offset, this);
 
       if (actor.getCurrentTile() instanceof Ice) {
