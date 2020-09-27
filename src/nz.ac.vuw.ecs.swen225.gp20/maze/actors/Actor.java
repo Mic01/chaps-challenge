@@ -30,20 +30,13 @@ public abstract class Actor {
     this.xposPrev = xpos;
     this.yposPrev = ypos;
     this.maze = maze;
+    currentTile = (FreeTile) maze.getTile(xpos, ypos);
 
     // Store this actor in the maze
     if (this instanceof Player) {
       maze.setPlayer((Player) this);
     }
-    maze.addActor(this);
-  }
-
-  /**
-   * Initialise required variables for this actor that were unavailable
-   * during its construction
-   */
-  public void setup() {
-    currentTile = (FreeTile) maze.getTile(xpos, ypos);
+      maze.addActor(this);
   }
 
   /**

@@ -13,9 +13,6 @@ public class Maze {
 
   public Maze(String levelFile) {
     tiles = Persistence.loadLevel(levelFile, this);
-    for (Actor actor : actors) {
-      actor.setup();
-    }
   }
 
   public void setTile(int x, int y, Tile newTile) {
