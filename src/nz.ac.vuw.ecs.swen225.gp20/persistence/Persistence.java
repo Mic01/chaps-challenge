@@ -122,7 +122,7 @@ public class Persistence {
                     object.add("tile", "End");
                 } else if (currentTile instanceof ExitLock) {
                     object.add("tile", "Lock");
-                    object.add("chips", ((ExitLock) save[i][j]).getTreasuresNeeded();
+                    object.add("chips", ((ExitLock) save[i][j]).getTreasuresNeeded());
                 } else if (currentTile instanceof Ice) {
                     object.add("tile", "Ice");
                 } else if (currentTile instanceof InfoTile) {
