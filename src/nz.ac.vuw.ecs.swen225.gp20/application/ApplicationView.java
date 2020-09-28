@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 public class ApplicationView {
 
+    private final Main game;
     private final Maze maze;
     private final Board viewport;
     private final Replay log;
@@ -25,7 +26,8 @@ public class ApplicationView {
     public ApplicationView(Main game) {
         this.maze = new Maze(game.levelPath);
         this.viewport = new Board(this.maze);
-        this.log = new Replay(game.levelPath);
+        this.game = game;
+        this.log = new Replay(this);
         this.makeWindow();
     }
 
@@ -258,5 +260,9 @@ public class ApplicationView {
         windowContents.add(sideWindow, constraints);
 
         this.window.setContentPane(windowContents);
+    }
+
+    public String getLevelPath(){
+        return this.game.levelPath;
     }
 }
