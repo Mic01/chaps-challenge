@@ -6,6 +6,7 @@ Class: Board, Interacts: Maze, Line 168
 Class: Board, Interacts: Maze, Line 254
 Class: Board, Interacts: Maze, Line 264
 
+----- Module Persistence -----
 Class: Persistence, Interacts: Maze, Line 39
 Class: Persistence, Interacts: Maze, Line 57
 Class: Persistence, Interacts: Maze, Line 63
@@ -17,3 +18,6 @@ Class: Persistence, Interacts: Maze, Line 87
 Class: Persistence, Interacts: Maze, Line 91
 Class: Persistence, Interacts: Maze, Line 95
 Class: Persistence, Interacts: Maze, Line 99
+
+----- Module Maze -----
+Class: Maze, Interacts: Persistence, Line 20
