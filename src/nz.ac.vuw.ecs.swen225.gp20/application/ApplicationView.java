@@ -1,6 +1,8 @@
 package nz.ac.vuw.ecs.swen225.gp20.application;
+
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.Replay;
 import nz.ac.vuw.ecs.swen225.gp20.render.Board;
 
 import javax.swing.*;
@@ -9,26 +11,28 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 public class ApplicationView {
-    private Main game;
-    private Maze maze;
-    private Board viewport;
+
+    private final Maze maze;
+    private final Board viewport;
+    private final Replay log;
     private JFrame window;
-    private JPanel windowContents;
-    private JMenuBar saveLoad;
-    private JMenu save = new JMenu("Save");
-    private JMenu load = new JMenu("Load");
-    private JMenuItem saveGame = new JMenuItem("Save Game");
-    private JMenuItem loadGame = new JMenuItem("Load Game");
+    private final JMenu save = new JMenu("Save");
+    private final JMenu load = new JMenu("Load");
+    private final JMenuItem saveGame = new JMenuItem("Save Game");
+    private final JMenuItem loadGame = new JMenuItem("Load Game");
 
 
-    public ApplicationView(Main game){
-        this.game = game;
-        this.maze = new Maze(this.game.levelPath);
+    public ApplicationView(Main game) {
+        this.maze = new Maze(game.levelPath);
         this.viewport = new Board(this.maze);
+        this.log = new Replay(game.levelPath);
         this.makeWindow();
     }
 
-    private void makeWindow(){
+    /**
+     * Constructs a JFrame within which the main game will be displayed.
+     */
+    private void makeWindow() {
         this.window = new JFrame("Chap's Challenge");
         this.window.setLayout(new BorderLayout());
         this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,14 +43,17 @@ public class ApplicationView {
         this.window.setVisible(true);
     }
 
+    /**
+     * Adds contents to the constructed JFrame.
+     */
     private void addToWindow() {
-        this.saveLoad = new JMenuBar();
+        JMenuBar saveLoad = new JMenuBar();
         this.save.add(this.saveGame);
         this.load.add(this.loadGame);
-        this.saveLoad.add(this.save);
-        this.saveLoad.add(this.load);
-        this.window.setJMenuBar(this.saveLoad);
-        this.windowContents = new JPanel(new GridBagLayout());
+        saveLoad.add(this.save);
+        saveLoad.add(this.load);
+        this.window.setJMenuBar(saveLoad);
+        JPanel windowContents = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         GridBagConstraints sideConstraints = new GridBagConstraints();
 
@@ -75,6 +82,7 @@ public class ApplicationView {
             maze.getPlayer().moveLeft();
             ArrayList<Actor> toMove = new ArrayList<>();
             toMove.add(maze.getPlayer());
+            log.addAction("moveLeft");
             viewport.draw(toMove);
         });
         left.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("LEFT"), "moveLeft");
@@ -84,6 +92,7 @@ public class ApplicationView {
                 maze.getPlayer().moveLeft();
                 ArrayList<Actor> toMove = new ArrayList<>();
                 toMove.add(maze.getPlayer());
+                log.addAction("moveLeft");
                 viewport.draw(toMove);
             }
         });
@@ -93,6 +102,7 @@ public class ApplicationView {
             maze.getPlayer().moveUp();
             ArrayList<Actor> toMove = new ArrayList<>();
             toMove.add(maze.getPlayer());
+            log.addAction("moveUp");
             viewport.draw(toMove);
         });
         up.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("UP"), "moveUp");
@@ -102,6 +112,7 @@ public class ApplicationView {
                 maze.getPlayer().moveUp();
                 ArrayList<Actor> toMove = new ArrayList<>();
                 toMove.add(maze.getPlayer());
+                log.addAction("moveUp");
                 viewport.draw(toMove);
             }
         });
@@ -111,6 +122,7 @@ public class ApplicationView {
             maze.getPlayer().moveDown();
             ArrayList<Actor> toMove = new ArrayList<>();
             toMove.add(maze.getPlayer());
+            log.addAction("moveDown");
             viewport.draw(toMove);
         });
         down.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("DOWN"), "moveDown");
@@ -120,6 +132,7 @@ public class ApplicationView {
                 maze.getPlayer().moveDown();
                 ArrayList<Actor> toMove = new ArrayList<>();
                 toMove.add(maze.getPlayer());
+                log.addAction("moveDown");
                 viewport.draw(toMove);
             }
         });
@@ -129,6 +142,7 @@ public class ApplicationView {
             maze.getPlayer().moveRight();
             ArrayList<Actor> toMove = new ArrayList<>();
             toMove.add(maze.getPlayer());
+            log.addAction("moveRight");
             viewport.draw(toMove);
         });
         right.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("RIGHT"), "moveRight");
@@ -138,6 +152,7 @@ public class ApplicationView {
                 maze.getPlayer().moveRight();
                 ArrayList<Actor> toMove = new ArrayList<>();
                 toMove.add(maze.getPlayer());
+                log.addAction("moveRight");
                 viewport.draw(toMove);
             }
         });
@@ -199,7 +214,7 @@ public class ApplicationView {
         constraints.fill = GridBagConstraints.BOTH;
         constraints.weightx = 1;
         constraints.weighty = 1;
-        this.windowContents.add(mainWindow, constraints);
+        windowContents.add(mainWindow, constraints);
 
         constraints.gridx = 0;
         constraints.gridy = 1;
@@ -208,7 +223,7 @@ public class ApplicationView {
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.weightx = 0;
         constraints.weighty = 1;
-        this.windowContents.add(lowerWindow, constraints);
+        windowContents.add(lowerWindow, constraints);
 
         constraints.gridx = 1;
         constraints.gridy = 0;
@@ -216,8 +231,8 @@ public class ApplicationView {
         constraints.fill = GridBagConstraints.VERTICAL;
         constraints.weightx = 1;
         constraints.weighty = 0;
-        this.windowContents.add(sideWindow, constraints);
+        windowContents.add(sideWindow, constraints);
 
-        this.window.setContentPane(this.windowContents);
+        this.window.setContentPane(windowContents);
     }
 }
