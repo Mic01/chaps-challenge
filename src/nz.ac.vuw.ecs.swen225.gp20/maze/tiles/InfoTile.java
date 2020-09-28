@@ -8,6 +8,7 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 
 public class InfoTile extends FreeTile {
   private final String info;
+  private static BufferedImage image;
 
   public InfoTile(String info) {
     this.info = info;
@@ -29,7 +30,8 @@ public class InfoTile extends FreeTile {
 
   @Override
   public BufferedImage getImage() throws IOException {
-    return ImageIO.read(new File(imageDirectory + "info.png"));
+    if (image == null) image = ImageIO.read(new File(imageDirectory + "info.png"));
+    return image;
   }
 
   @Override

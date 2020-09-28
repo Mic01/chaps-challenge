@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 
 public class Exit extends Tile {
+  private static BufferedImage image;
 
   @Override
   public boolean isTraversable(Actor actor) {
@@ -15,7 +16,10 @@ public class Exit extends Tile {
 
   @Override
   public BufferedImage getImage() throws IOException {
-    return ImageIO.read(new File(imageDirectory + "finish.png"));
+    if (image == null) {
+      image = ImageIO.read(new File(imageDirectory + "finish.png"));
+    }
+    return image;
   }
 
   @Override

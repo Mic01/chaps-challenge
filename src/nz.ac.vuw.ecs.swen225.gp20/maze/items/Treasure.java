@@ -6,8 +6,13 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Treasure extends Item {
+  private static BufferedImage image;
+
   @Override
   public BufferedImage getImage() throws IOException {
-    return ImageIO.read(new File(imageDirectory + "chip.png"));
+    if (image == null) {
+      image = ImageIO.read(new File(imageDirectory + "chip.png"));
+    }
+    return image;
   }
 }

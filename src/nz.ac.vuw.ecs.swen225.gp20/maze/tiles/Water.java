@@ -6,9 +6,14 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Water extends FreeTile {
+  private static BufferedImage image;
+
   @Override
   public BufferedImage getImage() throws IOException {
-    return ImageIO.read(new File(imageDirectory + "water.png"));
+    if (image == null) {
+      image = ImageIO.read(new File(imageDirectory + "water.png"));
+    }
+    return image;
   }
 
   @Override

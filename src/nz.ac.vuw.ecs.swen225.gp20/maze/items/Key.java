@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 
 public class Key extends Item {
   private final String colour;
+  private BufferedImage image;
 
   public Key(String colour) {
     this.colour = colour.toLowerCase();
@@ -32,6 +33,9 @@ public class Key extends Item {
 
   @Override
   public BufferedImage getImage() throws IOException {
-    return ImageIO.read(new File(imageDirectory + "key_" + colour + ".png"));
+    if (image == null) {
+      image = ImageIO.read(new File(imageDirectory + "key_" + colour + ".png"));
+    }
+    return image;
   }
 }

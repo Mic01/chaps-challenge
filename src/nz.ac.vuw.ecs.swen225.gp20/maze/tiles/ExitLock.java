@@ -9,6 +9,7 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
 
 public class ExitLock extends Tile {
   private final int treasuresNeeded;
+  private static BufferedImage image;
 
   public ExitLock(int treasuresNeeded) {
     this.treasuresNeeded = treasuresNeeded;
@@ -29,7 +30,10 @@ public class ExitLock extends Tile {
 
   @Override
   public BufferedImage getImage() throws IOException {
-    return ImageIO.read(new File(imageDirectory + "gate.png"));
+    if (image == null) {
+      image = ImageIO.read(new File(imageDirectory + "gate.png"));
+    }
+    return image;
   }
 
   @Override

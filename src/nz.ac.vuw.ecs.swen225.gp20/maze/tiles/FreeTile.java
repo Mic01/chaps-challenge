@@ -12,6 +12,7 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.items.Treasure;
 public class FreeTile extends Tile {
   private Item item;
   private Actor actor;
+  private static BufferedImage image;
 
   public FreeTile() {
     item = null;
@@ -72,7 +73,10 @@ public class FreeTile extends Tile {
 
   @Override
   public BufferedImage getImage() throws IOException {
-    return ImageIO.read(new File(imageDirectory + "floor.png"));
+    if (image == null) {
+      image = ImageIO.read(new File(imageDirectory + "floor.png"));
+    }
+    return image;
   }
 
   @Override

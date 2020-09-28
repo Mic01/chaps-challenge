@@ -6,9 +6,12 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Ice extends FreeTile {
+  private static BufferedImage image;
+
   @Override
   public BufferedImage getImage() throws IOException {
-    return ImageIO.read(new File(imageDirectory + "ice.png"));
+    if (image == null) image = ImageIO.read(new File(imageDirectory + "ice.png"));
+    return image;
   }
 
   @Override
