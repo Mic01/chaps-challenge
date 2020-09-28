@@ -16,10 +16,9 @@ import java.util.ArrayList;
 public class Replay {
 
   private ArrayList history = new ArrayList();
-  Playback replay;
   String levelName;
 
-  Replay (String levelName) {
+  public Replay (String levelName) {
     this.levelName = levelName;
   }
   
@@ -31,23 +30,6 @@ public class Replay {
    */
   public <T extends Object> void addAction(T action) {
     history.add(action);
-  }
-  
-  /**
-   * Load the replay from a json file.
-   *
-   * @param filePath the file to load.
-   * @param timeScale The initial speed of the replay.
-   * @return the playback object
-   */
-  public Playback loadReplay(String filePath, int timeScale) {
-    parseJson(filePath);
-
-    //Get json file and create the playback object
-    Playback replay = new Playback(timeScale);
-
-    //Return the replay
-    return replay;
   }
 
   /**
