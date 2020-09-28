@@ -54,7 +54,7 @@ public class Board extends JPanel {
     //JPanel Variables
     Dimension dimension = new Dimension(tileSize * visionRange, tileSize * visionRange);
     setPreferredSize(dimension);
-    
+
     setBackground(new Color(255, 0, 255)); //for debugging
     setLayout(new FlowLayout(FlowLayout.LEFT));
 
