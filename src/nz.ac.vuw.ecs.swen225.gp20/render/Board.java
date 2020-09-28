@@ -54,6 +54,7 @@ public class Board extends JPanel {
     //JPanel Variables
     Dimension dimension = new Dimension(tileSize * visionRange, tileSize * visionRange);
     setPreferredSize(dimension);
+
     setBackground(new Color(255, 0, 255)); //for debugging
     setLayout(new FlowLayout(FlowLayout.LEFT));
 
@@ -101,17 +102,15 @@ public class Board extends JPanel {
    * Calls the pre-built paint function of the JPanel and draws with graphics.
    *
    * @param moving    All moving chars, Draw a frame of each animation
-   * @param animation if non-moving animation is happening
    */
-  public void draw(ArrayList<Actor> moving, String animation) {
+  public void draw(ArrayList<Actor> moving) {
     setVision();
     this.moving = moving;
-    this.animation = animation;
+    //this.animation = animation; when mich adds deaths
 
     this.repaint();
     this.revalidate();
 
-    System.out.println("Frame drawn. player x: "+player.getX()+", y:"+player.getY());
     try{
       sleep(sleepTime);
     }catch(InterruptedException e){ System.out.println(e); }

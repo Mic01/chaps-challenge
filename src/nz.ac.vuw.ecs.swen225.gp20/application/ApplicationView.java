@@ -1,10 +1,12 @@
 package nz.ac.vuw.ecs.swen225.gp20.application;
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
+import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 import nz.ac.vuw.ecs.swen225.gp20.render.Board;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 public class ApplicationView {
     private Main game;
@@ -49,58 +51,94 @@ public class ApplicationView {
         GridBagConstraints sideConstraints = new GridBagConstraints();
 
         JPanel mainWindow = viewport;
-        mainWindow.setMinimumSize(new Dimension(700, 700));
-        mainWindow.setPreferredSize(new Dimension(700, 700));
-        mainWindow.setBackground(Color.RED);
+        mainWindow.setMinimumSize(new Dimension(630, 630));
+        mainWindow.setPreferredSize(new Dimension(630, 630));
+        mainWindow.setBackground(Color.BLACK);
 
         JPanel sideWindow = new JPanel(new GridBagLayout());
         sideWindow.setMinimumSize(new Dimension(150, 100));
         sideWindow.setPreferredSize(new Dimension(150, 100));
-        sideWindow.setBackground(Color.BLUE);
+        sideWindow.setBackground(Color.BLACK);
 
         JLabel score = new JLabel("Score:");
+        score.setForeground(Color.LIGHT_GRAY);
         JLabel scoreCount = new JLabel("PLACEHOLDER");
+        scoreCount.setForeground(Color.LIGHT_GRAY);
         JLabel time = new JLabel("Time Remaining:");
+        time.setForeground(Color.LIGHT_GRAY);
         JLabel timeCount = new JLabel("PLACEHOLDER");
+        timeCount.setForeground(Color.LIGHT_GRAY);
 
 
         JButton left = new JButton("\uD83E\uDC50");
-        left.addActionListener(actionEvent -> maze.getPlayer().moveLeft());
-        left.getInputMap().put(KeyStroke.getKeyStroke("LEFT"), "moveLeft");
+        left.addActionListener(actionEvent -> {
+            maze.getPlayer().moveLeft();
+            ArrayList<Actor> toMove = new ArrayList<>();
+            toMove.add(maze.getPlayer());
+            viewport.draw(toMove);
+        });
+        left.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("LEFT"), "moveLeft");
         left.getActionMap().put("moveLeft", new AbstractAction("moveLeft") {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 maze.getPlayer().moveLeft();
+                ArrayList<Actor> toMove = new ArrayList<>();
+                toMove.add(maze.getPlayer());
+                viewport.draw(toMove);
             }
         });
 
         JButton up = new JButton("\uD83E\uDC51");
-        up.addActionListener(actionEvent -> maze.getPlayer().moveUp());
-        up.getInputMap().put(KeyStroke.getKeyStroke("UP"), "moveUp");
+        up.addActionListener(actionEvent -> {
+            maze.getPlayer().moveUp();
+            ArrayList<Actor> toMove = new ArrayList<>();
+            toMove.add(maze.getPlayer());
+            viewport.draw(toMove);
+        });
+        up.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("UP"), "moveUp");
         up.getActionMap().put("moveUp", new AbstractAction("moveUp") {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 maze.getPlayer().moveUp();
+                ArrayList<Actor> toMove = new ArrayList<>();
+                toMove.add(maze.getPlayer());
+                viewport.draw(toMove);
             }
         });
 
         JButton down = new JButton("\uD83E\uDC53");
-        down.addActionListener(actionEvent -> maze.getPlayer().moveDown());
-        down.getInputMap().put(KeyStroke.getKeyStroke("DOWN"), "moveDown");
+        down.addActionListener(actionEvent -> {
+            maze.getPlayer().moveDown();
+            ArrayList<Actor> toMove = new ArrayList<>();
+            toMove.add(maze.getPlayer());
+            viewport.draw(toMove);
+        });
+        down.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("DOWN"), "moveDown");
         down.getActionMap().put("moveDown", new AbstractAction("moveDown") {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 maze.getPlayer().moveDown();
+                ArrayList<Actor> toMove = new ArrayList<>();
+                toMove.add(maze.getPlayer());
+                viewport.draw(toMove);
             }
         });
 
         JButton right = new JButton("\uD83E\uDC52");
-        right.addActionListener(actionEvent -> maze.getPlayer().moveRight());
-        right.getInputMap().put(KeyStroke.getKeyStroke("RIGHT"), "moveRight");
+        right.addActionListener(actionEvent -> {
+            maze.getPlayer().moveRight();
+            ArrayList<Actor> toMove = new ArrayList<>();
+            toMove.add(maze.getPlayer());
+            viewport.draw(toMove);
+        });
+        right.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("RIGHT"), "moveRight");
         right.getActionMap().put("moveRight", new AbstractAction("moveRight") {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 maze.getPlayer().moveRight();
+                ArrayList<Actor> toMove = new ArrayList<>();
+                toMove.add(maze.getPlayer());
+                viewport.draw(toMove);
             }
         });
 
@@ -149,7 +187,7 @@ public class ApplicationView {
         JPanel lowerWindow = new JPanel();
         lowerWindow.setMinimumSize(new Dimension(100, 150));
         lowerWindow.setPreferredSize(new Dimension(100, 150));
-        lowerWindow.setBackground(Color.GREEN);
+        lowerWindow.setBackground(Color.BLACK);
 
         JButton quitGame = new JButton("Quit Game");
         quitGame.addActionListener(actionEvent -> System.exit(0));
