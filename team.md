@@ -1,8 +1,7 @@
-
-| **Module** | **Team Member Name** | **Team Member github account** |
+| **Module** | **Team Member Name** | **Team Member gitlab account** |
 | ------ | ------ | ------ |
-| maze | Michaiah Thoms | Mic01 |
-| application | Nicholas Woolf-Ben-Avraham | TheHatedGravity |
-| rendering | Connor de Bruyn | Destiro |
-| persistence and levels | Justin Hanrahan | JuiceH |
-| record and replay | Luke Hawinkels | hawadlu |
+| maze | Michaiah Thoms | @thomsmich |
+| application | Nicholas Woolf-Ben-Avraham | @woolfnich |
+| rendering | Connor de Bruyn | @debruconn |
+| persistence and levels | Justin Hanrahan | @hanrahjust |
+| record and replay | Luke Hawinkels | @hawinkluke |
