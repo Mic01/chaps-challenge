@@ -3,10 +3,7 @@ package nz.ac.vuw.ecs.swen225.gp20.render;
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Ice;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.NullTile;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Water;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -139,6 +136,10 @@ public class Board extends JPanel {
       for (int y = 0; y <= visionRange - 1; y++) {
         g.drawImage(vision[x][y].getImage(),
                 (x * tileSize) + offset, (y * tileSize) + offset, this);
+        if(vision[x][y] instanceof FreeTile && ((FreeTile) vision[x][y]).hasItem()){
+          g.drawImage(((FreeTile) vision[x][y]).getItem().getImage(),
+                  (x * tileSize) + offset, (y * tileSize) + offset, this);
+        }
       }
     }
   }
