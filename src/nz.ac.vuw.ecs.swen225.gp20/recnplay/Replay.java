@@ -1,5 +1,8 @@
 package nz.ac.vuw.ecs.swen225.gp20.recnplay;
 
+import nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView;
+import nz.ac.vuw.ecs.swen225.gp20.application.Main;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,9 +19,9 @@ public class Replay {
   private final ArrayList<Object> history = new ArrayList<Object>();
   String levelName;
 
-  public Replay(String levelName) {
+  public Replay(ApplicationView application) {
     //Extract the level name
-    String[] path = levelName.split("/");
+    String[] path = application.getLevelPath().split("/");
     this.levelName = path[path.length - 1].replace(".json", "");
   }
 
