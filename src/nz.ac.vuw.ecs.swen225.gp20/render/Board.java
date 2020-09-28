@@ -1,13 +1,5 @@
 package nz.ac.vuw.ecs.swen225.gp20.render;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import javax.swing.JPanel;
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
@@ -16,6 +8,14 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.NullTile;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Water;
 
+import javax.swing.*;
+import java.awt.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import static java.lang.Thread.sleep;
+
 /**
  * Renderer class for displaying the board.
  */
@@ -23,6 +23,7 @@ public class Board extends JPanel {
 
   // Constant Variables
   private final int visionRange = 9;
+  private final int reach = visionRange / 2;
   private final int tileSize = 70;
   private final int sleepTime = 100; //Time in ms before each draw (ill be adding half frames)
 
@@ -44,7 +45,6 @@ public class Board extends JPanel {
   private ArrayList<Actor> moving = new ArrayList<>();
   private ArrayList<Actor> actors = new ArrayList<>();
   private String animation;
-
   /**
    * Construct a new Board when a new level is loaded.
    *
@@ -81,7 +81,6 @@ public class Board extends JPanel {
    */
   private void setVision() {
     lastVision = vision;
-    int reach = visionRange / 2;
 
     for (int x = player.getX() - reach, xcount = 0; x <= player.getX() + reach; x++, xcount++) {
       for (int y = player.getY() - reach, ycount = 0; y <= player.getY() + reach; y++, ycount++) {
@@ -101,7 +100,7 @@ public class Board extends JPanel {
    * Draws the visible board and all entities on-top of tiles,
    * Calls the pre-built paint function of the JPanel and draws with graphics.
    *
-   * @param moving All moving chars, Draw a frame of each animation
+   * @param moving    All moving chars, Draw a frame of each animation
    * @param animation if non-moving animation is happening
    */
   public void draw(ArrayList<Actor> moving, String animation) {
@@ -111,14 +110,22 @@ public class Board extends JPanel {
 
     this.repaint();
     this.revalidate();
+
+    System.out.println("Frame drawn. player x: "+player.getX()+", y:"+player.getY());
+    try{
+      sleep(sleepTime);
+    }catch(InterruptedException e){ System.out.println(e); }
   }
 
   @Override
   protected void paintComponent(Graphics g) {
     try {
-      drawTiles(g, 0);
-      //drawEntities(g, 0);
+      super.paintComponent(g);
+      Graphics2D g2d = (Graphics2D) g.create();
+      drawTiles(g2d, 0);
+      drawEntities(g2d, 0);
       //drawAnimations(g);
+      g2d.dispose();
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -129,13 +136,8 @@ public class Board extends JPanel {
    * draws all tiles in players current vision.
    */
   private void drawTiles(Graphics g, int offset) throws IOException {
-    System.out.println(vision.toString());
-    System.out.println(level.toString());
-    System.out.println(maze.getTiles().toString());
-    for (int x = 0; x <= visionRange-1; x++) {
-      for (int y = 0; y <= visionRange-1; y++) {
-        System.out.println("Im here x: "+x+", y:"+y);
-        System.out.println(vision[x][y].toString());
+    for (int x = 0; x <= visionRange - 1; x++) {
+      for (int y = 0; y <= visionRange - 1; y++) {
         g.drawImage(vision[x][y].getImage(),
                 (x * tileSize) + offset, (y * tileSize) + offset, this);
       }
@@ -147,18 +149,28 @@ public class Board extends JPanel {
    * draws a new frame of every actor that has moved this round.
    */
   private void drawEntities(Graphics g, int offset) throws IOException {
-    for (Actor actor : moving) {
+    boolean playerMoved = false;
+    /*for (Actor actor : moving) {
       g.drawImage(actor.getImage(true),
               (actor.getX() * tileSize) + offset, (actor.getY() * tileSize) + offset, this);
-
-      if (actor.getCurrentTile() instanceof Ice) {
-        playSound("slide");
-      } else if (actor.getCurrentTile() instanceof Water) {
-        playSound("waterWalk");
-      } else {
-        playSound("metalWalk");
+      if(actor.equals(player)) {
+        playerMoved = true;
+        if (actor.getCurrentTile() instanceof Ice) {
+          playSound("slide");
+        } else if (actor.getCurrentTile() instanceof Water) {
+          playSound("waterWalk");
+        } else {
+          playSound("metalWalk");
+        }
       }
+    }*/
+    if(!playerMoved) {
+      g.drawImage(player.getImage(false),
+              (getVisionX(player.getX()) * tileSize) + offset, (getVisionY(player.getY()) * tileSize) + offset, this);
     }
+
+
+
   }
 
   /**
@@ -174,7 +186,7 @@ public class Board extends JPanel {
    * or create a new animation.
    *
    * @param animation enum value of animation
-   * @param g passed canvas to draw on
+   * @param g         passed canvas to draw on
    */
   private void playAnimations(String animation, Graphics g) {
     //todo create doorOpen and death myself
@@ -231,5 +243,42 @@ public class Board extends JPanel {
       default:
         throw new IllegalStateException("Unexpected value: " + Soundeffects.valueOf(sound));
     }
+  }
+
+  /**
+   * For drawing actors, convert their x coordinate to vision coordinate.
+   *
+   * @param x curr x coordinate
+   * @return new x coordinate
+   */
+  private int getVisionX(int x) {
+    return x - player.getX() + reach;
+  }
+
+  /**
+   * For drawing actors, convert their y coordinate to vision coordinate.
+   *
+   * @param y curr y coordinate
+   * @return new y coordinate
+   */
+  private int getVisionY(int y) {
+    return y - player.getY() + reach;
+  }
+
+  @Override
+  public String toString() {
+    return "Board{" +
+            "visionRange=" + visionRange +
+            ", tileSize=" + tileSize +
+            ", sleepTime=" + sleepTime +
+            ", level=" + Arrays.toString(level) +
+            ", lastVision=" + Arrays.toString(lastVision) +
+            ", vision=" + Arrays.toString(vision) +
+            ", player=" + player +
+            ", maze=" + maze +
+            ", moving=" + moving +
+            ", actors=" + actors +
+            ", animation='" + animation + '\'' +
+            '}';
   }
 }
