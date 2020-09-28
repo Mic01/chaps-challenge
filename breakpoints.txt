@@ -25,3 +25,32 @@ Class: Maze, Interacts: Persistence, Line 20
 
 ----- Module Record and Replay -----
 Class: Replay, Interacts: ApplicationView, Line 24
+
+---- Module Application ---
+Class: ApplicationView, Interacts: Maze, Line 27
+Class: ApplicationView, Interacts: Board, Line 28
+Class: ApplicationView, Interacts: Record and Replay, Line 30
+Class: ApplicationView, Interacts: Maze, Line 100
+Class: ApplicationView, Interacts: Board, Line 103
+Class: ApplicationView, Interacts: Record and Replay, Line 105
+Class: ApplicationView, Interacts: Maze, Line 111
+Class: ApplicationView, Interacts: Board, Line 114
+Class: ApplicationView, Interacts: Record and Replay, Line 116
+Class: ApplicationView, Interacts: Maze, Line 122
+Class: ApplicationView, Interacts: Board, Line 125
+Class: ApplicationView, Interacts: Record and Replay, Line 127
+Class: ApplicationView, Interacts: Maze, Line 133
+Class: ApplicationView, Interacts: Board, Line 136
+Class: ApplicationView, Interacts: Record and Replay, Line 138
+Class: ApplicationView, Interacts: Maze, Line 144
+Class: ApplicationView, Interacts: Board, Line 147
+Class: ApplicationView, Interacts: Record and Replay, Line 149
+Class: ApplicationView, Interacts: Maze, Line 155
+Class: ApplicationView, Interacts: Board, Line 158
+Class: ApplicationView, Interacts: Record and Replay, Line 160
+Class: ApplicationView, Interacts: Maze, Line 166
+Class: ApplicationView, Interacts: Board, Line 169
+Class: ApplicationView, Interacts: Record and Replay, Line 171
+Class: ApplicationView, Interacts: Maze, Line 177
+Class: ApplicationView, Interacts: Board, Line 180
+Class: ApplicationView, Interacts: Record and Replay, Line 182
