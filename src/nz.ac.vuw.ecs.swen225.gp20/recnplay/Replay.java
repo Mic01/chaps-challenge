@@ -1,9 +1,7 @@
 package nz.ac.vuw.ecs.swen225.gp20.recnplay;
 
-import com.google.gson.Gson;
-import com.google.gson.internal.LinkedTreeMap;
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -15,13 +13,13 @@ import java.util.ArrayList;
  */
 public class Replay {
 
-  private ArrayList history = new ArrayList();
+  private final ArrayList<Object> history = new ArrayList<Object>();
   String levelName;
 
-  public Replay (String levelName) {
+  public Replay(String levelName) {
     this.levelName = levelName;
   }
-  
+
   /**
    * Add an action to the history.
    *
@@ -33,35 +31,52 @@ public class Replay {
   }
 
   /**
-   * Parse the json file.
-   *
-   * @param filePath the file to parseObject
+   * Save the current history into a json file.
    */
-  private void parseJson(String filePath) {
-    File file = new File(filePath);
-    FileReader toRead = null;
+  public void saveReplay() {
+    System.out.println("Attempting to save the level.");
+
+    //Create the file
+    File replay = new File(
+            "src/nz.ac.vuw.ecs.swen225.gp20/recnplay/Replays/Level.json");
+
+    //Write the data to the file
+    FileWriter writer = null;
     try {
-      toRead = new FileReader(file, StandardCharsets.UTF_8);
+      System.out.println("Level name is: " + levelName);
+
+      writer = new FileWriter(replay, StandardCharsets.UTF_8);
+
+      //Add the opening {
+      writer.write("{\n");
+
+      //Add the player moves
+      writer.write("\t\"Player\" : {\n");
+
+      for (int i = 0; i < history.size(); i++) {
+        writer.write("\t\t\"" + i + "\" : \"" + history.get(i) + "\"");
+
+        //Add a comma if needed
+        if (i < history.size() - 1) {
+          writer.write(",\n");
+        } else {
+          writer.write("\n");
+        }
+      }
+
+      //Add the closing }
+      writer.write("\t}\n}");
     } catch (IOException e) {
       e.printStackTrace();
+    } finally {
+      System.out.println("Failed to write file");
+      if (writer != null) {
+        try {
+          writer.close();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
     }
-    LinkedTreeMap map = new Gson().fromJson(toRead, LinkedTreeMap.class);
-
-    System.out.println("Built map");
-
-    //Make the required objects
-    Node baseNode = new Node(map);
-
-    System.out.println("Built nodes");
-
-  }
-  
-  /**
-   * Save the current history into a json file.
-   *
-   * @param destination where the file is to be saved to.
-   */
-  public void saveReplay(String destination) {
-  
   }
 }
