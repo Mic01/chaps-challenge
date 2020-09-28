@@ -6,6 +6,7 @@ import nz.ac.vuw.ecs.swen225.gp20.recnplay.Replay;
 import nz.ac.vuw.ecs.swen225.gp20.render.Board;
 
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -37,6 +38,22 @@ public class ApplicationView {
         this.window.setLayout(new BorderLayout());
         this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.window.setResizable(false);
+        this.window.getRootPane().getActionMap().put("close", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                System.exit(0);
+            }
+        });
+        this.window.getRootPane().getActionMap().put("saveAndClose", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                System.exit(0);
+            }
+        });
+        this.window.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
+                .put(KeyStroke.getKeyStroke("control X"), "close");
+        this.window.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
+                .put(KeyStroke.getKeyStroke("control S"), "saveAndClose");
         this.addToWindow();
         this.window.pack();
         this.window.setLocationRelativeTo(null);
