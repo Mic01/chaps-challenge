@@ -11,6 +11,11 @@ public class Maze {
   private final ArrayList<Actor> actors = new ArrayList<>();
   private Player player;
 
+  /**
+   * Maze object that holds the tiles that represent the state of the game.
+   *
+   * @param levelFile the file of the level to load for this maze
+   */
   public Maze(String levelFile) {
     tiles = Persistence.loadLevel(levelFile, this);
     for (Actor actor : actors) {

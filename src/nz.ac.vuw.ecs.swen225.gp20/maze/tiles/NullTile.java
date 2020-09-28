@@ -1,14 +1,14 @@
 package nz.ac.vuw.ecs.swen225.gp20.maze.tiles;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
+import javax.imageio.ImageIO;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 
 public class NullTile extends Tile {
-  private final static Random random = new Random();
+  private static final Random random = new Random();
 
   @Override
   public boolean isTraversable(Actor actor) {
