@@ -48,8 +48,8 @@ public class SetupView {
         titleConstraints.fill = GridBagConstraints.HORIZONTAL;
         titleConstraints.gridx = 0;
         titleConstraints.gridy = 0;
-        titleConstraints.insets = new Insets(0, 0, 10, 0);
-        JLabel titleText = new JLabel("Team ____ presents:");
+        titleConstraints.insets = new Insets(5, 0, 5, 0);
+        JLabel titleText = new JLabel("The Indecisive Lads present:");
         titleText.setHorizontalAlignment(SwingConstants.CENTER);
         titleScreen.add(titleText, titleConstraints);
 
