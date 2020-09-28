@@ -38,7 +38,7 @@ public class Replay {
 
     //Create the file
     File replay = new File(
-            "src/nz.ac.vuw.ecs.swen225.gp20/recnplay/Replays/Level.json");
+            "src/nz.ac.vuw.ecs.swen225.gp20/recnplay/Replays/" + levelName + ".json");
 
     //Write the data to the file
     FileWriter writer = null;
