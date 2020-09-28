@@ -17,7 +17,9 @@ public class Replay {
   String levelName;
 
   public Replay(String levelName) {
-    this.levelName = levelName;
+    //Extract the level name
+    String[] path = levelName.split("/");
+    this.levelName = path[path.length - 1].replace(".json", "");
   }
 
   /**
@@ -69,7 +71,6 @@ public class Replay {
     } catch (IOException e) {
       e.printStackTrace();
     } finally {
-      System.out.println("Failed to write file");
       if (writer != null) {
         try {
           writer.close();
