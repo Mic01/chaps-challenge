@@ -54,6 +54,7 @@ public class Board extends JPanel {
     //JPanel Variables
     Dimension dimension = new Dimension(tileSize * visionRange, tileSize * visionRange);
     setPreferredSize(dimension);
+    
     setBackground(new Color(255, 0, 255)); //for debugging
     setLayout(new FlowLayout(FlowLayout.LEFT));
 
@@ -110,7 +111,6 @@ public class Board extends JPanel {
     this.repaint();
     this.revalidate();
 
-    System.out.println("Frame drawn. player x: "+player.getX()+", y:"+player.getY());
     try{
       sleep(sleepTime);
     }catch(InterruptedException e){ System.out.println(e); }
