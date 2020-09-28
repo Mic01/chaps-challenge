@@ -5,3 +5,15 @@ Class: Board, Interacts: Maze, Line 75
 Class: Board, Interacts: Maze, Line 168
 Class: Board, Interacts: Maze, Line 254
 Class: Board, Interacts: Maze, Line 264
+
+Class: Persistence, Interacts: Maze, Line 39
+Class: Persistence, Interacts: Maze, Line 57
+Class: Persistence, Interacts: Maze, Line 63
+Class: Persistence, Interacts: Maze, Line 70
+Class: Persistence, Interacts: Maze, Line 73
+Class: Persistence, Interacts: Maze, Line 78
+Class: Persistence, Interacts: Maze, Line 81
+Class: Persistence, Interacts: Maze, Line 87
+Class: Persistence, Interacts: Maze, Line 91
+Class: Persistence, Interacts: Maze, Line 95
+Class: Persistence, Interacts: Maze, Line 99
