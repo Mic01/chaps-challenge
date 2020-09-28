@@ -40,7 +40,7 @@ public abstract class Actor {
 
   /**
    * Initialise required variables for this actor that were unavailable
-   * during its construction
+   * during its construction.
    */
   public void setup() {
     currentTile = (FreeTile) maze.getTile(xpos, ypos);

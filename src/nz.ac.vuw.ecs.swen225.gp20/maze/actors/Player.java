@@ -1,6 +1,5 @@
 package nz.ac.vuw.ecs.swen225.gp20.maze.actors;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -8,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import javax.imageio.ImageIO;
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.items.Item;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Ice;
@@ -97,7 +97,8 @@ public class Player extends Actor {
       image = images.get(key);
     } else {
       image = ImageIO.read(new File(
-              imageDirectory + "red/" + type + "_" + (moving ? (frame + "_") : "") + orientation + ".png"));
+              imageDirectory + "red/" + type + "_"
+                      + (moving ? (frame + "_") : "") + orientation + ".png"));
       images.put(key, image);
     }
 
