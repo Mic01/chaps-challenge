@@ -66,7 +66,7 @@
 	}, {
 		"tile": "Floor",
 		"x": 21,
-		"y": 24,
+		"y": 25,
 		"slot": "Chip"
 	}, {
 		"tile": "Wall",
@@ -102,7 +102,7 @@
 	}, {
 		"tile": "Floor",
 		"x": 23,
-		"y": 24,
+		"y": 25,
 		"slot": "Chip"
 	}, {
 		"tile": "Door",
@@ -140,12 +140,17 @@
 	}, {
 		"tile": "Floor",
 		"x": 25,
-		"y": 24,
+		"y": 25,
 		"slot": "Chip"
 	}, {
 		"tile": "Wall",
 		"x": 25,
 		"y": 26
+	},{
+		"tile": "Floor",
+		"x": 25,
+		"y": 29,
+		"slot": "Chip"
 	}, {
 		"tile": "Wall",
 		"x": 25,
@@ -243,7 +248,7 @@
 		"tile": "Lock",
 		"x": 29,
 		"y": 26,
-		"chips": 8
+		"chips": 9
 	}, {
 		"tile": "Wall",
 		"x": 29,
