@@ -32,7 +32,6 @@ public class Persistence {
      * @return Tile[][] = level 2D tile array.
      */
     public static Tile[][] loadLevel(String fileName, Maze mazeObject) {
-
         //creates empty maze
         Tile[][] maze = new Tile[80][80];
         for (int i = 0; i < 80; i++) {
@@ -94,6 +93,10 @@ public class Persistence {
 
                         case "Lock":
                             maze[obj.getInt("x")][obj.getInt("y")] = new ExitLock(obj.getInt("chips"));
+                            break;
+
+                        case "Info":
+                            maze[obj.getInt("x")][obj.getInt("y")] = new InfoTile(obj.getString("text"));
                             break;
                     }
                 }

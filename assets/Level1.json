@@ -1,307 +1,464 @@
 [{
 	"tile": "Inside",
-	"x1": 10,
-	"y1": 10,
-	"x2": 19,
-	"y2": 19
+	"x1": 20,
+	"y1": 20,
+	"x2": 38,
+	"y2": 32
 
 },
 	[{
 		"tile": "Wall",
-		"x": 10,
-		"y": 10
-	},
-		{
-			"tile": "Wall",
-			"x": 10,
-			"y": 11
-		},
-		{
-			"tile": "Wall",
-			"x": 10,
-			"y": 12
-		},
-		{
-			"tile": "Wall",
-			"x": 10,
-			"y": 13
-		},
-		{
-			"tile": "Wall",
-			"x": 10,
-			"y": 14
-		},
-		{
-			"tile": "Wall",
-			"x": 10,
-			"y": 15
-		},
-		{
-			"tile": "Wall",
-			"x": 10,
-			"y": 16
-		},
-		{
-			"tile": "Wall",
-			"x": 10,
-			"y": 17
-		},
-		{
-			"tile": "Wall",
-			"x": 10,
-			"y": 18
-		}
-	],
+		"x": 20,
+		"y": 20
+	}, {
+		"tile": "Wall",
+		"x": 20,
+		"y": 21
+	}, {
+		"tile": "Wall",
+		"x": 20,
+		"y": 22
+	}, {
+		"tile": "Wall",
+		"x": 20,
+		"y": 23
+	}, {
+		"tile": "Wall",
+		"x": 20,
+		"y": 24
+	}, {
+		"tile": "Wall",
+		"x": 20,
+		"y": 25
+	}, {
+		"tile": "Wall",
+		"x": 20,
+		"y": 26
+	}, {
+		"tile": "Wall",
+		"x": 20,
+		"y": 27
+	}, {
+		"tile": "Wall",
+		"x": 20,
+		"y": 28
+	}, {
+		"tile": "Wall",
+		"x": 20,
+		"y": 29
+	}, {
+		"tile": "Wall",
+		"x": 20,
+		"y": 30
+	}, {
+		"tile": "Wall",
+		"x": 20,
+		"y": 31
+	}, {
+		"tile": "Wall",
+		"x": 20,
+		"y": 32
+	}],
 	[{
 		"tile": "Wall",
-		"x": 11,
-		"y": 10
-	},
-		{
-			"tile": "Wall",
-			"x": 11,
-			"y": 12
-		},
-		{
-			"tile": "Floor",
-			"x": 11,
-			"y": 13,
-			"slot": "Chip"
-		},
-		{
-			"tile": "Wall",
-			"x": 11,
-			"y": 14
-		},
-		{
-			"tile": "Wall",
-			"x": 11,
-			"y": 18
-		}
-	],
+		"x": 21,
+		"y": 20
+	}, {
+		"tile": "Floor",
+		"x": 21,
+		"y": 24,
+		"slot": "Chip"
+	}, {
+		"tile": "Wall",
+		"x": 21,
+		"y": 26
+	}, {
+		"tile": "Wall",
+		"x": 21,
+		"y": 32
+	}],
 	[{
 		"tile": "Wall",
-		"x": 12,
-		"y": 10
-	},
-		{
-			"tile": "End",
-			"x": 12,
-			"y": 11
-		},
-		{
-			"tile": "Lock",
-			"x": 12,
-			"y": 12,
-			"chips": 4
-		},
-		{
-			"tile": "Door",
-			"x": 12,
-			"y": 14,
-			"colour": "Green",
-			"vertical": false
-		},
-		{
-			"tile": "Floor",
-			"x": 12,
-			"y": 16,
-			"slot": "Chip"
-		},
-		{
-			"tile": "Wall",
-			"x": 12,
-			"y": 18
-		}
-	],
+		"x": 22,
+		"y": 20
+	}, {
+		"tile": "Wall",
+		"x": 22,
+		"y": 26
+	}, {
+		"tile": "Wall",
+		"x": 22,
+		"y": 32
+	}],
 	[{
 		"tile": "Wall",
-		"x": 13,
-		"y": 10
-	},
-		{
-			"tile": "Wall",
-			"x": 13,
-			"y": 12
-		},
-		{
-			"tile": "Wall",
-			"x": 13,
-			"y": 14
-		},
-		{
-			"tile": "Wall",
-			"x": 13,
-			"y": 18
-		}
-	],
+		"x": 23,
+		"y": 20
+	}, {
+		"tile": "Floor",
+		"x": 23,
+		"y": 21,
+		"slot": "Chip"
+	}, {
+		"tile": "Floor",
+		"x": 23,
+		"y": 24,
+		"slot": "Chip"
+	}, {
+		"tile": "Door",
+		"x": 23,
+		"y": 26,
+		"colour": "Green",
+		"vertical": false
+	}, {
+		"tile": "Floor",
+		"x": 23,
+		"y": 29,
+		"slot": "Chip"
+	}, {
+		"tile": "Wall",
+		"x": 23,
+		"y": 32
+	}],
 	[{
 		"tile": "Wall",
-		"x": 14,
-		"y": 10
-	},
-		{
-			"tile": "Wall",
-			"x": 14,
-			"y": 11
-		},
-		{
-			"tile": "Wall",
-			"x": 14,
-			"y": 12
-		},
-		{
-			"tile": "Wall",
-			"x": 14,
-			"y": 13
-		},
-		{
-			"tile": "Wall",
-			"x": 14,
-			"y": 14
-		},
-		{
-			"tile": "Wall",
-			"x": 14,
-			"y": 15
-		},
-		{
-			"tile": "Door",
-			"x": 14,
-			"y": 16,
-			"colour": "Blue",
-			"vertical": true
-		},
-		{
-			"tile": "Wall",
-			"x": 14,
-			"y": 17
-		},
-		{
-			"tile": "Wall",
-			"x": 14,
-			"y": 18
-		}
-	],
+		"x": 24,
+		"y": 20
+	}, {
+		"tile": "Wall",
+		"x": 24,
+		"y": 26
+	}, {
+		"tile": "Wall",
+		"x": 24,
+		"y": 32
+	}],
 	[{
 		"tile": "Wall",
-		"x": 15,
-		"y": 10
-	},
-		{
-			"tile": "Wall",
-			"x": 15,
-			"y": 14
-		},
-		{
-			"tile": "Floor",
-			"x": 15,
-			"y": 15,
-			"slot": "Key",
-			"colour": "Blue"
-		},
-		{
-			"tile": "Floor",
-			"x": 15,
-			"y": 17,
-			"slot": "Chip"
-		}, {
+		"x": 25,
+		"y": 20
+	}, {
+		"tile": "Floor",
+		"x": 25,
+		"y": 24,
+		"slot": "Chip"
+	}, {
 		"tile": "Wall",
-		"x": 15,
-		"y": 18
-	}
-	],
+		"x": 25,
+		"y": 26
+	}, {
+		"tile": "Wall",
+		"x": 25,
+		"y": 32
+	}],
 	[{
 		"tile": "Wall",
-		"x": 16,
-		"y": 10
-	},
-		{
-			"tile": "Floor",
-			"x": 16,
-			"y": 11,
-			"slot": "Key",
-			"colour": "Green"
-		},
-		{
-			"tile": "Floor",
-			"x": 16,
-			"y": 16,
-			"slot": "Player"
-		},
-		{
-			"tile": "Wall",
-			"x": 16,
-			"y": 18
-		}
-	],
+		"x": 26,
+		"y": 20
+	}, {
+		"tile": "Wall",
+		"x": 26,
+		"y": 21
+	}, {
+		"tile": "Wall",
+		"x": 26,
+		"y": 22
+	}, {
+		"tile": "Wall",
+		"x": 26,
+		"y": 23
+	}, {
+		"tile": "Wall",
+		"x": 26,
+		"y": 24
+	}, {
+		"tile": "Wall",
+		"x": 26,
+		"y": 25
+	}, {
+		"tile": "Wall",
+		"x": 26,
+		"y": 26
+	}, {
+		"tile": "Wall",
+		"x": 26,
+		"y": 27
+	}, {
+		"tile": "Wall",
+		"x": 26,
+		"y": 28
+	}, {
+		"tile": "Wall",
+		"x": 26,
+		"y": 30
+	}, {
+		"tile": "Wall",
+		"x": 26,
+		"y": 31
+	}, {
+		"tile": "Wall",
+		"x": 26,
+		"y": 32
+	}],
 	[{
 		"tile": "Wall",
-		"x": 17,
-		"y": 10
-	},
-		{
-			"tile": "Floor",
-			"x": 17,
-			"y": 11,
-			"slot": "Chip"
-		},
-		{
-			"tile": "Wall",
-			"x": 17,
-			"y": 14
-		},
-		{
-			"tile": "Wall",
-			"x": 17,
-			"y": 18
-		}
-	],
+		"x": 27,
+		"y": 20
+	}, {
+		"tile": "Wall",
+		"x": 27,
+		"y": 26
+	}, {
+		"tile": "Wall",
+		"x": 27,
+		"y": 32
+	}],
 	[{
 		"tile": "Wall",
-		"x": 18,
-		"y": 10
-	},
-		{
-			"tile": "Wall",
-			"x": 18,
-			"y": 11
-		},
-		{
-			"tile": "Wall",
-			"x": 18,
-			"y": 12
-		},
-		{
-			"tile": "Wall",
-			"x": 18,
-			"y": 13
-		},
-		{
-			"tile": "Wall",
-			"x": 18,
-			"y": 14
-		},
-		{
-			"tile": "Wall",
-			"x": 18,
-			"y": 15
-		},
-		{
-			"tile": "Wall",
-			"x": 18,
-			"y": 16
-		},
-		{
-			"tile": "Wall",
-			"x": 18,
-			"y": 17
-		},
-		{
-			"tile": "Wall",
-			"x": 18,
-			"y": 18
-		}
-	]
+		"x": 28,
+		"y": 20
+	}, {
+		"tile": "Wall",
+		"x": 28,
+		"y": 26
+	}, {
+		"tile": "Floor",
+		"x": 28,
+		"y": 29,
+		"slot": "Chip"
+	}, {
+		"tile": "Wall",
+		"x": 28,
+		"y": 32
+	}],
+	[{
+		"tile": "Wall",
+		"x": 29,
+		"y": 20
+	}, {
+		"tile": "End",
+		"x": 29,
+		"y": 23
+	}, {
+		"tile": "Lock",
+		"x": 29,
+		"y": 26,
+		"chips": 8
+	}, {
+		"tile": "Wall",
+		"x": 29,
+		"y": 32
+	}],
+	[{
+		"tile": "Wall",
+		"x": 30,
+		"y": 20
+	}, {
+		"tile": "Wall",
+		"x": 30,
+		"y": 26
+	}, {
+		"tile": "Floor",
+		"x": 30,
+		"y": 29,
+		"slot": "Chip"
+	}, {
+		"tile": "Wall",
+		"x": 30,
+		"y": 32
+	}],
+	[{
+		"tile": "Wall",
+		"x": 31,
+		"y": 20
+	}, {
+		"tile": "Wall",
+		"x": 31,
+		"y": 26
+	}, {
+		"tile": "Wall",
+		"x": 31,
+		"y": 32
+	}],
+	[{
+		"tile": "Wall",
+		"x": 32,
+		"y": 20
+	}, {
+		"tile": "Wall",
+		"x": 32,
+		"y": 21
+	}, {
+		"tile": "Wall",
+		"x": 32,
+		"y": 22
+	}, {
+		"tile": "Wall",
+		"x": 32,
+		"y": 23
+	}, {
+		"tile": "Wall",
+		"x": 32,
+		"y": 24
+	}, {
+		"tile": "Wall",
+		"x": 32,
+		"y": 25
+	}, {
+		"tile": "Wall",
+		"x": 32,
+		"y": 26
+	}, {
+		"tile": "Wall",
+		"x": 32,
+		"y": 27
+	}, {
+		"tile": "Wall",
+		"x": 32,
+		"y": 28
+	}, {
+		"tile": "Door",
+		"x": 32,
+		"y": 29,
+		"colour": "Blue",
+		"vertical": true
+	}, {
+		"tile": "Wall",
+		"x": 32,
+		"y": 30
+	}, {
+		"tile": "Wall",
+		"x": 32,
+		"y": 31
+	}, {
+		"tile": "Wall",
+		"x": 32,
+		"y": 32
+	}],
+	[{
+		"tile": "Wall",
+		"x": 33,
+		"y": 20
+	}, {
+		"tile": "Floor",
+		"x": 33,
+		"y": 21,
+		"slot": "Chip"
+	}, {
+		"tile": "Floor",
+		"x": 33,
+		"y": 27,
+		"slot": "Key",
+		"colour": "Blue"
+	}, {
+		"tile": "Wall",
+		"x": 33,
+		"y": 32
+	}],
+	[{
+		"tile": "Wall",
+		"x": 34,
+		"y": 20
+	}, {
+		"tile": "Wall",
+		"x": 34,
+		"y": 32
+	}],
+	[{
+		"tile": "Wall",
+		"x": 35,
+		"y": 20
+	}, {
+		"tile": "Info",
+		"x": 35,
+		"y": 28,
+		"text": "howdy"
+	}, {
+		"tile": "Floor",
+		"x": 35,
+		"y": 29,
+		"slot": "Player"
+	}, {
+		"tile": "Wall",
+		"x": 35,
+		"y": 32
+	}],
+	[{
+		"tile": "Wall",
+		"x": 36,
+		"y": 20
+	}, {
+		"tile": "Wall",
+		"x": 36,
+		"y": 32
+	}],
+	[{
+		"tile": "Wall",
+		"x": 37,
+		"y": 20
+	}, {
+		"tile": "Floor",
+		"x": 37,
+		"y": 21,
+		"slot": "Key",
+		"colour": "Green"
+	}, {
+		"tile": "Wall",
+		"x": 37,
+		"y": 32
+	}],
+	[{
+		"tile": "Wall",
+		"x": 38,
+		"y": 20
+	}, {
+		"tile": "Wall",
+		"x": 38,
+		"y": 21
+	}, {
+		"tile": "Wall",
+		"x": 38,
+		"y": 22
+	}, {
+		"tile": "Wall",
+		"x": 38,
+		"y": 23
+	}, {
+		"tile": "Wall",
+		"x": 38,
+		"y": 24
+	}, {
+		"tile": "Wall",
+		"x": 38,
+		"y": 25
+	}, {
+		"tile": "Wall",
+		"x": 38,
+		"y": 26
+	}, {
+		"tile": "Wall",
+		"x": 38,
+		"y": 27
+	}, {
+		"tile": "Wall",
+		"x": 38,
+		"y": 28
+	}, {
+		"tile": "Wall",
+		"x": 38,
+		"y": 29
+	}, {
+		"tile": "Wall",
+		"x": 38,
+		"y": 30
+	}, {
+		"tile": "Wall",
+		"x": 38,
+		"y": 31
+	}, {
+		"tile": "Wall",
+		"x": 38,
+		"y": 32
+	}]
 
 ]
