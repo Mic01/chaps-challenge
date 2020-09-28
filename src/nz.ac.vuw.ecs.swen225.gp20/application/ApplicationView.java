@@ -95,81 +95,89 @@ public class ApplicationView {
 
         JButton left = new JButton("\uD83E\uDC50");
         left.addActionListener(actionEvent -> {
-            maze.getPlayer().moveLeft();
-            ArrayList<Actor> toMove = new ArrayList<>();
-            toMove.add(maze.getPlayer());
+            if(maze.getPlayer().moveLeft()) {
+                ArrayList<Actor> toMove = new ArrayList<>();
+                toMove.add(maze.getPlayer());
+                viewport.draw(toMove);
+            }
             log.addAction("moveLeft");
-            viewport.draw(toMove);
         });
         left.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("LEFT"), "moveLeft");
         left.getActionMap().put("moveLeft", new AbstractAction("moveLeft") {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                maze.getPlayer().moveLeft();
-                ArrayList<Actor> toMove = new ArrayList<>();
-                toMove.add(maze.getPlayer());
+                if(maze.getPlayer().moveLeft()) {
+                    ArrayList<Actor> toMove = new ArrayList<>();
+                    toMove.add(maze.getPlayer());
+                    viewport.draw(toMove);
+                }
                 log.addAction("moveLeft");
-                viewport.draw(toMove);
             }
         });
 
         JButton up = new JButton("\uD83E\uDC51");
         up.addActionListener(actionEvent -> {
-            maze.getPlayer().moveUp();
-            ArrayList<Actor> toMove = new ArrayList<>();
-            toMove.add(maze.getPlayer());
+            if(maze.getPlayer().moveUp()) {
+                ArrayList<Actor> toMove = new ArrayList<>();
+                toMove.add(maze.getPlayer());
+                viewport.draw(toMove);
+            }
             log.addAction("moveUp");
-            viewport.draw(toMove);
         });
         up.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("UP"), "moveUp");
         up.getActionMap().put("moveUp", new AbstractAction("moveUp") {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                maze.getPlayer().moveUp();
-                ArrayList<Actor> toMove = new ArrayList<>();
-                toMove.add(maze.getPlayer());
+                if(maze.getPlayer().moveUp()) {
+                    ArrayList<Actor> toMove = new ArrayList<>();
+                    toMove.add(maze.getPlayer());
+                    viewport.draw(toMove);
+                }
                 log.addAction("moveUp");
-                viewport.draw(toMove);
             }
         });
 
         JButton down = new JButton("\uD83E\uDC53");
         down.addActionListener(actionEvent -> {
-            maze.getPlayer().moveDown();
-            ArrayList<Actor> toMove = new ArrayList<>();
-            toMove.add(maze.getPlayer());
+            if(maze.getPlayer().moveDown()) {
+                ArrayList<Actor> toMove = new ArrayList<>();
+                toMove.add(maze.getPlayer());
+                viewport.draw(toMove);
+            }
             log.addAction("moveDown");
-            viewport.draw(toMove);
         });
         down.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("DOWN"), "moveDown");
         down.getActionMap().put("moveDown", new AbstractAction("moveDown") {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                maze.getPlayer().moveDown();
-                ArrayList<Actor> toMove = new ArrayList<>();
-                toMove.add(maze.getPlayer());
+                if(maze.getPlayer().moveDown()) {
+                    ArrayList<Actor> toMove = new ArrayList<>();
+                    toMove.add(maze.getPlayer());
+                    viewport.draw(toMove);
+                }
                 log.addAction("moveDown");
-                viewport.draw(toMove);
             }
         });
 
         JButton right = new JButton("\uD83E\uDC52");
         right.addActionListener(actionEvent -> {
-            maze.getPlayer().moveRight();
-            ArrayList<Actor> toMove = new ArrayList<>();
-            toMove.add(maze.getPlayer());
+            if(maze.getPlayer().moveRight()) {
+                ArrayList<Actor> toMove = new ArrayList<>();
+                toMove.add(maze.getPlayer());
+                viewport.draw(toMove);
+            }
             log.addAction("moveRight");
-            viewport.draw(toMove);
         });
         right.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("RIGHT"), "moveRight");
         right.getActionMap().put("moveRight", new AbstractAction("moveRight") {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                maze.getPlayer().moveRight();
-                ArrayList<Actor> toMove = new ArrayList<>();
-                toMove.add(maze.getPlayer());
+                if(maze.getPlayer().moveRight()) {
+                    ArrayList<Actor> toMove = new ArrayList<>();
+                    toMove.add(maze.getPlayer());
+                    viewport.draw(toMove);
+                }
                 log.addAction("moveRight");
-                viewport.draw(toMove);
             }
         });
 
