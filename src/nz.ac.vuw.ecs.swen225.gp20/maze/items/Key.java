@@ -1,5 +1,10 @@
 package nz.ac.vuw.ecs.swen225.gp20.maze.items;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
 public class Key extends Item {
   private final String colour;
 
@@ -23,5 +28,10 @@ public class Key extends Item {
       return this.colour.equals(otherKey.colour);
     }
     return false;
+  }
+
+  @Override
+  public BufferedImage getImage() throws IOException {
+    return ImageIO.read(new File(imageDirectory + "key_" + colour + ".png"));
   }
 }

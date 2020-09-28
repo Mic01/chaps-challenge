@@ -14,8 +14,13 @@ import java.util.ArrayList;
  * @author Luke Hawinkels: hawinkluke
  */
 public class Replay {
+
   private ArrayList history = new ArrayList();
-  Playback replay;
+  String levelName;
+
+  public Replay (String levelName) {
+    this.levelName = levelName;
+  }
   
   /**
    * Add an action to the history.
@@ -26,23 +31,6 @@ public class Replay {
   public <T extends Object> void addAction(T action) {
     history.add(action);
   }
-  
-  /**
-   * Load the replay from a json file.
-   *
-   * @param filePath the file to load.
-   * @param timeScale The initial speed of the replay.
-   * @return the playback object
-   */
-  public Playback loadReplay(String filePath, int timeScale) {
-    parseJson("src/nz.ac.vuw.ecs.swen225.gp20/recnplay/Test Files/testJson.json");
-
-    //Get json file and create the playback object
-    Playback replay = new Playback(timeScale);
-
-    //Return the replay
-    return replay;
-  }
 
   /**
    * Parse the json file.
@@ -50,7 +38,7 @@ public class Replay {
    * @param filePath the file to parseObject
    */
   private void parseJson(String filePath) {
-    File file = new File("src/nz.ac.vuw.ecs.swen225.gp20/recnplay/Test Files/testJson.json");
+    File file = new File(filePath);
     FileReader toRead = null;
     try {
       toRead = new FileReader(file, StandardCharsets.UTF_8);
