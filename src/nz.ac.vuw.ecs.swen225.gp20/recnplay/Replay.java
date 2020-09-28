@@ -14,8 +14,14 @@ import java.util.ArrayList;
  * @author Luke Hawinkels: hawinkluke
  */
 public class Replay {
+
   private ArrayList history = new ArrayList();
   Playback replay;
+  String levelName;
+
+  Replay (String levelName) {
+    this.levelName = levelName;
+  }
   
   /**
    * Add an action to the history.
@@ -35,7 +41,7 @@ public class Replay {
    * @return the playback object
    */
   public Playback loadReplay(String filePath, int timeScale) {
-    parseJson("src/nz.ac.vuw.ecs.swen225.gp20/recnplay/Test Files/testJson.json");
+    parseJson(filePath);
 
     //Get json file and create the playback object
     Playback replay = new Playback(timeScale);
@@ -50,7 +56,7 @@ public class Replay {
    * @param filePath the file to parseObject
    */
   private void parseJson(String filePath) {
-    File file = new File("src/nz.ac.vuw.ecs.swen225.gp20/recnplay/Test Files/testJson.json");
+    File file = new File(filePath);
     FileReader toRead = null;
     try {
       toRead = new FileReader(file, StandardCharsets.UTF_8);
