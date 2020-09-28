@@ -1,16 +1,18 @@
 package nz.ac.vuw.ecs.swen225.gp20.render;
 
-import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
-import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
-import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.*;
-
-import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.swing.*;
+
+import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
+import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
+import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.FreeTile;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.NullTile;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
 import static java.lang.Thread.sleep;
 
 /**
@@ -19,20 +21,10 @@ import static java.lang.Thread.sleep;
 public class Board extends JPanel {
 
   // Constant Variables
-  private final int visionRange = 9;
-  private final int reach = visionRange / 2;
-  private final int tileSize = 70;
-  private final int sleepTime = 100; //Time in ms before each draw (ill be adding half frames)
-
-  //Method Enums
-  private enum Soundeffects {
-    metalWalk, waterSwim, iceWalk, lavaSwim, slide, pickup_item, finish_level, death, openDoor
-  }
-
-  private enum Animations {
-    doorOpen, death
-  }
-
+  private static final int visionRange = 9;
+  private static final int reach = visionRange / 2;
+  private static final int tileSize = 70;
+  private static final int sleepTime = 100; //Time in ms before each draw (ill be adding half frames)
   //Rendering Variable
   private Tile[][] level;
   private Tile[][] lastVision;
@@ -98,7 +90,7 @@ public class Board extends JPanel {
    * Draws the visible board and all entities on-top of tiles,
    * Calls the pre-built paint function of the JPanel and draws with graphics.
    *
-   * @param moving    All moving chars, Draw a frame of each animation
+   * @param moving All moving chars, Draw a frame of each animation
    */
   public void draw(ArrayList<Actor> moving) {
     setVision();
@@ -108,9 +100,11 @@ public class Board extends JPanel {
     this.repaint();
     this.revalidate();
 
-    try{
+    try {
       sleep(sleepTime);
-    }catch(InterruptedException e){ System.out.println(e); }
+    } catch (InterruptedException e) {
+      System.out.println(e);
+    }
   }
 
   @Override
@@ -136,7 +130,7 @@ public class Board extends JPanel {
       for (int y = 0; y <= visionRange - 1; y++) {
         g.drawImage(vision[x][y].getImage(),
                 (x * tileSize) + offset, (y * tileSize) + offset, this);
-        if(vision[x][y] instanceof FreeTile && ((FreeTile) vision[x][y]).hasItem()){
+        if (vision[x][y] instanceof FreeTile && ((FreeTile) vision[x][y]).hasItem()) {
           g.drawImage(((FreeTile) vision[x][y]).getItem().getImage(),
                   (x * tileSize) + offset, (y * tileSize) + offset, this);
         }
@@ -164,11 +158,10 @@ public class Board extends JPanel {
         }
       }
     }*/
-    if(!playerMoved) {
+    if (!playerMoved) {
       g.drawImage(player.getImage(false),
               (getVisionX(player.getX()) * tileSize) + offset, (getVisionY(player.getY()) * tileSize) + offset, this);
     }
-
 
 
   }
@@ -280,5 +273,14 @@ public class Board extends JPanel {
             ", actors=" + actors +
             ", animation='" + animation + '\'' +
             '}';
+  }
+
+  //Method Enums
+  private enum Soundeffects {
+    metalWalk, waterSwim, iceWalk, lavaSwim, slide, pickup_item, finish_level, death, openDoor
+  }
+
+  private enum Animations {
+    doorOpen, death
   }
 }

@@ -2,9 +2,9 @@
 Class: Board, Interacts: Maze, Line 73
 Class: Board, Interacts: Maze, Line 74
 Class: Board, Interacts: Maze, Line 75
-Class: Board, Interacts: Maze, Line 168
-Class: Board, Interacts: Maze, Line 254
-Class: Board, Interacts: Maze, Line 264
+Class: Board, Interacts: Maze, Line 169
+Class: Board, Interacts: Maze, Line 256
+Class: Board, Interacts: Maze, Line 266
 
 ----- Module Persistence -----
 Class: Persistence, Interacts: Maze, Line 39
