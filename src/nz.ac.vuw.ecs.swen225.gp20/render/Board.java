@@ -24,7 +24,8 @@ public class Board extends JPanel {
   private static final int visionRange = 9;
   private static final int reach = visionRange / 2;
   private static final int tileSize = 70;
-  private static final int sleepTime = 100; //Time in ms before each draw (ill be adding half frames)
+  private static final int sleepTime = 50; //Time in ms before each draw
+
   //Rendering Variable
   private Tile[][] level;
   private Tile[][] lastVision;
@@ -34,6 +35,15 @@ public class Board extends JPanel {
   private ArrayList<Actor> moving = new ArrayList<>();
   private ArrayList<Actor> actors = new ArrayList<>();
   private String animation;
+
+  //Method Enums
+  private enum Soundeffects {
+    metalWalk, waterSwim, iceWalk, lavaSwim, slide, pickup_item, finish_level, death, openDoor
+  }
+  private enum Animations {
+    doorOpen, death
+  }
+
   /**
    * Construct a new Board when a new level is loaded.
    *
@@ -99,12 +109,6 @@ public class Board extends JPanel {
 
     this.repaint();
     this.revalidate();
-
-    try {
-      sleep(sleepTime);
-    } catch (InterruptedException e) {
-      System.out.println(e);
-    }
   }
 
   @Override
@@ -112,8 +116,25 @@ public class Board extends JPanel {
     try {
       super.paintComponent(g);
       Graphics2D g2d = (Graphics2D) g.create();
-      drawTiles(g2d, 0);
-      drawEntities(g2d, 0);
+
+      //To draw half frame
+      if(moving.contains(player)){
+        System.out.print("draw half frame");
+        int xOffset = getOffsetX();
+        int yOffset = getOffsetY();
+        drawTiles(g2d, xOffset, yOffset);
+        drawEntities(g2d, xOffset, yOffset);
+      }
+
+      try {
+        sleep(sleepTime);
+      } catch (InterruptedException e) {
+        System.out.println(e);
+      }
+
+      //Draw full frame
+      drawTiles(g2d, 0, 0);
+      drawEntities(g2d, 0, 0);
       //drawAnimations(g);
       g2d.dispose();
     } catch (IOException e) {
@@ -125,14 +146,16 @@ public class Board extends JPanel {
    * First step of draw method,
    * draws all tiles in players current vision.
    */
-  private void drawTiles(Graphics g, int offset) throws IOException {
+  private void drawTiles(Graphics g, int xOffset, int yOffset) throws IOException {
     for (int x = 0; x <= visionRange - 1; x++) {
       for (int y = 0; y <= visionRange - 1; y++) {
         g.drawImage(vision[x][y].getImage(),
-                (x * tileSize) + offset, (y * tileSize) + offset, this);
+                (x * tileSize) + xOffset, (y * tileSize) + yOffset, this);
+
+        //Check if tile has item, draw tile with item
         if (vision[x][y] instanceof FreeTile && ((FreeTile) vision[x][y]).hasItem()) {
           g.drawImage(((FreeTile) vision[x][y]).getItem().getImage(),
-                  (x * tileSize) + offset, (y * tileSize) + offset, this);
+                  (x * tileSize) + xOffset, (y * tileSize) + yOffset, this);
         }
       }
     }
@@ -142,7 +165,7 @@ public class Board extends JPanel {
    * Second step of draw method,
    * draws a new frame of every actor that has moved this round.
    */
-  private void drawEntities(Graphics g, int offset) throws IOException {
+  private void drawEntities(Graphics g, int xOffset, int yOffset) throws IOException {
     boolean playerMoved = false;
     /*for (Actor actor : moving) {
       g.drawImage(actor.getImage(true),
@@ -160,7 +183,7 @@ public class Board extends JPanel {
     }*/
     if (!playerMoved) {
       g.drawImage(player.getImage(false),
-              (getVisionX(player.getX()) * tileSize) + offset, (getVisionY(player.getY()) * tileSize) + offset, this);
+              (getVisionX(player.getX()) * tileSize) + xOffset, (getVisionY(player.getY()) * tileSize) + yOffset, this);
     }
 
 
@@ -258,6 +281,24 @@ public class Board extends JPanel {
     return y - player.getY() + reach;
   }
 
+  /**
+   * Find offset for drawing half frames,
+   * by checking direction they moved from.
+   * @return x offset
+   */
+  public int getOffsetX(){
+    return (player.getX()-player.getPrevX())*35;
+  }
+
+  /**
+   * Find offset for drawing half frames,
+   * by checking direction they moved from.
+   * @return y offset
+   */
+  public int getOffsetY(){
+    return (player.getY()-player.getPrevY())*35;
+  }
+
   @Override
   public String toString() {
     return "Board{" +
@@ -273,14 +314,5 @@ public class Board extends JPanel {
             ", actors=" + actors +
             ", animation='" + animation + '\'' +
             '}';
-  }
-
-  //Method Enums
-  private enum Soundeffects {
-    metalWalk, waterSwim, iceWalk, lavaSwim, slide, pickup_item, finish_level, death, openDoor
-  }
-
-  private enum Animations {
-    doorOpen, death
   }
 }
