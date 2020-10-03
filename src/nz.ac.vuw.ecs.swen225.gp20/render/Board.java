@@ -10,9 +10,7 @@ import javax.swing.*;
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.FreeTile;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.NullTile;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.*;
 import static java.lang.Thread.sleep;
 
 /**
@@ -119,13 +117,15 @@ public class Board extends JPanel {
 
       //To draw half frame
       if(moving.contains(player)){
-        System.out.print("draw half frame");
+        System.out.println("draw half frame");
         int xOffset = getOffsetX();
         int yOffset = getOffsetY();
+        System.out.println("x-offset:" +xOffset+", y-offset:"+yOffset);
         drawTiles(g2d, xOffset, yOffset);
         drawEntities(g2d, xOffset, yOffset);
       }
 
+      //sleep between frame
       try {
         sleep(sleepTime);
       } catch (InterruptedException e) {
@@ -133,6 +133,7 @@ public class Board extends JPanel {
       }
 
       //Draw full frame
+      System.out.println("draw full frame");
       drawTiles(g2d, 0, 0);
       drawEntities(g2d, 0, 0);
       //drawAnimations(g);
@@ -167,9 +168,15 @@ public class Board extends JPanel {
    */
   private void drawEntities(Graphics g, int xOffset, int yOffset) throws IOException {
     boolean playerMoved = false;
-    /*for (Actor actor : moving) {
-      g.drawImage(actor.getImage(true),
-              (actor.getX() * tileSize) + offset, (actor.getY() * tileSize) + offset, this);
+    for (Actor actor : moving) {
+      //If actor is player, draw directly in center
+      if(!actor.equals(player)) {
+        g.drawImage(actor.getImage(true),
+                (actor.getX() * tileSize) + xOffset, (actor.getY() * tileSize) + yOffset, this);
+      }else{
+        g.drawImage(player.getImage(true),
+                (getVisionX(player.getX()) * tileSize), (getVisionY(player.getY()) * tileSize), this);
+      }
       if(actor.equals(player)) {
         playerMoved = true;
         if (actor.getCurrentTile() instanceof Ice) {
@@ -180,10 +187,10 @@ public class Board extends JPanel {
           playSound("metalWalk");
         }
       }
-    }*/
+    }
     if (!playerMoved) {
       g.drawImage(player.getImage(false),
-              (getVisionX(player.getX()) * tileSize) + xOffset, (getVisionY(player.getY()) * tileSize) + yOffset, this);
+              (getVisionX(player.getX()) * tileSize), (getVisionY(player.getY()) * tileSize), this);
     }
 
 
