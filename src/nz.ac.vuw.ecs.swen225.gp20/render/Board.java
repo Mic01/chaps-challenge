@@ -4,6 +4,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
 
@@ -22,7 +23,7 @@ public class Board extends JPanel {
   private static final int visionRange = 9;
   private static final int reach = visionRange / 2;
   private static final int tileSize = 70;
-  private static final int sleepTime = 50; //Time in ms before each draw
+  private static final int sleepTime = 200; //Time in ms before each draw
 
   //Rendering Variable
   private Tile[][] level;
@@ -33,6 +34,7 @@ public class Board extends JPanel {
   private ArrayList<Actor> moving = new ArrayList<>();
   private ArrayList<Actor> actors = new ArrayList<>();
   private String animation;
+  private boolean halfFrame;
 
   //Method Enums
   private enum Soundeffects {
@@ -105,6 +107,22 @@ public class Board extends JPanel {
     this.moving = moving;
     //this.animation = animation; when mich adds deaths
 
+    //If player is currenty moving, draw a half frame
+    if(moving.contains(player)){
+      halfFrame = true;
+      this.repaint();
+      this.validate();
+
+      //sleep between frame
+      try {
+        TimeUnit.MILLISECONDS.sleep(sleepTime);
+      } catch (InterruptedException e) {
+        System.out.println(e);
+      }
+    }
+
+    //Draw full frame
+    halfFrame = false;
     this.repaint();
     this.revalidate();
   }
@@ -114,30 +132,24 @@ public class Board extends JPanel {
     try {
       super.paintComponent(g);
       Graphics2D g2d = (Graphics2D) g.create();
+      int xOffset = 0;
+      int yOffset = 0;
 
-      //To draw half frame
-      if(moving.contains(player)){
-        System.out.println("draw half frame");
-        int xOffset = getOffsetX();
-        int yOffset = getOffsetY();
-        System.out.println("x-offset:" +xOffset+", y-offset:"+yOffset);
-        drawTiles(g2d, xOffset, yOffset);
+      //Get offsets if currently drawing halfFrame
+      if(halfFrame){ //todo this is always false. it has to do with java swing only drawing the last repaint() from draw method.
+        System.out.println("Drawn half frame");
+        xOffset = getOffsetX();
+        yOffset = getOffsetY();
+        drawTiles(g2d, 0, 0, lastVision);
         drawEntities(g2d, xOffset, yOffset);
-      }
-
-      //sleep between frame
-      try {
-        sleep(sleepTime);
-      } catch (InterruptedException e) {
-        System.out.println(e);
+        //drawAnimations(g);
       }
 
       //Draw full frame
-      System.out.println("draw full frame");
-      drawTiles(g2d, 0, 0);
-      drawEntities(g2d, 0, 0);
-      //drawAnimations(g);
+      drawTiles(g2d, xOffset, yOffset, vision);
+      drawEntities(g2d, xOffset, yOffset);
       g2d.dispose();
+
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -147,7 +159,7 @@ public class Board extends JPanel {
    * First step of draw method,
    * draws all tiles in players current vision.
    */
-  private void drawTiles(Graphics g, int xOffset, int yOffset) throws IOException {
+  private void drawTiles(Graphics g, int xOffset, int yOffset, Tile[][] vision) throws IOException {
     for (int x = 0; x <= visionRange - 1; x++) {
       for (int y = 0; y <= visionRange - 1; y++) {
         g.drawImage(vision[x][y].getImage(),
