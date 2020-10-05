@@ -19,7 +19,7 @@ public class ApplicationView {
     private JFrame window;
     private final JMenu save = new JMenu("Save");
     private final JMenu load = new JMenu("Load");
-    private final JMenuItem saveGame = new JMenuItem("Save Game");
+    private final JMenuItem saveReplay = new JMenuItem("Save Replay");
     private final JMenuItem loadGame = new JMenuItem("Load Game");
 
 
@@ -65,12 +65,15 @@ public class ApplicationView {
      * Adds contents to the constructed JFrame.
      */
     private void addToWindow() {
+
         JMenuBar saveLoad = new JMenuBar();
-        this.save.add(this.saveGame);
+        this.saveReplay.addActionListener(actionEvent -> this.log.saveReplay());
+        this.save.add(this.saveReplay);
         this.load.add(this.loadGame);
         saveLoad.add(this.save);
         saveLoad.add(this.load);
         this.window.setJMenuBar(saveLoad);
+
         JPanel windowContents = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         GridBagConstraints sideConstraints = new GridBagConstraints();
