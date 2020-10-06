@@ -12,7 +12,6 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.*;
-import static java.lang.Thread.sleep;
 
 /**
  * Renderer class for displaying the board.
@@ -23,7 +22,7 @@ public class Board extends JPanel {
   private static final int visionRange = 9;
   private static final int reach = visionRange / 2;
   private static final int tileSize = 70;
-  private static final int sleepTime = 200; //Time in ms before each draw
+  private static final int sleepTime = 400; //Time in ms before each draw
 
   //Rendering Variable
   private Tile[][] level;
@@ -107,24 +106,13 @@ public class Board extends JPanel {
     this.moving = moving;
     //this.animation = animation; when mich adds deaths
 
-    //If player is currenty moving, draw a half frame
+    //If player is currently moving, draw a half frame
     if(moving.contains(player)){
       halfFrame = true;
-      this.repaint();
-      this.validate();
-
-      //sleep between frame
-      try {
-        TimeUnit.MILLISECONDS.sleep(sleepTime);
-      } catch (InterruptedException e) {
-        System.out.println(e);
-      }
     }
 
-    //Draw full frame
-    halfFrame = false;
     this.repaint();
-    this.revalidate();
+    this.validate();
   }
 
   @Override
@@ -136,8 +124,7 @@ public class Board extends JPanel {
       int yOffset = 0;
 
       //Get offsets if currently drawing halfFrame
-      if(halfFrame){ //todo this is always false. it has to do with java swing only drawing the last repaint() from draw method.
-        System.out.println("Drawn half frame");
+      if(halfFrame){
         xOffset = getOffsetX();
         yOffset = getOffsetY();
         drawTiles(g2d, 0, 0, lastVision);
@@ -148,6 +135,18 @@ public class Board extends JPanel {
       //Draw full frame
       drawTiles(g2d, xOffset, yOffset, vision);
       drawEntities(g2d, xOffset, yOffset);
+
+      if(halfFrame){
+        //sleep between frame
+        try {
+          TimeUnit.MILLISECONDS.sleep(sleepTime);
+        } catch (InterruptedException e) {
+          System.out.println(e);
+        }
+        halfFrame = false;
+        this.revalidate();
+        this.repaint();
+      }
       g2d.dispose();
 
     } catch (IOException e) {
