@@ -1,6 +1,8 @@
 package nz.ac.vuw.ecs.swen225.gp20.render;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,29 +13,36 @@ import javax.swing.*;
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.*;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.FreeTile;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Ice;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.NullTile;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Water;
 
 /**
  * Renderer class for displaying the board.
  */
-public class Board extends JPanel {
+public class Board extends JPanel implements ActionListener {
 
   // Constant Variables
   private static final int visionRange = 9;
   private static final int reach = visionRange / 2;
   private static final int tileSize = 70;
-  private static final int sleepTime = 400; //Time in ms before each draw
+  private static final int sleepTime = 500; //Time in ms before each draw
 
-  //Rendering Variable
+  //Static Rendering Variables
   private Tile[][] level;
   private Tile[][] lastVision;
   private Tile[][] vision;
   private Player player;
   private Maze maze;
-  private ArrayList<Actor> moving = new ArrayList<>();
   private ArrayList<Actor> actors = new ArrayList<>();
-  private String animation;
+
+  //Dynamic Rendering Variables
+  private ArrayList<Actor> moving = new ArrayList<>();
+  private int animationState;
   private boolean halfFrame;
+  private Timer timer = new Timer(sleepTime, this); //Redraws from timer in ActionListener
 
   //Method Enums
   private enum Soundeffects {
@@ -95,6 +104,19 @@ public class Board extends JPanel {
     }
   }
 
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    //If not animation
+    if(halfFrame) {
+      halfFrame = false;
+    }else{
+      this.moving = new ArrayList<>();
+      timer.stop();
+    }
+    repaint();
+    updateUI();
+  }
+
   /**
    * Draws the visible board and all entities on-top of tiles,
    * Calls the pre-built paint function of the JPanel and draws with graphics.
@@ -104,15 +126,14 @@ public class Board extends JPanel {
   public void draw(ArrayList<Actor> moving) {
     setVision();
     this.moving = moving;
-    //this.animation = animation; when mich adds deaths
+    animationState = 0;
 
     //If player is currently moving, draw a half frame
     if(moving.contains(player)){
       halfFrame = true;
     }
 
-    this.repaint();
-    this.validate();
+    repaint();
   }
 
   @Override
@@ -128,26 +149,17 @@ public class Board extends JPanel {
         xOffset = getOffsetX();
         yOffset = getOffsetY();
         drawTiles(g2d, 0, 0, lastVision);
-        drawEntities(g2d, xOffset, yOffset);
-        //drawAnimations(g);
       }
 
       //Draw full frame
+      System.out.println("x: "+xOffset+", y:"+yOffset);
       drawTiles(g2d, xOffset, yOffset, vision);
       drawEntities(g2d, xOffset, yOffset);
-
-      if(halfFrame){
-        //sleep between frame
-        try {
-          TimeUnit.MILLISECONDS.sleep(sleepTime);
-        } catch (InterruptedException e) {
-          System.out.println(e);
-        }
-        halfFrame = false;
-        this.revalidate();
-        this.repaint();
-      }
       g2d.dispose();
+      
+      if(halfFrame){
+        timer.start();
+      }
 
     } catch (IOException e) {
       e.printStackTrace();
@@ -211,7 +223,7 @@ public class Board extends JPanel {
    * Third step of draw method,
    * Loops through unique (non-walk) animations and draws them.
    */
-  private void drawAnimations(Graphics g) {
+  private void drawAnimations(Graphics g, String animation) {
     playAnimations(animation, g);
   }
 
@@ -330,7 +342,6 @@ public class Board extends JPanel {
             ", maze=" + maze +
             ", moving=" + moving +
             ", actors=" + actors +
-            ", animation='" + animation + '\'' +
             '}';
   }
 }
