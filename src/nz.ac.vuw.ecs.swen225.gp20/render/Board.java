@@ -28,7 +28,7 @@ public class Board extends JPanel implements ActionListener {
   private static final int visionRange = 9;
   private static final int reach = visionRange / 2;
   private static final int tileSize = 70;
-  private static final int sleepTime = 500; //Time in ms before each draw
+  private static final int sleepTime = 300; //Time in ms before each draw
 
   //Static Rendering Variables
   private Tile[][] level;
@@ -86,12 +86,13 @@ public class Board extends JPanel implements ActionListener {
   /**
    * Based on Players position, return a new 2D Array
    * of all tiles visible on board to draw.
+   *
+   * Also updating the last visible tiles for transitions.
    */
   private void setVision() {
-    lastVision = vision;
-
     for (int x = player.getX() - reach, xcount = 0; x <= player.getX() + reach; x++, xcount++) {
       for (int y = player.getY() - reach, ycount = 0; y <= player.getY() + reach; y++, ycount++) {
+        lastVision[xcount][ycount] = vision[xcount][ycount];
 
         //Adding tiles only if they in range
         if ((x > 0 && y > 0) && (x < level.length && y < level[0].length)) {
@@ -152,7 +153,6 @@ public class Board extends JPanel implements ActionListener {
       }
 
       //Draw full frame
-      System.out.println("x: "+xOffset+", y:"+yOffset);
       drawTiles(g2d, xOffset, yOffset, vision);
       drawEntities(g2d, xOffset, yOffset);
       g2d.dispose();
@@ -170,15 +170,15 @@ public class Board extends JPanel implements ActionListener {
    * First step of draw method,
    * draws all tiles in players current vision.
    */
-  private void drawTiles(Graphics g, int xOffset, int yOffset, Tile[][] vision) throws IOException {
+  private void drawTiles(Graphics g, int xOffset, int yOffset, Tile[][] drawArray) throws IOException {
     for (int x = 0; x <= visionRange - 1; x++) {
       for (int y = 0; y <= visionRange - 1; y++) {
-        g.drawImage(vision[x][y].getImage(),
+        g.drawImage(drawArray[x][y].getImage(),
                 (x * tileSize) + xOffset, (y * tileSize) + yOffset, this);
 
         //Check if tile has item, draw tile with item
-        if (vision[x][y] instanceof FreeTile && ((FreeTile) vision[x][y]).hasItem()) {
-          g.drawImage(((FreeTile) vision[x][y]).getItem().getImage(),
+        if (drawArray[x][y] instanceof FreeTile && ((FreeTile) drawArray[x][y]).hasItem()) {
+          g.drawImage(((FreeTile) drawArray[x][y]).getItem().getImage(),
                   (x * tileSize) + xOffset, (y * tileSize) + yOffset, this);
         }
       }
@@ -317,7 +317,6 @@ public class Board extends JPanel implements ActionListener {
    * @return x offset
    */
   public int getOffsetX(){
-    System.out.println("Old x:"+player.getPrevX()+" , new x:"+player.getX());
     return (player.getX()-player.getPrevX())*35;
   }
 
@@ -327,7 +326,6 @@ public class Board extends JPanel implements ActionListener {
    * @return y offset
    */
   public int getOffsetY(){
-    System.out.println("Old y:"+player.getPrevY()+" , new y:"+player.getY());
     return (player.getY()-player.getPrevY())*35;
   }
 
