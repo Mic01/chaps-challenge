@@ -53,6 +53,7 @@ public abstract class Actor {
    */
   public boolean moveUp() {
     if (moveTo(xpos, ypos - 1)) {
+      xposPrev = xpos;
       yposPrev = ypos;
       ypos--;
       return true;
@@ -67,6 +68,7 @@ public abstract class Actor {
    */
   public boolean moveDown() {
     if (moveTo(xpos, ypos + 1)) {
+      xposPrev = xpos;
       yposPrev = ypos;
       ypos++;
       return true;
@@ -82,6 +84,7 @@ public abstract class Actor {
   public boolean moveLeft() {
     orientation = "left";
     if (moveTo(xpos - 1, ypos)) {
+      yposPrev = ypos;
       xposPrev = xpos;
       xpos--;
       return true;
@@ -97,6 +100,7 @@ public abstract class Actor {
   public boolean moveRight() {
     orientation = "right";
     if (moveTo(xpos + 1, ypos)) {
+      yposPrev = ypos;
       xposPrev = xpos;
       xpos++;
       return true;
