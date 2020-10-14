@@ -148,7 +148,7 @@ public class Board extends JPanel implements ActionListener {
       if(halfFrame){
         xOffset = getOffsetX();
         yOffset = getOffsetY();
-        drawTiles(g2d, 0, 0, lastVision);
+        drawTiles(g2d, -xOffset, -yOffset, lastVision);
       }
 
       //Draw full frame
@@ -317,6 +317,7 @@ public class Board extends JPanel implements ActionListener {
    * @return x offset
    */
   public int getOffsetX(){
+    System.out.println("Old x:"+player.getPrevX()+" , new x:"+player.getX());
     return (player.getX()-player.getPrevX())*35;
   }
 
@@ -326,6 +327,7 @@ public class Board extends JPanel implements ActionListener {
    * @return y offset
    */
   public int getOffsetY(){
+    System.out.println("Old y:"+player.getPrevY()+" , new y:"+player.getY());
     return (player.getY()-player.getPrevY())*35;
   }
 
