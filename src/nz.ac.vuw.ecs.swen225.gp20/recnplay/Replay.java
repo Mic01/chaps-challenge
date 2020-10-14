@@ -1,12 +1,14 @@
 package nz.ac.vuw.ecs.swen225.gp20.recnplay;
 
 import nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView;
-import nz.ac.vuw.ecs.swen225.gp20.application.Main;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
@@ -39,6 +41,14 @@ public class Replay {
    * Save the current history into a json file.
    */
   public void saveReplay() {
+    //Check to see the appropriate directory exists.
+    if (!Files.isDirectory(Paths.get("src/nz.ac.vuw.ecs.swen225.gp20/recnplay/Replays/"))) {
+      System.out.println("The directory does not exist.");
+      new File("src/nz.ac.vuw.ecs.swen225.gp20/recnplay/Replays/").mkdir();
+    } else {
+      System.out.println("The directory exists");
+    }
+
     System.out.println("Attempting to save the level.");
 
     //Create the file
