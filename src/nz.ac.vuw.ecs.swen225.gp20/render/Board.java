@@ -1,9 +1,12 @@
 package nz.ac.vuw.ecs.swen225.gp20.render;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
 
@@ -11,29 +14,44 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.FreeTile;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Ice;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.NullTile;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
-import static java.lang.Thread.sleep;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Water;
 
 /**
  * Renderer class for displaying the board.
  */
-public class Board extends JPanel {
+public class Board extends JPanel implements ActionListener {
 
   // Constant Variables
   private static final int visionRange = 9;
   private static final int reach = visionRange / 2;
   private static final int tileSize = 70;
-  private static final int sleepTime = 100; //Time in ms before each draw (ill be adding half frames)
-  //Rendering Variable
+  private static final int sleepTime = 500; //Time in ms before each draw
+
+  //Static Rendering Variables
   private Tile[][] level;
   private Tile[][] lastVision;
   private Tile[][] vision;
   private Player player;
   private Maze maze;
-  private ArrayList<Actor> moving = new ArrayList<>();
   private ArrayList<Actor> actors = new ArrayList<>();
-  private String animation;
+
+  //Dynamic Rendering Variables
+  private ArrayList<Actor> moving = new ArrayList<>();
+  private int animationState;
+  private boolean halfFrame;
+  private Timer timer = new Timer(sleepTime, this); //Redraws from timer in ActionListener
+
+  //Method Enums
+  private enum Soundeffects {
+    metalWalk, waterSwim, iceWalk, lavaSwim, slide, pickup_item, finish_level, death, openDoor
+  }
+  private enum Animations {
+    doorOpen, death
+  }
+
   /**
    * Construct a new Board when a new level is loaded.
    *
@@ -86,6 +104,19 @@ public class Board extends JPanel {
     }
   }
 
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    //If not animation
+    if(halfFrame) {
+      halfFrame = false;
+    }else{
+      this.moving = new ArrayList<>();
+      timer.stop();
+    }
+    repaint();
+    updateUI();
+  }
+
   /**
    * Draws the visible board and all entities on-top of tiles,
    * Calls the pre-built paint function of the JPanel and draws with graphics.
@@ -95,16 +126,14 @@ public class Board extends JPanel {
   public void draw(ArrayList<Actor> moving) {
     setVision();
     this.moving = moving;
-    //this.animation = animation; when mich adds deaths
+    animationState = 0;
 
-    this.repaint();
-    this.revalidate();
-
-    try {
-      sleep(sleepTime);
-    } catch (InterruptedException e) {
-      System.out.println(e);
+    //If player is currently moving, draw a half frame
+    if(moving.contains(player)){
+      halfFrame = true;
     }
+
+    repaint();
   }
 
   @Override
@@ -112,10 +141,26 @@ public class Board extends JPanel {
     try {
       super.paintComponent(g);
       Graphics2D g2d = (Graphics2D) g.create();
-      drawTiles(g2d, 0);
-      drawEntities(g2d, 0);
-      //drawAnimations(g);
+      int xOffset = 0;
+      int yOffset = 0;
+
+      //Get offsets if currently drawing halfFrame
+      if(halfFrame){
+        xOffset = getOffsetX();
+        yOffset = getOffsetY();
+        drawTiles(g2d, -xOffset, -yOffset, lastVision);
+      }
+
+      //Draw full frame
+      System.out.println("x: "+xOffset+", y:"+yOffset);
+      drawTiles(g2d, xOffset, yOffset, vision);
+      drawEntities(g2d, xOffset, yOffset);
       g2d.dispose();
+      
+      if(halfFrame){
+        timer.start();
+      }
+
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -125,14 +170,16 @@ public class Board extends JPanel {
    * First step of draw method,
    * draws all tiles in players current vision.
    */
-  private void drawTiles(Graphics g, int offset) throws IOException {
+  private void drawTiles(Graphics g, int xOffset, int yOffset, Tile[][] vision) throws IOException {
     for (int x = 0; x <= visionRange - 1; x++) {
       for (int y = 0; y <= visionRange - 1; y++) {
         g.drawImage(vision[x][y].getImage(),
-                (x * tileSize) + offset, (y * tileSize) + offset, this);
+                (x * tileSize) + xOffset, (y * tileSize) + yOffset, this);
+
+        //Check if tile has item, draw tile with item
         if (vision[x][y] instanceof FreeTile && ((FreeTile) vision[x][y]).hasItem()) {
           g.drawImage(((FreeTile) vision[x][y]).getItem().getImage(),
-                  (x * tileSize) + offset, (y * tileSize) + offset, this);
+                  (x * tileSize) + xOffset, (y * tileSize) + yOffset, this);
         }
       }
     }
@@ -142,11 +189,17 @@ public class Board extends JPanel {
    * Second step of draw method,
    * draws a new frame of every actor that has moved this round.
    */
-  private void drawEntities(Graphics g, int offset) throws IOException {
+  private void drawEntities(Graphics g, int xOffset, int yOffset) throws IOException {
     boolean playerMoved = false;
-    /*for (Actor actor : moving) {
-      g.drawImage(actor.getImage(true),
-              (actor.getX() * tileSize) + offset, (actor.getY() * tileSize) + offset, this);
+    for (Actor actor : moving) {
+      //If actor is player, draw directly in center
+      if(!actor.equals(player)) {
+        g.drawImage(actor.getImage(true),
+                (actor.getX() * tileSize) + xOffset, (actor.getY() * tileSize) + yOffset, this);
+      }else{
+        g.drawImage(player.getImage(true),
+                (getVisionX(player.getX()) * tileSize), (getVisionY(player.getY()) * tileSize), this);
+      }
       if(actor.equals(player)) {
         playerMoved = true;
         if (actor.getCurrentTile() instanceof Ice) {
@@ -157,10 +210,10 @@ public class Board extends JPanel {
           playSound("metalWalk");
         }
       }
-    }*/
+    }
     if (!playerMoved) {
       g.drawImage(player.getImage(false),
-              (getVisionX(player.getX()) * tileSize) + offset, (getVisionY(player.getY()) * tileSize) + offset, this);
+              (getVisionX(player.getX()) * tileSize), (getVisionY(player.getY()) * tileSize), this);
     }
 
 
@@ -170,7 +223,7 @@ public class Board extends JPanel {
    * Third step of draw method,
    * Loops through unique (non-walk) animations and draws them.
    */
-  private void drawAnimations(Graphics g) {
+  private void drawAnimations(Graphics g, String animation) {
     playAnimations(animation, g);
   }
 
@@ -258,6 +311,26 @@ public class Board extends JPanel {
     return y - player.getY() + reach;
   }
 
+  /**
+   * Find offset for drawing half frames,
+   * by checking direction they moved from.
+   * @return x offset
+   */
+  public int getOffsetX(){
+    System.out.println("Old x:"+player.getPrevX()+" , new x:"+player.getX());
+    return (player.getX()-player.getPrevX())*35;
+  }
+
+  /**
+   * Find offset for drawing half frames,
+   * by checking direction they moved from.
+   * @return y offset
+   */
+  public int getOffsetY(){
+    System.out.println("Old y:"+player.getPrevY()+" , new y:"+player.getY());
+    return (player.getY()-player.getPrevY())*35;
+  }
+
   @Override
   public String toString() {
     return "Board{" +
@@ -271,16 +344,6 @@ public class Board extends JPanel {
             ", maze=" + maze +
             ", moving=" + moving +
             ", actors=" + actors +
-            ", animation='" + animation + '\'' +
             '}';
-  }
-
-  //Method Enums
-  private enum Soundeffects {
-    metalWalk, waterSwim, iceWalk, lavaSwim, slide, pickup_item, finish_level, death, openDoor
-  }
-
-  private enum Animations {
-    doorOpen, death
   }
 }
