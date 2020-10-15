@@ -21,9 +21,9 @@ public class Replay {
   private final ArrayList<Object> history = new ArrayList<Object>();
   String levelName;
 
-  public Replay(ApplicationView application) {
+  public Replay(String levelPath) {
     //Extract the level name
-    String[] path = application.getLevelPath().split("/");
+    String[] path = levelPath.split("/");
     this.levelName = path[path.length - 1].replace(".json", "");
   }
 
