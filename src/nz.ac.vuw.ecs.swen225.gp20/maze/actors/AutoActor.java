@@ -8,7 +8,7 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
 public abstract class AutoActor extends Actor {
   protected Direction currentDirection = Direction.up;
 
-  enum Direction {
+  protected enum Direction {
     up, right, down, left
   }
 
