@@ -20,6 +20,9 @@ public class Player extends Actor {
 
   public Player(int xpos, int ypos, Maze maze) {
     super(xpos, ypos, maze);
+
+    // Set this player as this Maze's player character
+    maze.setPlayer(this);
   }
 
   /**
@@ -90,8 +93,7 @@ public class Player extends Actor {
       frame = 0;
     }
 
-    /* Stored loaded images in a map so they only need to be loaded
-    once and can be fetched quicker if they need to be used again */
+    /* Stores loaded images in a map with lazy initialisation and acts as a virtual proxy */
     String key = type + (moving ? frame : "") + orientation;
     if (images.containsKey(key)) {
       image = images.get(key);

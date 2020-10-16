@@ -7,11 +7,11 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.FreeTile;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
 
 public abstract class Actor {
-  private int xpos;
-  private int ypos;
+  protected int xpos;
+  protected int ypos;
   private int xposPrev;
   private int yposPrev;
-  private final Maze maze;
+  protected final Maze maze;
   protected FreeTile currentTile;
   protected String orientation = "right";
   protected static final String imageDirectory = "assets/actors/";
@@ -31,10 +31,6 @@ public abstract class Actor {
     this.yposPrev = ypos;
     this.maze = maze;
 
-    // Store this actor in the maze
-    if (this instanceof Player) {
-      maze.setPlayer((Player) this);
-    }
     maze.addActor(this);
   }
 
