@@ -10,6 +10,8 @@ public class Maze {
   private final Tile[][] tiles;
   private final ArrayList<Actor> actors = new ArrayList<>();
   private Player player;
+  private final int width;
+  private final int height;
 
   /**
    * Maze object that holds the tiles that represent the state of the game.
@@ -18,6 +20,8 @@ public class Maze {
    */
   public Maze(String levelFile) {
     tiles = Persistence.loadLevel(levelFile, this);
+    width = tiles.length;
+    height = tiles[0].length;
     for (Actor actor : actors) {
       actor.setup();
     }
@@ -29,10 +33,6 @@ public class Maze {
 
   public Tile getTile(int x, int y) {
     return tiles[x][y];
-  }
-
-  public Tile[][] getTiles() {
-    return tiles;
   }
 
   /**
@@ -69,5 +69,13 @@ public class Maze {
    */
   public void addActor(Actor actor) {
     actors.add(actor);
+  }
+
+  public int getWidth() {
+    return width;
+  }
+
+  public int getHeight() {
+    return height;
   }
 }

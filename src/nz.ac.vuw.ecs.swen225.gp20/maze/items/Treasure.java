@@ -15,4 +15,9 @@ public class Treasure extends Item {
     }
     return image;
   }
+
+  @Override
+  public String toString() {
+    return "Treasure";
+  }
 }

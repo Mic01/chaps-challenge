@@ -13,4 +13,7 @@ public abstract class Item {
    * @throws IOException thrown if the file cannot be found for the item
    */
   public abstract BufferedImage getImage() throws IOException;
+
+  @Override
+  public abstract String toString();
 }
