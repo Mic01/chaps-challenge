@@ -87,7 +87,7 @@ public class Player extends Actor {
       frame = 0;
     }
 
-    String path = "red/" + type + "_" + (moving ? (frame + "_") : "") + orientation;
+    String path = "red/" + type + "_" + (moving ? (frame + "_") : "") + currentDirection;
     return getImageProxy(path);
   }
 

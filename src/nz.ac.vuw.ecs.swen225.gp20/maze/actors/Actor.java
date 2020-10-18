@@ -16,9 +16,13 @@ public abstract class Actor {
   private int yposPrev;
   protected final Maze maze;
   protected FreeTile currentTile;
-  protected String orientation = "right";
   protected int frame = 0;
   private final HashMap<String, BufferedImage> images = new HashMap<>();
+  protected Direction currentDirection = Direction.down;
+
+  protected enum Direction {
+    up, right, down, left
+  }
 
   /**
    * A moving creature, typically the player or an enemy creature.
@@ -51,6 +55,7 @@ public abstract class Actor {
    * @return whether this actor successfully moved up or not
    */
   public boolean moveUp() {
+    currentDirection = Direction.up;
     if (moveTo(xpos, ypos - 1)) {
       xposPrev = xpos;
       yposPrev = ypos;
@@ -66,6 +71,7 @@ public abstract class Actor {
    * @return whether this actor successfully moved down or not
    */
   public boolean moveDown() {
+    currentDirection = Direction.down;
     if (moveTo(xpos, ypos + 1)) {
       xposPrev = xpos;
       yposPrev = ypos;
@@ -81,7 +87,7 @@ public abstract class Actor {
    * @return whether this actor successfully moved left or not
    */
   public boolean moveLeft() {
-    orientation = "left";
+    currentDirection = Direction.left;
     if (moveTo(xpos - 1, ypos)) {
       yposPrev = ypos;
       xposPrev = xpos;
@@ -97,7 +103,7 @@ public abstract class Actor {
    * @return whether this actor successfully moved right or not
    */
   public boolean moveRight() {
-    orientation = "right";
+    currentDirection = Direction.right;
     if (moveTo(xpos + 1, ypos)) {
       yposPrev = ypos;
       xposPrev = xpos;

@@ -6,12 +6,6 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
 
 public abstract class AutoActor extends Actor {
-  protected Direction currentDirection = Direction.up;
-
-  protected enum Direction {
-    up, right, down, left
-  }
-
   /**
    * A creature that is moving automatically, typically an enemy creature.
    *
@@ -78,30 +72,6 @@ public abstract class AutoActor extends Actor {
       case up: return moveUp();
       default: return false;
     }
-  }
-
-  @Override
-  public boolean moveUp() {
-    currentDirection = Direction.up;
-    return super.moveUp();
-  }
-
-  @Override
-  public boolean moveRight() {
-    currentDirection = Direction.right;
-    return super.moveRight();
-  }
-
-  @Override
-  public boolean moveDown() {
-    currentDirection = Direction.down;
-    return super.moveDown();
-  }
-
-  @Override
-  public boolean moveLeft() {
-    currentDirection = Direction.left;
-    return super.moveLeft();
   }
 
   @Override
