@@ -23,6 +23,14 @@ public class ExitLock extends Tile {
     return treasuresNeeded;
   }
 
+  public boolean isVertical() {
+    return vertical;
+  }
+
+  public boolean isOpen() {
+    return open;
+  }
+
   @Override
   public boolean isTraversable(Actor actor) {
     if (open) return true;
