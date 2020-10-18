@@ -12,6 +12,8 @@ import java.nio.charset.StandardCharsets;
  * Load a replay file and dispatch the actions
  */
 public class Playback {
+  Node baseNode;
+
   /**
    * Load the replay from a json file.
    *
@@ -41,9 +43,16 @@ public class Playback {
     System.out.println("Built map");
 
     //Make the required objects
-    Node baseNode = new Node(map);
+    baseNode = new Node(map);
 
     System.out.println("Built nodes");
+  }
 
+  /**
+   * Send the actions back and load levels when required.
+   * @param timeScale
+   */
+  public void play(double timeScale) {
+    baseNode.play();
   }
 }

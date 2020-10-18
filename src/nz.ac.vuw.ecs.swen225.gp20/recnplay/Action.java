@@ -23,4 +23,20 @@ public class Action {
     toReturn.append("\t\t\t\"Time\": " + timeSinceLastMove + "\n");
     return toReturn.toString();
   }
+
+  /**
+   * Send back the information for this action
+   */
+  public void play() {
+    try {
+      //Wait until the required time has elapsed
+      Thread.sleep(timeSinceLastMove);
+      System.out.println("Waited: " + timeSinceLastMove);
+      System.out.println("Character: " + character);
+      System.out.println("Action: " + action);
+      System.out.println();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
 }

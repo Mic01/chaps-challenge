@@ -46,4 +46,13 @@ public class Node {
       newLevel.addAction(character, action, time);
     }
   }
+
+  /**
+   * Go through all of the stuff and send it back as reuired
+   */
+  public void play() {
+    for (Level level: levels) {
+      level.play();
+    }
+  }
 }
