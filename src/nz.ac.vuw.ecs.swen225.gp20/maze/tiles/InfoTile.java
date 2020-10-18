@@ -36,6 +36,6 @@ public class InfoTile extends FreeTile {
 
   @Override
   public String toString() {
-    return "InfoTile";
+    return "Info";
   }
 }
