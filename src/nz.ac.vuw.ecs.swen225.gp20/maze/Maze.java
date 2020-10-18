@@ -2,6 +2,7 @@ package nz.ac.vuw.ecs.swen225.gp20.maze;
 
 import java.util.ArrayList;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
+import nz.ac.vuw.ecs.swen225.gp20.maze.actors.AutoActor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
 import nz.ac.vuw.ecs.swen225.gp20.persistence.Persistence;
@@ -9,7 +10,7 @@ import nz.ac.vuw.ecs.swen225.gp20.persistence.Persistence;
 public class Maze {
   private final Tile[][] tiles;
   private final ArrayList<Actor> actors = new ArrayList<>();
-  private final ArrayList<Actor> autoActors = new ArrayList<>();
+  private final ArrayList<AutoActor> autoActors = new ArrayList<>();
   private Player player;
   private final int width;
   private final int height;
@@ -68,7 +69,7 @@ public class Maze {
    *
    * @return list of non player actors
    */
-  public ArrayList<Actor> getAutoActors() {
+  public ArrayList<AutoActor> getAutoActors() {
     return autoActors;
   }
 
@@ -86,7 +87,7 @@ public class Maze {
    *
    * @param actor the actor to add to this maze
    */
-  public void addAutoActor(Actor actor) {
+  public void addAutoActor(AutoActor actor) {
     autoActors.add(actor);
   }
 
