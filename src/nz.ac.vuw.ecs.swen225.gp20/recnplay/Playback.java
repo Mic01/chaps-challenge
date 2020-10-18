@@ -13,6 +13,7 @@ import java.nio.charset.StandardCharsets;
  */
 public class Playback {
   Node baseNode;
+  Dispatch dispatchThread;
 
   /**
    * Load the replay from a json file.
@@ -53,6 +54,26 @@ public class Playback {
    * @param timeScale
    */
   public void play(double timeScale) {
+    //create the dispatch thread
+    dispatchThread = new Dispatch(baseNode, timeScale);
+    dispatchThread.start();
+  }
+}
+
+/**
+ * This class is used to dispatch the replays on a seperate thread so that the players can move at the same time.
+ */
+class Dispatch extends Thread {
+  Node baseNode;
+  double timeScale;
+
+  public Dispatch(Node baseNode, double timeScale) {
+    this.baseNode = baseNode;
+    this.timeScale = timeScale;
+  }
+
+  @Override
+  public synchronized void start() {
     baseNode.play();
   }
 }

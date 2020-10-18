@@ -1,10 +1,13 @@
 package nz.ac.vuw.ecs.swen225.gp20.recnplay;
 
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.Interfaces.Play;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.Interfaces.Save;
+
 /**
  * This class controls the characters that are used for replays and the time between moves.
  */
 
-public class Action {
+public class Action implements Play, Save {
   long timeSinceLastMove;
   String character;
   String action;

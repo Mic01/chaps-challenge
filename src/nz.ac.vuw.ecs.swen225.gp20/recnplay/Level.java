@@ -1,12 +1,15 @@
 package nz.ac.vuw.ecs.swen225.gp20.recnplay;
 
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.Interfaces.Play;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.Interfaces.Save;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
 /**
  * This class holds the levels as they are saved
  */
-public class Level {
+public class Level implements Play, Save {
   private final ArrayList<Action> actions = new ArrayList<Action>();
   String levelName;
   
