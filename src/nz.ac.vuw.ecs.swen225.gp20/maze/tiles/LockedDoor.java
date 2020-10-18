@@ -48,6 +48,7 @@ public class LockedDoor extends Tile {
   @Override
   public void moveEvent(Actor actor, Actor.Direction direction) {
     open = true;
+    actor.getMaze().setDisplayText("Door unlocked");
   }
 
   @Override

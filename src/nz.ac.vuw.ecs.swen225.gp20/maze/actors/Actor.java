@@ -204,6 +204,10 @@ public abstract class Actor {
     return currentTile;
   }
 
+  public Maze getMaze() {
+    return maze;
+  }
+
   @Override
   public abstract String toString();
 }
