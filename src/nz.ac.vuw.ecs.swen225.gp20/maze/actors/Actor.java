@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import javax.imageio.ImageIO;
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.FreeTile;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
 
 public abstract class Actor {
@@ -15,7 +14,7 @@ public abstract class Actor {
   private int xposPrev;
   private int yposPrev;
   protected final Maze maze;
-  protected FreeTile currentTile;
+  protected Tile currentTile;
   protected int frame = 0;
   private final HashMap<String, BufferedImage> images = new HashMap<>();
   protected Direction currentDirection = Direction.down;
@@ -46,7 +45,7 @@ public abstract class Actor {
    * during its construction.
    */
   public void setup() {
-    currentTile = (FreeTile) maze.getTile(xpos, ypos);
+    currentTile = maze.getTile(xpos, ypos);
   }
 
   /**
@@ -56,7 +55,7 @@ public abstract class Actor {
    */
   public boolean moveUp() {
     currentDirection = Direction.up;
-    if (moveTo(xpos, ypos - 1)) {
+    if (moveTo(xpos, ypos - 1, Direction.up)) {
       xposPrev = xpos;
       yposPrev = ypos;
       ypos--;
@@ -72,7 +71,7 @@ public abstract class Actor {
    */
   public boolean moveDown() {
     currentDirection = Direction.down;
-    if (moveTo(xpos, ypos + 1)) {
+    if (moveTo(xpos, ypos + 1, Direction.down)) {
       xposPrev = xpos;
       yposPrev = ypos;
       ypos++;
@@ -88,7 +87,7 @@ public abstract class Actor {
    */
   public boolean moveLeft() {
     currentDirection = Direction.left;
-    if (moveTo(xpos - 1, ypos)) {
+    if (moveTo(xpos - 1, ypos, Direction.left)) {
       yposPrev = ypos;
       xposPrev = xpos;
       xpos--;
@@ -104,7 +103,7 @@ public abstract class Actor {
    */
   public boolean moveRight() {
     currentDirection = Direction.right;
-    if (moveTo(xpos + 1, ypos)) {
+    if (moveTo(xpos + 1, ypos, Direction.right)) {
       yposPrev = ypos;
       xposPrev = xpos;
       xpos++;
@@ -114,26 +113,36 @@ public abstract class Actor {
   }
 
   /**
+   * Move this actor in the provided direction.
+   * @param direction direction to move in
+   * @return whether the move was successful
+   */
+  public boolean move(Direction direction) {
+    switch (direction) {
+      case up: return moveUp();
+      case down: return moveDown();
+      case left: return moveLeft();
+      case right: return moveRight();
+      default: return false;
+    }
+  }
+
+  /**
    * Move this actor to the tile provided.
    *
    * @param x x position of tile to move to
    * @param y y position of tile to move to
    * @return whether the move was successful
    */
-  private boolean moveTo(int x, int y) {
+  private boolean moveTo(int x, int y, Direction direction) {
     Tile newTile = maze.getTile(x, y);
     if (newTile.isTraversable(this)) {
 
-      /* If tile other than a free tile is traversable then it must be a door
-      or lock that can be opened and turned into a standard free tile */
-      if (!(newTile instanceof FreeTile)) {
-        maze.setTile(x, y, new FreeTile(this));
-      } else {
-        ((FreeTile) newTile).addActor(this);
-      }
+      newTile.addActor(this);
+      newTile.moveEvent(this, direction);
 
       currentTile.removeActor();
-      currentTile = (FreeTile) maze.getTile(x, y);
+      currentTile = maze.getTile(x, y);
       return true;
     }
     return false;
@@ -191,7 +200,7 @@ public abstract class Actor {
     return yposPrev;
   }
 
-  public FreeTile getCurrentTile() {
+  public Tile getCurrentTile() {
     return currentTile;
   }
 

@@ -6,7 +6,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 
-public class InfoTile extends FreeTile {
+public class InfoTile extends Tile {
   private final String info;
   private static BufferedImage image;
 
@@ -26,6 +26,11 @@ public class InfoTile extends FreeTile {
   @Override
   public boolean isTraversable(Actor actor) {
     return true;
+  }
+
+  @Override
+  public void moveEvent(Actor actor, Actor.Direction direction) {
+
   }
 
   @Override

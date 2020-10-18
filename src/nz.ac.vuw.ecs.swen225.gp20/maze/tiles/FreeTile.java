@@ -11,7 +11,6 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.items.Treasure;
 
 public class FreeTile extends Tile {
   private Item item;
-  private Actor actor;
   private static BufferedImage image;
 
   public FreeTile() {
@@ -23,39 +22,7 @@ public class FreeTile extends Tile {
   }
 
   public FreeTile(Actor actor) {
-    this.actor = actor;
-  }
-
-  /**
-   * Add an actor to this tile.
-   *
-   * @param actor the actor to add to this tile
-   */
-  public void addActor(Actor actor) {
-    //todo: deal with another actor on this tile already
-
-    this.actor = actor;
-
-    if (item != null && actor instanceof Player) {
-      Player player = (Player) actor;
-      if (item instanceof Treasure) {
-        player.pickupTreasure();
-      } else {
-        player.pickup(item);
-      }
-      item = null;
-    }
-  }
-
-  /**
-   * Remove the actor from this tile.
-   */
-  public void removeActor() {
-    actor = null;
-  }
-
-  public boolean hasActor() {
-    return actor != null;
+    super(actor);
   }
 
   public boolean hasItem() {
@@ -69,6 +36,20 @@ public class FreeTile extends Tile {
   @Override
   public boolean isTraversable(Actor actor) {
     return actor instanceof Player || item == null;
+  }
+
+  @Override
+  public void moveEvent(Actor actor, Actor.Direction direction) {
+    // Add any items on this tile to player inventory
+    if (item != null && actor instanceof Player) {
+      Player player = (Player) actor;
+      if (item instanceof Treasure) {
+        player.pickupTreasure();
+      } else {
+        player.pickup(item);
+      }
+      item = null;
+    }
   }
 
   @Override

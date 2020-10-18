@@ -15,6 +15,11 @@ public class Wall extends Tile {
   }
 
   @Override
+  public void moveEvent(Actor actor, Actor.Direction direction) {
+    throw new UnsupportedOperationException("Walls should not be able to be moved onto");
+  }
+
+  @Override
   public BufferedImage getImage() throws IOException {
     if (image == null) {
       image = ImageIO.read(new File(imageDirectory + "wall.png"));

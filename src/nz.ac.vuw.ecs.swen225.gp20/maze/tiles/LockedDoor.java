@@ -30,18 +30,26 @@ public class LockedDoor extends Tile {
 
   @Override
   public boolean isTraversable(Actor actor) {
+    if (open) return true;
+
     if (actor instanceof Player) {
       Player player = (Player) actor;
       return player.isHolding(new Key(colour));
     }
+
     return false;
+  }
+
+  @Override
+  public void moveEvent(Actor actor, Actor.Direction direction) {
+    open = true;
   }
 
   @Override
   public BufferedImage getImage() throws IOException {
     if (image == null) {
       image = ImageIO.read(new File(imageDirectory + "lock_"
-              + (vertical ? "vertical" : "horizontal") + "_" + colour + ".png"));
+              + (vertical ? "vertical" : "horizontal") + "_" + (open ? "open" : colour) + ".png"));
     }
     return image;
   }
