@@ -2,6 +2,7 @@ package nz.ac.vuw.ecs.swen225.gp20.persistence;
 
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
+import nz.ac.vuw.ecs.swen225.gp20.maze.items.Item;
 import nz.ac.vuw.ecs.swen225.gp20.maze.items.Key;
 import nz.ac.vuw.ecs.swen225.gp20.maze.items.Treasure;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Exit;
@@ -84,7 +85,7 @@ public class Persistence {
                             break;
 
                         case "Door":
-                            maze[obj.getInt("x")][obj.getInt("y")] = new LockedDoor(obj.getString("colour"), obj.getBoolean("vertical"));
+                            maze[obj.getInt("x")][obj.getInt("y")] = new LockedDoor(obj.getString("colour"), obj.getBoolean("vertical"), obj.getBoolean("open"));
                             break;
 
                         case "End":
@@ -106,6 +107,9 @@ public class Persistence {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
+        saveLevel(maze, "assets/SaveFile.json");
+
         return maze;
     }
 
@@ -130,48 +134,55 @@ public class Persistence {
                 Tile currentTile = maze[i][j];
                 JsonObjectBuilder object = Json.createObjectBuilder();
 
+
+
                 if (currentTile instanceof NullTile) {
                     continue;
-                } else if (currentTile instanceof Exit) {
-                    object.add("tile", "End");
-                } else if (currentTile instanceof ExitLock) {
-                    object.add("tile", "Lock");
-                    object.add("chips", ((ExitLock) save[i][j]).getTreasuresNeeded());
-                } else if (currentTile instanceof Ice) {
-                    object.add("tile", "Ice");
-                } else if (currentTile instanceof InfoTile) {
-                    object.add("tile", "InfoTile");
+                }
+                object.add("tile", currentTile.toString());
+
+                if (currentTile instanceof ExitLock) {
+                    object.add("chips", ((ExitLock) currentTile).getTreasuresNeeded());
                 } else if (currentTile instanceof LockedDoor) {
-                    object.add("tile", "Door");
-                    object.add("colour", ((LockedDoor) save[i][j]).getColour());
-                    object.add("vertical", ((LockedDoor) save[i][j]).isVertical());
-                } else if (currentTile instanceof Wall) {
-                    object.add("tile", "Wall");
-                } else if (currentTile instanceof Water) {
-                    object.add("tile", "Water");
+                    object.add("colour", ((LockedDoor) currentTile).getColour());
+                    object.add("vertical", ((LockedDoor) currentTile).isVertical());
+                    object.add("open", ((LockedDoor) currentTile).isOpen());
                 } else if (currentTile instanceof FreeTile) {
-                    object.add("tile", "Floor");
-                    if(((FreeTile) save[i][j]).hasActor()){
+                    if (((FreeTile) currentTile).hasActor()) {
                         object.add("slot", "Player");
+                       // object.add("inventory", ((FreeTile) currentTile).getActor().getInventory());
+
+                    } else if (((FreeTile) currentTile).hasItem()) {
+                        Item item = ((FreeTile) currentTile).getItem();
+                        if (item instanceof Key) {
+                            object.add("slot", "Key");
+                            object.add("colour", ((Key) item).getColour());
+                        } else if (item instanceof Treasure) {
+                            object.add("slot", "Chip");
+                        }
+                    } else if (currentTile instanceof InfoTile){
+                        object.add("text", ((InfoTile)currentTile).getInfo());
+
+                }else{
+                        object.add("slot", "Null");
 
                     }
-                    if(((FreeTile) save[i][j]).hasItem()){
-                        object.add("slot", "Key");
-                        object.add("colour", ((Key)((FreeTile) save[i][j]).getItem()).getColour());
-                    }
                 }
+
                 object.add("x", i);
                 object.add("y", j);
 
                 JsonObject builtObject = object.build();
                 output.append(builtObject.toString());
+                System.out.println(maze.length+" "+i);
+                System.out.println(maze[0].length+" "+j);
 
-                if (!(i == maze.length - 1 && i == maze[0].length - 1)) {
-                    output.append(",");
-                }
+                output.append(",");
             }
         }
-        output.append("}");
+
+        output.deleteCharAt(output.length()-1);
+        output.append("]");
 
         try {
             FileWriter file = new FileWriter(fileName);

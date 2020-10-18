@@ -109,7 +109,8 @@
 		"x": 23,
 		"y": 26,
 		"colour": "Green",
-		"vertical": false
+		"vertical": false,
+		"open": false
 	}, {
 		"tile": "Floor",
 		"x": 23,
@@ -326,7 +327,8 @@
 		"x": 32,
 		"y": 29,
 		"colour": "Blue",
-		"vertical": true
+		"vertical": true,
+		"open": false
 	}, {
 		"tile": "Wall",
 		"x": 32,
@@ -382,7 +384,8 @@
 		"tile": "Floor",
 		"x": 35,
 		"y": 29,
-		"slot": "Player"
+		"slot": "Player",
+		"inventory": []
 	}, {
 		"tile": "Wall",
 		"x": 35,
