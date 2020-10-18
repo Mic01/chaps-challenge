@@ -8,6 +8,7 @@ import nz.ac.vuw.ecs.swen225.gp20.render.Board;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class ApplicationView {
@@ -94,9 +95,23 @@ public class ApplicationView {
         scoreCount.setForeground(Color.LIGHT_GRAY);
         JLabel time = new JLabel("Time Remaining:");
         time.setForeground(Color.LIGHT_GRAY);
-        JLabel timeCount = new JLabel("PLACEHOLDER");
+        JLabel timeCount = new JLabel("120 seconds");
         timeCount.setForeground(Color.LIGHT_GRAY);
 
+        ActionListener countdown = new ActionListener() {
+            int timeLeft = 119;
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if(timeLeft <= 0){
+                    //game end
+                    timeLeft = 0;
+                }
+                timeCount.setText(timeLeft + " seconds");
+                timeLeft--;
+            }
+        };
+        javax.swing.Timer countdownTimer = new javax.swing.Timer(1000, countdown);
+        countdownTimer.start();
 
         JButton left = new JButton("\uD83E\uDC50");
         left.addActionListener(actionEvent -> {
