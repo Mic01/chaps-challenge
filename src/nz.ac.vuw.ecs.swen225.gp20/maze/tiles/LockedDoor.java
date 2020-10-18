@@ -12,10 +12,12 @@ public class LockedDoor extends Tile {
   private final String colour;
   private final boolean vertical;
   private BufferedImage image;
+  private boolean open;
 
-  public LockedDoor(String colour, boolean vertical) {
+  public LockedDoor(String colour, boolean vertical, boolean open) {
     this.colour = colour.toLowerCase();
     this.vertical = vertical;
+    this.open = open;
   }
 
   public String getColour() {
@@ -24,6 +26,10 @@ public class LockedDoor extends Tile {
 
   public boolean isVertical() {
     return vertical;
+  }
+
+  public boolean isOpen() {
+    return open;
   }
 
   @Override

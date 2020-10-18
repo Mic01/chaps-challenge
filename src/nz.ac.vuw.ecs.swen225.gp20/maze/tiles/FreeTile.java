@@ -58,6 +58,10 @@ public class FreeTile extends Tile {
     return actor != null;
   }
 
+  public Actor getActor() {
+    return actor;
+  }
+
   public boolean hasItem() {
     return item != null;
   }
