@@ -54,6 +54,8 @@ public class FreeTile extends Tile {
       }
       item = null;
     }
+
+    actor.getMaze().setDisplayText("");
   }
 
   @Override

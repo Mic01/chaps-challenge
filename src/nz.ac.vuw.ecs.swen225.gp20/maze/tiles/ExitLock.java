@@ -47,6 +47,7 @@ public class ExitLock extends Tile {
   @Override
   public void moveEvent(Actor actor, Actor.Direction direction) {
     open = true;
+    actor.getMaze().setDisplayText("Exit door unlocked");
   }
 
   @Override

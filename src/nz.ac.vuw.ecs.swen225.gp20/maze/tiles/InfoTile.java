@@ -14,11 +14,6 @@ public class InfoTile extends Tile {
     this.info = info;
   }
 
-  public InfoTile(String info, Actor actor) {
-    super(actor);
-    this.info = info;
-  }
-
   public String getInfo() {
     return info;
   }
@@ -30,7 +25,7 @@ public class InfoTile extends Tile {
 
   @Override
   public void moveEvent(Actor actor, Actor.Direction direction) {
-
+    actor.getMaze().setDisplayText(info);
   }
 
   @Override

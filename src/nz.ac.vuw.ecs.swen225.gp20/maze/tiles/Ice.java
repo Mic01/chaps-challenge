@@ -17,6 +17,7 @@ public class Ice extends Tile {
   @Override
   public void moveEvent(Actor actor, Actor.Direction direction) {
     actor.move(direction);
+    actor.getMaze().setDisplayText("");
   }
 
   @Override

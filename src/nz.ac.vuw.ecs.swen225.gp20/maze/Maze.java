@@ -14,6 +14,8 @@ public class Maze {
   private Player player;
   private final int width;
   private final int height;
+  private String displayText = "";
+  private boolean finished = false;
 
   /**
    * Maze object that holds the tiles that represent the state of the game.
@@ -29,10 +31,13 @@ public class Maze {
     }
   }
 
-  public void setTile(int x, int y, Tile newTile) {
-    tiles[x][y] = newTile;
-  }
-
+  /**
+   * Get the tile at the provided coordinates.
+   *
+   * @param x x-coordinate of the tile
+   * @param y y-coordinate of the tile
+   * @return the tile at the provided coordinates
+   */
   public Tile getTile(int x, int y) {
     return tiles[x][y];
   }
@@ -97,5 +102,21 @@ public class Maze {
 
   public int getHeight() {
     return height;
+  }
+
+  public String getDisplayText() {
+    return displayText;
+  }
+
+  public void setDisplayText(String displayText) {
+    this.displayText = displayText;
+  }
+
+  public boolean isFinished() {
+    return finished;
+  }
+
+  public void setFinished() {
+    this.finished = true;
   }
 }

@@ -16,7 +16,8 @@ public class Exit extends Tile {
 
   @Override
   public void moveEvent(Actor actor, Actor.Direction direction) {
-
+    actor.getMaze().setFinished();
+    actor.getMaze().setDisplayText("You have reached the Exit!");
   }
 
   @Override
