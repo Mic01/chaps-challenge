@@ -15,6 +15,11 @@ public class Exit extends Tile {
   }
 
   @Override
+  public void moveEvent(Actor actor, Actor.Direction direction) {
+
+  }
+
+  @Override
   public BufferedImage getImage() throws IOException {
     if (image == null) {
       image = ImageIO.read(new File(imageDirectory + "finish.png"));

@@ -17,6 +17,11 @@ public class NullTile extends Tile {
   }
 
   @Override
+  public void moveEvent(Actor actor, Actor.Direction direction) {
+    throw new UnsupportedOperationException("NullTiles should not be able to be moved onto");
+  }
+
+  @Override
   public BufferedImage getImage() throws IOException {
     if (image == null) {
       image = ImageIO.read(new File(imageDirectory + "empty_" + random.nextInt(5) + ".png"));

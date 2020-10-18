@@ -9,6 +9,7 @@ import nz.ac.vuw.ecs.swen225.gp20.persistence.Persistence;
 public class Maze {
   private final Tile[][] tiles;
   private final ArrayList<Actor> actors = new ArrayList<>();
+  private final ArrayList<Actor> autoActors = new ArrayList<>();
   private Player player;
   private final int width;
   private final int height;
@@ -63,12 +64,30 @@ public class Maze {
   }
 
   /**
+   * Get the list of automatic actors in this maze.
+   *
+   * @return list of non player actors
+   */
+  public ArrayList<Actor> getAutoActors() {
+    return autoActors;
+  }
+
+  /**
    * Add an actor to this maze.
    *
    * @param actor the actor to add to this maze
    */
   public void addActor(Actor actor) {
     actors.add(actor);
+  }
+
+  /**
+   * Add an actor to this maze.
+   *
+   * @param actor the actor to add to this maze
+   */
+  public void addAutoActor(Actor actor) {
+    autoActors.add(actor);
   }
 
   public int getWidth() {

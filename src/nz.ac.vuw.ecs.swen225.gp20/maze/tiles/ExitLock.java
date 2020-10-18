@@ -25,17 +25,27 @@ public class ExitLock extends Tile {
 
   @Override
   public boolean isTraversable(Actor actor) {
+    if (open) return true;
+
     if (actor instanceof Player) {
       Player player = (Player) actor;
       return player.treasuresCollected() == treasuresNeeded;
     }
+
     return false;
+  }
+
+  @Override
+  public void moveEvent(Actor actor, Actor.Direction direction) {
+    open = true;
   }
 
   @Override
   public BufferedImage getImage() throws IOException {
     if (image == null) {
-      image = ImageIO.read(new File(imageDirectory + "gate_" + (vertical ? "vertical" : "horizontal") + ".png"));
+      image = ImageIO.read(new File(imageDirectory + (open ?
+              ("lock_" + (vertical ? "vertical" : "horizontal") + "_open") :
+              ("gate_" + (vertical ? "vertical" : "horizontal"))) + ".png"));
     }
     return image;
   }

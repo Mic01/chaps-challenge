@@ -17,6 +17,7 @@ public abstract class AutoActor extends Actor {
   public AutoActor(int xpos, int ypos, Maze maze, Direction direction) {
     super(xpos, ypos, maze);
     this.currentDirection = direction;
+    maze.addAutoActor(this);
   }
 
   /**
