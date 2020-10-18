@@ -1,13 +1,10 @@
 package nz.ac.vuw.ecs.swen225.gp20.maze.actors;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import javax.imageio.ImageIO;
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.items.Item;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Ice;
@@ -16,7 +13,6 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Water;
 public class Player extends Actor {
   private final ArrayList<Item> inventory = new ArrayList<>();
   private int treasures = 0;
-  private static final HashMap<String, BufferedImage> images = new HashMap<>();
 
   public Player(int xpos, int ypos, Maze maze) {
     super(xpos, ypos, maze);
@@ -76,8 +72,6 @@ public class Player extends Actor {
 
   @Override
   public BufferedImage getImage(boolean moving) throws IOException {
-    BufferedImage image;
-
     String type;
     if (moving) {
       type = "walk";
@@ -93,20 +87,8 @@ public class Player extends Actor {
       frame = 0;
     }
 
-    /* Stores loaded images in a map with lazy initialisation and acts as a virtual proxy */
-    String key = type + (moving ? frame : "") + orientation;
-    if (images.containsKey(key)) {
-      image = images.get(key);
-    } else {
-      image = ImageIO.read(new File(
-              imageDirectory + "red/" + type + "_"
-                      + (moving ? (frame + "_") : "") + orientation + ".png"));
-      images.put(key, image);
-    }
-
-    nextFrame();
-
-    return image;
+    String path = "red/" + type + "_" + (moving ? (frame + "_") : "") + orientation;
+    return getImageProxy(path);
   }
 
   @Override
