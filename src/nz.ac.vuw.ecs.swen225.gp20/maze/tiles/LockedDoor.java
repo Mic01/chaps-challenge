@@ -11,11 +11,13 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.items.Key;
 public class LockedDoor extends Tile {
   private final String colour;
   private final boolean vertical;
+  private boolean open;
   private BufferedImage image;
 
-  public LockedDoor(String colour, boolean vertical) {
+  public LockedDoor(String colour, boolean vertical, boolean open) {
     this.colour = colour.toLowerCase();
     this.vertical = vertical;
+    this.open = open;
   }
 
   public String getColour() {
@@ -38,7 +40,7 @@ public class LockedDoor extends Tile {
   @Override
   public BufferedImage getImage() throws IOException {
     if (image == null) {
-      image = ImageIO.read(new File(imageDirectory + "lock" + "_"
+      image = ImageIO.read(new File(imageDirectory + "lock_"
               + (vertical ? "vertical" : "horizontal") + "_" + colour + ".png"));
     }
     return image;

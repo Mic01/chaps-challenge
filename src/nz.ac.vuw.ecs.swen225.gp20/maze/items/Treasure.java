@@ -7,8 +7,8 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 
 public class Treasure extends Item {
-  private static BufferedImage image;
   private static final Random random = new Random();
+  private BufferedImage image;
 
   @Override
   public BufferedImage getImage() throws IOException {
