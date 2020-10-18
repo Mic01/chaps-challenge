@@ -8,6 +8,7 @@ import nz.ac.vuw.ecs.swen225.gp20.render.Board;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class ApplicationView {
@@ -94,96 +95,54 @@ public class ApplicationView {
         scoreCount.setForeground(Color.LIGHT_GRAY);
         JLabel time = new JLabel("Time Remaining:");
         time.setForeground(Color.LIGHT_GRAY);
-        JLabel timeCount = new JLabel("PLACEHOLDER");
+        JLabel timeCount = new JLabel("120 seconds");
         timeCount.setForeground(Color.LIGHT_GRAY);
 
+        ActionListener countdown = new ActionListener() {
+            int timeLeft = 119;
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if(timeLeft <= 0){
+                    //game end
+                    timeLeft = 0;
+                }
+                timeCount.setText(timeLeft + " seconds");
+                timeLeft--;
+            }
+        };
+        javax.swing.Timer countdownTimer = new javax.swing.Timer(1000, countdown);
+        countdownTimer.start();
 
         JButton left = new JButton("\uD83E\uDC50");
-        left.addActionListener(actionEvent -> {
-            if(maze.getPlayer().moveLeft()) {
-                ArrayList<Actor> toMove = new ArrayList<>();
-                toMove.add(maze.getPlayer());
-                viewport.draw(toMove);
-            }
-            log.addAction("moveLeft", "player");
-        });
+        left.addActionListener(actionEvent -> playerMovement(3));
         left.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("LEFT"), "moveLeft");
         left.getActionMap().put("moveLeft", new AbstractAction("moveLeft") {
             @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                if(maze.getPlayer().moveLeft()) {
-                    ArrayList<Actor> toMove = new ArrayList<>();
-                    toMove.add(maze.getPlayer());
-                    viewport.draw(toMove);
-                }
-                log.addAction("moveLeft", "player");
-            }
+            public void actionPerformed(ActionEvent actionEvent) { playerMovement(3); }
         });
 
         JButton up = new JButton("\uD83E\uDC51");
-        up.addActionListener(actionEvent -> {
-            if(maze.getPlayer().moveUp()) {
-                ArrayList<Actor> toMove = new ArrayList<>();
-                toMove.add(maze.getPlayer());
-                viewport.draw(toMove);
-            }
-            log.addAction("moveUp", "player");
-        });
+        up.addActionListener(actionEvent -> playerMovement(1));
         up.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("UP"), "moveUp");
         up.getActionMap().put("moveUp", new AbstractAction("moveUp") {
             @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                if(maze.getPlayer().moveUp()) {
-                    ArrayList<Actor> toMove = new ArrayList<>();
-                    toMove.add(maze.getPlayer());
-                    viewport.draw(toMove);
-                }
-                log.addAction("moveUp", "player");
-            }
+            public void actionPerformed(ActionEvent actionEvent) { playerMovement(1); }
         });
 
         JButton down = new JButton("\uD83E\uDC53");
-        down.addActionListener(actionEvent -> {
-            if(maze.getPlayer().moveDown()) {
-                ArrayList<Actor> toMove = new ArrayList<>();
-                toMove.add(maze.getPlayer());
-                viewport.draw(toMove);
-            }
-            log.addAction("moveDown", "player");
-        });
+        down.addActionListener(actionEvent -> playerMovement(2));
         down.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("DOWN"), "moveDown");
         down.getActionMap().put("moveDown", new AbstractAction("moveDown") {
             @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                if(maze.getPlayer().moveDown()) {
-                    ArrayList<Actor> toMove = new ArrayList<>();
-                    toMove.add(maze.getPlayer());
-                    viewport.draw(toMove);
-                }
-                log.addAction("moveDown", "player");
-            }
+            public void actionPerformed(ActionEvent actionEvent) { playerMovement(2); }
         });
 
         JButton right = new JButton("\uD83E\uDC52");
-        right.addActionListener(actionEvent -> {
-            if(maze.getPlayer().moveRight()) {
-                ArrayList<Actor> toMove = new ArrayList<>();
-                toMove.add(maze.getPlayer());
-                viewport.draw(toMove);
-            }
-            log.addAction("moveRight", "player");
-        });
+        right.addActionListener(actionEvent -> playerMovement(4));
         right.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("RIGHT"), "moveRight");
         right.getActionMap().put("moveRight", new AbstractAction("moveRight") {
             @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                if(maze.getPlayer().moveRight()) {
-                    ArrayList<Actor> toMove = new ArrayList<>();
-                    toMove.add(maze.getPlayer());
-                    viewport.draw(toMove);
-                }
-                log.addAction("moveRight", "player");
-            }
+            public void actionPerformed(ActionEvent actionEvent) { playerMovement(4); }
         });
 
         sideConstraints.gridx = 3;
@@ -267,5 +226,52 @@ public class ApplicationView {
 
     public String getLevelPath(){
         return this.game.levelPath;
+    }
+
+    /**
+     * Controls movement of the player.
+     *
+     * @param dir - direction player is moving
+     * 1: move up
+     * 2: move down
+     * 3: move left
+     * 4: move right
+     */
+    public void playerMovement(int dir){
+        switch (dir) {
+            case 1:
+                if(maze.getPlayer().moveUp()) {
+                    ArrayList<Actor> toMove = new ArrayList<>();
+                    toMove.add(maze.getPlayer());
+                    viewport.draw(toMove);
+                }
+                log.addAction("moveUp", "player");
+                break;
+            case 2:
+                if(maze.getPlayer().moveDown()) {
+                    ArrayList<Actor> toMove = new ArrayList<>();
+                    toMove.add(maze.getPlayer());
+                    viewport.draw(toMove);
+                }
+                log.addAction("moveUp", "player");
+                break;
+            case 3:
+                if(maze.getPlayer().moveLeft()) {
+                    ArrayList<Actor> toMove = new ArrayList<>();
+                    toMove.add(maze.getPlayer());
+                    viewport.draw(toMove);
+                }
+                log.addAction("moveUp", "player");
+                break;
+            case 4:
+                if(maze.getPlayer().moveRight()) {
+                    ArrayList<Actor> toMove = new ArrayList<>();
+                    toMove.add(maze.getPlayer());
+                    viewport.draw(toMove);
+                }
+                log.addAction("moveUp", "player");
+                break;
+            default:
+        }
     }
 }
