@@ -20,7 +20,7 @@ public abstract class Actor {
   private final HashMap<String, BufferedImage> images = new HashMap<>();
   protected Direction currentDirection = Direction.down;
 
-  protected enum Direction {
+  public enum Direction {
     up, right, down, left
   }
 

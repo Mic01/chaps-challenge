@@ -6,6 +6,7 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
 
 public abstract class AutoActor extends Actor {
+
   /**
    * A creature that is moving automatically, typically an enemy creature.
    *
@@ -13,8 +14,9 @@ public abstract class AutoActor extends Actor {
    * @param ypos the ypos to start this actor at
    * @param maze the maze this actor is being made on
    */
-  public AutoActor(int xpos, int ypos, Maze maze) {
+  public AutoActor(int xpos, int ypos, Maze maze, Direction direction) {
     super(xpos, ypos, maze);
+    this.currentDirection = direction;
   }
 
   /**
