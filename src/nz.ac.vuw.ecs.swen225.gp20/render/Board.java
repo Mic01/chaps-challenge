@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
 
@@ -78,7 +77,6 @@ public class Board extends JPanel implements ActionListener {
    */
   public void updateLevel(Maze maze) {
     player = maze.getPlayer();
-    level = maze.getTiles();
     actors = maze.getActors();
     setVision();
   }
@@ -95,8 +93,8 @@ public class Board extends JPanel implements ActionListener {
         lastVision[xcount][ycount] = vision[xcount][ycount];
 
         //Adding tiles only if they in range
-        if ((x > 0 && y > 0) && (x < level.length && y < level[0].length)) {
-          vision[xcount][ycount] = level[x][y];
+        if ((x > 0 && y > 0) && (x < maze.getWidth() && y < maze.getHeight())) {
+          vision[xcount][ycount] = maze.getTile(x,y);
         } else {
           vision[xcount][ycount] = new NullTile();
         }
