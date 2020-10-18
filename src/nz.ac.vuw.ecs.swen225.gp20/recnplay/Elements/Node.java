@@ -1,12 +1,15 @@
-package nz.ac.vuw.ecs.swen225.gp20.recnplay;
+package nz.ac.vuw.ecs.swen225.gp20.recnplay.Elements;
 
 import com.google.gson.internal.LinkedTreeMap;
+import nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.Interfaces.Play;
+
 import java.util.ArrayList;
 
 /**
  * This class handles all of the nodes that will be used to run replays.
  */
-public class Node {
+public class Node implements Play {
   ArrayList<Level> levels = new ArrayList<>(); //todo shouldn't be object
 
   /**
@@ -47,12 +50,11 @@ public class Node {
     }
   }
 
-  /**
-   * Go through all of the stuff and send it back as reuired
-   */
-  public void play() {
+
+  @Override
+  public void play(ApplicationView application, double timeScale) {
     for (Level level: levels) {
-      level.play();
+      level.play(application, timeScale);
     }
   }
 }

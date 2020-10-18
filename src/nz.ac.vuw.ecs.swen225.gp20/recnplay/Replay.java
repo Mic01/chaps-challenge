@@ -1,17 +1,14 @@
 package nz.ac.vuw.ecs.swen225.gp20.recnplay;
 
 import nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.Elements.Level;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Time;
-import java.time.Duration;
-import java.time.Instant;
 import java.util.ArrayList;
 
 /**
@@ -20,12 +17,23 @@ import java.util.ArrayList;
  * @author Luke Hawinkels: hawinkluke
  */
 public class Replay {
+  ApplicationView application;
   String levelName;
   Level currentLevel;
   long startTime = System.nanoTime();
   long endTime = System.nanoTime();
   ArrayList<Level> levelHistory = new ArrayList<>();
 
+  public Replay(ApplicationView application) {
+    this.application = application;
+
+    //Extract the level name
+    String[] path = application.getLevelPath().split("/");
+    this.levelName = path[path.length - 1].replace(".json", "");
+    currentLevel = new Level(levelName);
+  }
+
+  //NOTE this is primarily here for testing purposes
   public Replay(String levelPath) {
     //Extract the level name
     String[] path = levelPath.split("/");

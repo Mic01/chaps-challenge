@@ -28,7 +28,7 @@ public class ApplicationView {
         this.maze = new Maze(game.levelPath);
         this.viewport = new Board(this.maze);
         this.game = game;
-        this.log = new Replay(this.getLevelPath());
+        this.log = new Replay(this);
         this.makeWindow();
     }
 

@@ -1,5 +1,6 @@
-package nz.ac.vuw.ecs.swen225.gp20.recnplay;
+package nz.ac.vuw.ecs.swen225.gp20.recnplay.Elements;
 
+import nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView;
 import nz.ac.vuw.ecs.swen225.gp20.recnplay.Interfaces.Play;
 import nz.ac.vuw.ecs.swen225.gp20.recnplay.Interfaces.Save;
 
@@ -13,7 +14,7 @@ public class Level implements Play, Save {
   private final ArrayList<Action> actions = new ArrayList<Action>();
   String levelName;
   
-  Level(String levelName) {
+  public Level(String levelName) {
     this.levelName = levelName;
   }
   
@@ -64,10 +65,11 @@ public class Level implements Play, Save {
   /**
    * Play all of the actions
    */
-  public void play() {
+  @Override
+  public void play(ApplicationView application, double timeScale) {
     System.out.println("Next level: " + levelName);
     for (Action action: actions) {
-      action.play();
+      action.play(application, timeScale);
     }
   }
 }

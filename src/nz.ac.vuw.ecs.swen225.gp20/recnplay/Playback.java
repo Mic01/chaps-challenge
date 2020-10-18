@@ -2,6 +2,10 @@ package nz.ac.vuw.ecs.swen225.gp20.recnplay;
 
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
+import nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.Elements.Node;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.Threads.Dispatch;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.Threads.ReplayThread;
 
 import java.io.File;
 import java.io.FileReader;
@@ -49,31 +53,16 @@ public class Playback {
     System.out.println("Built nodes");
   }
 
+
   /**
    * Send the actions back and load levels when required.
    * @param timeScale
    */
-  public void play(double timeScale) {
+  public void play(ApplicationView application, double timeScale) {
     //create the dispatch thread
-    dispatchThread = new Dispatch(baseNode, timeScale);
+    dispatchThread = new ReplayThread(application, baseNode, timeScale);
     dispatchThread.start();
-  }
-}
-
-/**
- * This class is used to dispatch the replays on a seperate thread so that the players can move at the same time.
- */
-class Dispatch extends Thread {
-  Node baseNode;
-  double timeScale;
-
-  public Dispatch(Node baseNode, double timeScale) {
-    this.baseNode = baseNode;
-    this.timeScale = timeScale;
-  }
-
-  @Override
-  public synchronized void start() {
-    baseNode.play();
+    while (!dispatchThread.isComplete()); //Wait until the thread is done
+    System.out.println("Thread done");
   }
 }
