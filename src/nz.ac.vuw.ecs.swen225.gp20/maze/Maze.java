@@ -1,8 +1,6 @@
 package nz.ac.vuw.ecs.swen225.gp20.maze;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
@@ -61,8 +59,8 @@ public class Maze {
    *
    * @return list of non player actors
    */
-  public List<Actor> getActors() {
-    return Collections.unmodifiableList(actors);
+  public ArrayList<Actor> getActors() {
+    return actors;
   }
 
   /**
@@ -70,8 +68,8 @@ public class Maze {
    *
    * @return list of non player actors
    */
-  public List<Actor> getAutoActors() {
-    return Collections.unmodifiableList(autoActors);
+  public ArrayList<Actor> getAutoActors() {
+    return autoActors;
   }
 
   /**
