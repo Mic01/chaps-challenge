@@ -249,7 +249,10 @@
 		"tile": "Lock",
 		"x": 29,
 		"y": 26,
-		"chips": 9
+		"chips": 9,
+		"vertical": false,
+		"open": false
+
 	}, {
 		"tile": "Wall",
 		"x": 29,
