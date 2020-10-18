@@ -16,4 +16,7 @@ public abstract class Tile {
    * @throws IOException thrown if the file cannot be found for the tile
    */
   public abstract BufferedImage getImage() throws IOException;
+
+  @Override
+  public abstract String toString();
 }

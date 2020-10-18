@@ -108,4 +108,9 @@ public class Player extends Actor {
 
     return image;
   }
+
+  @Override
+  public String toString() {
+    return "Player";
+  }
 }

@@ -9,6 +9,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Time;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 
 /**
@@ -17,30 +20,49 @@ import java.util.ArrayList;
  * @author Luke Hawinkels: hawinkluke
  */
 public class Replay {
-
-  private final ArrayList<Object> history = new ArrayList<Object>();
   String levelName;
+  Level currentLevel;
+  long startTime = System.nanoTime();
+  long endTime = System.nanoTime();
+  ArrayList<Level> levelHistory = new ArrayList<>();
 
   public Replay(String levelPath) {
     //Extract the level name
     String[] path = levelPath.split("/");
     this.levelName = path[path.length - 1].replace(".json", "");
+    currentLevel = new Level(levelName);
   }
 
   /**
    * Add an action to the history.
    *
    * @param action the thing that we want to add to the stack.
-   * @param <T> generic type.
    */
-  public <T extends Object> void addAction(T action) {
-    history.add(action);
+  public void addAction(String action, String character) {
+    if (currentLevel.actionCount() == 0) {
+      currentLevel.addAction(character, action, (long) 0.0);
+      startTime = System.currentTimeMillis();
+    } else {
+      endTime = System.currentTimeMillis();
+      currentLevel.addAction(character, action, endTime-startTime);
+      startTime = System.currentTimeMillis();
+    }
+  }
+  
+  public void levelUp(String levelName) {
+    this.levelName = levelName;
+    levelHistory.add(currentLevel);
+    currentLevel = new Level(levelName);
   }
 
   /**
    * Save the current history into a json file.
    */
   public void saveReplay() {
+    if (!levelHistory.contains(currentLevel)) {
+      levelHistory.add(currentLevel);
+    }
+    
     //Check to see the appropriate directory exists.
     if (!Files.isDirectory(Paths.get("src/nz.ac.vuw.ecs.swen225.gp20/recnplay/Replays/"))) {
       System.out.println("The directory does not exist.");
@@ -53,34 +75,26 @@ public class Replay {
 
     //Create the file
     File replay = new File(
-            "src/nz.ac.vuw.ecs.swen225.gp20/recnplay/Replays/" + levelName + ".json");
+            "src/nz.ac.vuw.ecs.swen225.gp20/recnplay/Replays/save.json");
 
     //Write the data to the file
     FileWriter writer = null;
     try {
-      System.out.println("Level name is: " + levelName);
+      System.out.println("Last level name is: " + levelName);
 
       writer = new FileWriter(replay, StandardCharsets.UTF_8);
 
       //Add the opening {
       writer.write("{\n");
 
-      //Add the player moves
-      writer.write("\t\"Player\" : {\n");
-
-      for (int i = 0; i < history.size(); i++) {
-        writer.write("\t\t\"" + i + "\" : \"" + history.get(i) + "\"");
-
-        //Add a comma if needed
-        if (i < history.size() - 1) {
-          writer.write(",\n");
-        } else {
-          writer.write("\n");
-        }
+      for (int i = 0; i < levelHistory.size(); i++) {
+        writer.write(levelHistory.get(i).writeHistory());
+        if (i < levelHistory.size() - 1) writer.write(",\n");
+        else writer.write("\n");
       }
 
       //Add the closing }
-      writer.write("\t}\n}");
+      writer.write("\n}");
     } catch (IOException e) {
       e.printStackTrace();
     } finally {

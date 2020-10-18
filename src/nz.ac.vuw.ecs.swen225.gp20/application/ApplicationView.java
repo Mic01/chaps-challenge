@@ -105,7 +105,7 @@ public class ApplicationView {
                 toMove.add(maze.getPlayer());
                 viewport.draw(toMove);
             }
-            log.addAction("moveLeft");
+            log.addAction("moveLeft", "player");
         });
         left.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("LEFT"), "moveLeft");
         left.getActionMap().put("moveLeft", new AbstractAction("moveLeft") {
@@ -116,7 +116,7 @@ public class ApplicationView {
                     toMove.add(maze.getPlayer());
                     viewport.draw(toMove);
                 }
-                log.addAction("moveLeft");
+                log.addAction("moveLeft", "player");
             }
         });
 
@@ -127,7 +127,7 @@ public class ApplicationView {
                 toMove.add(maze.getPlayer());
                 viewport.draw(toMove);
             }
-            log.addAction("moveUp");
+            log.addAction("moveUp", "player");
         });
         up.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("UP"), "moveUp");
         up.getActionMap().put("moveUp", new AbstractAction("moveUp") {
@@ -138,7 +138,7 @@ public class ApplicationView {
                     toMove.add(maze.getPlayer());
                     viewport.draw(toMove);
                 }
-                log.addAction("moveUp");
+                log.addAction("moveUp", "player");
             }
         });
 
@@ -149,7 +149,7 @@ public class ApplicationView {
                 toMove.add(maze.getPlayer());
                 viewport.draw(toMove);
             }
-            log.addAction("moveDown");
+            log.addAction("moveDown", "player");
         });
         down.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("DOWN"), "moveDown");
         down.getActionMap().put("moveDown", new AbstractAction("moveDown") {
@@ -160,7 +160,7 @@ public class ApplicationView {
                     toMove.add(maze.getPlayer());
                     viewport.draw(toMove);
                 }
-                log.addAction("moveDown");
+                log.addAction("moveDown", "player");
             }
         });
 
@@ -171,7 +171,7 @@ public class ApplicationView {
                 toMove.add(maze.getPlayer());
                 viewport.draw(toMove);
             }
-            log.addAction("moveRight");
+            log.addAction("moveRight", "player");
         });
         right.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("RIGHT"), "moveRight");
         right.getActionMap().put("moveRight", new AbstractAction("moveRight") {
@@ -182,7 +182,7 @@ public class ApplicationView {
                     toMove.add(maze.getPlayer());
                     viewport.draw(toMove);
                 }
-                log.addAction("moveRight");
+                log.addAction("moveRight", "player");
             }
         });
 

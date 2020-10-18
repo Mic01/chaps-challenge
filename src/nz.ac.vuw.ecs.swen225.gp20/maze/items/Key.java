@@ -38,4 +38,9 @@ public class Key extends Item {
     }
     return image;
   }
+
+  @Override
+  public String toString() {
+    return "Key";
+  }
 }
