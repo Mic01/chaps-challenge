@@ -164,4 +164,7 @@ public abstract class Actor {
   public FreeTile getCurrentTile() {
     return currentTile;
   }
+
+  @Override
+  public abstract String toString();
 }
