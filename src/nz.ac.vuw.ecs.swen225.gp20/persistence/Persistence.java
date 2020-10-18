@@ -143,8 +143,8 @@ public class Persistence {
 
                 if (currentTile instanceof ExitLock) {
                     object.add("chips", ((ExitLock) currentTile).getTreasuresNeeded());
-                    object.add("vertical", ((LockedDoor) currentTile).isVertical());
-                    object.add("open", ((LockedDoor) currentTile).isOpen());
+                    object.add("vertical", ((ExitLock) currentTile).isVertical());
+                    object.add("open", ((ExitLock) currentTile).isOpen());
                 } else if (currentTile instanceof LockedDoor) {
                     object.add("colour", ((LockedDoor) currentTile).getColour());
                     object.add("vertical", ((LockedDoor) currentTile).isVertical());
@@ -162,13 +162,13 @@ public class Persistence {
                         } else if (item instanceof Treasure) {
                             object.add("slot", "Chip");
                         }
-                    } else if (currentTile instanceof InfoTile){
-                        object.add("text", ((InfoTile)currentTile).getInfo());
-
-                }else{
+                    } else{
                         object.add("slot", "Null");
 
                     }
+                }else if (currentTile instanceof InfoTile){
+                    object.add("text", ((InfoTile)currentTile).getInfo());
+
                 }
 
                 object.add("x", i);
