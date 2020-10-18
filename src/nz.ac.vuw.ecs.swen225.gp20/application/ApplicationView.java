@@ -114,35 +114,35 @@ public class ApplicationView {
         countdownTimer.start();
 
         JButton left = new JButton("\uD83E\uDC50");
-        left.addActionListener(actionEvent -> playerMovement(3));
+        left.addActionListener(actionEvent -> playerMovement(3, false));
         left.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("LEFT"), "moveLeft");
         left.getActionMap().put("moveLeft", new AbstractAction("moveLeft") {
             @Override
-            public void actionPerformed(ActionEvent actionEvent) { playerMovement(3); }
+            public void actionPerformed(ActionEvent actionEvent) { playerMovement(3, false); }
         });
 
         JButton up = new JButton("\uD83E\uDC51");
-        up.addActionListener(actionEvent -> playerMovement(1));
+        up.addActionListener(actionEvent -> playerMovement(1, false));
         up.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("UP"), "moveUp");
         up.getActionMap().put("moveUp", new AbstractAction("moveUp") {
             @Override
-            public void actionPerformed(ActionEvent actionEvent) { playerMovement(1); }
+            public void actionPerformed(ActionEvent actionEvent) { playerMovement(1, false); }
         });
 
         JButton down = new JButton("\uD83E\uDC53");
-        down.addActionListener(actionEvent -> playerMovement(2));
+        down.addActionListener(actionEvent -> playerMovement(2, false));
         down.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("DOWN"), "moveDown");
         down.getActionMap().put("moveDown", new AbstractAction("moveDown") {
             @Override
-            public void actionPerformed(ActionEvent actionEvent) { playerMovement(2); }
+            public void actionPerformed(ActionEvent actionEvent) { playerMovement(2, false); }
         });
 
         JButton right = new JButton("\uD83E\uDC52");
-        right.addActionListener(actionEvent -> playerMovement(4));
+        right.addActionListener(actionEvent -> playerMovement(4, false));
         right.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("RIGHT"), "moveRight");
         right.getActionMap().put("moveRight", new AbstractAction("moveRight") {
             @Override
-            public void actionPerformed(ActionEvent actionEvent) { playerMovement(4); }
+            public void actionPerformed(ActionEvent actionEvent) { playerMovement(4, false); }
         });
 
         sideConstraints.gridx = 3;
@@ -237,7 +237,7 @@ public class ApplicationView {
      * 3: move left
      * 4: move right
      */
-    public void playerMovement(int dir){
+    public void playerMovement(int dir, boolean isFromLog){
         switch (dir) {
             case 1:
                 if(maze.getPlayer().moveUp()) {
@@ -245,7 +245,9 @@ public class ApplicationView {
                     toMove.add(maze.getPlayer());
                     viewport.draw(toMove);
                 }
-                log.addAction("moveUp", "player");
+                if (!isFromLog) {
+                    log.addAction("moveUp", "player");
+                }
                 break;
             case 2:
                 if(maze.getPlayer().moveDown()) {
@@ -253,7 +255,9 @@ public class ApplicationView {
                     toMove.add(maze.getPlayer());
                     viewport.draw(toMove);
                 }
-                log.addAction("moveUp", "player");
+                if (!isFromLog) {
+                    log.addAction("moveUp", "player");
+                }
                 break;
             case 3:
                 if(maze.getPlayer().moveLeft()) {
@@ -261,7 +265,9 @@ public class ApplicationView {
                     toMove.add(maze.getPlayer());
                     viewport.draw(toMove);
                 }
-                log.addAction("moveUp", "player");
+                if (!isFromLog) {
+                    log.addAction("moveUp", "player");
+                }
                 break;
             case 4:
                 if(maze.getPlayer().moveRight()) {
@@ -269,7 +275,9 @@ public class ApplicationView {
                     toMove.add(maze.getPlayer());
                     viewport.draw(toMove);
                 }
-                log.addAction("moveUp", "player");
+                if (!isFromLog) {
+                    log.addAction("moveUp", "player");
+                }
                 break;
             default:
         }

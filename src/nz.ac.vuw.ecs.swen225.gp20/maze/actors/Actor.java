@@ -1,7 +1,10 @@
 package nz.ac.vuw.ecs.swen225.gp20.maze.actors;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import javax.imageio.ImageIO;
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.FreeTile;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
@@ -13,9 +16,13 @@ public abstract class Actor {
   private int yposPrev;
   protected final Maze maze;
   protected FreeTile currentTile;
-  protected String orientation = "right";
-  protected static final String imageDirectory = "assets/actors/";
   protected int frame = 0;
+  private final HashMap<String, BufferedImage> images = new HashMap<>();
+  protected Direction currentDirection = Direction.down;
+
+  public enum Direction {
+    up, right, down, left
+  }
 
   /**
    * A moving creature, typically the player or an enemy creature.
@@ -48,6 +55,7 @@ public abstract class Actor {
    * @return whether this actor successfully moved up or not
    */
   public boolean moveUp() {
+    currentDirection = Direction.up;
     if (moveTo(xpos, ypos - 1)) {
       xposPrev = xpos;
       yposPrev = ypos;
@@ -63,6 +71,7 @@ public abstract class Actor {
    * @return whether this actor successfully moved down or not
    */
   public boolean moveDown() {
+    currentDirection = Direction.down;
     if (moveTo(xpos, ypos + 1)) {
       xposPrev = xpos;
       yposPrev = ypos;
@@ -78,7 +87,7 @@ public abstract class Actor {
    * @return whether this actor successfully moved left or not
    */
   public boolean moveLeft() {
-    orientation = "left";
+    currentDirection = Direction.left;
     if (moveTo(xpos - 1, ypos)) {
       yposPrev = ypos;
       xposPrev = xpos;
@@ -94,7 +103,7 @@ public abstract class Actor {
    * @return whether this actor successfully moved right or not
    */
   public boolean moveRight() {
-    orientation = "right";
+    currentDirection = Direction.right;
     if (moveTo(xpos + 1, ypos)) {
       yposPrev = ypos;
       xposPrev = xpos;
@@ -144,6 +153,27 @@ public abstract class Actor {
    * @throws IOException thrown if the file cannot be found for the actor
    */
   public abstract BufferedImage getImage(boolean moving) throws IOException;
+
+  /**
+   * Load image from file and act as a virtual proxy -
+   * storing images loaded for first time in map so they can be loaded faster
+   *
+   * @param filepath path to the image, starting inside "assets/actors/"
+   * @return the loaded image
+   * @throws IOException thrown if the file cannot be found
+   */
+  protected BufferedImage getImageProxy(String filepath) throws IOException {
+    BufferedImage image;
+    if (images.containsKey(filepath)) {
+      image = images.get(filepath);
+    } else {
+      image = ImageIO.read(new File("assets/actors/" + filepath + ".png"));
+      images.put(filepath, image);
+    }
+
+    nextFrame();
+    return image;
+  }
 
   public int getX() {
     return xpos;

@@ -93,7 +93,7 @@ public class Persistence {
                             break;
 
                         case "Lock":
-                            maze[obj.getInt("x")][obj.getInt("y")] = new ExitLock(obj.getInt("chips"));
+                            maze[obj.getInt("x")][obj.getInt("y")] = new ExitLock(obj.getInt("chips"), obj.getBoolean("vertical"), obj.getBoolean("open"));
                             break;
 
                         case "Info":
@@ -143,6 +143,8 @@ public class Persistence {
 
                 if (currentTile instanceof ExitLock) {
                     object.add("chips", ((ExitLock) currentTile).getTreasuresNeeded());
+                    object.add("vertical", ((LockedDoor) currentTile).isVertical());
+                    object.add("open", ((LockedDoor) currentTile).isOpen());
                 } else if (currentTile instanceof LockedDoor) {
                     object.add("colour", ((LockedDoor) currentTile).getColour());
                     object.add("vertical", ((LockedDoor) currentTile).isVertical());
