@@ -8,17 +8,12 @@ public class Action {
   long timeSinceLastMove;
   String character;
   String action;
-  String level;
   
   
   public Action(String character, String action, long time) {
     this.character = character;
     this.action = action;
     this.timeSinceLastMove = time;
-  }
-  
-  public Action(String level) {
-    this.level = level;
   }
   
   public String writeHistory() {
