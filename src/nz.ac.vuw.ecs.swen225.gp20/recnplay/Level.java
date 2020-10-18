@@ -55,4 +55,8 @@ public class Level {
   public int hashCode() {
     return Objects.hash(history, levelName);
   }
+  
+  public int actionCount() {
+    return history.size();
+  }
 }

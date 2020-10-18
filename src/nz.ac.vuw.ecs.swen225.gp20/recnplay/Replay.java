@@ -39,7 +39,7 @@ public class Replay {
    * @param action the thing that we want to add to the stack.
    */
   public void addAction(String action, String character) {
-    if (levelHistory.size() == 0) {
+    if (currentLevel.actionCount() == 0) {
       currentLevel.addAction(character, action, (long) 0.0);
       startTime = System.currentTimeMillis();
     } else {
@@ -49,10 +49,11 @@ public class Replay {
     }
   }
   
-//  public void levelUp(String levelName) {
-//    this.levelName = levelName;
-//    history.add(new Action(levelName));
-//  }
+  public void levelUp(String levelName) {
+    this.levelName = levelName;
+    levelHistory.add(currentLevel);
+    currentLevel = new Level(levelName);
+  }
 
   /**
    * Save the current history into a json file.
@@ -74,12 +75,12 @@ public class Replay {
 
     //Create the file
     File replay = new File(
-            "src/nz.ac.vuw.ecs.swen225.gp20/recnplay/Replays/" + levelName + ".json");
+            "src/nz.ac.vuw.ecs.swen225.gp20/recnplay/Replays/save.json");
 
     //Write the data to the file
     FileWriter writer = null;
     try {
-      System.out.println("Level name is: " + levelName);
+      System.out.println("Last level name is: " + levelName);
 
       writer = new FileWriter(replay, StandardCharsets.UTF_8);
 
@@ -88,6 +89,8 @@ public class Replay {
 
       for (int i = 0; i < levelHistory.size(); i++) {
         writer.write(levelHistory.get(i).writeHistory());
+        if (i < levelHistory.size() - 1) writer.write(",\n");
+        else writer.write("\n");
       }
 
       //Add the closing }
