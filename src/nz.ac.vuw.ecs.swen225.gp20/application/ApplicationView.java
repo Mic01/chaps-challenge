@@ -100,13 +100,15 @@ public class ApplicationView {
         JLabel timeCount = new JLabel("60 seconds");
         timeCount.setForeground(Color.LIGHT_GRAY);
 
+        ApplicationView currentGame = this;
+
         ActionListener countdown = new ActionListener() {
             int timeLeft = 59;
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 timeCount.setText(timeLeft + " seconds");
                 if(timeLeft <= 0){
-                    //doGameOverWindow
+                    new LevelLostView(window, currentGame,true);
                     ((Timer)actionEvent.getSource()).stop();
                 }
                 timeLeft--;
@@ -294,5 +296,17 @@ public class ApplicationView {
                 break;
             default:
         }
+    }
+
+    public void restartLevel(){
+        this.window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.game.restartLevel(this.game.currLevel);
+        this.window.dispose();
+    }
+
+    public void changeLevel(){
+        this.window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.game.nextLevel(this.game.currLevel);
+        this.window.dispose();
     }
 }
