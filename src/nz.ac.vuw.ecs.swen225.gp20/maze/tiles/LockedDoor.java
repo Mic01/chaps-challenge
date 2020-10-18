@@ -12,7 +12,8 @@ public class LockedDoor extends Tile {
   private final String colour;
   private final boolean vertical;
   private boolean open;
-  private BufferedImage image;
+  private BufferedImage imageClosed;
+  private BufferedImage imageOpen;
 
   public LockedDoor(String colour, boolean vertical, boolean open) {
     this.colour = colour.toLowerCase();
@@ -51,11 +52,14 @@ public class LockedDoor extends Tile {
 
   @Override
   public BufferedImage getImage() throws IOException {
-    if (image == null) {
-      image = ImageIO.read(new File(imageDirectory + "lock_"
-              + (vertical ? "vertical" : "horizontal") + "_" + (open ? "open" : colour) + ".png"));
+    if (imageClosed == null) {
+      imageClosed = ImageIO.read(new File(imageDirectory + "lock_"
+              + (vertical ? "vertical" : "horizontal") + "_" + colour + ".png"));
+
+      imageOpen = ImageIO.read(new File(imageDirectory + "lock_"
+              + (vertical ? "vertical" : "horizontal") + "_" + "open" + ".png"));
     }
-    return image;
+    return open ? imageOpen : imageClosed;
   }
 
   @Override
