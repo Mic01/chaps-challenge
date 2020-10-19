@@ -7,7 +7,7 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 
 public class NullTile extends Tile {
   private static final Random random = new Random();
-  private BufferedImage image;
+  private final int randomNum = random.nextInt(5);
 
   @Override
   public boolean isTraversable(Actor actor) {
@@ -21,7 +21,7 @@ public class NullTile extends Tile {
 
   @Override
   public BufferedImage getImage() throws IOException {
-    return getImageProxy("empty_" + random.nextInt(5));
+    return getImageProxy("empty_" + randomNum);
   }
 
   @Override

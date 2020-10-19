@@ -7,8 +7,6 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
 import nz.ac.vuw.ecs.swen225.gp20.maze.items.IcePotion;
 
 public class Ice extends Tile {
-  private static BufferedImage image;
-
   @Override
   public boolean isTraversable(Actor actor) {
     return true;

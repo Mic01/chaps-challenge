@@ -6,7 +6,6 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 
 public class InfoTile extends Tile {
   private final String info;
-  private static BufferedImage image;
 
   public InfoTile(String info) {
     this.info = info;

@@ -5,8 +5,6 @@ import java.io.IOException;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 
 public class Wall extends Tile {
-  private static BufferedImage image;
-
   @Override
   public boolean isTraversable(Actor actor) {
     return false;

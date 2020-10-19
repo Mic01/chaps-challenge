@@ -5,7 +5,6 @@ import java.io.IOException;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 
 public class Vent extends Tile {
-  private static BufferedImage image;
   private final int xTarget;
   private final int yTarget;
 
