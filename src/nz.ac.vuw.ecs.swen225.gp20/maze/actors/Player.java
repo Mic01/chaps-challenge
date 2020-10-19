@@ -73,18 +73,20 @@ public class Player extends Actor {
   @Override
   public BufferedImage getImage(boolean moving) throws IOException {
     String type;
+
     if (moving) {
       type = "walk";
-      if (currentTile instanceof Water) {
-        type = "swim";
-        frame %= 2;
-      } else if (currentTile instanceof Ice) {
-        type = "slide";
-        frame %= 2;
-      }
     } else {
       type = "stand";
       frame = 0;
+    }
+
+    if (currentTile instanceof Water) {
+      type = "swim" + (moving ? "" : "_idle");
+      frame %= 2;
+    } else if (currentTile instanceof Ice) {
+      type = "slide";
+      frame %= 2;
     }
 
     String path = "player/" + type + "_" + (moving ? (frame + "_") : "") + currentDirection;
