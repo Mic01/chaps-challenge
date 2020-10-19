@@ -28,7 +28,7 @@ public class Board extends JPanel implements ActionListener {
   private static final int visionRange = 9;
   private static final int reach = visionRange / 2;
   private static final int tileSize = 70;
-  private static final int sleepTime = 300; //Time in ms before each draw
+  private static final int sleepTime = 200; //Time in ms before each draw
 
   //Static Rendering Variables
   private Tile[][] level;
@@ -42,6 +42,7 @@ public class Board extends JPanel implements ActionListener {
   private ArrayList<Actor> moving = new ArrayList<>();
   private int animationState;
   private boolean halfFrame;
+  private boolean isAnimating;
   private Timer timer = new Timer(sleepTime, this); //Redraws from timer in ActionListener
   private boolean playerMoved;
 
@@ -111,7 +112,8 @@ public class Board extends JPanel implements ActionListener {
     if(halfFrame) {
       halfFrame = false;
     }else{
-      this.moving = new ArrayList<>();
+      playerMoved = false;
+      isAnimating = false;
       timer.stop();
     }
     repaint();
@@ -131,6 +133,7 @@ public class Board extends JPanel implements ActionListener {
     //If player is currently moving, draw a half frame
     if(playerMove){
       halfFrame = true;
+      isAnimating = true;
     }
 
     repaint();
@@ -336,6 +339,10 @@ public class Board extends JPanel implements ActionListener {
             getVisionX(actor.getX()) < visionRange &&
             getVisionY(actor.getY()) >= 0 &&
             getVisionY(actor.getY()) < visionRange);
+  }
+
+  public boolean isAnimating(){
+    return isAnimating;
   }
 
   @Override
