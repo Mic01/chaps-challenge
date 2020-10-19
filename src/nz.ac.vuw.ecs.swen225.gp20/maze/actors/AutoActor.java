@@ -29,7 +29,7 @@ public abstract class AutoActor extends Actor {
    * Turn this AutoActor left once
    */
   protected void turnLeft() {
-    int intDirection = (currentDirection.ordinal() - 1) % 4;
+    int intDirection = (currentDirection.ordinal() + 3) % 4;
     currentDirection = Direction.values()[intDirection];
   }
 
