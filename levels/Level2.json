@@ -102,7 +102,8 @@
 		"tile": "Floor",
 		"x": 14,
 		"y": 26,
-		"slot": "Key",
+		"slot": "Item",
+		"type": "Key",
 		"colour": "Yellow"
 	}, {
 		"tile": "Wall",
@@ -240,8 +241,9 @@
 		"tile": "Floor",
 		"x": 18,
 		"y": 37,
-		"slot": "Shoe",
-		"type": "Ice"
+		"slot": "Item",
+		"type": "Shoe",
+		"element": "Ice"
 	}, {
 		"tile": "Wall",
 		"x": 18,
@@ -530,7 +532,8 @@
 		"tile": "Floor",
 		"x": 25,
 		"y": 16,
-		"slot": "Chip"
+		"slot": "Item",
+		"type": "Chip"
 	}, {
 		"tile": "Door",
 		"x": 25,
@@ -554,7 +557,8 @@
 		"tile": "Floor",
 		"x": 25,
 		"y": 27,
-		"slot": "Chip"
+		"slot": "Item",
+		"type": "Chip"
 	}, {
 		"tile": "Floor",
 		"x": 25,
@@ -710,7 +714,8 @@
 		"tile": "Floor",
 		"x": 27,
 		"y": 36,
-		"slot": "Chip"
+		"slot": "Item",
+		"type": "Chip"
 	}, {
 		"tile": "Wall",
 		"x": 27,
@@ -753,13 +758,15 @@
 		"tile": "Floor",
 		"x": 29,
 		"y": 15,
-		"slot": "Shoe",
-		"type": "Water"
+		"slot": "Item",
+		"type": "Shoe",
+		"element": "Water"
 	},{
 		"tile": "Floor",
 		"x": 29,
 		"y": 18,
-		"slot": "Chip"
+		"slot": "Item",
+		"type": "Chip"
 	}, {
 		"tile": "Door",
 		"x": 29,
@@ -783,7 +790,8 @@
 		"tile": "Floor",
 		"x": 29,
 		"y": 31,
-		"slot": "Chip"
+		"slot": "Item",
+		"type": "Chip"
 	}, {
 		"tile": "Wall",
 		"x": 29,
@@ -825,7 +833,8 @@
 		"tile": "Floor",
 		"x": 30,
 		"y": 34,
-		"slot": "Chip"
+		"slot": "Item",
+		"type": "Chip"
 	}, {
 		"tile": "Wall",
 		"x": 30,
@@ -1030,7 +1039,8 @@
 		"tile": "Floor",
 		"x": 34,
 		"y": 9,
-		"slot": "Chip"
+		"slot": "Item",
+		"type": "Chip"
 	}, {
 		"tile": "Wall",
 		"x": 34,
@@ -1087,7 +1097,8 @@
 		"tile": "Floor",
 		"x": 34,
 		"y": 39,
-		"slot": "Chip"
+		"slot": "Item",
+		"type": "Chip"
 	}, {
 		"tile": "Wall",
 		"x": 34,
@@ -1162,7 +1173,8 @@
 		"tile": "Floor",
 		"x": 36,
 		"y": 9,
-		"slot": "Key",
+		"slot": "Item",
+		"type": "Key",
 		"colour": "Green"
 	}, {
 		"tile": "Wall",
@@ -1172,13 +1184,15 @@
 		"tile": "Floor",
 		"x": 36,
 		"y": 14,
-		"slot": "Key",
+		"slot": "Item",
+		"type": "Key",
 		"colour": "Red"
 	}, {
 		"tile": "Floor",
 		"x": 36,
 		"y": 19,
-		"slot": "Chip"
+		"slot": "Item",
+		"type": "Chip"
 	},{
 		"tile": "Floor",
 		"x": 36,
@@ -1199,7 +1213,8 @@
 		"tile": "Floor",
 		"x": 36,
 		"y": 31,
-		"slot": "Chip"
+		"slot": "Item",
+		"type": "Chip"
 	}, {
 		"tile": "Wall",
 		"x": 36,
@@ -1246,7 +1261,8 @@
 		"tile": "Floor",
 		"x": 38,
 		"y": 9,
-		"slot": "Chip"
+		"slot": "Item",
+		"type": "Chip"
 	}, {
 		"tile": "Wall",
 		"x": 38,
@@ -1293,7 +1309,8 @@
 		"tile": "Floor",
 		"x": 38,
 		"y": 35,
-		"slot": "Chip"
+		"slot": "Item",
+		"type": "Chip"
 	}, {
 		"tile": "Wall",
 		"x": 38,
@@ -1517,7 +1534,8 @@
 		"tile": "Floor",
 		"x": 42,
 		"y": 25,
-		"slot": "Chip"
+		"slot": "Item",
+		"type": "Chip"
 	}, {
 		"tile": "Wall",
 		"x": 42,
@@ -1531,7 +1549,8 @@
 		"tile": "Floor",
 		"x": 43,
 		"y": 37,
-		"slot": "Key",
+		"slot": "Item",
+		"type": "Key",
 		"colour": "Blue"
 	}, {
 		"tile": "Wall",
@@ -1546,17 +1565,20 @@
 		"tile": "Floor",
 		"x": 44,
 		"y": 29,
-		"slot": "Chip"
+		"slot": "Item",
+		"type": "Chip"
 	}, {
 		"tile": "Floor",
 		"x": 44,
 		"y": 32,
-		"slot": "Chip"
+		"slot": "Item",
+		"type": "Chip"
 	}, {
 		"tile": "Floor",
 		"x": 44,
 		"y": 35,
-		"slot": "Chip"
+		"slot": "Item",
+		"type": "Chip"
 	}, {
 		"tile": "Wall",
 		"x": 44,
