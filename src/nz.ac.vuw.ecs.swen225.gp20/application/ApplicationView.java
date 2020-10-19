@@ -28,6 +28,7 @@ public class ApplicationView {
     private JLabel scoreCount = new JLabel("0");
     private JPanel lowerWindow = new JPanel();
     private String replayPath = "";
+    private Timer countdownTimer = null;
 
 
     public ApplicationView(Main game, boolean isReplay) {
@@ -124,10 +125,10 @@ public class ApplicationView {
         timeCount.setForeground(Color.LIGHT_GRAY);
 
         ApplicationView currentGame = this;
-
-
         ActionListener countdown;
+
         if(currentLevel == 1) {
+            Timer finalCountdownTimer1 = countdownTimer;
             countdown = new ActionListener() {
                 int timeLeft = 59;
 
@@ -136,7 +137,7 @@ public class ApplicationView {
                     timeCount.setText(timeLeft + " seconds");
                     if (timeLeft <= 0) {
                         gameOver = true;
-                        ((Timer) actionEvent.getSource()).stop();
+                        finalCountdownTimer1.stop();
                         new LevelLostView(window, currentGame, true);
                     }
                     timeLeft--;
@@ -144,6 +145,7 @@ public class ApplicationView {
             };
         }
         else{
+            Timer finalCountdownTimer = countdownTimer;
             countdown = new ActionListener() {
                 int timeLeft = 119;
 
@@ -152,14 +154,14 @@ public class ApplicationView {
                     timeCount.setText(timeLeft + " seconds");
                     if (timeLeft <= 0) {
                         gameOver = true;
-                        ((Timer) actionEvent.getSource()).stop();
+                        finalCountdownTimer.stop();
                         new LevelLostView(window, currentGame, true);
                     }
                     timeLeft--;
                 }
             };
         }
-        javax.swing.Timer countdownTimer = new javax.swing.Timer(1000, countdown);
+        countdownTimer = new javax.swing.Timer(1000, countdown);
         countdownTimer.start();
 
         ActionListener npcMovement = actionEvent -> {
@@ -287,6 +289,28 @@ public class ApplicationView {
             Playback replay = new Playback();
             replay.load(this.replayPath);
 
+            ApplicationView currAppli = this;
+            boolean hasFinished = false;
+
+            JButton pause = new JButton("\u2016");
+            JButton play = new JButton("⯈");
+            JButton step = new JButton("\uD83E\uDC7A");
+
+            play.addActionListener(actionEvent -> replay.play(currAppli, 1.0));
+
+            replayConstraints.gridx = 0;
+            replayConstraints.gridy = 0;
+            replayConstraints.fill = GridBagConstraints.NONE;
+            replayConstraints.anchor = GridBagConstraints.CENTER;
+            replayConstraints.insets = new Insets(10, 0, 0, 0);
+            replayWindow.add(play, replayConstraints);
+
+            replayConstraints.gridx = 1;
+            replayConstraints.insets = new Insets(10, 10, 0, 0);
+            replayWindow.add(pause, replayConstraints);
+
+            replayConstraints.gridx = 2;
+            replayWindow.add(step, replayConstraints);
         }
 
         constraints.gridx = 0;
@@ -374,6 +398,7 @@ public class ApplicationView {
         this.lowerWindow.repaint();
         if(maze.isFinished()){
             gameOver = true;
+            countdownTimer.stop();
             new LevelWonView(this.window, this);
         }
     }
