@@ -115,8 +115,8 @@ public class Player extends Actor {
       }
     }
 
-    String path = "player/" + type + "_" + ((moving || type.equals("slide") || dead) ?
-            (frame + "_") : "") + currentDirection;
+    String path = "player/" + type + "_" + ((moving || type.equals("slide") || dead)
+            ? (frame + "_") : "") + currentDirection;
     return getImageProxy(path);
   }
 

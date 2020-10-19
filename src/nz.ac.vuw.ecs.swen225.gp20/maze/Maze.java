@@ -34,6 +34,15 @@ public class Maze {
   }
 
   /**
+   * Save this Maze using Persistence save method.
+   *
+   * @param fileName name of the file to save the Maze to
+   */
+  public void save(String fileName) {
+    Persistence.saveLevel(tiles, fileName);
+  }
+
+  /**
    * Get the tile at the provided coordinates.
    *
    * @param x x-coordinate of the tile

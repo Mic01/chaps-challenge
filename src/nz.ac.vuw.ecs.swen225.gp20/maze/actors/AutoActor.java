@@ -21,12 +21,12 @@ public abstract class AutoActor extends Actor {
   }
 
   /**
-   * Make this actor follow the next step in its automatic movement
+   * Make this actor follow the next step in its automatic movement.
    */
   public abstract void autoMove();
 
   /**
-   * Turn this AutoActor left once
+   * Turn this AutoActor left once.
    */
   protected void turnLeft() {
     int intDirection = (currentDirection.ordinal() + 3) % 4;
@@ -34,7 +34,7 @@ public abstract class AutoActor extends Actor {
   }
 
   /**
-   * Turn this AutoActor right once
+   * Turn this AutoActor right once.
    */
   protected void turnRight() {
     int intDirection = (currentDirection.ordinal() + 1) % 4;
@@ -42,7 +42,7 @@ public abstract class AutoActor extends Actor {
   }
 
   /**
-   * Make this AutoActor face the opposite direction
+   * Make this AutoActor face the opposite direction.
    */
   protected void turnAround() {
     int intDirection = (currentDirection.ordinal() + 2) % 4;
@@ -50,33 +50,49 @@ public abstract class AutoActor extends Actor {
   }
 
   /**
-   * Get the tile adjacent this AutoActor, in the provided direction
+   * Get the tile adjacent this AutoActor, in the provided direction.
+   *
    * @return the Tile next to this AutoActor
    */
   protected Tile getAdjacentTile(Direction direction) {
     switch (direction) {
-      case up: return maze.getTile(xpos, ypos-1);
-      case right: return maze.getTile(xpos+1, ypos);
-      case down: return maze.getTile(xpos, ypos+1);
-      case left: return maze.getTile(xpos-1, ypos);
-      default: return currentTile;
+      case up:
+        return maze.getTile(xpos, ypos - 1);
+      case right:
+        return maze.getTile(xpos + 1, ypos);
+      case down:
+        return maze.getTile(xpos, ypos + 1);
+      case left:
+        return maze.getTile(xpos - 1, ypos);
+      default:
+        return currentTile;
     }
   }
 
   /**
-   * Move in the direction that this AutoActor is currently facing
+   * Move in the direction that this AutoActor is currently facing.
    */
   protected void moveForward() {
     switch (currentDirection) {
-      case left: moveLeft(); break;
-      case right: moveRight(); break;
-      case down: moveDown(); break;
-      case up: moveUp();
+      case left:
+        moveLeft();
+        break;
+      case right:
+        moveRight();
+        break;
+      case down:
+        moveDown();
+        break;
+      case up:
+        moveUp();
+        break;
+      default:
     }
   }
 
   /**
    * Get the direction that this AutoActor is currently facing.
+   *
    * @return the direction that this AutoActor is currently facing
    */
   public Direction getCurrentDirection() {

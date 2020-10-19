@@ -120,6 +120,7 @@ public abstract class Actor {
 
   /**
    * Move this actor in the provided direction.
+   *
    * @param direction direction to move in
    * @return whether the move was successful
    */
@@ -176,6 +177,7 @@ public abstract class Actor {
 
   /**
    * Is this actor standing on the type of Tile provided.
+   *
    * @param tileClass the type of tile to check
    * @return whether this actor is standing on the type of tile provided
    */
@@ -193,7 +195,7 @@ public abstract class Actor {
 
   /**
    * Load image from file and act as a virtual proxy -
-   * storing images loaded for first time in map so they can be loaded faster
+   * storing images loaded for first time in map so they can be loaded faster.
    *
    * @param filepath path to the image, starting inside "assets/actors/"
    * @return the loaded image
