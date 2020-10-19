@@ -98,7 +98,6 @@ public class Board extends JPanel implements ActionListener {
         } else {
           vision[xcount][ycount] = new NullTile();
         }
-
       }
     }
   }
