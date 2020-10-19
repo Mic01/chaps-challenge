@@ -3,6 +3,7 @@ package nz.ac.vuw.ecs.swen225.gp20.application;
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.AutoActor;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.Playback;
 import nz.ac.vuw.ecs.swen225.gp20.recnplay.Replay;
 import nz.ac.vuw.ecs.swen225.gp20.render.Board;
 
@@ -10,6 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 
 public class ApplicationView {
@@ -70,8 +72,9 @@ public class ApplicationView {
     private void addToWindow() {
 
         JMenuBar saveLoad = new JMenuBar();
-        this.saveReplay.addActionListener(actionEvent -> this.log.saveReplay());
+        this.saveReplay.addActionListener(actionEvent -> showSaveDialogue());
         this.save.add(this.saveReplay);
+        this.loadGame.addActionListener(actionEvent -> showLoadDialogue());
         this.load.add(this.loadGame);
         saveLoad.add(this.save);
         saveLoad.add(this.load);
@@ -108,6 +111,7 @@ public class ApplicationView {
             public void actionPerformed(ActionEvent actionEvent) {
                 timeCount.setText(timeLeft + " seconds");
                 if(timeLeft <= 0){
+                    gameOver = true;
                     new LevelLostView(window, currentGame,true);
                     ((Timer)actionEvent.getSource()).stop();
                 }
@@ -121,8 +125,10 @@ public class ApplicationView {
             if (gameOver) {
                 ((Timer) actionEvent.getSource()).stop();
             }
-            for(AutoActor a : maze.getAutoActors()){
-                a.autoMove();
+            else {
+                for (AutoActor a : maze.getAutoActors()) {
+                    a.autoMove();
+                }
             }
         };
         javax.swing.Timer npcMovementTimer = new javax.swing.Timer(250, npcMovement);
@@ -159,6 +165,10 @@ public class ApplicationView {
             @Override
             public void actionPerformed(ActionEvent actionEvent) { playerMovement(4, false); }
         });
+
+        JButton quitGame = new JButton("Quit Game");
+        quitGame.addActionListener(actionEvent -> System.exit(0));
+        quitGame.setPreferredSize(new Dimension(125, 25));
 
         sideConstraints.gridx = 3;
         sideConstraints.gridy = 0;
@@ -202,15 +212,18 @@ public class ApplicationView {
         sideConstraints.gridy = 5;
         sideWindow.add(right, sideConstraints);
 
+        sideConstraints.gridx = 3;
+        sideConstraints.gridy = 6;
+        sideConstraints.fill = GridBagConstraints.HORIZONTAL;
+        sideConstraints.insets = new Insets(100, -127, 0, 0);
+        sideWindow.add(quitGame, sideConstraints);
+
         JPanel lowerWindow = new JPanel();
         lowerWindow.setMinimumSize(new Dimension(100, 150));
         lowerWindow.setPreferredSize(new Dimension(100, 150));
         lowerWindow.setBackground(Color.BLACK);
 
-        JButton quitGame = new JButton("Quit Game");
-        quitGame.addActionListener(actionEvent -> System.exit(0));
-        quitGame.setPreferredSize(new Dimension(125, 25));
-        lowerWindow.add(quitGame);
+
 
         constraints.gridx = 0;
         constraints.gridy = 0;
@@ -271,7 +284,7 @@ public class ApplicationView {
                     viewport.draw(toMove);
                 }
                 if (!isFromLog) {
-                    log.addAction("moveUp", "player");
+                    log.addAction("moveDown", "player");
                 }
                 break;
             case 3:
@@ -281,7 +294,7 @@ public class ApplicationView {
                     viewport.draw(toMove);
                 }
                 if (!isFromLog) {
-                    log.addAction("moveUp", "player");
+                    log.addAction("moveLeft", "player");
                 }
                 break;
             case 4:
@@ -291,10 +304,46 @@ public class ApplicationView {
                     viewport.draw(toMove);
                 }
                 if (!isFromLog) {
-                    log.addAction("moveUp", "player");
+                    log.addAction("moveRight", "player");
                 }
                 break;
             default:
+        }
+    }
+
+    private void showLoadDialogue() {
+        JFileChooser c = new JFileChooser();
+        // Demonstrate "Open" dialog:
+        int rVal = c.showOpenDialog(window);
+        Label filename = new Label(), dir = new Label();
+        if (rVal == JFileChooser.APPROVE_OPTION) {
+            filename.setText(c.getSelectedFile().getName());
+            dir.setText(c.getCurrentDirectory().toString());
+
+            System.out.println(dir.getText() + "/" + filename.getText());
+            Playback replay = new Playback();
+            replay.load(dir.getText() + "/" + filename.getText(), 1);
+            replay.play(this, 1.0);
+        }
+        if (rVal == JFileChooser.CANCEL_OPTION) {
+            filename.setText("");
+            dir.setText("");
+        }
+    }
+
+    private void showSaveDialogue() {
+        JFileChooser c = new JFileChooser();
+        int rVal = c.showSaveDialog(window);
+        Label filename = new Label();
+        Label dir = new Label();
+        if (rVal == JFileChooser.APPROVE_OPTION) {
+            filename.setText(c.getSelectedFile().getName());
+            dir.setText(c.getCurrentDirectory().toString());
+            this.log.saveReplay(new File(dir.getText() + "/" + filename.getText()));
+        }
+        if (rVal == JFileChooser.CANCEL_OPTION) {
+            filename.setText("");
+            dir.setText("");
         }
     }
 
