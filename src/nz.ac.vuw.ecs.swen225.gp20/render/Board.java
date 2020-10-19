@@ -203,7 +203,7 @@ public class Board extends JPanel implements ActionListener {
         if (actor.getCurrentTile() instanceof Ice) {
           playSound("slide");
         } else if (actor.getCurrentTile() instanceof Water) {
-          playSound("waterWalk");
+          playSound("waterSwim");
         } else {
           playSound("metalWalk");
         }
