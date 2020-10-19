@@ -10,8 +10,6 @@ public class LockedDoor extends Tile {
   private final String colour;
   private final boolean vertical;
   private boolean open;
-  private BufferedImage imageClosed;
-  private BufferedImage imageOpen;
 
   public LockedDoor(String colour, boolean vertical, boolean open) {
     this.colour = colour.toLowerCase();

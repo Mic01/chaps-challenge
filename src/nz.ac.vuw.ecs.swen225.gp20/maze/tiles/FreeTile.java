@@ -9,7 +9,6 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.items.Treasure;
 
 public class FreeTile extends Tile {
   private Item item;
-  private static BufferedImage image;
 
   public FreeTile() {
     item = null;
