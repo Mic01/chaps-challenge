@@ -7,6 +7,7 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
 import nz.ac.vuw.ecs.swen225.gp20.maze.items.Item;
 import nz.ac.vuw.ecs.swen225.gp20.maze.items.Key;
 import nz.ac.vuw.ecs.swen225.gp20.maze.items.Treasure;
+import nz.ac.vuw.ecs.swen225.gp20.maze.items.WaterPotion;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.*;
 
 
@@ -70,7 +71,19 @@ public class Persistence {
                                     maze[obj.getInt("x")][obj.getInt("y")] = new FreeTile(new Treasure());
                                     break;
                                 case "Shoe":
-                                    maze[obj.getInt("x")][obj.getInt("y")] = new FreeTile();
+                                    final String element = obj.getString("type");
+                                    x = obj.getInt("x");
+                                    y = obj.getInt("y");
+                                    switch (element) {
+                                        case "Water":
+                                            maze[x][y] = new FreeTile(new WaterPotion());
+                                        break;
+
+                                        //case "Ice":
+                                         //   maze[x][y] = new FreeTile(new Treasure());
+                                       // break;
+
+                                    }
                                     break;
                                 case "Player":
 
@@ -133,6 +146,10 @@ public class Persistence {
 
                         case "Water":
                             maze[obj.getInt("x")][obj.getInt("y")] = new Water();
+                            break;
+
+                        case "Vent":
+                            maze[obj.getInt("x")][obj.getInt("y")] = new Vent(obj.getInt("x1"),obj.getInt("y1"));
                             break;
                     }
                 }
