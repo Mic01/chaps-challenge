@@ -188,9 +188,8 @@ public class Board extends JPanel implements ActionListener {
    * draws a new frame of every actor that has moved this round.
    */
   private void drawEntities(Graphics g, int xOffset, int yOffset) throws IOException {
-      //If actor is player, draw directly in center
-        g.drawImage(player.getImage(playerMoved),
-                (player.getX() * tileSize) + xOffset, (player.getY() * tileSize) + yOffset, this);
+    g.drawImage(player.getImage(playerMoved),
+            (getVisionX(player.getX()) * tileSize), (getVisionY(player.getY()) * tileSize), this);
       /*if(actor.equals(player)) {
         playerMoved = true;
         if (actor.getCurrentTile() instanceof Ice) {
@@ -201,11 +200,6 @@ public class Board extends JPanel implements ActionListener {
           playSound("metalWalk");
         }
       }*/
-    /*if (!playerMoved) {
-      g.drawImage(player.getImage(false),
-              (getVisionX(player.getX()) * tileSize), (getVisionY(player.getY()) * tileSize), this);
-
-  */
   }
 
   /**
