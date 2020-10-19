@@ -32,7 +32,7 @@ public class ExitLock extends Tile {
   public boolean isTraversable(Actor actor) {
     if (open) return true;
 
-    if (actor instanceof Player) {
+    if (actor.isPlayer()) {
       Player player = (Player) actor;
       return player.treasuresCollected() == treasuresNeeded;
     }
@@ -47,8 +47,8 @@ public class ExitLock extends Tile {
 
   @Override
   public BufferedImage getImage() throws IOException {
-    return open ? getImageProxy("gate_" + (vertical ? "vertical" : "horizontal")) :
-            getImageProxy("lock_" + (vertical ? "vertical" : "horizontal") + "_open");
+    return open ? getImageProxy("lock_" + (vertical ? "vertical" : "horizontal") + "_open") :
+            getImageProxy("gate_" + (vertical ? "vertical" : "horizontal"));
   }
 
   @Override

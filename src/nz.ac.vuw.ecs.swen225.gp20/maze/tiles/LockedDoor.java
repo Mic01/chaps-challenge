@@ -33,7 +33,7 @@ public class LockedDoor extends Tile {
   public boolean isTraversable(Actor actor) {
     if (open) return true;
 
-    if (actor instanceof Player) {
+    if (actor.isPlayer()) {
       Player player = (Player) actor;
       return player.isHolding(new Key(colour));
     }

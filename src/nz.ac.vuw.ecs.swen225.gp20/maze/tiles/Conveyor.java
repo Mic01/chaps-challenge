@@ -11,6 +11,10 @@ public class Conveyor extends Tile {
     this.moveDirection = direction;
   }
 
+  public Actor.Direction getDirection() {
+    return moveDirection;
+  }
+
   @Override
   public boolean isTraversable(Actor actor) {
     return true;

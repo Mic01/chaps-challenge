@@ -8,6 +8,7 @@ import java.util.List;
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.items.IcePotion;
 import nz.ac.vuw.ecs.swen225.gp20.maze.items.Item;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Conveyor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Ice;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Water;
 
@@ -76,31 +77,45 @@ public class Player extends Actor {
   public BufferedImage getImage(boolean moving) throws IOException {
     String type;
 
-    if (moving) {
-      type = "walk";
+    if (!dead) {
+      if (moving) {
+        type = "walk";
+      } else {
+        type = "stand";
+        frame = 0;
+      }
+
+      if (isOn(Water.class)) {
+        type = "swim" + (moving ? "" : "_idle");
+        frame %= 2;
+      } else if (isOn(Conveyor.class) || (isOn(Ice.class) && !isHolding(new IcePotion()))) {
+        type = "slide";
+        if (isSliding) {
+          frame = 1;
+        } else {
+          frame = 0;
+          isSliding = true;
+        }
+      }
+
+      if (!type.equals("slide")) {
+        isSliding = false;
+      }
+    } else if (isOn(Water.class)) {
+      type = "swim_dead";
     } else {
-      type = "stand";
-      frame = 0;
+      type = "dead";
     }
 
-    if (currentTile instanceof Water) {
-      type = "swim" + (moving ? "" : "_idle");
-      frame %= 2;
-    } else if (currentTile instanceof Ice && !isHolding(new IcePotion())) {
-      type = "slide";
-      if (isSliding) {
-        frame = 1;
-      } else {
-        frame = 0;
-        isSliding = true;
+    if (dead) {
+      if (currentDirection == Direction.up) {
+        currentDirection = Direction.left;
+      } else if (currentDirection == Direction.down) {
+        currentDirection = Direction.right;
       }
     }
 
-    if (!type.equals("slide")) {
-      isSliding = false;
-    }
-
-    String path = "player/" + type + "_" + ((moving || type.equals("slide")) ?
+    String path = "player/" + type + "_" + ((moving || type.equals("slide") || dead) ?
             (frame + "_") : "") + currentDirection;
     return getImageProxy(path);
   }

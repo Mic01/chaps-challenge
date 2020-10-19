@@ -65,16 +65,22 @@ public abstract class AutoActor extends Actor {
 
   /**
    * Move in the direction that this AutoActor is currently facing
-   * @return whether the move was successful
    */
-  protected boolean moveForward() {
+  protected void moveForward() {
     switch (currentDirection) {
-      case left: return moveLeft();
-      case right: return moveRight();
-      case down: return moveDown();
-      case up: return moveUp();
-      default: return false;
+      case left: moveLeft(); break;
+      case right: moveRight(); break;
+      case down: moveDown(); break;
+      case up: moveUp();
     }
+  }
+
+  /**
+   * Get the direction that this AutoActor is currently facing.
+   * @return the direction that this AutoActor is currently facing
+   */
+  public Direction getCurrentDirection() {
+    return currentDirection;
   }
 
   @Override

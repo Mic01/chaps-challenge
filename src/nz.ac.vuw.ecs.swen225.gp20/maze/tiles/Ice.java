@@ -14,7 +14,7 @@ public class Ice extends Tile {
 
   @Override
   public void moveEvent(Actor actor, Actor.Direction direction) {
-    if (actor instanceof Player && !((Player) actor).isHolding(new IcePotion())) {
+    if (actor.isPlayer() && !((Player) actor).isHolding(new IcePotion())) {
       actor.move(direction);
     }
     actor.getMaze().setDisplayText("");

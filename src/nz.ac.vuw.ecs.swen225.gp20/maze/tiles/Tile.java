@@ -27,8 +27,16 @@ public abstract class Tile {
     // Players should only be added to tiles if they are traversable
     Preconditions.checkArgument(isTraversable(actor));
 
-    //todo: deal with another actor on this tile already
-    this.actor = actor;
+    // If a Player walks onto a tile with another Actor already on it, kill the player
+    if (hasActor() && (actor.isPlayer() || this.actor.isPlayer())) {
+      if (actor.isPlayer()) {
+        actor.die();
+      } else {
+        this.actor.die();
+      }
+    } else {
+      this.actor = actor;
+    }
   }
 
   /**
