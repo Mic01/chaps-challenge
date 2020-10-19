@@ -7,16 +7,7 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
 import nz.ac.vuw.ecs.swen225.gp20.maze.items.Item;
 import nz.ac.vuw.ecs.swen225.gp20.maze.items.Key;
 import nz.ac.vuw.ecs.swen225.gp20.maze.items.Treasure;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Exit;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.ExitLock;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.FreeTile;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Ice;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.InfoTile;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.LockedDoor;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.NullTile;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Wall;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Water;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.*;
 
 
 import java.io.FileNotFoundException;
@@ -82,13 +73,13 @@ public class Persistence {
                                     maze[obj.getInt("x")][obj.getInt("y")] = new FreeTile();
                                     break;
                                 case "Player":
-                                    System.out.println("Player");
+
                                     x = obj.getInt("x");
                                     y = obj.getInt("y");
                                     maze[x][y] = new FreeTile(new Player(x, y, mazeObject));
                                     break;
                                 case "Enemy":
-                                    System.out.println("Eenemy");
+
                                     x = obj.getInt("x");
                                     y = obj.getInt("y");
                                     String direction = obj.getString("direction");
@@ -132,7 +123,8 @@ public class Persistence {
                             break;
 
                         case "Conveyor":
-                            maze[obj.getInt("x")][obj.getInt("y")] = new FreeTile();
+
+                            maze[obj.getInt("x")][obj.getInt("y")] = new Conveyor(Actor.Direction.valueOf(obj.getString("direction")));
                             break;
 
                         case "Ice":
