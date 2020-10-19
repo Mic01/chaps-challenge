@@ -66,24 +66,12 @@ public class Replay {
   /**
    * Save the current history into a json file.
    */
-  public void saveReplay() {
+  public void saveReplay(File replay) {
     if (!levelHistory.contains(currentLevel)) {
       levelHistory.add(currentLevel);
     }
-    
-    //Check to see the appropriate directory exists.
-    if (!Files.isDirectory(Paths.get("src/nz.ac.vuw.ecs.swen225.gp20/recnplay/Replays/"))) {
-      System.out.println("The directory does not exist.");
-      new File("src/nz.ac.vuw.ecs.swen225.gp20/recnplay/Replays/").mkdir();
-    } else {
-      System.out.println("The directory exists");
-    }
 
     System.out.println("Attempting to save the level.");
-
-    //Create the file
-    File replay = new File(
-            "src/nz.ac.vuw.ecs.swen225.gp20/recnplay/Replays/save.json");
 
     //Write the data to the file
     FileWriter writer = null;

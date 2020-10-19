@@ -4,6 +4,8 @@ import nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView;
 import nz.ac.vuw.ecs.swen225.gp20.application.Main;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+
 public class TestCases {
   @Test
   public void testSave01() {
@@ -30,7 +32,7 @@ public class TestCases {
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    rep.saveReplay();
+    rep.saveReplay(new File("src/nz.ac.vuw.ecs.swen225.gp20/recnplay/Replays/testSave.json"));
   }
 
   @Test
