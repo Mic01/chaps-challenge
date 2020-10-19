@@ -460,12 +460,12 @@
 		"tile": "Conveyor",
 		"x": 23,
 		"y": 37,
-		"Direction": "up"
+		"direction": "up"
 	}, {
 		"tile": "Conveyor",
 		"x": 23,
 		"y": 38,
-		"Direction": "up"
+		"direction": "up"
 	}, {
 		"tile": "Wall",
 		"x": 23,
@@ -563,32 +563,32 @@
 		"tile": "Conveyor",
 		"x": 25,
 		"y": 35,
-		"Direction": "down"
+		"direction": "down"
 	}, {
 		"tile": "Conveyor",
 		"x": 25,
 		"y": 36,
-		"Direction": "down"
+		"direction": "down"
 	}, {
 		"tile": "Conveyor",
 		"x": 25,
 		"y": 37,
-		"Direction": "down"
+		"direction": "down"
 	}, {
 		"tile": "Conveyor",
 		"x": 25,
 		"y": 38,
-		"Direction": "down"
+		"direction": "down"
 	}, {
 		"tile": "Conveyor",
 		"x": 25,
 		"y": 39,
-		"Direction": "down"
+		"direction": "down"
 	}, {
 		"tile": "Conveyor",
 		"x": 25,
 		"y": 40,
-		"Direction": "right"
+		"direction": "right"
 	}, {
 		"tile": "Wall",
 		"x": 25,
@@ -638,7 +638,7 @@
 		"tile": "Conveyor",
 		"x": 26,
 		"y": 40,
-		"Direction": "right"
+		"direction": "right"
 	}, {
 		"tile": "Wall",
 		"x": 26,
