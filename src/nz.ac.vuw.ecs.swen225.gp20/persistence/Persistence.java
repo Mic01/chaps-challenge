@@ -133,8 +133,7 @@ public class Persistence {
                             break;
 
                         case "Ice":
-                            maze[obj.getInt("x")][obj.getInt("y")] = new FreeTile();
-                            //maze[obj.getInt("x")][obj.getInt("y")] = new Ice();
+                            maze[obj.getInt("x")][obj.getInt("y")] = new Ice();
                             break;
 
                         case "Water":
@@ -217,8 +216,6 @@ public class Persistence {
 
                 JsonObject builtObject = object.build();
                 output.append(builtObject.toString());
-                System.out.println(maze.length+" "+i);
-                System.out.println(maze[0].length+" "+j);
 
                 output.append(",");
             }

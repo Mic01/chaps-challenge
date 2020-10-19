@@ -26,6 +26,7 @@ public class ApplicationView {
     private final JMenuItem saveReplay = new JMenuItem("Save Replay");
     private final JMenuItem loadGame = new JMenuItem("Load Game");
     private boolean gameOver = false;
+    private JLabel scoreCount = new JLabel("0");
 
 
     public ApplicationView(Main game) {
@@ -83,6 +84,7 @@ public class ApplicationView {
         JPanel windowContents = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         GridBagConstraints sideConstraints = new GridBagConstraints();
+        GridBagConstraints lowerConstraints = new GridBagConstraints();
 
         JPanel mainWindow = viewport;
         mainWindow.setMinimumSize(new Dimension(630, 630));
@@ -94,10 +96,10 @@ public class ApplicationView {
         sideWindow.setPreferredSize(new Dimension(150, 100));
         sideWindow.setBackground(Color.BLACK);
 
-        JLabel score = new JLabel("Score:");
+        JLabel score = new JLabel("Treasures Collected:");
         score.setForeground(Color.LIGHT_GRAY);
-        JLabel scoreCount = new JLabel("PLACEHOLDER");
-        scoreCount.setForeground(Color.LIGHT_GRAY);
+        this.scoreCount = new JLabel("0");
+        this.scoreCount.setForeground(Color.LIGHT_GRAY);
         JLabel time = new JLabel("Time Remaining:");
         time.setForeground(Color.LIGHT_GRAY);
         JLabel timeCount = new JLabel("60 seconds");
@@ -218,7 +220,7 @@ public class ApplicationView {
         sideConstraints.insets = new Insets(100, -127, 0, 0);
         sideWindow.add(quitGame, sideConstraints);
 
-        JPanel lowerWindow = new JPanel();
+        JPanel lowerWindow = new JPanel(new GridBagLayout());
         lowerWindow.setMinimumSize(new Dimension(100, 150));
         lowerWindow.setPreferredSize(new Dimension(100, 150));
         lowerWindow.setBackground(Color.BLACK);
@@ -309,6 +311,7 @@ public class ApplicationView {
                 break;
             default:
         }
+        this.scoreCount.setText("" + maze.getPlayer().treasuresCollected());
     }
 
     private void showLoadDialogue() {

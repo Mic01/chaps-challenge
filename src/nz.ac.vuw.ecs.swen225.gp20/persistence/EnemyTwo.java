@@ -30,14 +30,8 @@ public class EnemyTwo extends AutoActor {
 
   @Override
   public BufferedImage getImage(boolean moving) throws IOException {
-    String type;
-    if (moving) {
-      type = "walk";
-    } else {
-      type = "stand";
-      frame = 0;
-    }
-    String path = "enemy/" + type + "_" + (moving ? (frame + "_") : "") + currentDirection;
+
+    String path = "enemy/walk" + "_" + (frame%2) + "_" + currentDirection;
     return getImageProxy(path);
 
   }
