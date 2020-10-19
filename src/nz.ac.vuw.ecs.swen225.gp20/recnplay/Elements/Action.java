@@ -62,8 +62,9 @@ public class Action implements Play, Save {
    * @return the modified waiting time
    */
   private long calcWaitTime(long timeSinceLastMove, double timeScale) {
-    if (timeScale == 1) return timeSinceLastMove;
-    else return (long) (timeSinceLastMove / (2 * timeScale));
+    if (timeScale <= 1) return timeSinceLastMove;
+    else if (timeScale > 5) return (long) (timeSinceLastMove / (2 * 5));
+    return (long) (timeSinceLastMove / (2 * timeScale));
   }
 
   /**
