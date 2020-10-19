@@ -24,15 +24,29 @@ public class ApplicationView {
     private final JMenuItem saveReplay = new JMenuItem("Save Replay");
     private final JMenuItem loadGame = new JMenuItem("Load Game");
     private boolean gameOver = false;
+    private boolean isReplay;
     private JLabel scoreCount = new JLabel("0");
     private JPanel lowerWindow = new JPanel();
+    private String replayPath = "";
+    private Timer countdownTimer = null;
 
 
-    public ApplicationView(Main game) {
+    public ApplicationView(Main game, boolean isReplay) {
         this.maze = new Maze(game.levelPath);
         this.viewport = new Board(this.maze);
         this.game = game;
         this.log = new Replay(this);
+        this.isReplay = isReplay;
+        this.makeWindow();
+    }
+
+    public ApplicationView(Main game, boolean isReplay, String replayPath) {
+        this.maze = new Maze(game.levelPath);
+        this.viewport = new Board(this.maze);
+        this.game = game;
+        this.log = new Replay(this);
+        this.isReplay = isReplay;
+        this.replayPath = replayPath;
         this.makeWindow();
     }
 
@@ -111,10 +125,10 @@ public class ApplicationView {
         timeCount.setForeground(Color.LIGHT_GRAY);
 
         ApplicationView currentGame = this;
-
-
         ActionListener countdown;
+
         if(currentLevel == 1) {
+            Timer finalCountdownTimer1 = countdownTimer;
             countdown = new ActionListener() {
                 int timeLeft = 59;
 
@@ -123,7 +137,7 @@ public class ApplicationView {
                     timeCount.setText(timeLeft + " seconds");
                     if (timeLeft <= 0) {
                         gameOver = true;
-                        ((Timer) actionEvent.getSource()).stop();
+                        finalCountdownTimer1.stop();
                         new LevelLostView(window, currentGame, true);
                     }
                     timeLeft--;
@@ -131,6 +145,7 @@ public class ApplicationView {
             };
         }
         else{
+            Timer finalCountdownTimer = countdownTimer;
             countdown = new ActionListener() {
                 int timeLeft = 119;
 
@@ -139,14 +154,14 @@ public class ApplicationView {
                     timeCount.setText(timeLeft + " seconds");
                     if (timeLeft <= 0) {
                         gameOver = true;
-                        ((Timer) actionEvent.getSource()).stop();
+                        finalCountdownTimer.stop();
                         new LevelLostView(window, currentGame, true);
                     }
                     timeLeft--;
                 }
             };
         }
-        javax.swing.Timer countdownTimer = new javax.swing.Timer(1000, countdown);
+        countdownTimer = new javax.swing.Timer(1000, countdown);
         countdownTimer.start();
 
         ActionListener npcMovement = actionEvent -> {
@@ -164,36 +179,47 @@ public class ApplicationView {
         npcMovementTimer.start();
 
         JButton left = new JButton("\uD83E\uDC50");
-        left.addActionListener(actionEvent -> playerMovement(3, false));
-        left.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released LEFT"), "moveLeft");
-        left.getActionMap().put("moveLeft", new AbstractAction("moveLeft") {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) { playerMovement(3, false); }
-        });
-
         JButton up = new JButton("\uD83E\uDC51");
-        up.addActionListener(actionEvent -> playerMovement(1, false));
-        up.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released UP"), "moveUp");
-        up.getActionMap().put("moveUp", new AbstractAction("moveUp") {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) { playerMovement(1, false); }
-        });
-
         JButton down = new JButton("\uD83E\uDC53");
-        down.addActionListener(actionEvent -> playerMovement(2, false));
-        down.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released DOWN"), "moveDown");
-        down.getActionMap().put("moveDown", new AbstractAction("moveDown") {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) { playerMovement(2, false); }
-        });
-
         JButton right = new JButton("\uD83E\uDC52");
-        right.addActionListener(actionEvent -> playerMovement(4, false));
-        right.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released RIGHT"), "moveRight");
-        right.getActionMap().put("moveRight", new AbstractAction("moveRight") {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) { playerMovement(4, false); }
-        });
+
+        if(!isReplay) {
+            down.addActionListener(actionEvent -> playerMovement(2, false));
+            down.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released DOWN"), "moveDown");
+            down.getActionMap().put("moveDown", new AbstractAction("moveDown") {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    playerMovement(2, false);
+                }
+            });
+
+            up.addActionListener(actionEvent -> playerMovement(1, false));
+            up.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released UP"), "moveUp");
+            up.getActionMap().put("moveUp", new AbstractAction("moveUp") {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    playerMovement(1, false);
+                }
+            });
+
+            left.addActionListener(actionEvent -> playerMovement(3, false));
+            left.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released LEFT"), "moveLeft");
+            left.getActionMap().put("moveLeft", new AbstractAction("moveLeft") {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    playerMovement(3, false);
+                }
+            });
+
+            right.addActionListener(actionEvent -> playerMovement(4, false));
+            right.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released RIGHT"), "moveRight");
+            right.getActionMap().put("moveRight", new AbstractAction("moveRight") {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    playerMovement(4, false);
+                }
+            });
+        }
 
         JButton quitGame = new JButton("Quit Game");
         quitGame.addActionListener(actionEvent -> System.exit(0));
@@ -252,6 +278,41 @@ public class ApplicationView {
         this.lowerWindow.setPreferredSize(new Dimension(100, 150));
         this.lowerWindow.setBackground(Color.BLACK);
 
+        JPanel replayWindow = new JPanel();
+        if(isReplay) {
+            replayWindow = new JPanel(new GridBagLayout());
+            replayWindow.setMinimumSize(new Dimension(150, 50));
+            replayWindow.setPreferredSize(new Dimension(150, 50));
+            replayWindow.setBackground(Color.WHITE);
+
+            GridBagConstraints replayConstraints = new GridBagConstraints();
+            Playback replay = new Playback();
+            replay.load(this.replayPath);
+
+            ApplicationView currAppli = this;
+            boolean hasFinished = false;
+
+            JButton pause = new JButton("\u2016");
+            JButton play = new JButton("⯈");
+            JButton step = new JButton("\uD83E\uDC7A");
+
+            play.addActionListener(actionEvent -> replay.play(currAppli, 1.0));
+
+            replayConstraints.gridx = 0;
+            replayConstraints.gridy = 0;
+            replayConstraints.fill = GridBagConstraints.NONE;
+            replayConstraints.anchor = GridBagConstraints.CENTER;
+            replayConstraints.insets = new Insets(10, 0, 0, 0);
+            replayWindow.add(play, replayConstraints);
+
+            replayConstraints.gridx = 1;
+            replayConstraints.insets = new Insets(10, 10, 0, 0);
+            replayWindow.add(pause, replayConstraints);
+
+            replayConstraints.gridx = 2;
+            replayWindow.add(step, replayConstraints);
+        }
+
         constraints.gridx = 0;
         constraints.gridy = 0;
         constraints.fill = GridBagConstraints.BOTH;
@@ -267,6 +328,11 @@ public class ApplicationView {
         constraints.weightx = 0;
         constraints.weighty = 1;
         windowContents.add(lowerWindow, constraints);
+
+        if(isReplay){
+            constraints.gridy = 2;
+            windowContents.add(replayWindow, constraints);
+        }
 
         constraints.gridx = 1;
         constraints.gridy = 0;
@@ -332,6 +398,7 @@ public class ApplicationView {
         this.lowerWindow.repaint();
         if(maze.isFinished()){
             gameOver = true;
+            countdownTimer.stop();
             new LevelWonView(this.window, this);
         }
     }
@@ -344,11 +411,11 @@ public class ApplicationView {
         if (rVal == JFileChooser.APPROVE_OPTION) {
             filename.setText(c.getSelectedFile().getName());
             dir.setText(c.getCurrentDirectory().toString());
+            game.loadReplayLevel(dir.getText() + "/" + filename.getText(), this.game.currLevel);
 
-            System.out.println(dir.getText() + "/" + filename.getText());
-            Playback replay = new Playback();
+            //Playback replay = new Playback();
             //replay.load(dir.getText() + "/" + filename.getText(), 1);
-            replay.play(this, 1.0);
+            //replay.play(this, 1.0);
         }
         if (rVal == JFileChooser.CANCEL_OPTION) {
             filename.setText("");

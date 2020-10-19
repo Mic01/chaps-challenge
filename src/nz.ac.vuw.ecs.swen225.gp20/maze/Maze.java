@@ -16,6 +16,7 @@ public class Maze {
   private final int height;
   private String displayText = "";
   private boolean finished = false;
+  private int treasuresLeft = 0;
 
   /**
    * Maze object that holds the tiles that represent the state of the game.
@@ -118,5 +119,17 @@ public class Maze {
 
   public void setFinished() {
     this.finished = true;
+  }
+
+  public void setTreasuresLeft(int treasuresLeft) {
+    this.treasuresLeft = treasuresLeft;
+  }
+
+  public int getTreasuresLeft() {
+    return treasuresLeft;
+  }
+
+  public void reduceTreasuresLeft() {
+    treasuresLeft--;
   }
 }

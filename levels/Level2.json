@@ -239,8 +239,8 @@
 	}, {
 		"tile": "Floor",
 		"x": 18,
-		"y": 39,
-		"slot": "shoe",
+		"y": 37,
+		"slot": "Shoe",
 		"type": "Ice"
 	}, {
 		"tile": "Wall",
@@ -505,9 +505,10 @@
 		"x": 24,
 		"y": 37
 	}, {
-		"tile": "Wall",
+		"tile": "Conveyor",
 		"x": 24,
-		"y": 38
+		"y": 38,
+		"direction": "left"
 	}, {
 		"tile": "Wall",
 		"x": 24,
@@ -754,6 +755,11 @@
 		"y": 15,
 		"slot": "Shoe",
 		"type": "Water"
+	},{
+		"tile": "Floor",
+		"x": 29,
+		"y": 18,
+		"slot": "Chip"
 	}, {
 		"tile": "Door",
 		"x": 29,
