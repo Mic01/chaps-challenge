@@ -171,7 +171,9 @@ public class ApplicationView {
             else {
                 for (AutoActor a : maze.getAutoActors()) {
                     a.autoMove();
-                    viewport.draw(false);
+                    if(!viewport.isAnimating()) {
+                        viewport.draw(false);
+                    }
                 }
             }
         };
