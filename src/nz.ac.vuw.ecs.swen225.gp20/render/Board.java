@@ -42,6 +42,7 @@ public class Board extends JPanel implements ActionListener {
   private int animationState;
   private boolean halfFrame;
   private Timer timer = new Timer(sleepTime, this); //Redraws from timer in ActionListener
+  private boolean playerMoved;
 
   //Method Enums
   private enum Soundeffects {
@@ -120,15 +121,14 @@ public class Board extends JPanel implements ActionListener {
    * Draws the visible board and all entities on-top of tiles,
    * Calls the pre-built paint function of the JPanel and draws with graphics.
    *
-   * @param moving All moving chars, Draw a frame of each animation
+   * @param playerMove if player has moved
    */
-  public void draw(ArrayList<Actor> moving) {
+  public void draw(boolean playerMove) {
     setVision();
-    this.moving = moving;
     animationState = 0;
-
+    playerMoved = playerMove;
     //If player is currently moving, draw a half frame
-    if(moving.contains(player)){
+    if(playerMove){
       halfFrame = true;
     }
 
@@ -188,17 +188,10 @@ public class Board extends JPanel implements ActionListener {
    * draws a new frame of every actor that has moved this round.
    */
   private void drawEntities(Graphics g, int xOffset, int yOffset) throws IOException {
-    boolean playerMoved = false;
-    for (Actor actor : moving) {
       //If actor is player, draw directly in center
-      if(!actor.equals(player)) {
-        g.drawImage(actor.getImage(true),
-                (actor.getX() * tileSize) + xOffset, (actor.getY() * tileSize) + yOffset, this);
-      }else{
-        g.drawImage(player.getImage(true),
-                (getVisionX(player.getX()) * tileSize), (getVisionY(player.getY()) * tileSize), this);
-      }
-      if(actor.equals(player)) {
+        g.drawImage(player.getImage(playerMoved),
+                (player.getX() * tileSize) + xOffset, (player.getY() * tileSize) + yOffset, this);
+      /*if(actor.equals(player)) {
         playerMoved = true;
         if (actor.getCurrentTile() instanceof Ice) {
           playSound("slide");
@@ -207,14 +200,13 @@ public class Board extends JPanel implements ActionListener {
         } else {
           playSound("metalWalk");
         }
-      }
+      }*/
     }
-    if (!playerMoved) {
+    /*if (!playerMoved) {
       g.drawImage(player.getImage(false),
               (getVisionX(player.getX()) * tileSize), (getVisionY(player.getY()) * tileSize), this);
-    }
 
-
+  */
   }
 
   /**
