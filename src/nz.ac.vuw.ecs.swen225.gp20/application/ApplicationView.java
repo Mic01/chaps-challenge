@@ -3,6 +3,7 @@ package nz.ac.vuw.ecs.swen225.gp20.application;
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.AutoActor;
+import nz.ac.vuw.ecs.swen225.gp20.maze.items.Item;
 import nz.ac.vuw.ecs.swen225.gp20.recnplay.Playback;
 import nz.ac.vuw.ecs.swen225.gp20.recnplay.Replay;
 import nz.ac.vuw.ecs.swen225.gp20.render.Board;
@@ -12,6 +13,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ApplicationView {
@@ -25,8 +27,10 @@ public class ApplicationView {
     private final JMenu load = new JMenu("Load");
     private final JMenuItem saveReplay = new JMenuItem("Save Replay");
     private final JMenuItem loadGame = new JMenuItem("Load Game");
+    private JComponent invCanvas;
     private boolean gameOver = false;
     private JLabel scoreCount = new JLabel("0");
+    private JPanel lowerWindow = new JPanel();
 
 
     public ApplicationView(Main game) {
@@ -114,8 +118,8 @@ public class ApplicationView {
                 timeCount.setText(timeLeft + " seconds");
                 if(timeLeft <= 0){
                     gameOver = true;
-                    new LevelLostView(window, currentGame,true);
                     ((Timer)actionEvent.getSource()).stop();
+                    new LevelLostView(window, currentGame,true);
                 }
                 timeLeft--;
             }
@@ -220,12 +224,13 @@ public class ApplicationView {
         sideConstraints.insets = new Insets(100, -127, 0, 0);
         sideWindow.add(quitGame, sideConstraints);
 
-        JPanel lowerWindow = new JPanel(new GridBagLayout());
-        lowerWindow.setMinimumSize(new Dimension(100, 150));
-        lowerWindow.setPreferredSize(new Dimension(100, 150));
-        lowerWindow.setBackground(Color.BLACK);
+        this.lowerWindow = new JPanel();
+        this.lowerWindow.setMinimumSize(new Dimension(100, 150));
+        this.lowerWindow.setPreferredSize(new Dimension(100, 150));
+        this.lowerWindow.setBackground(Color.BLACK);
 
-
+        this.invCanvas = inventoryComponent();
+        this.lowerWindow.add(this.invCanvas);
 
         constraints.gridx = 0;
         constraints.gridy = 0;
@@ -271,9 +276,7 @@ public class ApplicationView {
         switch (dir) {
             case 1:
                 if(maze.getPlayer().moveUp()) {
-                    ArrayList<Actor> toMove = new ArrayList<>();
-                    toMove.add(maze.getPlayer());
-                    viewport.draw(toMove);
+                    viewport.draw(true);
                 }
                 if (!isFromLog) {
                     log.addAction("moveUp", "player");
@@ -281,9 +284,7 @@ public class ApplicationView {
                 break;
             case 2:
                 if(maze.getPlayer().moveDown()) {
-                    ArrayList<Actor> toMove = new ArrayList<>();
-                    toMove.add(maze.getPlayer());
-                    viewport.draw(toMove);
+                    viewport.draw(true);
                 }
                 if (!isFromLog) {
                     log.addAction("moveDown", "player");
@@ -291,9 +292,7 @@ public class ApplicationView {
                 break;
             case 3:
                 if(maze.getPlayer().moveLeft()) {
-                    ArrayList<Actor> toMove = new ArrayList<>();
-                    toMove.add(maze.getPlayer());
-                    viewport.draw(toMove);
+                    viewport.draw(true);
                 }
                 if (!isFromLog) {
                     log.addAction("moveLeft", "player");
@@ -301,9 +300,7 @@ public class ApplicationView {
                 break;
             case 4:
                 if(maze.getPlayer().moveRight()) {
-                    ArrayList<Actor> toMove = new ArrayList<>();
-                    toMove.add(maze.getPlayer());
-                    viewport.draw(toMove);
+                    viewport.draw(true);
                 }
                 if (!isFromLog) {
                     log.addAction("moveRight", "player");
@@ -312,6 +309,11 @@ public class ApplicationView {
             default:
         }
         this.scoreCount.setText("" + maze.getPlayer().treasuresCollected());
+        this.invCanvas = inventoryComponent();
+        if(maze.isFinished()){
+            gameOver = true;
+            new LevelWonView(this.window, this);
+        }
     }
 
     private void showLoadDialogue() {
@@ -325,7 +327,7 @@ public class ApplicationView {
 
             System.out.println(dir.getText() + "/" + filename.getText());
             Playback replay = new Playback();
-            replay.load(dir.getText() + "/" + filename.getText(), 1);
+            //replay.load(dir.getText() + "/" + filename.getText(), 1);
             replay.play(this, 1.0);
         }
         if (rVal == JFileChooser.CANCEL_OPTION) {
@@ -353,12 +355,38 @@ public class ApplicationView {
     public void restartLevel(){
         this.window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.game.restartLevel(this.game.currLevel);
-        this.window.dispose();
     }
 
     public void changeLevel(){
         this.window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.game.nextLevel(this.game.currLevel);
+    }
+
+    private JComponent inventoryComponent(){
+        return new JComponent() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                try {
+                    drawInventory(g);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+    }
+
+    private void drawInventory(Graphics g) throws IOException {
+        int x = 0;
+        int y = 0;
+        for(Item i : maze.getPlayer().getInventory()){
+            System.out.println(i.toString());
+            g.drawImage(i.getImage(), x, y, this.lowerWindow);
+            x += i.getImage().getWidth(this.lowerWindow) + 10;
+        }
+    }
+
+    public void disposeWindow(){
         this.window.dispose();
     }
 }
