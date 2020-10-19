@@ -20,4 +20,9 @@ public class IcePotion extends Item {
   public String toString() {
     return "IceShoe";
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    return obj instanceof IcePotion;
+  }
 }

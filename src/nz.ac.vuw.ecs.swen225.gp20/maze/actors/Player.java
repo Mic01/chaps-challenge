@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
+import nz.ac.vuw.ecs.swen225.gp20.maze.items.IcePotion;
 import nz.ac.vuw.ecs.swen225.gp20.maze.items.Item;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Ice;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Water;
@@ -13,6 +14,7 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Water;
 public class Player extends Actor {
   private final ArrayList<Item> inventory = new ArrayList<>();
   private int treasures = 0;
+  private boolean isSliding = false;
 
   public Player(int xpos, int ypos, Maze maze) {
     super(xpos, ypos, maze);
@@ -84,12 +86,22 @@ public class Player extends Actor {
     if (currentTile instanceof Water) {
       type = "swim" + (moving ? "" : "_idle");
       frame %= 2;
-    } else if (currentTile instanceof Ice) {
+    } else if (currentTile instanceof Ice && !isHolding(new IcePotion())) {
       type = "slide";
-      frame %= 2;
+      if (isSliding) {
+        frame = 1;
+      } else {
+        frame = 0;
+        isSliding = true;
+      }
     }
 
-    String path = "player/" + type + "_" + (moving ? (frame + "_") : "") + currentDirection;
+    if (!type.equals("slide")) {
+      isSliding = false;
+    }
+
+    String path = "player/" + type + "_" + ((moving || type.equals("slide")) ?
+            (frame + "_") : "") + currentDirection;
     return getImageProxy(path);
   }
 

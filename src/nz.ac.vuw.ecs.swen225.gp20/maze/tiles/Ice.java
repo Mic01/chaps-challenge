@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
+import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
+import nz.ac.vuw.ecs.swen225.gp20.maze.items.IcePotion;
 
 public class Ice extends Tile {
   private static BufferedImage image;
@@ -16,7 +18,9 @@ public class Ice extends Tile {
 
   @Override
   public void moveEvent(Actor actor, Actor.Direction direction) {
-    actor.move(direction);
+    if (actor instanceof Player && !((Player) actor).isHolding(new IcePotion())) {
+      actor.move(direction);
+    }
     actor.getMaze().setDisplayText("");
   }
 

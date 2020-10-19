@@ -49,6 +49,7 @@ public class FreeTile extends Tile {
       Player player = (Player) actor;
       if (item instanceof Treasure) {
         player.pickupTreasure();
+        actor.getMaze().reduceTreasuresLeft();
       } else {
         player.pickup(item);
       }
