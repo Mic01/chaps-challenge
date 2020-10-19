@@ -201,7 +201,6 @@ public class Board extends JPanel implements ActionListener {
           playSound("metalWalk");
         }
       }*/
-    }
     /*if (!playerMoved) {
       g.drawImage(player.getImage(false),
               (getVisionX(player.getX()) * tileSize), (getVisionY(player.getY()) * tileSize), this);
