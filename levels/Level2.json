@@ -237,9 +237,10 @@
 		"x": 18,
 		"y": 31
 	}, {
-		"tile": "Shoe",
+		"tile": "Floor",
 		"x": 18,
 		"y": 39,
+		"slot": "shoe",
 		"type": "Ice"
 	}, {
 		"tile": "Wall",
@@ -748,9 +749,10 @@
 		"x": 29,
 		"y": 14
 	}, {
-		"tile": "Shoe",
+		"tile": "Floor",
 		"x": 29,
 		"y": 15,
+		"slot": "Shoe",
 		"type": "Water"
 	}, {
 		"tile": "Door",
