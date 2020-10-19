@@ -133,8 +133,7 @@ public class Persistence {
                             break;
 
                         case "Ice":
-                            maze[obj.getInt("x")][obj.getInt("y")] = new FreeTile();
-                            //maze[obj.getInt("x")][obj.getInt("y")] = new Ice();
+                            maze[obj.getInt("x")][obj.getInt("y")] = new Ice();
                             break;
 
                         case "Water":
