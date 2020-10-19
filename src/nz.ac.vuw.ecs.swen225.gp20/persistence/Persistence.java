@@ -1,6 +1,8 @@
 package nz.ac.vuw.ecs.swen225.gp20.persistence;
 
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
+import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
+import nz.ac.vuw.ecs.swen225.gp20.maze.actors.AutoActor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
 import nz.ac.vuw.ecs.swen225.gp20.maze.items.Item;
 import nz.ac.vuw.ecs.swen225.gp20.maze.items.Key;
@@ -24,6 +26,8 @@ import javax.json.stream.JsonParser;
 import javax.json.stream.JsonParser.Event;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 public class Persistence {
     /**
@@ -49,7 +53,8 @@ public class Persistence {
 
                     JsonObject obj = parser.getObject();
                     final String tile = obj.getString("tile");
-
+                    int x;
+                    int y;
                     switch (tile) {
 
                         case "Inside":
@@ -73,11 +78,34 @@ public class Persistence {
                                 case "Chip":
                                     maze[obj.getInt("x")][obj.getInt("y")] = new FreeTile(new Treasure());
                                     break;
+                                case "Shoe":
+                                    maze[obj.getInt("x")][obj.getInt("y")] = new FreeTile();
+                                    break;
                                 case "Player":
-                                    int x = obj.getInt("x");
-                                    int y = obj.getInt("y");
+                                    x = obj.getInt("x");
+                                    y = obj.getInt("y");
                                     maze[x][y] = new FreeTile(new Player(x, y, mazeObject));
                                     break;
+                                case "Enemy":
+                                    x = obj.getInt("x");
+                                    y = obj.getInt("y");
+                                    String direction = obj.getString("direction");
+                                    final String type = obj.getString("type");
+                                    switch (type) {
+                                        case "One":
+                                            maze[x][y] = new FreeTile(new EnemyOne(x, y, mazeObject, Actor.Direction.valueOf(direction)));
+                                            break;
+
+                                        case "Two":
+                                            maze[x][y] = new FreeTile(new EnemyTwo(x, y, mazeObject,Actor.Direction.valueOf(direction)));
+                                            break;
+
+                                        case "Three":
+                                            maze[x][y] = new FreeTile(new EnemyThree(x, y, mazeObject,Actor.Direction.valueOf(direction)));
+                                            break;
+                                    }
+                                    break;
+
                                 case "Null":
                                     maze[obj.getInt("x")][obj.getInt("y")] = new FreeTile();
                                     break;
@@ -99,6 +127,19 @@ public class Persistence {
                         case "Info":
                             maze[obj.getInt("x")][obj.getInt("y")] = new InfoTile(obj.getString("text"));
                             break;
+
+                        case "Conveyor":
+                            maze[obj.getInt("x")][obj.getInt("y")] = new FreeTile();
+                            break;
+
+                        case "Ice":
+                            maze[obj.getInt("x")][obj.getInt("y")] = new FreeTile();
+                            //maze[obj.getInt("x")][obj.getInt("y")] = new Ice();
+                            break;
+
+                        case "Water":
+                            maze[obj.getInt("x")][obj.getInt("y")] = new Water();
+                            break;
                     }
                 }
             }
@@ -108,7 +149,7 @@ public class Persistence {
             e.printStackTrace();
         }
 
-        saveLevel(maze, "assets/SaveFile.json");
+        //saveLevel(maze, "assets/SaveFile.json");
 
         return maze;
     }
