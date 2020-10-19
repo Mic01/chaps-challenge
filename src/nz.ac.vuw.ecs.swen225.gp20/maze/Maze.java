@@ -17,6 +17,7 @@ public class Maze {
   private String displayText = "";
   private boolean finished = false;
   private int treasuresLeft = 0;
+  private int timeLimit;
 
   /**
    * Maze object that holds the tiles that represent the state of the game.
@@ -131,5 +132,13 @@ public class Maze {
 
   public void reduceTreasuresLeft() {
     treasuresLeft--;
+  }
+
+  public void setTimeLimit(int timeLimit) {
+    this.timeLimit = timeLimit;
+  }
+
+  public int getTimeLimit() {
+    return timeLimit;
   }
 }
