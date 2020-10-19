@@ -1143,9 +1143,10 @@
 		"x": 36,
 		"y": 8
 	}, {
-		"tile": "Enemy",
+		"tile": "Floor",
 		"x": 36,
 		"y": 12,
+		"slot": "Enemy",
 		"type": "One",
 		"direction": "left"
 
@@ -1171,9 +1172,10 @@
 		"y": 19,
 		"slot": "Chip"
 	},{
-		"tile": "Enemy",
+		"tile": "Floor",
 		"x": 36,
 		"y": 22,
+		"slot": "Enemy",
 		"type": "One",
 		"direction": "right"
 
@@ -1475,9 +1477,10 @@
 		"x": 41,
 		"y": 23
 	},{
-		"tile": "Enemy",
+		"tile": "Floor",
 		"x": 41,
 		"y": 24,
+		"slot": "Enemy",
 		"type": "Two",
 		"direction": "right"
 
@@ -1486,9 +1489,10 @@
 		"x": 41,
 		"y": 27
 	},{
-		"tile": "Enemy",
+		"tile": "Floor",
 		"x": 41,
 		"y": 28,
+		"slot": "Enemy",
 		"type": "Three",
 		"direction": "down"
 

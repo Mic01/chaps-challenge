@@ -82,11 +82,13 @@ public class Persistence {
                                     maze[obj.getInt("x")][obj.getInt("y")] = new FreeTile();
                                     break;
                                 case "Player":
+                                    System.out.println("Player");
                                     x = obj.getInt("x");
                                     y = obj.getInt("y");
                                     maze[x][y] = new FreeTile(new Player(x, y, mazeObject));
                                     break;
                                 case "Enemy":
+                                    System.out.println("Eenemy");
                                     x = obj.getInt("x");
                                     y = obj.getInt("y");
                                     String direction = obj.getString("direction");
@@ -94,6 +96,7 @@ public class Persistence {
                                     switch (type) {
                                         case "One":
                                             maze[x][y] = new FreeTile(new EnemyOne(x, y, mazeObject, Actor.Direction.valueOf(direction)));
+
                                             break;
 
                                         case "Two":
