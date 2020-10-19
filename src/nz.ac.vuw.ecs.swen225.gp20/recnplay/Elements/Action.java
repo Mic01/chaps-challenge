@@ -36,9 +36,10 @@ public class Action implements Play, Save {
   public void play(ApplicationView application, double timeScale) {
     try {
       //Wait until the required time has elapsed
-      //todo make this work with faster and slower times
-      Thread.sleep(timeSinceLastMove);
-      System.out.println("Waited: " + timeSinceLastMove);
+      Thread.sleep(calcWaitTime(timeSinceLastMove, timeScale));
+      System.out.println("Time Scale: " + timeScale);
+      System.out.println("Waited: " + calcWaitTime(timeSinceLastMove, timeScale));
+      System.out.println("Original wait time: " + timeSinceLastMove);
       System.out.println("Character: " + character);
       System.out.println("Action: " + action);
       System.out.println();
@@ -52,6 +53,17 @@ public class Action implements Play, Save {
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
+  }
+
+  /**
+   * Calculate how long to wait
+   * @param timeSinceLastMove how long to wait in real time
+   * @param timeScale how much to speed up by
+   * @return the modified waiting time
+   */
+  private long calcWaitTime(long timeSinceLastMove, double timeScale) {
+    if (timeScale == 1) return timeSinceLastMove;
+    else return (long) (timeSinceLastMove / (2 * timeScale));
   }
 
   /**

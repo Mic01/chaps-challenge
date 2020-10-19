@@ -26,7 +26,7 @@ public class Playback {
    * @param timeScale The initial speed of the replay.
    * @return the playback object
    */
-  public void load(String filePath, int timeScale) {
+  public void load(String filePath) {
     parseJson(filePath);
   }
 
