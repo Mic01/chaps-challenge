@@ -4,10 +4,7 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.AutoActor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
-import nz.ac.vuw.ecs.swen225.gp20.maze.items.Item;
-import nz.ac.vuw.ecs.swen225.gp20.maze.items.Key;
-import nz.ac.vuw.ecs.swen225.gp20.maze.items.Treasure;
-import nz.ac.vuw.ecs.swen225.gp20.maze.items.WaterPotion;
+import nz.ac.vuw.ecs.swen225.gp20.maze.items.*;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.*;
 
 
@@ -74,14 +71,17 @@ public class Persistence {
                                     final String element = obj.getString("type");
                                     x = obj.getInt("x");
                                     y = obj.getInt("y");
+                                    System.out.println("Shoe");
                                     switch (element) {
+
                                         case "Water":
                                             maze[x][y] = new FreeTile(new WaterPotion());
                                         break;
 
-                                        //case "Ice":
-                                         //   maze[x][y] = new FreeTile(new Treasure());
-                                       // break;
+                                        case "Ice":
+                                            System.out.println("Ice");
+                                            maze[x][y] = new FreeTile(new IcePotion());
+                                        break;
 
                                     }
                                     break;
