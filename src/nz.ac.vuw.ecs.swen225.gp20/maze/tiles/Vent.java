@@ -14,6 +14,14 @@ public class Vent extends Tile {
     this.yTarget = yTarget;
   }
 
+  public int getTargetX() {
+    return xTarget;
+  }
+
+  public int getTargetY() {
+    return yTarget;
+  }
+
   @Override
   public boolean isTraversable(Actor actor) {
     return true;
