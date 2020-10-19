@@ -1,14 +1,11 @@
 package nz.ac.vuw.ecs.swen225.gp20.maze.tiles;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import javax.imageio.ImageIO;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 
 public class Conveyor extends Tile {
-  private BufferedImage image;
-  private Actor.Direction moveDirection;
+  private final Actor.Direction moveDirection;
 
   public Conveyor(Actor.Direction direction) {
     this.moveDirection = direction;
@@ -27,8 +24,7 @@ public class Conveyor extends Tile {
 
   @Override
   public BufferedImage getImage() throws IOException {
-    if (image == null) image = ImageIO.read(new File(imageDirectory + "turbo_" + moveDirection + ".png"));
-    return image;
+    return getImageProxy("turbo_" + moveDirection);
   }
 
   @Override

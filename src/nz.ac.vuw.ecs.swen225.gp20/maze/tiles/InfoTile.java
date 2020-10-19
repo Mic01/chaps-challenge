@@ -1,9 +1,7 @@
 package nz.ac.vuw.ecs.swen225.gp20.maze.tiles;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import javax.imageio.ImageIO;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 
 public class InfoTile extends Tile {
@@ -30,8 +28,7 @@ public class InfoTile extends Tile {
 
   @Override
   public BufferedImage getImage() throws IOException {
-    if (image == null) image = ImageIO.read(new File(imageDirectory + "info.png"));
-    return image;
+    return getImageProxy("info");
   }
 
   @Override
