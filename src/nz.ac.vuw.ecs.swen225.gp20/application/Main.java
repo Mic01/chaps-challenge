@@ -23,19 +23,25 @@ public class Main {
 
     private void setup() {
         new SetupView(this);
-        this.game = new ApplicationView(this);
+        this.game = new ApplicationView(this, false);
     }
 
     public void nextLevel(int currLevel){
         this.levelPath = "levels/Level" + (currLevel+1) + ".json";
         this.currLevel = currLevel + 1;
         this.game.disposeWindow();
-        this.game = new ApplicationView(this);
+        this.game = new ApplicationView(this, false);
     }
 
     public void restartLevel(int currLevel){
         this.currLevel = currLevel;
         this.game.disposeWindow();
-        this.game = new ApplicationView(this);
+        this.game = new ApplicationView(this, false);
+    }
+
+    public void loadReplayLevel(String replayDir, int currLevel){
+        this.currLevel = currLevel;
+        this.game.disposeWindow();
+        this.game = new ApplicationView(this, true, replayDir);
     }
 }
