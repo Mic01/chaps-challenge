@@ -11,6 +11,7 @@ import javax.swing.*;
 
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
+import nz.ac.vuw.ecs.swen225.gp20.maze.actors.AutoActor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.FreeTile;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Ice;
@@ -35,7 +36,7 @@ public class Board extends JPanel implements ActionListener {
   private Tile[][] vision;
   private Player player;
   private Maze maze;
-  private ArrayList<Actor> actors = new ArrayList<>();
+  private ArrayList<AutoActor> autoActors = new ArrayList<>();
 
   //Dynamic Rendering Variables
   private ArrayList<Actor> moving = new ArrayList<>();
@@ -78,7 +79,7 @@ public class Board extends JPanel implements ActionListener {
    */
   public void updateLevel(Maze maze) {
     player = maze.getPlayer();
-    actors = maze.getActors();
+    autoActors = maze.getAutoActors();
     setVision();
   }
 
@@ -190,6 +191,11 @@ public class Board extends JPanel implements ActionListener {
   private void drawEntities(Graphics g, int xOffset, int yOffset) throws IOException {
     g.drawImage(player.getImage(playerMoved),
             (getVisionX(player.getX()) * tileSize), (getVisionY(player.getY()) * tileSize), this);
+
+    for(AutoActor actor : autoActors){
+      g.drawImage(actor.getImage(true),
+              (getVisionX(actor.getX()) * tileSize), (getVisionY(actor.getY()) * tileSize), this);
+    }
       /*if(actor.equals(player)) {
         playerMoved = true;
         if (actor.getCurrentTile() instanceof Ice) {
@@ -324,7 +330,7 @@ public class Board extends JPanel implements ActionListener {
             ", player=" + player +
             ", maze=" + maze +
             ", moving=" + moving +
-            ", actors=" + actors +
+            ", actors=" + autoActors +
             '}';
   }
 }
