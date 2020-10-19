@@ -14,10 +14,8 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.AutoActor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.FreeTile;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Ice;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.NullTile;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Water;
 
 /**
  * Renderer class for displaying the board.
@@ -28,7 +26,7 @@ public class Board extends JPanel implements ActionListener {
   private static final int visionRange = 9;
   private static final int reach = visionRange / 2;
   private static final int tileSize = 70;
-  private static final int sleepTime = 200; //Time in ms before each draw
+  private static final int sleepTime = 300; //Time in ms before each draw
 
   //Static Rendering Variables
   private Tile[][] level;
@@ -40,9 +38,8 @@ public class Board extends JPanel implements ActionListener {
 
   //Dynamic Rendering Variables
   private ArrayList<Actor> moving = new ArrayList<>();
-  private int animationState;
   private boolean halfFrame;
-  private boolean isAnimating;
+  private boolean inAnimation;
   private Timer timer = new Timer(sleepTime, this); //Redraws from timer in ActionListener
   private boolean playerMoved;
 
@@ -113,7 +110,7 @@ public class Board extends JPanel implements ActionListener {
       halfFrame = false;
     }else{
       playerMoved = false;
-      isAnimating = false;
+      inAnimation = false;
       timer.stop();
     }
     repaint();
@@ -128,12 +125,12 @@ public class Board extends JPanel implements ActionListener {
    */
   public void draw(boolean playerMove) {
     setVision();
-    animationState = 0;
     playerMoved = playerMove;
+
     //If player is currently moving, draw a half frame
     if(playerMove){
       halfFrame = true;
-      isAnimating = true;
+      inAnimation = true;
     }
 
     repaint();
@@ -341,8 +338,24 @@ public class Board extends JPanel implements ActionListener {
             getVisionY(actor.getY()) < visionRange);
   }
 
+  /**
+   * Checks whether in current animation,
+   * to stop tick based draw calls overriding animations.
+   *
+   * @return true if in animation, false otherwise
+   */
   public boolean isAnimating(){
-    return isAnimating;
+    return inAnimation;
+  }
+
+  /**
+   * Changes delay between drawing, used for replaying levels
+   * to speed up or slow down animations.
+   *
+   * @param speed multiplier to delay time (ie 2x or 0.5x)
+   */
+  public void setAnimateSpeed(int speed){
+    timer = new Timer(sleepTime*speed, this);
   }
 
   @Override
