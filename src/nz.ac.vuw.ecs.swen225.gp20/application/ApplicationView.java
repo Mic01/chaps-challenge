@@ -2,6 +2,7 @@ package nz.ac.vuw.ecs.swen225.gp20.application;
 
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
+import nz.ac.vuw.ecs.swen225.gp20.maze.actors.AutoActor;
 import nz.ac.vuw.ecs.swen225.gp20.recnplay.Replay;
 import nz.ac.vuw.ecs.swen225.gp20.render.Board;
 
@@ -22,6 +23,7 @@ public class ApplicationView {
     private final JMenu load = new JMenu("Load");
     private final JMenuItem saveReplay = new JMenuItem("Save Replay");
     private final JMenuItem loadGame = new JMenuItem("Load Game");
+    private boolean gameOver = false;
 
 
     public ApplicationView(Main game) {
@@ -95,27 +97,40 @@ public class ApplicationView {
         scoreCount.setForeground(Color.LIGHT_GRAY);
         JLabel time = new JLabel("Time Remaining:");
         time.setForeground(Color.LIGHT_GRAY);
-        JLabel timeCount = new JLabel("120 seconds");
+        JLabel timeCount = new JLabel("60 seconds");
         timeCount.setForeground(Color.LIGHT_GRAY);
 
+        ApplicationView currentGame = this;
+
         ActionListener countdown = new ActionListener() {
-            int timeLeft = 119;
+            int timeLeft = 59;
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if(timeLeft <= 0){
-                    //game end
-                    timeLeft = 0;
-                }
                 timeCount.setText(timeLeft + " seconds");
+                if(timeLeft <= 0){
+                    new LevelLostView(window, currentGame,true);
+                    ((Timer)actionEvent.getSource()).stop();
+                }
                 timeLeft--;
             }
         };
         javax.swing.Timer countdownTimer = new javax.swing.Timer(1000, countdown);
         countdownTimer.start();
 
+        ActionListener npcMovement = actionEvent -> {
+            if (gameOver) {
+                ((Timer) actionEvent.getSource()).stop();
+            }
+            for(AutoActor a : maze.getAutoActors()){
+                a.autoMove();
+            }
+        };
+        javax.swing.Timer npcMovementTimer = new javax.swing.Timer(250, npcMovement);
+        npcMovementTimer.start();
+
         JButton left = new JButton("\uD83E\uDC50");
         left.addActionListener(actionEvent -> playerMovement(3, false));
-        left.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("LEFT"), "moveLeft");
+        left.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released LEFT"), "moveLeft");
         left.getActionMap().put("moveLeft", new AbstractAction("moveLeft") {
             @Override
             public void actionPerformed(ActionEvent actionEvent) { playerMovement(3, false); }
@@ -123,7 +138,7 @@ public class ApplicationView {
 
         JButton up = new JButton("\uD83E\uDC51");
         up.addActionListener(actionEvent -> playerMovement(1, false));
-        up.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("UP"), "moveUp");
+        up.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released UP"), "moveUp");
         up.getActionMap().put("moveUp", new AbstractAction("moveUp") {
             @Override
             public void actionPerformed(ActionEvent actionEvent) { playerMovement(1, false); }
@@ -131,7 +146,7 @@ public class ApplicationView {
 
         JButton down = new JButton("\uD83E\uDC53");
         down.addActionListener(actionEvent -> playerMovement(2, false));
-        down.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("DOWN"), "moveDown");
+        down.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released DOWN"), "moveDown");
         down.getActionMap().put("moveDown", new AbstractAction("moveDown") {
             @Override
             public void actionPerformed(ActionEvent actionEvent) { playerMovement(2, false); }
@@ -139,7 +154,7 @@ public class ApplicationView {
 
         JButton right = new JButton("\uD83E\uDC52");
         right.addActionListener(actionEvent -> playerMovement(4, false));
-        right.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("RIGHT"), "moveRight");
+        right.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released RIGHT"), "moveRight");
         right.getActionMap().put("moveRight", new AbstractAction("moveRight") {
             @Override
             public void actionPerformed(ActionEvent actionEvent) { playerMovement(4, false); }
@@ -281,5 +296,17 @@ public class ApplicationView {
                 break;
             default:
         }
+    }
+
+    public void restartLevel(){
+        this.window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.game.restartLevel(this.game.currLevel);
+        this.window.dispose();
+    }
+
+    public void changeLevel(){
+        this.window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.game.nextLevel(this.game.currLevel);
+        this.window.dispose();
     }
 }
