@@ -217,8 +217,6 @@ public class Persistence {
 
                 JsonObject builtObject = object.build();
                 output.append(builtObject.toString());
-                System.out.println(maze.length+" "+i);
-                System.out.println(maze[0].length+" "+j);
 
                 output.append(",");
             }
