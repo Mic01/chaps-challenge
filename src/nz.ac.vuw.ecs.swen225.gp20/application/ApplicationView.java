@@ -1,9 +1,7 @@
 package nz.ac.vuw.ecs.swen225.gp20.application;
 
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
-import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.AutoActor;
-import nz.ac.vuw.ecs.swen225.gp20.maze.items.Item;
 import nz.ac.vuw.ecs.swen225.gp20.recnplay.Playback;
 import nz.ac.vuw.ecs.swen225.gp20.recnplay.Replay;
 import nz.ac.vuw.ecs.swen225.gp20.render.Board;
@@ -13,7 +11,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
 
 public class ApplicationView {
 
@@ -26,7 +23,6 @@ public class ApplicationView {
     private final JMenu load = new JMenu("Load");
     private final JMenuItem saveReplay = new JMenuItem("Save Replay");
     private final JMenuItem loadGame = new JMenuItem("Load Game");
-    private JComponent invCanvas;
     private boolean gameOver = false;
     private JLabel scoreCount = new JLabel("0");
     private JPanel lowerWindow = new JPanel();
@@ -87,7 +83,6 @@ public class ApplicationView {
         JPanel windowContents = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         GridBagConstraints sideConstraints = new GridBagConstraints();
-        GridBagConstraints lowerConstraints = new GridBagConstraints();
 
         JPanel mainWindow = viewport;
         mainWindow.setMinimumSize(new Dimension(630, 630));
@@ -105,24 +100,52 @@ public class ApplicationView {
         this.scoreCount.setForeground(Color.LIGHT_GRAY);
         JLabel time = new JLabel("Time Remaining:");
         time.setForeground(Color.LIGHT_GRAY);
-        JLabel timeCount = new JLabel("60 seconds");
+        JLabel timeCount;
+        int currentLevel = game.currLevel;
+        if(currentLevel == 1) {
+            timeCount = new JLabel("60 seconds");
+        }
+        else{
+            timeCount = new JLabel("120 seconds");
+        }
         timeCount.setForeground(Color.LIGHT_GRAY);
 
         ApplicationView currentGame = this;
 
-        ActionListener countdown = new ActionListener() {
-            int timeLeft = 59;
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                timeCount.setText(timeLeft + " seconds");
-                if(timeLeft <= 0){
-                    gameOver = true;
-                    ((Timer)actionEvent.getSource()).stop();
-                    new LevelLostView(window, currentGame,true);
+
+        ActionListener countdown;
+        if(currentLevel == 1) {
+            countdown = new ActionListener() {
+                int timeLeft = 59;
+
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    timeCount.setText(timeLeft + " seconds");
+                    if (timeLeft <= 0) {
+                        gameOver = true;
+                        ((Timer) actionEvent.getSource()).stop();
+                        new LevelLostView(window, currentGame, true);
+                    }
+                    timeLeft--;
                 }
-                timeLeft--;
-            }
-        };
+            };
+        }
+        else{
+            countdown = new ActionListener() {
+                int timeLeft = 119;
+
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    timeCount.setText(timeLeft + " seconds");
+                    if (timeLeft <= 0) {
+                        gameOver = true;
+                        ((Timer) actionEvent.getSource()).stop();
+                        new LevelLostView(window, currentGame, true);
+                    }
+                    timeLeft--;
+                }
+            };
+        }
         javax.swing.Timer countdownTimer = new javax.swing.Timer(1000, countdown);
         countdownTimer.start();
 
@@ -224,13 +247,10 @@ public class ApplicationView {
         sideConstraints.insets = new Insets(100, -127, 0, 0);
         sideWindow.add(quitGame, sideConstraints);
 
-        this.lowerWindow = new JPanel();
+        this.lowerWindow = new InventoryPanel(this.maze);
         this.lowerWindow.setMinimumSize(new Dimension(100, 150));
         this.lowerWindow.setPreferredSize(new Dimension(100, 150));
         this.lowerWindow.setBackground(Color.BLACK);
-
-        this.invCanvas = inventoryComponent();
-        this.lowerWindow.add(this.invCanvas);
 
         constraints.gridx = 0;
         constraints.gridy = 0;
@@ -309,7 +329,7 @@ public class ApplicationView {
             default:
         }
         this.scoreCount.setText("" + maze.getPlayer().treasuresCollected());
-        this.invCanvas = inventoryComponent();
+        this.lowerWindow.repaint();
         if(maze.isFinished()){
             gameOver = true;
             new LevelWonView(this.window, this);
@@ -360,30 +380,6 @@ public class ApplicationView {
     public void changeLevel(){
         this.window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.game.nextLevel(this.game.currLevel);
-    }
-
-    private JComponent inventoryComponent(){
-        return new JComponent() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                try {
-                    drawInventory(g);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-    }
-
-    private void drawInventory(Graphics g) throws IOException {
-        int x = 0;
-        int y = 0;
-        for(Item i : maze.getPlayer().getInventory()){
-            System.out.println(i.toString());
-            g.drawImage(i.getImage(), x, y, this.lowerWindow);
-            x += i.getImage().getWidth(this.lowerWindow) + 10;
-        }
     }
 
     public void disposeWindow(){
