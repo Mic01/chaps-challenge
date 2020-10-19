@@ -1,16 +1,12 @@
 package nz.ac.vuw.ecs.swen225.gp20.maze.tiles;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import javax.imageio.ImageIO;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
 
 public class ExitLock extends Tile {
   private final int treasuresNeeded;
-  private BufferedImage imageClosed;
-  private BufferedImage imageOpen;
   private final boolean vertical;
   private boolean open;
 
@@ -40,7 +36,6 @@ public class ExitLock extends Tile {
       Player player = (Player) actor;
       return player.treasuresCollected() == treasuresNeeded;
     }
-
     return false;
   }
 
@@ -52,13 +47,8 @@ public class ExitLock extends Tile {
 
   @Override
   public BufferedImage getImage() throws IOException {
-    if (imageClosed == null) {
-      imageClosed = ImageIO.read(new File(imageDirectory +
-              "gate_" + (vertical ? "vertical" : "horizontal") + ".png"));
-      imageOpen = ImageIO.read(new File(imageDirectory +
-              "lock_" + (vertical ? "vertical" : "horizontal") + "_open.png"));
-    }
-    return open ? imageOpen : imageClosed;
+    return open ? getImageProxy("gate_" + (vertical ? "vertical" : "horizontal")) :
+            getImageProxy("lock_" + (vertical ? "vertical" : "horizontal") + "_open");
   }
 
   @Override

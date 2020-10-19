@@ -1,9 +1,7 @@
 package nz.ac.vuw.ecs.swen225.gp20.maze.tiles;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import javax.imageio.ImageIO;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
 import nz.ac.vuw.ecs.swen225.gp20.maze.items.Item;
@@ -11,7 +9,6 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.items.Treasure;
 
 public class FreeTile extends Tile {
   private Item item;
-  private static BufferedImage image;
 
   public FreeTile() {
     item = null;
@@ -61,10 +58,7 @@ public class FreeTile extends Tile {
 
   @Override
   public BufferedImage getImage() throws IOException {
-    if (image == null) {
-      image = ImageIO.read(new File(imageDirectory + "floor.png"));
-    }
-    return image;
+    return getImageProxy("floor");
   }
 
   @Override

@@ -67,7 +67,8 @@
 		"tile": "Floor",
 		"x": 21,
 		"y": 25,
-		"slot": "Chip"
+		"slot": "Item",
+		"type": "Chip"
 	}, {
 		"tile": "Wall",
 		"x": 21,
@@ -98,12 +99,14 @@
 		"tile": "Floor",
 		"x": 23,
 		"y": 21,
-		"slot": "Chip"
+		"slot": "Item",
+		"type": "Chip"
 	}, {
 		"tile": "Floor",
 		"x": 23,
 		"y": 25,
-		"slot": "Chip"
+		"slot": "Item",
+		"type": "Chip"
 	}, {
 		"tile": "Door",
 		"x": 23,
@@ -115,7 +118,8 @@
 		"tile": "Floor",
 		"x": 23,
 		"y": 29,
-		"slot": "Chip"
+		"slot": "Item",
+		"type": "Chip"
 	}, {
 		"tile": "Wall",
 		"x": 23,
@@ -142,7 +146,8 @@
 		"tile": "Floor",
 		"x": 25,
 		"y": 25,
-		"slot": "Chip"
+		"slot": "Item",
+		"type": "Chip"
 	}, {
 		"tile": "Wall",
 		"x": 25,
@@ -151,7 +156,8 @@
 		"tile": "Floor",
 		"x": 25,
 		"y": 29,
-		"slot": "Chip"
+		"slot": "Item",
+		"type": "Chip"
 	}, {
 		"tile": "Wall",
 		"x": 25,
@@ -231,7 +237,8 @@
 		"tile": "Floor",
 		"x": 28,
 		"y": 29,
-		"slot": "Chip"
+		"slot": "Item",
+		"type": "Chip"
 	}, {
 		"tile": "Wall",
 		"x": 28,
@@ -270,7 +277,8 @@
 		"tile": "Floor",
 		"x": 30,
 		"y": 29,
-		"slot": "Chip"
+		"slot": "Item",
+		"type": "Chip"
 	}, {
 		"tile": "Wall",
 		"x": 30,
@@ -353,12 +361,14 @@
 		"tile": "Floor",
 		"x": 33,
 		"y": 21,
-		"slot": "Chip"
+		"slot": "Item",
+		"type": "Chip"
 	}, {
 		"tile": "Floor",
 		"x": 33,
 		"y": 27,
-		"slot": "Key",
+		"slot": "Item",
+		"type": "Key",
 		"colour": "Blue"
 	}, {
 		"tile": "Wall",
@@ -411,7 +421,8 @@
 		"tile": "Floor",
 		"x": 37,
 		"y": 21,
-		"slot": "Key",
+		"slot": "Item",
+		"type": "Key",
 		"colour": "Green"
 	}, {
 		"tile": "Wall",

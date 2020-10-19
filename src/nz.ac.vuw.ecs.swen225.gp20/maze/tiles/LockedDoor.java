@@ -1,9 +1,7 @@
 package nz.ac.vuw.ecs.swen225.gp20.maze.tiles;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import javax.imageio.ImageIO;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
 import nz.ac.vuw.ecs.swen225.gp20.maze.items.Key;
@@ -12,8 +10,6 @@ public class LockedDoor extends Tile {
   private final String colour;
   private final boolean vertical;
   private boolean open;
-  private BufferedImage imageClosed;
-  private BufferedImage imageOpen;
 
   public LockedDoor(String colour, boolean vertical, boolean open) {
     this.colour = colour.toLowerCase();
@@ -41,7 +37,6 @@ public class LockedDoor extends Tile {
       Player player = (Player) actor;
       return player.isHolding(new Key(colour));
     }
-
     return false;
   }
 
@@ -53,14 +48,7 @@ public class LockedDoor extends Tile {
 
   @Override
   public BufferedImage getImage() throws IOException {
-    if (imageClosed == null) {
-      imageClosed = ImageIO.read(new File(imageDirectory + "lock_"
-              + (vertical ? "vertical" : "horizontal") + "_" + colour + ".png"));
-
-      imageOpen = ImageIO.read(new File(imageDirectory + "lock_"
-              + (vertical ? "vertical" : "horizontal") + "_" + "open" + ".png"));
-    }
-    return open ? imageOpen : imageClosed;
+    return getImageProxy("lock_" + (vertical ? "vertical" : "horizontal") + "_" + (open ? "open" : colour));
   }
 
   @Override
