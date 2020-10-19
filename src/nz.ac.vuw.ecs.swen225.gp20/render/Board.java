@@ -189,12 +189,18 @@ public class Board extends JPanel implements ActionListener {
    * draws a new frame of every actor that has moved this round.
    */
   private void drawEntities(Graphics g, int xOffset, int yOffset) throws IOException {
+    //Draw Player
     g.drawImage(player.getImage(playerMoved),
-            (getVisionX(player.getX()) * tileSize), (getVisionY(player.getY()) * tileSize), this);
+            (getVisionX(player.getX()) * tileSize),
+            (getVisionY(player.getY()) * tileSize), this);
 
+    //Draw Auto actors
     for(AutoActor actor : autoActors){
-      g.drawImage(actor.getImage(true),
-              (getVisionX(actor.getX()) * tileSize), (getVisionY(actor.getY()) * tileSize), this);
+      if(actorInVision(actor)) {
+        g.drawImage(actor.getImage(true),
+                (getVisionX(actor.getX()) * tileSize) + xOffset,
+                (getVisionY(actor.getY()) * tileSize) + yOffset, this);
+      }
     }
       /*if(actor.equals(player)) {
         playerMoved = true;
@@ -316,6 +322,20 @@ public class Board extends JPanel implements ActionListener {
    */
   public int getOffsetY(){
     return (player.getY()-player.getPrevY())*35;
+  }
+
+  /**
+   * Helper method to check if actor is in
+   * current vision, to draw them.
+   *
+   * @param actor to check if in frame
+   * @return true if in frame, else false
+   */
+  public boolean actorInVision(AutoActor actor){
+    return (getVisionX(actor.getX()) >= 0 &&
+            getVisionX(actor.getX()) < visionRange &&
+            getVisionY(actor.getY()) >= 0 &&
+            getVisionY(actor.getY()) < visionRange);
   }
 
   @Override
