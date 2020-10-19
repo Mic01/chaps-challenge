@@ -23,10 +23,9 @@ public class Playback {
    * Load the replay from a json file.
    *
    * @param filePath the file to load.
-   * @param timeScale The initial speed of the replay.
    * @return the playback object
    */
-  public void load(String filePath, int timeScale) {
+  public void load(String filePath) {
     parseJson(filePath);
   }
 
