@@ -28,6 +28,7 @@ public class ApplicationView {
     private JLabel scoreCount = new JLabel("0");
     private JPanel lowerWindow = new JPanel();
     private String replayPath = "";
+    private Timer countdownTimer = null;
 
 
     public ApplicationView(Main game, boolean isReplay) {
@@ -124,9 +125,8 @@ public class ApplicationView {
         timeCount.setForeground(Color.LIGHT_GRAY);
 
         ApplicationView currentGame = this;
-
-
         ActionListener countdown;
+
         if(currentLevel == 1) {
             countdown = new ActionListener() {
                 int timeLeft = 59;
@@ -159,7 +159,7 @@ public class ApplicationView {
                 }
             };
         }
-        javax.swing.Timer countdownTimer = new javax.swing.Timer(1000, countdown);
+        countdownTimer = new javax.swing.Timer(1000, countdown);
         countdownTimer.start();
 
         ActionListener npcMovement = actionEvent -> {
@@ -169,7 +169,9 @@ public class ApplicationView {
             else {
                 for (AutoActor a : maze.getAutoActors()) {
                     a.autoMove();
-                    viewport.draw(false);
+                    if(!viewport.isAnimating()) {
+                        viewport.draw(false);
+                    }
                 }
             }
         };
@@ -287,6 +289,28 @@ public class ApplicationView {
             Playback replay = new Playback();
             replay.load(this.replayPath);
 
+            ApplicationView currAppli = this;
+            boolean hasFinished = false;
+
+            JButton pause = new JButton("\u2016");
+            JButton play = new JButton("⯈");
+            JButton step = new JButton("\uD83E\uDC7A");
+
+            play.addActionListener(actionEvent -> replay.play(currAppli, 1.0));
+
+            replayConstraints.gridx = 0;
+            replayConstraints.gridy = 0;
+            replayConstraints.fill = GridBagConstraints.NONE;
+            replayConstraints.anchor = GridBagConstraints.CENTER;
+            replayConstraints.insets = new Insets(10, 0, 0, 0);
+            replayWindow.add(play, replayConstraints);
+
+            replayConstraints.gridx = 1;
+            replayConstraints.insets = new Insets(10, 10, 0, 0);
+            replayWindow.add(pause, replayConstraints);
+
+            replayConstraints.gridx = 2;
+            replayWindow.add(step, replayConstraints);
         }
 
         constraints.gridx = 0;
@@ -374,6 +398,7 @@ public class ApplicationView {
         this.lowerWindow.repaint();
         if(maze.isFinished()){
             gameOver = true;
+            countdownTimer.stop();
             new LevelWonView(this.window, this);
         }
     }

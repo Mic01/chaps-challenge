@@ -14,10 +14,8 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.AutoActor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.FreeTile;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Ice;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.NullTile;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Water;
 
 /**
  * Renderer class for displaying the board.
@@ -40,8 +38,8 @@ public class Board extends JPanel implements ActionListener {
 
   //Dynamic Rendering Variables
   private ArrayList<Actor> moving = new ArrayList<>();
-  private int animationState;
   private boolean halfFrame;
+  private boolean inAnimation;
   private Timer timer = new Timer(sleepTime, this); //Redraws from timer in ActionListener
   private boolean playerMoved;
 
@@ -111,7 +109,8 @@ public class Board extends JPanel implements ActionListener {
     if(halfFrame) {
       halfFrame = false;
     }else{
-      this.moving = new ArrayList<>();
+      playerMoved = false;
+      inAnimation = false;
       timer.stop();
     }
     repaint();
@@ -126,11 +125,12 @@ public class Board extends JPanel implements ActionListener {
    */
   public void draw(boolean playerMove) {
     setVision();
-    animationState = 0;
     playerMoved = playerMove;
+
     //If player is currently moving, draw a half frame
     if(playerMove){
       halfFrame = true;
+      inAnimation = true;
     }
 
     repaint();
@@ -336,6 +336,26 @@ public class Board extends JPanel implements ActionListener {
             getVisionX(actor.getX()) < visionRange &&
             getVisionY(actor.getY()) >= 0 &&
             getVisionY(actor.getY()) < visionRange);
+  }
+
+  /**
+   * Checks whether in current animation,
+   * to stop tick based draw calls overriding animations.
+   *
+   * @return true if in animation, false otherwise
+   */
+  public boolean isAnimating(){
+    return inAnimation;
+  }
+
+  /**
+   * Changes delay between drawing, used for replaying levels
+   * to speed up or slow down animations.
+   *
+   * @param speed multiplier to delay time (ie 2x or 0.5x)
+   */
+  public void setAnimateSpeed(int speed){
+    timer = new Timer(sleepTime*speed, this);
   }
 
   @Override
