@@ -755,6 +755,11 @@
 		"y": 15,
 		"slot": "Shoe",
 		"type": "Water"
+	},{
+		"tile": "Floor",
+		"x": 29,
+		"y": 18,
+		"slot": "Chip"
 	}, {
 		"tile": "Door",
 		"x": 29,
