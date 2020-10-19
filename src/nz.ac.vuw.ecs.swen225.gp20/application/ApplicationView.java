@@ -128,7 +128,6 @@ public class ApplicationView {
         ActionListener countdown;
 
         if(currentLevel == 1) {
-            Timer finalCountdownTimer1 = countdownTimer;
             countdown = new ActionListener() {
                 int timeLeft = 59;
 
@@ -137,7 +136,7 @@ public class ApplicationView {
                     timeCount.setText(timeLeft + " seconds");
                     if (timeLeft <= 0) {
                         gameOver = true;
-                        finalCountdownTimer1.stop();
+                        ((Timer) actionEvent.getSource()).stop();
                         new LevelLostView(window, currentGame, true);
                     }
                     timeLeft--;
@@ -145,7 +144,6 @@ public class ApplicationView {
             };
         }
         else{
-            Timer finalCountdownTimer = countdownTimer;
             countdown = new ActionListener() {
                 int timeLeft = 119;
 
@@ -154,7 +152,7 @@ public class ApplicationView {
                     timeCount.setText(timeLeft + " seconds");
                     if (timeLeft <= 0) {
                         gameOver = true;
-                        finalCountdownTimer.stop();
+                        ((Timer) actionEvent.getSource()).stop();
                         new LevelLostView(window, currentGame, true);
                     }
                     timeLeft--;
