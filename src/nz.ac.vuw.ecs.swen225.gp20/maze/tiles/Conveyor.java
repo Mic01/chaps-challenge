@@ -10,7 +10,7 @@ public class Conveyor extends Tile {
   private BufferedImage image;
   private Actor.Direction moveDirection;
 
-  Conveyor(Actor.Direction direction) {
+  public Conveyor(Actor.Direction direction) {
     this.moveDirection = direction;
   }
 
@@ -21,7 +21,8 @@ public class Conveyor extends Tile {
 
   @Override
   public void moveEvent(Actor actor, Actor.Direction direction) {
-
+    actor.move(moveDirection);
+    actor.getMaze().setDisplayText("");
   }
 
   @Override
