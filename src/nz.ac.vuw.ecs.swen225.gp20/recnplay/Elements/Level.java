@@ -1,18 +1,20 @@
-package nz.ac.vuw.ecs.swen225.gp20.recnplay;
+package nz.ac.vuw.ecs.swen225.gp20.recnplay.Elements;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.Interfaces.Play;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.Interfaces.Save;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
 /**
  * This class holds the levels as they are saved
  */
-public class Level {
-  private final ArrayList<Action> history = new ArrayList<Action>();
+public class Level implements Play, Save {
+  private final ArrayList<Action> actions = new ArrayList<Action>();
   String levelName;
   
-  Level(String levelName) {
+  public Level(String levelName) {
     this.levelName = levelName;
   }
   
@@ -21,7 +23,7 @@ public class Level {
    * @param action action to add
    */
   public void addAction(String character, String action, long time) {
-    history.add(new Action(character, action, time));
+    actions.add(new Action(character, action, time));
   }
   
   public String writeHistory() {
@@ -30,10 +32,10 @@ public class Level {
     toReturn.append("\t\"" + levelName + "\" : {\n");
     
     //Add the player moves
-    for (int i = 0; i < history.size(); i++) {
+    for (int i = 0; i < actions.size(); i++) {
       toReturn.append("\t\t\"" + i + "\": {\n");
-      toReturn.append(history.get(i).writeHistory());
-      if (i < history.size() - 1) toReturn.append("\t\t},\n");
+      toReturn.append(actions.get(i).writeHistory());
+      if (i < actions.size() - 1) toReturn.append("\t\t},\n");
       else toReturn.append("\t\t}\n");
     }
 
@@ -47,16 +49,27 @@ public class Level {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Level level = (Level) o;
-    return Objects.equals(history, level.history) &&
+    return Objects.equals(actions, level.actions) &&
             Objects.equals(levelName, level.levelName);
   }
   
   @Override
   public int hashCode() {
-    return Objects.hash(history, levelName);
+    return Objects.hash(actions, levelName);
   }
   
   public int actionCount() {
-    return history.size();
+    return actions.size();
+  }
+
+  /**
+   * Play all of the actions
+   */
+  @Override
+  public void play(ApplicationView application, double timeScale) {
+    System.out.println("Next level: " + levelName);
+    for (Action action: actions) {
+      action.play(application, timeScale);
+    }
   }
 }

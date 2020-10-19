@@ -1,0 +1,16 @@
+{
+  "Level One": {
+    "Player Moves" : {
+      "1" : "Left",
+      "3" : "Right",
+      "4" : "Down"
+    }
+  },
+  "Level Two": {
+    "Player Moves" : {
+      "1" : "Left",
+      "3" : "Right",
+      "4" : "Down"
+    }
+  }
+}

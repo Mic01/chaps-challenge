@@ -1,17 +1,14 @@
 package nz.ac.vuw.ecs.swen225.gp20.recnplay;
 
 import nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.Elements.Level;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Time;
-import java.time.Duration;
-import java.time.Instant;
 import java.util.ArrayList;
 
 /**
@@ -20,12 +17,23 @@ import java.util.ArrayList;
  * @author Luke Hawinkels: hawinkluke
  */
 public class Replay {
+  ApplicationView application;
   String levelName;
   Level currentLevel;
   long startTime = System.nanoTime();
   long endTime = System.nanoTime();
   ArrayList<Level> levelHistory = new ArrayList<>();
 
+  public Replay(ApplicationView application) {
+    this.application = application;
+
+    //Extract the level name
+    String[] path = application.getLevelPath().split("/");
+    this.levelName = path[path.length - 1].replace(".json", "");
+    currentLevel = new Level(levelName);
+  }
+
+  //NOTE this is primarily here for testing purposes
   public Replay(String levelPath) {
     //Extract the level name
     String[] path = levelPath.split("/");
@@ -58,24 +66,12 @@ public class Replay {
   /**
    * Save the current history into a json file.
    */
-  public void saveReplay() {
+  public void saveReplay(File replay) {
     if (!levelHistory.contains(currentLevel)) {
       levelHistory.add(currentLevel);
     }
-    
-    //Check to see the appropriate directory exists.
-    if (!Files.isDirectory(Paths.get("src/nz.ac.vuw.ecs.swen225.gp20/recnplay/Replays/"))) {
-      System.out.println("The directory does not exist.");
-      new File("src/nz.ac.vuw.ecs.swen225.gp20/recnplay/Replays/").mkdir();
-    } else {
-      System.out.println("The directory exists");
-    }
 
     System.out.println("Attempting to save the level.");
-
-    //Create the file
-    File replay = new File(
-            "src/nz.ac.vuw.ecs.swen225.gp20/recnplay/Replays/save.json");
 
     //Write the data to the file
     FileWriter writer = null;
