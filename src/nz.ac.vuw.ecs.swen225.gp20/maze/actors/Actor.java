@@ -59,6 +59,7 @@ public abstract class Actor {
       xposPrev = xpos;
       yposPrev = ypos;
       ypos--;
+      currentTile.moveEvent(this, currentDirection);
       return true;
     }
     return false;
@@ -75,6 +76,7 @@ public abstract class Actor {
       xposPrev = xpos;
       yposPrev = ypos;
       ypos++;
+      currentTile.moveEvent(this, currentDirection);
       return true;
     }
     return false;
@@ -91,6 +93,7 @@ public abstract class Actor {
       yposPrev = ypos;
       xposPrev = xpos;
       xpos--;
+      currentTile.moveEvent(this, currentDirection);
       return true;
     }
     return false;
@@ -107,6 +110,7 @@ public abstract class Actor {
       yposPrev = ypos;
       xposPrev = xpos;
       xpos++;
+      currentTile.moveEvent(this, currentDirection);
       return true;
     }
     return false;
@@ -137,10 +141,7 @@ public abstract class Actor {
   private boolean moveTo(int x, int y, Direction direction) {
     Tile newTile = maze.getTile(x, y);
     if (newTile.isTraversable(this)) {
-
       newTile.addActor(this);
-      newTile.moveEvent(this, direction);
-
       currentTile.removeActor();
       currentTile = maze.getTile(x, y);
       return true;
