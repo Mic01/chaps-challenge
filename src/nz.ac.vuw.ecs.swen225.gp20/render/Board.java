@@ -46,7 +46,7 @@ public class Board extends JPanel implements ActionListener {
 
   //Method Enums
   private enum SoundEffects {
-    metalWalk, waterSwim, slide, pickup_item, finish_level, death, openDoor
+    metalWalk, waterSwim, slide, conveyor_slide, pickup_item, finish_level, death, openDoor
   }
 
   /**
@@ -211,6 +211,8 @@ public class Board extends JPanel implements ActionListener {
           playSound("finish_level");
         } else if(player.isOn(LockedDoor.class) || player.isOn(ExitLock.class)){
           playSound("openDoor");
+        }else if (player.isOn(Conveyor.class)) {
+          playSound("conveyor_slide");
         }else if (player.isOn(Ice.class)) {
           playSound("slide");
         } else if (player.getInventory().size() > inventorySize) {
@@ -245,6 +247,10 @@ public class Board extends JPanel implements ActionListener {
 
       case slide:
         soundeffect.playAudio(SoundEffect.getAudioStream("slide_0"),2);
+        break;
+
+      case conveyor_slide:
+        soundeffect.playAudio(SoundEffect.getAudioStream("OUI"),2);
         break;
 
       case pickup_item:
