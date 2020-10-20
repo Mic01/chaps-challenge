@@ -124,7 +124,7 @@ public class ApplicationView {
         JLabel time = new JLabel("Time Remaining:");
         time.setForeground(Color.LIGHT_GRAY);
         JLabel timeCount;
-        timeCount = new JLabel(this.maze.getTimeLimit() + "seconds");
+        timeCount = new JLabel(this.maze.getTimeLimit() + " seconds");
         timeCount.setForeground(Color.LIGHT_GRAY);
 
         ApplicationView currentGame = this;
@@ -141,6 +141,7 @@ public class ApplicationView {
                     new LevelLostView(window, currentGame, true);
                 }
                 timeLeft--;
+                maze.setTimeLimit(timeLeft);
             }
         };
         countdownTimer = new javax.swing.Timer(1000, countdown);
