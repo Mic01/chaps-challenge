@@ -80,6 +80,24 @@ public class ApplicationView {
                 System.exit(0);
             }
         });
+        this.window.getRootPane().getActionMap().put("loadGame", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                loadSave();
+            }
+        });
+        this.window.getRootPane().getActionMap().put("startGameAtUnfinishedLevel", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+
+            }
+        });
+        this.window.getRootPane().getActionMap().put("startGameAtLevel1", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                game.restartLevel(1);
+            }
+        });
         this.window.getRootPane().getActionMap().put("pause", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -110,7 +128,13 @@ public class ApplicationView {
         this.window.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
                 .put(KeyStroke.getKeyStroke("control S"), "saveAndClose");
         this.window.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
-                .put(KeyStroke.getKeyStroke("control P"), "pause");
+                .put(KeyStroke.getKeyStroke("control R"), "loadGame");
+        this.window.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
+                .put(KeyStroke.getKeyStroke("control P"), "startGameAtUnfinishedLevel");
+        this.window.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
+                .put(KeyStroke.getKeyStroke("control 1"), "startGameAtLevel1");
+        this.window.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
+                .put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), "pause");
         this.window.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
                 .put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "exitPause");
         this.addToWindow();
