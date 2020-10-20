@@ -8,13 +8,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import javax.sound.sampled.*;
 import javax.swing.*;
 
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.AutoActor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.*;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Conveyor;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Exit;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.ExitLock;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.FreeTile;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Ice;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.LockedDoor;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.NullTile;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Water;
 
 /**
  * Renderer class for displaying the board.
@@ -45,6 +52,7 @@ public class Board extends JPanel implements ActionListener {
   private int inventorySize;
   private int taskSize;
   public AudioPlayer audioPlayer = new AudioPlayer();
+  private int deathTick;
 
   //Method Enums
   private enum SoundEffects {
@@ -70,11 +78,11 @@ public class Board extends JPanel implements ActionListener {
     vision = new Tile[visionRange][visionRange];
     lastVision = new Tile[visionRange][visionRange];
     updateLevel(maze);
+    deathTick = 0;
 
     //Preloading all Sound files
     try {
       for (SoundEffects s : SoundEffects.values()) {
-        System.out.println(s.toString());
         loadedSounds.put(s.toString(), new SoundEffect(s.toString()));
       }
     }catch(Exception e){ e.printStackTrace();}
@@ -113,12 +121,19 @@ public class Board extends JPanel implements ActionListener {
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    //If not animation
-    if(halfFrame) {
-      halfFrame = false;
+    //Player not dead
+    if(!player.isDead()) {
+      if (halfFrame) {
+        halfFrame = false;
+      } else {
+        playerMoved = false;
+        inAnimation = false;
+        timer.stop();
+      }
+      //Draw all death animation frames
+    }else if(deathTick < 3){
+      deathTick++;
     }else{
-      playerMoved = false;
-      inAnimation = false;
       timer.stop();
     }
     repaint();
@@ -164,7 +179,7 @@ public class Board extends JPanel implements ActionListener {
       drawEntities(g2d, xOffset, yOffset);
       g2d.dispose();
       
-      if(halfFrame){
+      if(halfFrame || player.isDead()){
         timer.start();
       }
 
@@ -203,11 +218,13 @@ public class Board extends JPanel implements ActionListener {
             (getVisionY(player.getY()) * tileSize), this);
 
     //Draw Auto actors
-    for(AutoActor actor : autoActors){
-      if(actorInVision(actor)) {
-        g.drawImage(actor.getImage(true),
-                (getVisionX(actor.getX()) * tileSize) + xOffset,
-                (getVisionY(actor.getY()) * tileSize) + yOffset, this);
+    if (!player.isDead()) {
+      for (AutoActor actor : autoActors) {
+        if (actorInVision(actor)) {
+          g.drawImage(actor.getImage(true),
+                  (getVisionX(actor.getX()) * tileSize) + xOffset,
+                  (getVisionY(actor.getY()) * tileSize) + yOffset, this);
+        }
       }
     }
 
@@ -245,7 +262,9 @@ public class Board extends JPanel implements ActionListener {
    * @param sound name of animation.
    */
   private void playSound(String sound, int priority) {
-    audioPlayer.playAudio(priority, loadedSounds.get(sound));
+    if(deathTick == 0) {
+      audioPlayer.playAudio(priority, loadedSounds.get(sound));
+    }
   }
 
   /**
