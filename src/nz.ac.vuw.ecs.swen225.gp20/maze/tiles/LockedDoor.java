@@ -11,6 +11,14 @@ public class LockedDoor extends Tile {
   private final boolean vertical;
   private boolean open;
 
+  /**
+   * A coloured locked door that can only be opened if
+   * the player has a key of the same colour as this door.
+   *
+   * @param colour the colour of this door
+   * @param vertical whether this door uses a vertical or horizontal graphic
+   * @param open whether this door has been opened or not
+   */
   public LockedDoor(String colour, boolean vertical, boolean open) {
     this.colour = colour.toLowerCase();
     this.vertical = vertical;
@@ -31,9 +39,11 @@ public class LockedDoor extends Tile {
 
   @Override
   public boolean isTraversable(Actor actor) {
-    if (open) return true;
+    if (open) {
+      return true;
+    }
 
-    if (actor instanceof Player) {
+    if (actor.isPlayer()) {
       Player player = (Player) actor;
       return player.isHolding(new Key(colour));
     }
@@ -48,7 +58,8 @@ public class LockedDoor extends Tile {
 
   @Override
   public BufferedImage getImage() throws IOException {
-    return getImageProxy("lock_" + (vertical ? "vertical" : "horizontal") + "_" + (open ? "open" : colour));
+    return getImageProxy("lock_" + (vertical ? "vertical" : "horizontal")
+            + "_" + (open ? "open" : colour));
   }
 
   @Override

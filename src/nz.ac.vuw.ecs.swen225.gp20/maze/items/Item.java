@@ -18,7 +18,7 @@ public abstract class Item {
 
   /**
    * Load image from file and act as a virtual proxy -
-   * storing images when loaded for first time so they can be loaded faster
+   * storing images when loaded for first time so they can be loaded faster.
    *
    * @param imageName name of the image file inside "assets/tiles/"
    * @return the loaded image

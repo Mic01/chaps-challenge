@@ -72,7 +72,6 @@ public class Persistence {
                                     JsonArray inventory = obj.getJsonArray("inventory");
                                     if(!inventory.isEmpty()){
                                         for(JsonValue items: inventory){
-                                            System.out.println("Magic");
                                             JsonObject item = (JsonObject) items;
                                             player.pickup(loadItem(item));
                                         }
@@ -105,6 +104,7 @@ public class Persistence {
                             break;
                         case "End":
                             maze[obj.getInt("x")][obj.getInt("y")] = new Exit();
+                            mazeObject.setTimeLimit(obj.getInt("time"));
                             break;
                         case "Lock":
                             maze[obj.getInt("x")][obj.getInt("y")] = new ExitLock(obj.getInt("chips"), obj.getBoolean("vertical"), obj.getBoolean("open"));
@@ -132,12 +132,10 @@ public class Persistence {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        saveLevel(maze, "levels/SaveFile.json");
         return maze;
     }
 
     public static Item loadItem(JsonObject obj){
-        System.out.println(obj.getString("type"));
         final String type = obj.getString("type");
 
         switch (type) {
@@ -165,7 +163,7 @@ public class Persistence {
      * @param maze current level to be saved
      * @param fileName name of the file to be saved
      */
-    public static void saveLevel(Tile[][] maze, String fileName) {
+    public static void saveLevel(Tile[][] maze, String fileName, Maze mazeObject) {
         Tile[][] save = new Tile[80][80];
         for (int i = 0; i < 80; i++) {
             for (int j = 0; j < 80; j++) {
@@ -186,7 +184,7 @@ public class Persistence {
                 object.add("tile", currentTile.toString());
 
                 if (currentTile instanceof ExitLock) {
-                    object.add("chips", ((ExitLock) currentTile).getTreasuresNeeded());
+                    object.add("chips", mazeObject.getTreasuresLeft());
                     object.add("vertical", ((ExitLock) currentTile).isVertical());
                     object.add("open", ((ExitLock) currentTile).isOpen());
                 } else if (currentTile instanceof LockedDoor) {
@@ -208,8 +206,8 @@ public class Persistence {
                             object.add("inventory", array);
                         }else{
                             object.add("slot", "Enemy");
-                            //object.add("direction", ((AutoActor)actor.getCurrentDirection()));
-                            object.add("direction", "left");
+                            object.add("direction", (((AutoActor)actor).getCurrentDirection()).toString());
+
                             if(actor instanceof EnemyOne){
                                 object.add("type", "One");
                             }else if(actor instanceof EnemyTwo){
@@ -232,8 +230,9 @@ public class Persistence {
                     object.add("y1", ((Vent)currentTile).getTargetY());
 
                 }else if (currentTile instanceof Conveyor){
-                    //object.add("direction", ((Conveyor)currentTile).getDirection);
-                    object.add("direction", "up");
+                    object.add("direction", ((Conveyor)currentTile).getDirection().toString());
+                }else if (currentTile instanceof Exit){
+                    object.add("time", mazeObject.getTimeLimit());
                 }
 
                 object.add("x", i);

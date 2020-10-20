@@ -5,20 +5,20 @@ import java.io.IOException;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 
 public class Vent extends Tile {
-  private final int xTarget;
-  private final int yTarget;
+  private final int xtarget;
+  private final int ytarget;
 
-  public Vent(int xTarget, int yTarget) {
-    this.xTarget = xTarget;
-    this.yTarget = yTarget;
+  public Vent(int xtarget, int ytarget) {
+    this.xtarget = xtarget;
+    this.ytarget = ytarget;
   }
 
   public int getTargetX() {
-    return xTarget;
+    return xtarget;
   }
 
   public int getTargetY() {
-    return yTarget;
+    return ytarget;
   }
 
   @Override
@@ -28,7 +28,7 @@ public class Vent extends Tile {
 
   @Override
   public void moveEvent(Actor actor, Actor.Direction direction) {
-    actor.moveTo(xTarget, yTarget);
+    actor.moveTo(xtarget, ytarget);
   }
 
   @Override

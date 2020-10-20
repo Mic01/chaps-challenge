@@ -36,13 +36,13 @@ public class FreeTile extends Tile {
 
   @Override
   public boolean isTraversable(Actor actor) {
-    return actor instanceof Player || item == null;
+    return actor.isPlayer() || item == null;
   }
 
   @Override
   public void moveEvent(Actor actor, Actor.Direction direction) {
     // Add any items on this tile to player inventory
-    if (item != null && actor instanceof Player) {
+    if (item != null && actor.isPlayer()) {
       Player player = (Player) actor;
       if (item instanceof Treasure) {
         player.pickupTreasure();

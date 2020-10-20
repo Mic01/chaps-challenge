@@ -1,5 +1,6 @@
 package nz.ac.vuw.ecs.swen225.gp20.maze;
 
+import com.google.common.base.Preconditions;
 import java.util.ArrayList;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.AutoActor;
@@ -17,6 +18,7 @@ public class Maze {
   private String displayText = "";
   private boolean finished = false;
   private int treasuresLeft = 0;
+  private int timeLimit;
 
   /**
    * Maze object that holds the tiles that represent the state of the game.
@@ -33,6 +35,15 @@ public class Maze {
   }
 
   /**
+   * Save this Maze using Persistence save method.
+   *
+   * @param fileName name of the file to save the Maze to
+   */
+  public void save(String fileName) {
+    Persistence.saveLevel(tiles, fileName, this);
+  }
+
+  /**
    * Get the tile at the provided coordinates.
    *
    * @param x x-coordinate of the tile
@@ -40,6 +51,13 @@ public class Maze {
    * @return the tile at the provided coordinates
    */
   public Tile getTile(int x, int y) {
+    Preconditions.checkElementIndex(x, getWidth(),
+            x + " is larger than the width of the Maze - " + getWidth());
+    Preconditions.checkElementIndex(y, getHeight(),
+            y + " is larger than the height of the Maze - " + getHeight());
+
+    assert tiles[x][y] != null;
+
     return tiles[x][y];
   }
 
@@ -58,6 +76,7 @@ public class Maze {
    * @param player the new player for this maze
    */
   public void setPlayer(Player player) {
+    Preconditions.checkNotNull(player, "Player is being set as null in Maze");
     this.player = player;
   }
 
@@ -97,39 +116,100 @@ public class Maze {
     autoActors.add(actor);
   }
 
+  /**
+   * Get the width of this Maze.
+   *
+   * @return the width of this Maze
+   */
   public int getWidth() {
     return width;
   }
 
+  /**
+   * Get the height of this Maze.
+   *
+   * @return the height of this Maze
+   */
   public int getHeight() {
     return height;
   }
 
+  /**
+   * Get the text that should be displayed,
+   * used for specific events and Info tiles.
+   *
+   * @return String to be displayed
+   */
   public String getDisplayText() {
     return displayText;
   }
 
+  /**
+   * Set the text that should be displayed,
+   * used for specific events and Info tiles.
+   *
+   * @param displayText String to be displayed
+   */
   public void setDisplayText(String displayText) {
     this.displayText = displayText;
   }
 
+  /**
+   * Has this Maze been finished?.
+   *
+   * @return whether this Maze has been finished
+   */
   public boolean isFinished() {
     return finished;
   }
 
+  /**
+   * Set this Maze as finished.
+   */
   public void setFinished() {
     this.finished = true;
   }
 
+  /**
+   * Set the number of treasures left on the level.
+   *
+   * @param treasuresLeft the number of treasures left on the level
+   */
   public void setTreasuresLeft(int treasuresLeft) {
     this.treasuresLeft = treasuresLeft;
   }
 
+  /**
+   * Get the number of treasures left on the level.
+   *
+   * @return the number of treasures left on the level
+   */
   public int getTreasuresLeft() {
     return treasuresLeft;
   }
 
+  /**
+   * Reduce the number of treasures left by 1.
+   */
   public void reduceTreasuresLeft() {
     treasuresLeft--;
+  }
+
+  /**
+   * Set the time limit for this maze (in seconds).
+   *
+   * @param timeLimit the time limit for this maze (in seconds)
+   */
+  public void setTimeLimit(int timeLimit) {
+    this.timeLimit = timeLimit;
+  }
+
+  /**
+   * Get the time limit for this maze (in seconds).
+   *
+   * @return  the time limit for this maze (in seconds)
+   */
+  public int getTimeLimit() {
+    return timeLimit;
   }
 }

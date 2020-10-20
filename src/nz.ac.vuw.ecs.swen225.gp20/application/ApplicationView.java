@@ -2,6 +2,7 @@ package nz.ac.vuw.ecs.swen225.gp20.application;
 
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.AutoActor;
+import nz.ac.vuw.ecs.swen225.gp20.persistence.Persistence;
 import nz.ac.vuw.ecs.swen225.gp20.recnplay.Playback;
 import nz.ac.vuw.ecs.swen225.gp20.recnplay.Replay;
 import nz.ac.vuw.ecs.swen225.gp20.render.Board;
@@ -21,8 +22,11 @@ public class ApplicationView {
     private JFrame window;
     private final JMenu save = new JMenu("Save");
     private final JMenu load = new JMenu("Load");
-    private final JMenuItem saveReplay = new JMenuItem("Save Replay");
+    private final JMenu replays = new JMenu("Replays");
+    private final JMenuItem saveGame = new JMenuItem("Save Game");
     private final JMenuItem loadGame = new JMenuItem("Load Game");
+    private final JMenuItem saveReplay = new JMenuItem("Save Replay");
+    private final JMenuItem loadReplay = new JMenuItem("Load Replay");
     private boolean gameOver = false;
     private boolean isReplay;
     private JLabel scoreCount = new JLabel("0");
@@ -86,12 +90,17 @@ public class ApplicationView {
     private void addToWindow() {
 
         JMenuBar saveLoad = new JMenuBar();
-        this.saveReplay.addActionListener(actionEvent -> showSaveDialogue());
-        this.save.add(this.saveReplay);
-        this.loadGame.addActionListener(actionEvent -> showLoadDialogue());
+        this.saveGame.addActionListener(actionEvent -> saveGame());
+        this.save.add(this.saveGame);
+        this.loadGame.addActionListener(actionEvent -> loadSave());
         this.load.add(this.loadGame);
+        this.saveReplay.addActionListener(actionEvent -> showSaveReplayDialogue());
+        this.loadReplay.addActionListener(actionEvent -> showLoadReplayDialogue());
+        this.replays.add(saveReplay);
+        this.replays.add(loadReplay);
         saveLoad.add(this.save);
         saveLoad.add(this.load);
+        saveLoad.add(this.replays);
         this.window.setJMenuBar(saveLoad);
 
         JPanel windowContents = new JPanel(new GridBagLayout());
@@ -108,63 +117,43 @@ public class ApplicationView {
         sideWindow.setPreferredSize(new Dimension(150, 100));
         sideWindow.setBackground(Color.BLACK);
 
-        JLabel score = new JLabel("Treasures Collected:");
+        JLabel score = new JLabel("Electronics Remaining:");
         score.setForeground(Color.LIGHT_GRAY);
-        this.scoreCount = new JLabel("0");
+        this.scoreCount = new JLabel("" + maze.getTreasuresLeft());
         this.scoreCount.setForeground(Color.LIGHT_GRAY);
         JLabel time = new JLabel("Time Remaining:");
         time.setForeground(Color.LIGHT_GRAY);
         JLabel timeCount;
-        int currentLevel = game.currLevel;
-        if(currentLevel == 1) {
-            timeCount = new JLabel("60 seconds");
-        }
-        else{
-            timeCount = new JLabel("120 seconds");
-        }
+        timeCount = new JLabel(this.maze.getTimeLimit() + " seconds");
         timeCount.setForeground(Color.LIGHT_GRAY);
 
         ApplicationView currentGame = this;
         ActionListener countdown;
+        countdown = new ActionListener() {
+            int timeLeft = maze.getTimeLimit() - 1;
 
-        if(currentLevel == 1) {
-            countdown = new ActionListener() {
-                int timeLeft = 59;
-
-                @Override
-                public void actionPerformed(ActionEvent actionEvent) {
-                    timeCount.setText(timeLeft + " seconds");
-                    if (timeLeft <= 0) {
-                        gameOver = true;
-                        ((Timer) actionEvent.getSource()).stop();
-                        new LevelLostView(window, currentGame, true);
-                    }
-                    timeLeft--;
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                timeCount.setText(timeLeft + " seconds");
+                if (timeLeft <= 0) {
+                    gameOver = true;
+                    ((Timer) actionEvent.getSource()).stop();
+                    new LevelLostView(window, currentGame, true);
                 }
-            };
-        }
-        else{
-            countdown = new ActionListener() {
-                int timeLeft = 119;
-
-                @Override
-                public void actionPerformed(ActionEvent actionEvent) {
-                    timeCount.setText(timeLeft + " seconds");
-                    if (timeLeft <= 0) {
-                        gameOver = true;
-                        ((Timer) actionEvent.getSource()).stop();
-                        new LevelLostView(window, currentGame, true);
-                    }
-                    timeLeft--;
-                }
-            };
-        }
-        countdownTimer = new javax.swing.Timer(1000, countdown);
-        countdownTimer.start();
+                timeLeft--;
+                maze.setTimeLimit(timeLeft);
+            }
+        };
+        this.countdownTimer = new javax.swing.Timer(1000, countdown);
+        this.countdownTimer.start();
 
         ActionListener npcMovement = actionEvent -> {
             if (gameOver) {
                 ((Timer) actionEvent.getSource()).stop();
+            }
+            else if(this.maze.getPlayer().isDead()){
+                gameOver = true;
+                new LevelLostView(window, currentGame, false);
             }
             else {
                 for (AutoActor a : maze.getAutoActors()) {
@@ -290,13 +279,22 @@ public class ApplicationView {
             replay.load(this.replayPath);
 
             ApplicationView currAppli = this;
-            boolean hasFinished = false;
+            boolean replayHasFinished = false;
 
             JButton pause = new JButton("\u2016");
             JButton play = new JButton("⯈");
             JButton step = new JButton("\uD83E\uDC7A");
 
-            play.addActionListener(actionEvent -> replay.play(currAppli, 1.0));
+            play.addActionListener(actionEvent -> {
+                if(replay.isPaused()){
+                    replay.resume();
+                }
+                else{
+                    replay.play(currAppli, 1.0);
+                }
+            });
+            pause.addActionListener(actionEvent -> replay.pause());
+
 
             replayConstraints.gridx = 0;
             replayConstraints.gridy = 0;
@@ -394,7 +392,7 @@ public class ApplicationView {
                 break;
             default:
         }
-        this.scoreCount.setText("" + maze.getPlayer().treasuresCollected());
+        this.scoreCount.setText("" + maze.getTreasuresLeft());
         this.lowerWindow.repaint();
         if(maze.isFinished()){
             gameOver = true;
@@ -403,27 +401,25 @@ public class ApplicationView {
         }
     }
 
-    private void showLoadDialogue() {
+    private void showLoadReplayDialogue() {
+        this.countdownTimer.stop();
         JFileChooser c = new JFileChooser();
-        // Demonstrate "Open" dialog:
         int rVal = c.showOpenDialog(window);
         Label filename = new Label(), dir = new Label();
         if (rVal == JFileChooser.APPROVE_OPTION) {
             filename.setText(c.getSelectedFile().getName());
             dir.setText(c.getCurrentDirectory().toString());
             game.loadReplayLevel(dir.getText() + "/" + filename.getText(), this.game.currLevel);
-
-            //Playback replay = new Playback();
-            //replay.load(dir.getText() + "/" + filename.getText(), 1);
-            //replay.play(this, 1.0);
         }
         if (rVal == JFileChooser.CANCEL_OPTION) {
             filename.setText("");
             dir.setText("");
+            this.countdownTimer.start();
         }
     }
 
-    private void showSaveDialogue() {
+    private void showSaveReplayDialogue() {
+        this.countdownTimer.stop();
         JFileChooser c = new JFileChooser();
         int rVal = c.showSaveDialog(window);
         Label filename = new Label();
@@ -437,6 +433,7 @@ public class ApplicationView {
             filename.setText("");
             dir.setText("");
         }
+        this.countdownTimer.start();
     }
 
     public void restartLevel(){
@@ -447,6 +444,41 @@ public class ApplicationView {
     public void changeLevel(){
         this.window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.game.nextLevel(this.game.currLevel);
+    }
+
+    private void saveGame(){
+        this.countdownTimer.stop();
+        JFileChooser c = new JFileChooser();
+        int rVal = c.showSaveDialog(window);
+        Label filename = new Label();
+        Label dir = new Label();
+        if (rVal == JFileChooser.APPROVE_OPTION) {
+            filename.setText(c.getSelectedFile().getName());
+            dir.setText(c.getCurrentDirectory().toString());
+            this.maze.save(dir.getText() + "/" + filename.getText() + this.game.currLevel + ".json");
+        }
+        if (rVal == JFileChooser.CANCEL_OPTION) {
+            filename.setText("");
+            dir.setText("");
+        }
+        this.countdownTimer.start();
+    }
+
+    private void loadSave(){
+        this.countdownTimer.stop();
+        JFileChooser c = new JFileChooser();
+        int rVal = c.showOpenDialog(window);
+        Label filename = new Label(), dir = new Label();
+        if (rVal == JFileChooser.APPROVE_OPTION) {
+            filename.setText(c.getSelectedFile().getName());
+            dir.setText(c.getCurrentDirectory().toString());
+            this.game.loadSave(dir.getText() + "/" + filename.getText());
+        }
+        if (rVal == JFileChooser.CANCEL_OPTION) {
+            filename.setText("");
+            dir.setText("");
+            this.countdownTimer.start();
+        }
     }
 
     public void disposeWindow(){

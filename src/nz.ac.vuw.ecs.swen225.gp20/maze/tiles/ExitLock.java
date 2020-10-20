@@ -10,6 +10,13 @@ public class ExitLock extends Tile {
   private final boolean vertical;
   private boolean open;
 
+  /**
+   * A locked door that can only be opened once a certain number of treasures have been collected.
+   *
+   * @param treasuresNeeded the number of treasures that need to be picked up to open this door
+   * @param vertical whether this door uses a vertical or horizontal graphic
+   * @param open whether this door has been opened or not
+   */
   public ExitLock(int treasuresNeeded, boolean vertical, boolean open) {
     this.treasuresNeeded = treasuresNeeded;
     this.vertical = vertical;
@@ -30,9 +37,11 @@ public class ExitLock extends Tile {
 
   @Override
   public boolean isTraversable(Actor actor) {
-    if (open) return true;
+    if (open) {
+      return true;
+    }
 
-    if (actor instanceof Player) {
+    if (actor.isPlayer()) {
       Player player = (Player) actor;
       return player.treasuresCollected() == treasuresNeeded;
     }
@@ -47,8 +56,8 @@ public class ExitLock extends Tile {
 
   @Override
   public BufferedImage getImage() throws IOException {
-    return open ? getImageProxy("gate_" + (vertical ? "vertical" : "horizontal")) :
-            getImageProxy("lock_" + (vertical ? "vertical" : "horizontal") + "_open");
+    return open ? getImageProxy("lock_" + (vertical ? "vertical" : "horizontal") + "_open") :
+            getImageProxy("gate_" + (vertical ? "vertical" : "horizontal"));
   }
 
   @Override

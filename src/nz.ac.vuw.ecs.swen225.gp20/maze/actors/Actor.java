@@ -7,6 +7,7 @@ import java.util.HashMap;
 import javax.imageio.ImageIO;
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Water;
 
 public abstract class Actor {
   protected int xpos;
@@ -18,6 +19,7 @@ public abstract class Actor {
   protected int frame = 0;
   private final HashMap<String, BufferedImage> images = new HashMap<>();
   protected Direction currentDirection = Direction.down;
+  protected boolean dead = false;
 
   public enum Direction {
     up, right, down, left
@@ -54,6 +56,9 @@ public abstract class Actor {
    * @return whether this actor successfully moved up or not
    */
   public boolean moveUp() {
+    if (dead) {
+      return false;
+    }
     currentDirection = Direction.up;
     if (moveTo(xpos, ypos - 1)) {
       currentTile.moveEvent(this, currentDirection);
@@ -68,6 +73,9 @@ public abstract class Actor {
    * @return whether this actor successfully moved down or not
    */
   public boolean moveDown() {
+    if (dead) {
+      return false;
+    }
     currentDirection = Direction.down;
     if (moveTo(xpos, ypos + 1)) {
       currentTile.moveEvent(this, currentDirection);
@@ -82,6 +90,9 @@ public abstract class Actor {
    * @return whether this actor successfully moved left or not
    */
   public boolean moveLeft() {
+    if (dead) {
+      return false;
+    }
     currentDirection = Direction.left;
     if (moveTo(xpos - 1, ypos)) {
       currentTile.moveEvent(this, currentDirection);
@@ -96,6 +107,9 @@ public abstract class Actor {
    * @return whether this actor successfully moved right or not
    */
   public boolean moveRight() {
+    if (dead) {
+      return false;
+    }
     currentDirection = Direction.right;
     if (moveTo(xpos + 1, ypos)) {
       currentTile.moveEvent(this, currentDirection);
@@ -106,10 +120,14 @@ public abstract class Actor {
 
   /**
    * Move this actor in the provided direction.
+   *
    * @param direction direction to move in
    * @return whether the move was successful
    */
   public boolean move(Direction direction) {
+    if (dead) {
+      return false;
+    }
     switch (direction) {
       case up: return moveUp();
       case down: return moveDown();
@@ -127,6 +145,9 @@ public abstract class Actor {
    * @return whether the move was successful
    */
   public boolean moveTo(int x, int y) {
+    if (dead) {
+      return false;
+    }
     Tile newTile = maze.getTile(x, y);
     if (newTile.isTraversable(this)) {
       newTile.addActor(this);
@@ -145,7 +166,23 @@ public abstract class Actor {
    * Make this actor use the next frame in its animation.
    */
   public void nextFrame() {
-    frame = (frame + 1) % 4;
+    if (dead) {
+      if (frame < (isOn(Water.class) ? 2 : 3)) {
+        frame++;
+      }
+    } else {
+      frame = (frame + 1) % 4;
+    }
+  }
+
+  /**
+   * Is this actor standing on the type of Tile provided.
+   *
+   * @param tileClass the type of tile to check
+   * @return whether this actor is standing on the type of tile provided
+   */
+  public boolean isOn(Class<? extends Tile> tileClass) {
+    return tileClass.isInstance(currentTile);
   }
 
   /**
@@ -158,7 +195,7 @@ public abstract class Actor {
 
   /**
    * Load image from file and act as a virtual proxy -
-   * storing images loaded for first time in map so they can be loaded faster
+   * storing images loaded for first time in map so they can be loaded faster.
    *
    * @param filepath path to the image, starting inside "assets/actors/"
    * @return the loaded image
@@ -193,12 +230,24 @@ public abstract class Actor {
     return yposPrev;
   }
 
-  public Tile getCurrentTile() {
-    return currentTile;
-  }
-
   public Maze getMaze() {
     return maze;
+  }
+
+  /**
+   * Set this actor as dead.
+   */
+  public void die() {
+    dead = true;
+    frame = 0;
+  }
+
+  public boolean isDead() {
+    return dead;
+  }
+
+  public boolean isPlayer() {
+    return this instanceof Player;
   }
 
   @Override
