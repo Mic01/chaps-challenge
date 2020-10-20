@@ -124,50 +124,25 @@ public class ApplicationView {
         JLabel time = new JLabel("Time Remaining:");
         time.setForeground(Color.LIGHT_GRAY);
         JLabel timeCount;
-        int currentLevel = game.currLevel;
-        if(currentLevel == 1) {
-            timeCount = new JLabel("60 seconds");
-        }
-        else{
-            timeCount = new JLabel("120 seconds");
-        }
+        timeCount = new JLabel(this.maze.getTimeLimit() + "seconds");
         timeCount.setForeground(Color.LIGHT_GRAY);
 
         ApplicationView currentGame = this;
         ActionListener countdown;
+        countdown = new ActionListener() {
+            int timeLeft = maze.getTimeLimit() - 1;
 
-        if(currentLevel == 1) {
-            countdown = new ActionListener() {
-                int timeLeft = 59;
-
-                @Override
-                public void actionPerformed(ActionEvent actionEvent) {
-                    timeCount.setText(timeLeft + " seconds");
-                    if (timeLeft <= 0) {
-                        gameOver = true;
-                        ((Timer) actionEvent.getSource()).stop();
-                        new LevelLostView(window, currentGame, true);
-                    }
-                    timeLeft--;
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                timeCount.setText(timeLeft + " seconds");
+                if (timeLeft <= 0) {
+                    gameOver = true;
+                    ((Timer) actionEvent.getSource()).stop();
+                    new LevelLostView(window, currentGame, true);
                 }
-            };
-        }
-        else{
-            countdown = new ActionListener() {
-                int timeLeft = 119;
-
-                @Override
-                public void actionPerformed(ActionEvent actionEvent) {
-                    timeCount.setText(timeLeft + " seconds");
-                    if (timeLeft <= 0) {
-                        gameOver = true;
-                        ((Timer) actionEvent.getSource()).stop();
-                        new LevelLostView(window, currentGame, true);
-                    }
-                    timeLeft--;
-                }
-            };
-        }
+                timeLeft--;
+            }
+        };
         countdownTimer = new javax.swing.Timer(1000, countdown);
         countdownTimer.start();
 
