@@ -1,22 +1,29 @@
 package nz.ac.vuw.ecs.swen225.gp20.application;
 
 import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 public class Main {
     private static Main gameInstance;
     public String levelPath;
     public int currLevel = 1;
     private ApplicationView game;
+    public Font deface = Font.createFont(Font.TRUETYPE_FONT, new File("assets/fonts/deface.otf")).deriveFont(14f);
 
-    private Main() {
+
+    private Main() throws IOException, FontFormatException {
     }
 
-    public static void main(String... args) {
+    public static void main(String... args) throws IOException, FontFormatException {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
+        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        env.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("assets/fonts/deface.otf")));
         gameInstance = new Main();
         gameInstance.setup();
     }

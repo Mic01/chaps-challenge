@@ -178,12 +178,16 @@ public class ApplicationView {
 
         JLabel score = new JLabel("Electronics Remaining:");
         score.setForeground(Color.LIGHT_GRAY);
+        score.setFont(this.game.deface);
         this.scoreCount = new JLabel("" + maze.getTreasuresLeft());
+        this.scoreCount.setFont(this.game.deface);
         this.scoreCount.setForeground(Color.LIGHT_GRAY);
         JLabel time = new JLabel("Time Remaining:");
+        time.setFont(this.game.deface);
         time.setForeground(Color.LIGHT_GRAY);
         JLabel timeCount;
         timeCount = new JLabel(this.maze.getTimeLimit() + " seconds");
+        timeCount.setFont(this.game.deface);
         timeCount.setForeground(Color.LIGHT_GRAY);
 
         ApplicationView currentGame = this;
