@@ -10,6 +10,7 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -56,6 +57,18 @@ public class LevelWonView {
   }
 
   private void addToDialog(Container pane) {
+    int toSave;
+    if (game.getMain().currLevel > 2) {
+      toSave = 2;
+    }
+    else{
+      toSave = game.getMain().currLevel + 1;
+    }
+    try {
+      SmallSave.saveFile(toSave);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
     Image background = Toolkit.getDefaultToolkit().createImage("assets/backgrounds/background.png");
     JPanel panel = new BackgroundPanel(background, new GridBagLayout(), true);
 
@@ -91,7 +104,7 @@ public class LevelWonView {
     winConstraints.insets = new Insets(20, 0, 10, 20);
     JButton exit = new JButton();
     exit.setBorder(null);
-    Image exitIcon = Toolkit.getDefaultToolkit().createImage("assets/buttons/quit_game.png");
+    Image exitIcon = Toolkit.getDefaultToolkit().createImage("assets/buttons/save_and_exit.png");
     exit.setIcon(new ImageIcon(exitIcon));
     exit.addActionListener(actionEvent -> System.exit(0));
     panel.add(exit, winConstraints);
