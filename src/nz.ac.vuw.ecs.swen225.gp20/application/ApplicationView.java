@@ -99,14 +99,14 @@ public class ApplicationView {
     this.window.getRootPane().getActionMap().put("close", new AbstractAction() {
       @Override
       public void actionPerformed(ActionEvent actionEvent) {
-        System.exit(0);
+        window.dispose();
       }
     });
     this.window.getRootPane().getActionMap().put("saveAndClose", new AbstractAction() {
       @Override
       public void actionPerformed(ActionEvent actionEvent) {
         saveGame();
-        System.exit(0);
+        window.dispose();
       }
     });
     this.window.getRootPane().getActionMap().put("loadGame", new AbstractAction() {
