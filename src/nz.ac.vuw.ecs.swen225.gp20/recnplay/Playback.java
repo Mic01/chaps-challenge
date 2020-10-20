@@ -19,6 +19,7 @@ import nz.ac.vuw.ecs.swen225.gp20.recnplay.Threads.ReplayThread;
 public class Playback {
   Node baseNode;
   Dispatch dispatchThread;
+  boolean pause = false;
 
   /**
    * Load the replay from a json file.
@@ -64,5 +65,10 @@ public class Playback {
     dispatchThread.start();
     while (!dispatchThread.isComplete()){} //Wait until the thread is done
     System.out.println("Thread done");
+  }
+
+  public void pause() {
+    System.out.println("Attempting to pause the replay.");
+    this.pause = true;
   }
 }
