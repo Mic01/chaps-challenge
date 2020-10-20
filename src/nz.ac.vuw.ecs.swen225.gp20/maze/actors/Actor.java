@@ -35,12 +35,12 @@ public abstract class Actor {
    */
   public Actor(int xpos, int ypos, Maze maze) {
     Preconditions.checkNotNull(maze, "Null Maze passed to Actor");
-    Preconditions.checkElementIndex(xpos, maze.getWidth(),
+    /*Preconditions.checkElementIndex(xpos, maze.getWidth(),
             xpos + " is not within the width of the Maze - " + maze.getWidth()
                     + ": Actor constructor");
     Preconditions.checkElementIndex(ypos, maze.getHeight(),
             ypos + " is not within the height of the Maze - " + maze.getHeight()
-                    + ": Actor constructor");
+                    + ": Actor constructor");*/
     this.xpos = xpos;
     this.ypos = ypos;
     this.xposPrev = xpos;

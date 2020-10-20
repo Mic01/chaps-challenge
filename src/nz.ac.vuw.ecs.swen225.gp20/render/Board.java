@@ -223,35 +223,35 @@ public class Board extends JPanel implements ActionListener {
   private void playSound(String sound) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
     switch (SoundEffects.valueOf(sound)) {
       case metalWalk:
-        soundeffect.playAudio(SoundEffect.getAudioStream("metalWalk_0"));
+        soundeffect.playAudio(SoundEffect.getAudioStream("metalWalk_0"),1);
         break;
 
       case waterSwim:
-        soundeffect.playAudio(SoundEffect.getAudioStream("waterSwim_0"));
+        soundeffect.playAudio(SoundEffect.getAudioStream("waterSwim_0"),1);
         break;
 
       case iceWalk:
-        soundeffect.playAudio(SoundEffect.getAudioStream("iceWalk_0"));
+        soundeffect.playAudio(SoundEffect.getAudioStream("iceWalk_0"),1);
         break;
 
       case slide:
-        soundeffect.playAudio(SoundEffect.getAudioStream("slide_0"));
+        soundeffect.playAudio(SoundEffect.getAudioStream("slide_0"),1);
         break;
 
       case pickup_item:
-        soundeffect.playAudio(SoundEffect.getAudioStream("pickup_item"));
+        soundeffect.playAudio(SoundEffect.getAudioStream("pickup_item"),2);
         break;
 
       case finish_level:
-        soundeffect.playAudio(SoundEffect.getAudioStream("finish_level"));
+        soundeffect.playAudio(SoundEffect.getAudioStream("finish_level"),3);
         break;
 
       case death:
-        soundeffect.playAudio(SoundEffect.getAudioStream("death"));
+        soundeffect.playAudio(SoundEffect.getAudioStream("OOF"),3);
         break;
 
       case openDoor:
-        soundeffect.playAudio(SoundEffect.getAudioStream("airLock"));
+        soundeffect.playAudio(SoundEffect.getAudioStream("airLock_0"),2);
         break;
 
       default:
