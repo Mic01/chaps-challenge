@@ -27,8 +27,13 @@ public class Main {
     }
 
     public void nextLevel(int currLevel){
-        this.levelPath = "levels/Level" + (currLevel+1) + ".json";
-        this.currLevel = currLevel + 1;
+        if(currLevel < 2) {
+            this.levelPath = "levels/Level" + (currLevel + 1) + ".json";
+            this.currLevel = currLevel + 1;
+        }
+        else{
+            this.currLevel = currLevel;
+        }
         this.game.disposeWindow();
         this.game = new ApplicationView(this, false);
     }
@@ -43,5 +48,11 @@ public class Main {
         this.currLevel = currLevel;
         this.game.disposeWindow();
         this.game = new ApplicationView(this, true, replayDir);
+    }
+
+    public void loadSave(String savePath){
+        this.levelPath = savePath;
+        this.game.disposeWindow();
+        this.game = new ApplicationView(this, false);
     }
 }

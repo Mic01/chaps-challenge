@@ -2,6 +2,7 @@ package nz.ac.vuw.ecs.swen225.gp20.application;
 
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.AutoActor;
+import nz.ac.vuw.ecs.swen225.gp20.persistence.Persistence;
 import nz.ac.vuw.ecs.swen225.gp20.recnplay.Playback;
 import nz.ac.vuw.ecs.swen225.gp20.recnplay.Replay;
 import nz.ac.vuw.ecs.swen225.gp20.render.Board;
@@ -21,8 +22,11 @@ public class ApplicationView {
     private JFrame window;
     private final JMenu save = new JMenu("Save");
     private final JMenu load = new JMenu("Load");
-    private final JMenuItem saveReplay = new JMenuItem("Save Replay");
+    private final JMenu replays = new JMenu("Replays");
+    private final JMenuItem saveGame = new JMenuItem("Save Game");
     private final JMenuItem loadGame = new JMenuItem("Load Game");
+    private final JMenuItem saveReplay = new JMenuItem("Save Replay");
+    private final JMenuItem loadReplay = new JMenuItem("Load Replay");
     private boolean gameOver = false;
     private boolean isReplay;
     private JLabel scoreCount = new JLabel("0");
@@ -86,12 +90,17 @@ public class ApplicationView {
     private void addToWindow() {
 
         JMenuBar saveLoad = new JMenuBar();
-        this.saveReplay.addActionListener(actionEvent -> showSaveDialogue());
-        this.save.add(this.saveReplay);
-        this.loadGame.addActionListener(actionEvent -> showLoadDialogue());
+        this.saveGame.addActionListener(actionEvent -> saveGame());
+        this.save.add(this.saveGame);
+        this.loadGame.addActionListener(actionEvent -> loadSave());
         this.load.add(this.loadGame);
+        this.saveReplay.addActionListener(actionEvent -> showSaveReplayDialogue());
+        this.loadReplay.addActionListener(actionEvent -> showLoadReplayDialogue());
+        this.replays.add(saveReplay);
+        this.replays.add(loadReplay);
         saveLoad.add(this.save);
         saveLoad.add(this.load);
+        saveLoad.add(this.replays);
         this.window.setJMenuBar(saveLoad);
 
         JPanel windowContents = new JPanel(new GridBagLayout());
@@ -290,7 +299,7 @@ public class ApplicationView {
             replay.load(this.replayPath);
 
             ApplicationView currAppli = this;
-            boolean hasFinished = false;
+            boolean replayHasFinished = false;
 
             JButton pause = new JButton("\u2016");
             JButton play = new JButton("⯈");
@@ -403,19 +412,14 @@ public class ApplicationView {
         }
     }
 
-    private void showLoadDialogue() {
+    private void showLoadReplayDialogue() {
         JFileChooser c = new JFileChooser();
-        // Demonstrate "Open" dialog:
         int rVal = c.showOpenDialog(window);
         Label filename = new Label(), dir = new Label();
         if (rVal == JFileChooser.APPROVE_OPTION) {
             filename.setText(c.getSelectedFile().getName());
             dir.setText(c.getCurrentDirectory().toString());
             game.loadReplayLevel(dir.getText() + "/" + filename.getText(), this.game.currLevel);
-
-            //Playback replay = new Playback();
-            //replay.load(dir.getText() + "/" + filename.getText(), 1);
-            //replay.play(this, 1.0);
         }
         if (rVal == JFileChooser.CANCEL_OPTION) {
             filename.setText("");
@@ -423,7 +427,7 @@ public class ApplicationView {
         }
     }
 
-    private void showSaveDialogue() {
+    private void showSaveReplayDialogue() {
         JFileChooser c = new JFileChooser();
         int rVal = c.showSaveDialog(window);
         Label filename = new Label();
@@ -447,6 +451,37 @@ public class ApplicationView {
     public void changeLevel(){
         this.window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.game.nextLevel(this.game.currLevel);
+    }
+
+    private void saveGame(){
+        JFileChooser c = new JFileChooser();
+        int rVal = c.showSaveDialog(window);
+        Label filename = new Label();
+        Label dir = new Label();
+        if (rVal == JFileChooser.APPROVE_OPTION) {
+            filename.setText(c.getSelectedFile().getName());
+            dir.setText(c.getCurrentDirectory().toString());
+            this.maze.save(dir.getText() + "/" + filename.getText());
+        }
+        if (rVal == JFileChooser.CANCEL_OPTION) {
+            filename.setText("");
+            dir.setText("");
+        }
+    }
+
+    private void loadSave(){
+        JFileChooser c = new JFileChooser();
+        int rVal = c.showOpenDialog(window);
+        Label filename = new Label(), dir = new Label();
+        if (rVal == JFileChooser.APPROVE_OPTION) {
+            filename.setText(c.getSelectedFile().getName());
+            dir.setText(c.getCurrentDirectory().toString());
+            this.game.loadSave(dir.getText() + "/" + filename.getText());
+        }
+        if (rVal == JFileChooser.CANCEL_OPTION) {
+            filename.setText("");
+            dir.setText("");
+        }
     }
 
     public void disposeWindow(){
