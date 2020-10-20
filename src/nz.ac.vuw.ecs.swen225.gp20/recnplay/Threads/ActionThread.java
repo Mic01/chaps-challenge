@@ -17,7 +17,7 @@ public class ActionThread extends Dispatch {
     *
     * @param move the type of move to perform.
     */
- ActionThread(ApplicationView application, int move) {
+   public ActionThread(ApplicationView application, int move) {
     this.move = move;
     this.application = application;
   }

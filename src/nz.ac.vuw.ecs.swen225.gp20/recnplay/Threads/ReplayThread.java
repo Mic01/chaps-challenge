@@ -2,6 +2,7 @@ package nz.ac.vuw.ecs.swen225.gp20.recnplay.Threads;
 
 import nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView;
 import nz.ac.vuw.ecs.swen225.gp20.recnplay.Elements.Node;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.Playback;
 
 /**
  * This class handles the the replay.
@@ -21,9 +22,11 @@ public class ReplayThread extends Dispatch {
    * @param baseNode the node that holds all of the levels and actions
    *
    * @param timeScale hoe fast should the replay be
+   *
+   * @param playback used to control play-pause functionality.
    */
-  public ReplayThread(ApplicationView application, Node baseNode, double timeScale) {
-    super(application, baseNode, timeScale);
+  public ReplayThread(ApplicationView application, Node baseNode, double timeScale, Playback playback) {
+    super(application, baseNode, timeScale, playback);
   }
 
   /**
@@ -31,7 +34,7 @@ public class ReplayThread extends Dispatch {
    */
   @Override
   public synchronized void start() {
-    baseNode.play(application, timeScale);
+    baseNode.play(application, timeScale, playback);
     complete = true;
   }
 }

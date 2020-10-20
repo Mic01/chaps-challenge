@@ -5,6 +5,7 @@ import java.util.Objects;
 import nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView;
 import nz.ac.vuw.ecs.swen225.gp20.recnplay.Interfaces.Play;
 import nz.ac.vuw.ecs.swen225.gp20.recnplay.Interfaces.Save;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.Playback;
 
 /**
  * This class holds the levels as they are saved.
@@ -103,12 +104,14 @@ public class Level implements Play, Save {
    * @param application the current application.
    *
    * @param timeScale how fast should the replay be.
+   *
+   * @param playback used to control the playback speed.
    */
   @Override
-  public void play(ApplicationView application, double timeScale) {
+  public void play(ApplicationView application, double timeScale, Playback playback) {
     System.out.println("Next level: " + levelName);
     for (Action action : actions) {
-      action.play(application, timeScale);
+      action.play(application, timeScale, playback);
     }
   }
 }

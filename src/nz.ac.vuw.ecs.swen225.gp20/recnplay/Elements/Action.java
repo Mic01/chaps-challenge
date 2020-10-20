@@ -3,6 +3,7 @@ package nz.ac.vuw.ecs.swen225.gp20.recnplay.Elements;
 import nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView;
 import nz.ac.vuw.ecs.swen225.gp20.recnplay.Interfaces.Play;
 import nz.ac.vuw.ecs.swen225.gp20.recnplay.Interfaces.Save;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.Playback;
 import nz.ac.vuw.ecs.swen225.gp20.recnplay.Threads.ActionThread;
 import nz.ac.vuw.ecs.swen225.gp20.recnplay.Threads.Dispatch;
 
@@ -52,7 +53,8 @@ public class Action implements Play, Save {
    *
    * @param timeScale the speed of the replay
    */
-  public void play(ApplicationView application, double timeScale) {
+  @Override
+  public void play(ApplicationView application, double timeScale, Playback playback) {
     try {
       //Wait until the required time has elapsed
       Thread.sleep(calcWaitTime(timeSinceLastMove, timeScale));
