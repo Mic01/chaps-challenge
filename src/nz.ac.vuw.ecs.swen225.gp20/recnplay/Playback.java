@@ -10,6 +10,7 @@ import nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView;
 import nz.ac.vuw.ecs.swen225.gp20.recnplay.Elements.Node;
 import nz.ac.vuw.ecs.swen225.gp20.recnplay.Threads.Dispatch;
 import nz.ac.vuw.ecs.swen225.gp20.recnplay.Threads.ReplayThread;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.Threads.WaitThread;
 
 /**
  * Load a replay file and dispatch the actions.
@@ -63,12 +64,34 @@ public class Playback {
     //create the dispatch thread
     dispatchThread = new ReplayThread(application, baseNode, timeScale, this);
     dispatchThread.start();
-    while (!dispatchThread.isComplete()){} //Wait until the thread is done
-    System.out.println("Thread done");
+
+    //Create a thread that is used to wait for the replay to finish
+    WaitThread wait = new WaitThread(dispatchThread);
+    wait.start();
   }
 
+  /**
+   * Pause the replay.
+   */
   public void pause() {
     System.out.println("Attempting to pause the replay.");
     this.pause = true;
+  }
+
+  /**
+   * Resume the replay.
+   */
+  public void resume() {
+    System.out.println("Resuming replay");
+    this.pause = false;
+  }
+
+  /**
+   * Check if the replay is currently paused.
+   *
+   * @return boolean indicating status.
+   */
+  public boolean isPaused() {
+    return this.pause;
   }
 }
