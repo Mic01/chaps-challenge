@@ -8,13 +8,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import javax.sound.sampled.*;
 import javax.swing.*;
 
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.AutoActor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.*;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Conveyor;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Exit;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.ExitLock;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.FreeTile;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Ice;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.LockedDoor;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.NullTile;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Water;
 
 /**
  * Renderer class for displaying the board.
@@ -172,7 +179,7 @@ public class Board extends JPanel implements ActionListener {
       drawEntities(g2d, xOffset, yOffset);
       g2d.dispose();
       
-      if(halfFrame){
+      if(halfFrame || player.isDead()){
         timer.start();
       }
 
