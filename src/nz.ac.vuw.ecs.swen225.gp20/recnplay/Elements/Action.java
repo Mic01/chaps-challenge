@@ -58,12 +58,12 @@ public class Action implements Play, Save {
     try {
       //Wait until the required time has elapsed
       Thread.sleep(calcWaitTime(timeSinceLastMove, timeScale));
-      System.out.println("Time Scale: " + timeScale);
-      System.out.println("Waited: " + calcWaitTime(timeSinceLastMove, timeScale));
-      System.out.println("Original wait time: " + timeSinceLastMove);
-      System.out.println("Character: " + character);
-      System.out.println("Action: " + action);
-      System.out.println();
+//      System.out.println("Time Scale: " + timeScale);
+//      System.out.println("Waited: " + calcWaitTime(timeSinceLastMove, timeScale));
+//      System.out.println("Original wait time: " + timeSinceLastMove);
+//      System.out.println("Character: " + character);
+//      System.out.println("Action: " + action);
+//      System.out.println();
 
       if (character.equals("player")) {
         //Create a new thread and execute the move
