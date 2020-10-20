@@ -96,7 +96,7 @@ public class ApplicationView {
    * Constructs a JFrame within which the main game will be displayed.
    */
   private void makeWindow() {
-    this.window = new JFrame("Chap's Challenge");
+    this.window = new JFrame("Ship's Challenge");
     this.window.setLayout(new BorderLayout());
     this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.window.setResizable(false);
@@ -324,32 +324,34 @@ public class ApplicationView {
       });
     }
 
-    JButton quitGame = new JButton("Quit Game");
+    JButton quitGame = new JButton();
+    quitGame.setBorder(null);
+    Image quitGameIcon = Toolkit.getDefaultToolkit().createImage("assets/buttons/quit_game.png");
+    quitGame.setIcon(new ImageIcon(quitGameIcon));
     quitGame.addActionListener(actionEvent -> System.exit(0));
-    quitGame.setPreferredSize(new Dimension(125, 25));
 
     GridBagConstraints sideConstraints = new GridBagConstraints();
     sideConstraints.gridx = 3;
     sideConstraints.gridy = 0;
     sideConstraints.fill = GridBagConstraints.HORIZONTAL;
     sideConstraints.anchor = GridBagConstraints.CENTER;
-    sideConstraints.insets = new Insets(0, -125, 0, 0);
+    sideConstraints.insets = new Insets(0, -110, 0, 0);
     sideWindow.add(score, sideConstraints);
 
     sideConstraints.gridy = 1;
-    sideConstraints.insets = new Insets(0, -125, 50, 0);
+    sideConstraints.insets = new Insets(0, -110, 50, 0);
     sideWindow.add(scoreCount, sideConstraints);
 
     sideConstraints.gridy = 2;
-    sideConstraints.insets = new Insets(0, -125, 0, 0);
+    sideConstraints.insets = new Insets(0, -110, 0, 0);
     sideWindow.add(time, sideConstraints);
 
     sideConstraints.gridy = 3;
-    sideConstraints.insets = new Insets(0, -125, 50, 0);
+    sideConstraints.insets = new Insets(0, -110, 50, 0);
     sideWindow.add(timeCount, sideConstraints);
 
     sideConstraints.gridy = 3;
-    sideConstraints.insets = new Insets(50, -125, 0, 0);
+    sideConstraints.insets = new Insets(50, -110, 0, 0);
     sideWindow.add(helpWindow, sideConstraints);
 
     sideConstraints.gridx = 1;
@@ -360,7 +362,7 @@ public class ApplicationView {
 
     sideConstraints.gridx = 0;
     sideConstraints.gridy = 6;
-    sideConstraints.insets = new Insets(0, 4, 0, 0);
+    sideConstraints.insets = new Insets(0, 15, 0, 0);
     sideWindow.add(left, sideConstraints);
 
     sideConstraints.gridx = 1;
@@ -375,7 +377,7 @@ public class ApplicationView {
     sideConstraints.gridx = 3;
     sideConstraints.gridy = 7;
     sideConstraints.fill = GridBagConstraints.HORIZONTAL;
-    sideConstraints.insets = new Insets(100, -127, 0, 0);
+    sideConstraints.insets = new Insets(130, -113, 0, 0);
     sideWindow.add(quitGame, sideConstraints);
 
     Image invBackground = Toolkit.getDefaultToolkit().createImage("assets/backgrounds/invBackground.png");
