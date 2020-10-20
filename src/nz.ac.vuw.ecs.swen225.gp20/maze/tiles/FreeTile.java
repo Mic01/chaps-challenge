@@ -1,5 +1,6 @@
 package nz.ac.vuw.ecs.swen225.gp20.maze.tiles;
 
+import com.google.common.base.Preconditions;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
@@ -10,9 +11,7 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.items.Treasure;
 public class FreeTile extends Tile {
   private Item item;
 
-  public FreeTile() {
-    item = null;
-  }
+  public FreeTile() { }
 
   public FreeTile(Item item) {
     this.item = item;
@@ -36,11 +35,13 @@ public class FreeTile extends Tile {
 
   @Override
   public boolean isTraversable(Actor actor) {
+    Preconditions.checkNotNull(actor, "ExitLock isTraversable is being given a null actor");
     return actor.isPlayer() || item == null;
   }
 
   @Override
   public void moveEvent(Actor actor, Actor.Direction direction) {
+    Preconditions.checkNotNull(actor, "FreeTile moveEvent is being given a null actor");
     // Add any items on this tile to player inventory
     if (item != null && actor.isPlayer()) {
       Player player = (Player) actor;

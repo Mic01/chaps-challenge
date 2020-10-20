@@ -24,6 +24,8 @@ public abstract class Tile {
    * @param actor the actor to add to this tile
    */
   public void addActor(Actor actor) {
+    Preconditions.checkNotNull(actor, "A null actor is being added to a Tile");
+
     // Players should only be added to tiles if they are traversable
     Preconditions.checkArgument(isTraversable(actor),
             "An actor is trying to walk onto a non-traversable tile");
@@ -86,6 +88,10 @@ public abstract class Tile {
    * @throws IOException thrown if the file cannot be found
    */
   protected BufferedImage getImageProxy(String imageName) throws IOException {
+    Preconditions.checkNotNull(imageName, "Tile image is being loaded with a null string");
+    Preconditions.checkArgument(imageName.length() > 0,
+            "Tile image is being loaded with an empty string");
+
     BufferedImage image;
     if (images.containsKey(imageName)) {
       image = images.get(imageName);
@@ -93,6 +99,7 @@ public abstract class Tile {
       image = ImageIO.read(new File("assets/tiles/" + imageName + ".png"));
       images.put(imageName, image);
     }
+
     return image;
   }
 

@@ -35,14 +35,7 @@ public abstract class Actor {
    */
   public Actor(int xpos, int ypos, Maze maze) {
     Preconditions.checkNotNull(maze, "Null Maze passed to Actor");
-    /*
-    Preconditions.checkElementIndex(xpos, maze.getWidth(),
-            xpos + " is not within the width of the Maze - " + maze.getWidth()
-                    + ": Actor constructor");
-    Preconditions.checkElementIndex(ypos, maze.getHeight(),
-            ypos + " is not within the height of the Maze - " + maze.getHeight()
-                    + ": Actor constructor");
-    */
+
     this.xpos = xpos;
     this.ypos = ypos;
     this.xposPrev = xpos;
@@ -57,7 +50,16 @@ public abstract class Actor {
    * during its construction.
    */
   public void setup() {
+    Preconditions.checkElementIndex(xpos, maze.getWidth(),
+          xpos + " is not within the width of the Maze - " + maze.getWidth()
+                  + ": Actor constructor");
+    Preconditions.checkElementIndex(ypos, maze.getHeight(),
+            ypos + " is not within the height of the Maze - " + maze.getHeight()
+                    + ": Actor constructor");
+
     currentTile = maze.getTile(xpos, ypos);
+
+    assert currentTile.isTraversable(this);
   }
 
   /**
@@ -69,7 +71,7 @@ public abstract class Actor {
     // Prevent movement if the actor is dead
     /* Also prevent manual movement commands from the user if
     the Player is being moved automatically by Ice or Conveyors */
-    if (dead || isPlayer() && ((Player)this).isSliding()
+    if (dead || isPlayer() && ((Player) this).isSliding()
             && !Thread.currentThread().getStackTrace()[3].getMethodName().equals("run")) {
       return false;
     }
@@ -90,7 +92,7 @@ public abstract class Actor {
     // Prevent movement if the actor is dead
     /* Also prevent manual movement commands from the user if
     the Player is being moved automatically by Ice or Conveyors */
-    if (dead || isPlayer() && ((Player)this).isSliding()
+    if (dead || isPlayer() && ((Player) this).isSliding()
             && !Thread.currentThread().getStackTrace()[3].getMethodName().equals("run")) {
       return false;
     }
@@ -111,7 +113,7 @@ public abstract class Actor {
     // Prevent movement if the actor is dead
     /* Also prevent manual movement commands from the user if
     the Player is being moved automatically by Ice or Conveyors */
-    if (dead || isPlayer() && ((Player)this).isSliding()
+    if (dead || isPlayer() && ((Player) this).isSliding()
             && !Thread.currentThread().getStackTrace()[3].getMethodName().equals("run")) {
       return false;
     }
@@ -132,7 +134,7 @@ public abstract class Actor {
     // Prevent movement if the actor is dead
     /* Also prevent manual movement commands from the user if
     the Player is being moved automatically by Ice or Conveyors */
-    if (dead || isPlayer() && ((Player)this).isSliding()
+    if (dead || isPlayer() && ((Player) this).isSliding()
             && !Thread.currentThread().getStackTrace()[3].getMethodName().equals("run")) {
       return false;
     }
@@ -171,9 +173,17 @@ public abstract class Actor {
    * @return whether the move was successful
    */
   public boolean moveTo(int x, int y) {
+    Preconditions.checkElementIndex(xpos, maze.getWidth(),
+            xpos + " is not within the width of the Maze - " + maze.getWidth()
+                    + ": Actor moveTo method");
+    Preconditions.checkElementIndex(ypos, maze.getHeight(),
+            ypos + " is not within the height of the Maze - " + maze.getHeight()
+                    + ": Actor moveTo method");
+
     if (dead) {
       return false;
     }
+
     Tile newTile = maze.getTile(x, y);
     if (newTile.isTraversable(this)) {
       newTile.addActor(this);
@@ -193,6 +203,7 @@ public abstract class Actor {
    */
   public void nextFrame() {
     if (dead) {
+      // Do not repeat death animation, only play it once
       if (frame < (isOn(Water.class) ? 2 : 3)) {
         frame++;
       }
@@ -228,6 +239,10 @@ public abstract class Actor {
    * @throws IOException thrown if the file cannot be found
    */
   protected BufferedImage getImageProxy(String filepath) throws IOException {
+    Preconditions.checkNotNull(filepath, "Actor image is being loaded with a null string");
+    Preconditions.checkArgument(filepath.length() > 0,
+            "Actor image is being loaded with an empty string");
+
     BufferedImage image;
     if (images.containsKey(filepath)) {
       image = images.get(filepath);
@@ -238,6 +253,18 @@ public abstract class Actor {
 
     nextFrame();
     return image;
+  }
+
+  /**
+   * Set this actor as dead.
+   */
+  public void die() {
+    dead = true;
+    frame = 0;
+  }
+
+  public boolean isDead() {
+    return dead;
   }
 
   public int getX() {
@@ -258,22 +285,6 @@ public abstract class Actor {
 
   public Maze getMaze() {
     return maze;
-  }
-
-  public Tile getCurrentTile() {
-    return currentTile;
-  }
-
-  /**
-   * Set this actor as dead.
-   */
-  public void die() {
-    dead = true;
-    frame = 0;
-  }
-
-  public boolean isDead() {
-    return dead;
   }
 
   public boolean isPlayer() {

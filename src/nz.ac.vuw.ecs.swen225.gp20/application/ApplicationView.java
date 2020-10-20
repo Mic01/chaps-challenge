@@ -2,7 +2,6 @@ package nz.ac.vuw.ecs.swen225.gp20.application;
 
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.AutoActor;
-import nz.ac.vuw.ecs.swen225.gp20.persistence.Persistence;
 import nz.ac.vuw.ecs.swen225.gp20.recnplay.Playback;
 import nz.ac.vuw.ecs.swen225.gp20.recnplay.Replay;
 import nz.ac.vuw.ecs.swen225.gp20.render.Board;
@@ -11,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.File;
 
 public class ApplicationView {
@@ -28,11 +28,14 @@ public class ApplicationView {
     private final JMenuItem saveReplay = new JMenuItem("Save Replay");
     private final JMenuItem loadReplay = new JMenuItem("Load Replay");
     private boolean gameOver = false;
-    private boolean isReplay;
+    private final boolean isReplay;
+    private boolean isPaused;
     private JLabel scoreCount = new JLabel("0");
     private JPanel lowerWindow = new JPanel();
+    private JPanel mainWindow = new JPanel();
     private String replayPath = "";
     private Timer countdownTimer = null;
+    private Timer npcMovementTimer = null;
 
 
     public ApplicationView(Main game, boolean isReplay) {
@@ -42,6 +45,7 @@ public class ApplicationView {
         this.log = new Replay(this);
         this.isReplay = isReplay;
         this.makeWindow();
+        this.mainWindow.requestFocus();
     }
 
     public ApplicationView(Main game, boolean isReplay, String replayPath) {
@@ -52,6 +56,7 @@ public class ApplicationView {
         this.isReplay = isReplay;
         this.replayPath = replayPath;
         this.makeWindow();
+        this.mainWindow.requestFocus();
     }
 
     /**
@@ -71,13 +76,67 @@ public class ApplicationView {
         this.window.getRootPane().getActionMap().put("saveAndClose", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                saveGame();
                 System.exit(0);
+            }
+        });
+        this.window.getRootPane().getActionMap().put("loadGame", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                loadSave();
+            }
+        });
+        this.window.getRootPane().getActionMap().put("startGameAtUnfinishedLevel", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+
+            }
+        });
+        this.window.getRootPane().getActionMap().put("startGameAtLevel1", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                game.restartLevel(1);
+            }
+        });
+        this.window.getRootPane().getActionMap().put("pause", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if(isPaused) {
+                    isPaused = false;
+                    countdownTimer.start();
+                    npcMovementTimer.start();
+                }
+                else{
+                    isPaused = true;
+                    countdownTimer.stop();
+                    npcMovementTimer.stop();
+                }
+            }
+        });
+        this.window.getRootPane().getActionMap().put("exitPause", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if(isPaused) {
+                    isPaused = false;
+                    countdownTimer.start();
+                    npcMovementTimer.start();
+                }
             }
         });
         this.window.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
                 .put(KeyStroke.getKeyStroke("control X"), "close");
         this.window.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
                 .put(KeyStroke.getKeyStroke("control S"), "saveAndClose");
+        this.window.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
+                .put(KeyStroke.getKeyStroke("control R"), "loadGame");
+        this.window.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
+                .put(KeyStroke.getKeyStroke("control P"), "startGameAtUnfinishedLevel");
+        this.window.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
+                .put(KeyStroke.getKeyStroke("control 1"), "startGameAtLevel1");
+        this.window.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
+                .put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), "pause");
+        this.window.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
+                .put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "exitPause");
         this.addToWindow();
         this.window.pack();
         this.window.setLocationRelativeTo(null);
@@ -107,10 +166,10 @@ public class ApplicationView {
         GridBagConstraints constraints = new GridBagConstraints();
         GridBagConstraints sideConstraints = new GridBagConstraints();
 
-        JPanel mainWindow = viewport;
-        mainWindow.setMinimumSize(new Dimension(630, 630));
-        mainWindow.setPreferredSize(new Dimension(630, 630));
-        mainWindow.setBackground(Color.BLACK);
+        this.mainWindow = viewport;
+        this.mainWindow.setMinimumSize(new Dimension(630, 630));
+        this.mainWindow.setPreferredSize(new Dimension(630, 630));
+        this.mainWindow.setBackground(Color.BLACK);
 
         JPanel sideWindow = new JPanel(new GridBagLayout());
         sideWindow.setMinimumSize(new Dimension(150, 100));
@@ -119,12 +178,16 @@ public class ApplicationView {
 
         JLabel score = new JLabel("Electronics Remaining:");
         score.setForeground(Color.LIGHT_GRAY);
+        score.setFont(this.game.deface);
         this.scoreCount = new JLabel("" + maze.getTreasuresLeft());
+        this.scoreCount.setFont(this.game.deface);
         this.scoreCount.setForeground(Color.LIGHT_GRAY);
         JLabel time = new JLabel("Time Remaining:");
+        time.setFont(this.game.deface);
         time.setForeground(Color.LIGHT_GRAY);
         JLabel timeCount;
         timeCount = new JLabel(this.maze.getTimeLimit() + " seconds");
+        timeCount.setFont(this.game.deface);
         timeCount.setForeground(Color.LIGHT_GRAY);
 
         ApplicationView currentGame = this;
@@ -154,6 +217,7 @@ public class ApplicationView {
             else if(this.maze.getPlayer().isDead()){
                 gameOver = true;
                 ((Timer) actionEvent.getSource()).stop();
+                countdownTimer.stop();
                 new LevelLostView(window, currentGame, false);
             }
             else {
@@ -165,8 +229,8 @@ public class ApplicationView {
                 }
             }
         };
-        javax.swing.Timer npcMovementTimer = new javax.swing.Timer(250, npcMovement);
-        npcMovementTimer.start();
+        this.npcMovementTimer = new Timer(250, npcMovement);
+        this.npcMovementTimer.start();
 
         JButton left = new JButton("\uD83E\uDC50");
         JButton up = new JButton("\uD83E\uDC51");
@@ -271,8 +335,8 @@ public class ApplicationView {
         JPanel replayWindow = new JPanel();
         if(isReplay) {
             replayWindow = new JPanel(new GridBagLayout());
-            replayWindow.setMinimumSize(new Dimension(150, 50));
-            replayWindow.setPreferredSize(new Dimension(150, 50));
+            replayWindow.setMinimumSize(new Dimension(150, 40));
+            replayWindow.setPreferredSize(new Dimension(150, 40));
             replayWindow.setBackground(Color.WHITE);
 
             GridBagConstraints replayConstraints = new GridBagConstraints();
@@ -295,17 +359,18 @@ public class ApplicationView {
                 }
             });
             pause.addActionListener(actionEvent -> replay.pause());
+            step.addActionListener(actionEvent -> replay.step(true));
 
 
             replayConstraints.gridx = 0;
             replayConstraints.gridy = 0;
             replayConstraints.fill = GridBagConstraints.NONE;
             replayConstraints.anchor = GridBagConstraints.CENTER;
-            replayConstraints.insets = new Insets(10, 0, 0, 0);
+            replayConstraints.insets = new Insets(0, 0, 0, 0);
             replayWindow.add(play, replayConstraints);
 
             replayConstraints.gridx = 1;
-            replayConstraints.insets = new Insets(10, 10, 0, 0);
+            replayConstraints.insets = new Insets(0, 10, 0, 0);
             replayWindow.add(pause, replayConstraints);
 
             replayConstraints.gridx = 2;
@@ -317,7 +382,7 @@ public class ApplicationView {
         constraints.fill = GridBagConstraints.BOTH;
         constraints.weightx = 1;
         constraints.weighty = 1;
-        windowContents.add(mainWindow, constraints);
+        windowContents.add(this.mainWindow, constraints);
 
         constraints.gridx = 0;
         constraints.gridy = 1;
@@ -326,7 +391,7 @@ public class ApplicationView {
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.weightx = 0;
         constraints.weighty = 1;
-        windowContents.add(lowerWindow, constraints);
+        windowContents.add(this.lowerWindow, constraints);
 
         if(isReplay){
             constraints.gridy = 2;
@@ -358,47 +423,50 @@ public class ApplicationView {
      * 4: move right
      */
     public void playerMovement(int dir, boolean isFromLog){
-        switch (dir) {
-            case 1:
-                if(maze.getPlayer().moveUp()) {
-                    viewport.draw(true);
-                }
-                if (!isFromLog) {
-                    log.addAction("moveUp", "player");
-                }
-                break;
-            case 2:
-                if(maze.getPlayer().moveDown()) {
-                    viewport.draw(true);
-                }
-                if (!isFromLog) {
-                    log.addAction("moveDown", "player");
-                }
-                break;
-            case 3:
-                if(maze.getPlayer().moveLeft()) {
-                    viewport.draw(true);
-                }
-                if (!isFromLog) {
-                    log.addAction("moveLeft", "player");
-                }
-                break;
-            case 4:
-                if(maze.getPlayer().moveRight()) {
-                    viewport.draw(true);
-                }
-                if (!isFromLog) {
-                    log.addAction("moveRight", "player");
-                }
-                break;
-            default:
-        }
-        this.scoreCount.setText("" + maze.getTreasuresLeft());
-        this.lowerWindow.repaint();
-        if(maze.isFinished()){
-            gameOver = true;
-            countdownTimer.stop();
-            new LevelWonView(this.window, this);
+        if(!isPaused) {
+            switch (dir) {
+                case 1:
+                    if (maze.getPlayer().moveUp()) {
+                        viewport.draw(true);
+                    }
+                    if (!isFromLog) {
+                        log.addAction("moveUp", "player");
+                    }
+                    break;
+                case 2:
+                    if (maze.getPlayer().moveDown()) {
+                        viewport.draw(true);
+                    }
+                    if (!isFromLog) {
+                        log.addAction("moveDown", "player");
+                    }
+                    break;
+                case 3:
+                    if (maze.getPlayer().moveLeft()) {
+                        viewport.draw(true);
+                    }
+                    if (!isFromLog) {
+                        log.addAction("moveLeft", "player");
+                    }
+                    break;
+                case 4:
+                    if (maze.getPlayer().moveRight()) {
+                        viewport.draw(true);
+                    }
+                    if (!isFromLog) {
+                        log.addAction("moveRight", "player");
+                    }
+                    break;
+                default:
+            }
+            this.scoreCount.setText("" + maze.getTreasuresLeft());
+            this.lowerWindow.repaint();
+            if (maze.isFinished()) {
+                gameOver = true;
+                countdownTimer.stop();
+                new LevelWonView(this.window, this);
+            }
+            this.mainWindow.requestFocus();
         }
     }
 

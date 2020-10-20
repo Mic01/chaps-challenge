@@ -1,5 +1,6 @@
 package nz.ac.vuw.ecs.swen225.gp20.maze.actors;
 
+import com.google.common.base.Preconditions;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class Player extends Actor {
    * @param item the item being picked up
    */
   public void pickup(Item item) {
+    Preconditions.checkNotNull(item, "Player pickup is being given a null item");
     inventory.add(item);
   }
 
@@ -47,6 +49,8 @@ public class Player extends Actor {
    * @return boolean response for Player holding the provided item
    */
   public boolean isHolding(Item item) {
+    Preconditions.checkNotNull(item, "Player isHolding is being given a null item");
+
     for (Item heldItem : inventory) {
       if (heldItem.equals(item)) {
         return true;

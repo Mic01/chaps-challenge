@@ -1,5 +1,6 @@
 package nz.ac.vuw.ecs.swen225.gp20.maze.tiles;
 
+import com.google.common.base.Preconditions;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
@@ -17,6 +18,9 @@ public class Ice extends Tile {
 
   @Override
   public void moveEvent(Actor actor, Actor.Direction direction) {
+    Preconditions.checkNotNull(actor, "Ice moveEvent is being given a null actor");
+    Preconditions.checkNotNull(direction, "Ice moveEvent is being given a null direction");
+
     if (actor.isPlayer() && !((Player) actor).isHolding(new IcePotion())) {
       drawn = false;
 
@@ -29,6 +33,7 @@ public class Ice extends Tile {
               try {
                 this.wait();
               } catch (InterruptedException ignored) {
+                // Do nothing
               }
             }
           }
@@ -44,7 +49,9 @@ public class Ice extends Tile {
   @Override
   public BufferedImage getImage() throws IOException {
     if (hasActor() && animate != null && drawn) {
-      synchronized (animate) { animate.notifyAll(); }
+      synchronized (animate) {
+        animate.notifyAll();
+      }
     }
     drawn = true;
     return getImageProxy("ice");

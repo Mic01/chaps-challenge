@@ -1,5 +1,6 @@
 package nz.ac.vuw.ecs.swen225.gp20.maze.tiles;
 
+import com.google.common.base.Preconditions;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
@@ -20,6 +21,9 @@ public class LockedDoor extends Tile {
    * @param open whether this door has been opened or not
    */
   public LockedDoor(String colour, boolean vertical, boolean open) {
+    Preconditions.checkNotNull(colour, "A LockedDoor is being provided with a null colour string");
+    Preconditions.checkArgument(colour.length() > 0,
+            "LockedDoor is being provided with an empty colour string");
     this.colour = colour.toLowerCase();
     this.vertical = vertical;
     this.open = open;
@@ -39,6 +43,7 @@ public class LockedDoor extends Tile {
 
   @Override
   public boolean isTraversable(Actor actor) {
+    Preconditions.checkNotNull(actor, "LockedDoor isTraversable is being given a null actor");
     if (open) {
       return true;
     }
@@ -52,6 +57,7 @@ public class LockedDoor extends Tile {
 
   @Override
   public void moveEvent(Actor actor, Actor.Direction direction) {
+    Preconditions.checkNotNull(actor, "LockedDoor moveEvent is being given a null actor");
     open = true;
     actor.getMaze().setDisplayText("Door unlocked");
   }

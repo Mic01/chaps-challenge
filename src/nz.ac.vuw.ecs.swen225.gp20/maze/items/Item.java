@@ -1,5 +1,6 @@
 package nz.ac.vuw.ecs.swen225.gp20.maze.items;
 
+import com.google.common.base.Preconditions;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -25,6 +26,10 @@ public abstract class Item {
    * @throws IOException thrown if the file cannot be found
    */
   protected BufferedImage getImageProxy(String imageName) throws IOException {
+    Preconditions.checkNotNull(imageName, "Item image is being loaded with a null string");
+    Preconditions.checkArgument(imageName.length() > 0,
+            "Item image is being loaded with an empty string");
+
     if (image == null) {
       image = ImageIO.read(new File("assets/tiles/" + imageName));
     }
