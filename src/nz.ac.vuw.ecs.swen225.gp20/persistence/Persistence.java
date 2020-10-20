@@ -104,6 +104,7 @@ public class Persistence {
                             break;
                         case "End":
                             maze[obj.getInt("x")][obj.getInt("y")] = new Exit();
+                            mazeObject.setTimeLimit(obj.getInt("time"));
                             break;
                         case "Lock":
                             maze[obj.getInt("x")][obj.getInt("y")] = new ExitLock(obj.getInt("chips"), obj.getBoolean("vertical"), obj.getBoolean("open"));
