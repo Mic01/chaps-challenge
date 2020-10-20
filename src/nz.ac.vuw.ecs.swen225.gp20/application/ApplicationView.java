@@ -331,8 +331,8 @@ public class ApplicationView {
         JPanel replayWindow = new JPanel();
         if(isReplay) {
             replayWindow = new JPanel(new GridBagLayout());
-            replayWindow.setMinimumSize(new Dimension(150, 50));
-            replayWindow.setPreferredSize(new Dimension(150, 50));
+            replayWindow.setMinimumSize(new Dimension(150, 40));
+            replayWindow.setPreferredSize(new Dimension(150, 40));
             replayWindow.setBackground(Color.WHITE);
 
             GridBagConstraints replayConstraints = new GridBagConstraints();
@@ -355,17 +355,18 @@ public class ApplicationView {
                 }
             });
             pause.addActionListener(actionEvent -> replay.pause());
+            step.addActionListener(actionEvent -> replay.step(true));
 
 
             replayConstraints.gridx = 0;
             replayConstraints.gridy = 0;
             replayConstraints.fill = GridBagConstraints.NONE;
             replayConstraints.anchor = GridBagConstraints.CENTER;
-            replayConstraints.insets = new Insets(10, 0, 0, 0);
+            replayConstraints.insets = new Insets(0, 0, 0, 0);
             replayWindow.add(play, replayConstraints);
 
             replayConstraints.gridx = 1;
-            replayConstraints.insets = new Insets(10, 10, 0, 0);
+            replayConstraints.insets = new Insets(0, 10, 0, 0);
             replayWindow.add(pause, replayConstraints);
 
             replayConstraints.gridx = 2;
