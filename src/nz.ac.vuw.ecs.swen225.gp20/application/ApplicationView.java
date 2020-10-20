@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import javax.swing.AbstractAction;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
@@ -204,7 +205,7 @@ public class ApplicationView {
     sideWindow.setPreferredSize(new Dimension(150, 100));
     sideWindow.setBackground(Color.BLACK);
 
-    JLabel score = new JLabel("Electronics Remaining:");
+    JLabel score = new JLabel("Boards Remaining:");
     score.setForeground(Color.LIGHT_GRAY);
     score.setFont(this.game.deface);
     this.scoreCount = new JLabel("" + maze.getTreasuresLeft());
@@ -261,10 +262,25 @@ public class ApplicationView {
     this.npcMovementTimer = new Timer(250, npcMovement);
     this.npcMovementTimer.start();
 
-    JButton left = new JButton("🡐");
-    JButton up = new JButton("🡑");
-    JButton down = new JButton("🡓");
-    JButton right = new JButton("🡒");
+    JButton left = new JButton();
+    left.setBorder(null);
+    Image leftIcon = Toolkit.getDefaultToolkit().createImage("assets/buttons/left.png");
+    left.setIcon(new ImageIcon(leftIcon));
+
+    JButton up = new JButton();
+    up.setBorder(null);
+    Image upIcon = Toolkit.getDefaultToolkit().createImage("assets/buttons/up.png");
+    up.setIcon(new ImageIcon(upIcon));
+
+    JButton down = new JButton();
+    down.setBorder(null);
+    Image downIcon = Toolkit.getDefaultToolkit().createImage("assets/buttons/down.png");
+    down.setIcon(new ImageIcon(downIcon));
+
+    JButton right = new JButton();
+    right.setBorder(null);
+    Image rightIcon = Toolkit.getDefaultToolkit().createImage("assets/buttons/right.png");
+    right.setIcon(new ImageIcon(rightIcon));
 
     if (!isReplay) {
       down.addActionListener(actionEvent -> playerMovement(2, false));
