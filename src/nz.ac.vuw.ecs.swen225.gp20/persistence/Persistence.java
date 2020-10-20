@@ -163,7 +163,7 @@ public class Persistence {
      * @param maze current level to be saved
      * @param fileName name of the file to be saved
      */
-    public static void saveLevel(Tile[][] maze, String fileName) {
+    public static void saveLevel(Tile[][] maze, String fileName, Maze mazeObject) {
         Tile[][] save = new Tile[80][80];
         for (int i = 0; i < 80; i++) {
             for (int j = 0; j < 80; j++) {
@@ -184,7 +184,7 @@ public class Persistence {
                 object.add("tile", currentTile.toString());
 
                 if (currentTile instanceof ExitLock) {
-                    object.add("chips", ((ExitLock) currentTile).getTreasuresNeeded());
+                    object.add("chips", mazeObject.getTreasuresLeft());
                     object.add("vertical", ((ExitLock) currentTile).isVertical());
                     object.add("open", ((ExitLock) currentTile).isOpen());
                 } else if (currentTile instanceof LockedDoor) {
@@ -231,7 +231,8 @@ public class Persistence {
 
                 }else if (currentTile instanceof Conveyor){
                     object.add("direction", ((Conveyor)currentTile).getDirection().toString());
-                   // object.add("direction", "up");
+                }else if (currentTile instanceof Exit){
+                    object.add("time", mazeObject.getTimeLimit());
                 }
 
                 object.add("x", i);
