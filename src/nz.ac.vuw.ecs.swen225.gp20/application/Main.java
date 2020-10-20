@@ -53,6 +53,9 @@ public class Main {
     public void loadSave(String savePath){
         this.levelPath = savePath;
         this.game.disposeWindow();
+        String[] splitFileName = savePath.split("\\.(?=[^\\.]+$)");
+        char levelID = splitFileName[0].charAt(splitFileName[0].length() - 1);
+        this.currLevel = Character.getNumericValue(levelID);
         this.game = new ApplicationView(this, false);
     }
 }

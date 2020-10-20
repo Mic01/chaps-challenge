@@ -441,7 +441,7 @@ public class ApplicationView {
         if (rVal == JFileChooser.APPROVE_OPTION) {
             filename.setText(c.getSelectedFile().getName());
             dir.setText(c.getCurrentDirectory().toString());
-            this.maze.save(dir.getText() + "/" + filename.getText() + ".json");
+            this.maze.save(dir.getText() + "/" + filename.getText() + this.game.currLevel + ".json");
         }
         if (rVal == JFileChooser.CANCEL_OPTION) {
             filename.setText("");
