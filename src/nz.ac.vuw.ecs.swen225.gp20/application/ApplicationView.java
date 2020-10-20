@@ -199,27 +199,39 @@ public class ApplicationView {
     this.mainWindow.setMinimumSize(new Dimension(630, 630));
     this.mainWindow.setPreferredSize(new Dimension(630, 630));
     this.mainWindow.setBackground(Color.BLACK);
-
-    JPanel sideWindow = new JPanel(new GridBagLayout());
+    Image sideBackground = Toolkit.getDefaultToolkit().createImage("assets/backgrounds/sideBackground.png");
+    JPanel sideWindow = new BackgroundPanel(sideBackground, new GridBagLayout(), true);
     sideWindow.setMinimumSize(new Dimension(150, 100));
     sideWindow.setPreferredSize(new Dimension(150, 100));
     sideWindow.setBackground(Color.BLACK);
 
     JLabel score = new JLabel("Boards Remaining:");
     score.setForeground(Color.LIGHT_GRAY);
-    score.setFont(this.game.deface);
+    score.setFont(this.game.deface.deriveFont(14f));
+    score.setOpaque(true);
+    score.setBackground(Color.BLACK);
     this.scoreCount = new JLabel("" + maze.getTreasuresLeft());
-    this.scoreCount.setFont(this.game.deface);
+    this.scoreCount.setFont(this.game.deface.deriveFont(14f));
     this.scoreCount.setForeground(Color.LIGHT_GRAY);
+    this.scoreCount.setOpaque(true);
+    this.scoreCount.setBackground(Color.BLACK);
+
     JLabel time = new JLabel("Time Remaining:");
-    time.setFont(this.game.deface);
+    time.setFont(this.game.deface.deriveFont(14f));
     time.setForeground(Color.LIGHT_GRAY);
+    time.setOpaque(true);
+    time.setBackground(Color.BLACK);
     JLabel timeCount;
     timeCount = new JLabel(this.maze.getTimeLimit() + " seconds");
-    timeCount.setFont(this.game.deface);
+    timeCount.setFont(this.game.deface.deriveFont(14f));
     timeCount.setForeground(Color.LIGHT_GRAY);
-    this.helpWindow.setFont(this.game.deface);
+    timeCount.setOpaque(true);
+    timeCount.setBackground(Color.BLACK);
+
+    this.helpWindow.setFont(this.game.deface.deriveFont(14f));
     this.helpWindow.setForeground(Color.LIGHT_GRAY);
+    this.helpWindow.setOpaque(true);
+    this.helpWindow.setBackground(Color.BLACK);
 
     ApplicationView currentGame = this;
     ActionListener countdown;

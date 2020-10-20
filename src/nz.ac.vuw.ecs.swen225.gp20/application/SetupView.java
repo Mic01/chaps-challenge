@@ -113,7 +113,8 @@ public class SetupView {
     constraints2.gridx = 0;
     constraints2.gridy = 0;
     constraints2.insets = new Insets(10, 25, 20, 20);
-    JPanel panel2 = new BackgroundPanel(background, new GridBagLayout(), true);
+    Image levelSelBackground = Toolkit.getDefaultToolkit().createImage("assets/backgrounds/levelselBackground.png");
+    JPanel panel2 = new BackgroundPanel(levelSelBackground, new GridBagLayout(), true);
     JLabel levelSelect = new JLabel("Please select a level.");
     levelSelect.setFont(this.game.deface.deriveFont(20f));
     levelSelect.setForeground(Color.LIGHT_GRAY);
