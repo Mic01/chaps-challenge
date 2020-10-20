@@ -11,6 +11,7 @@ public class SoundEffect implements LineListener {
   private static boolean finishedPlay = true;
   private static DataLine.Info info = null;
   private static Clip clip = null;
+  private static int priority = 1;
 
   public static File getFileProxy(String fileName){
     //Sound has been loaded already, return file
@@ -27,7 +28,13 @@ public class SoundEffect implements LineListener {
     return AudioSystem.getAudioInputStream(getFileProxy(fileName).getAbsoluteFile());
   }
 
-  public void playAudio(AudioInputStream audioStream) throws IOException, LineUnavailableException {
+  public void playAudio(AudioInputStream audioStream, int newPriority) throws IOException, LineUnavailableException {
+    if(newPriority > priority){
+      finishedPlay = true;
+      clip.stop();
+      priority = newPriority;
+    }
+
     if(finishedPlay) {
       AudioFormat format = audioStream.getFormat();
       info = new DataLine.Info(Clip.class, format);
@@ -45,10 +52,9 @@ public class SoundEffect implements LineListener {
 
     if(type == LineEvent.Type.START){
       finishedPlay = false;
-      System.out.println("PlayBack Started.");
     } else if(type == LineEvent.Type.STOP){
       finishedPlay = true;
-      System.out.println("Playback ended.");
+      priority = 1;
       event.getLine().close();
     }
   }

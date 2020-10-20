@@ -13,11 +13,7 @@ import javax.swing.*;
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.AutoActor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.FreeTile;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Ice;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.NullTile;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
-import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Water;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.*;
 
 /**
  * Renderer class for displaying the board.
@@ -45,10 +41,12 @@ public class Board extends JPanel implements ActionListener {
   //Animation Variables
   private boolean playerMoved;
   private final SoundEffect soundeffect;
+  private int inventorySize;
+  private int taskSize;
 
   //Method Enums
   private enum SoundEffects {
-    metalWalk, waterSwim, iceWalk, slide, pickup_item, finish_level, death, openDoor
+    metalWalk, waterSwim, slide, pickup_item, finish_level, death, openDoor
   }
 
   /**
@@ -67,6 +65,7 @@ public class Board extends JPanel implements ActionListener {
     //Setting Variables
     this.maze = maze;
     soundeffect = new SoundEffect();
+    inventorySize = 0;
     vision = new Tile[visionRange][visionRange];
     lastVision = new Tile[visionRange][visionRange];
     updateLevel(maze);
@@ -202,17 +201,31 @@ public class Board extends JPanel implements ActionListener {
                 (getVisionY(actor.getY()) * tileSize) + yOffset, this);
       }
     }
-    if(playerMoved) {
-      try {
-        if (player.getCurrentTile() instanceof Ice) {
+
+    //Play Sound Effects
+    try {
+      if(player.isDead()){
+        playSound("death");
+      } else if(playerMoved) {
+        if(player.isOn(Exit.class)){
+          playSound("finish_level");
+        } else if(player.isOn(LockedDoor.class) || player.isOn(ExitLock.class)){
+          playSound("openDoor");
+        }else if (player.isOn(Ice.class)) {
           playSound("slide");
-        } else if (player.getCurrentTile() instanceof Water) {
+        } else if (player.getInventory().size() > inventorySize) {
+          inventorySize++;
+          playSound("pickup_item");
+        } else if(player.treasuresCollected() > taskSize){
+          taskSize++;
+          playSound("pickup_item");
+        } else if (player.isOn(Water.class)) {
           playSound("waterSwim");
         } else {
           playSound("metalWalk");
         }
-      }catch(Exception e){ e.printStackTrace(); }
-    }
+     }
+    }catch(Exception e){ e.printStackTrace(); }
   }
 
   /**
@@ -223,35 +236,31 @@ public class Board extends JPanel implements ActionListener {
   private void playSound(String sound) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
     switch (SoundEffects.valueOf(sound)) {
       case metalWalk:
-        soundeffect.playAudio(SoundEffect.getAudioStream("metalWalk_0"));
+        soundeffect.playAudio(SoundEffect.getAudioStream("metalWalk_0"),1);
         break;
 
       case waterSwim:
-        soundeffect.playAudio(SoundEffect.getAudioStream("waterSwim_0"));
-        break;
-
-      case iceWalk:
-        soundeffect.playAudio(SoundEffect.getAudioStream("iceWalk_0"));
+        soundeffect.playAudio(SoundEffect.getAudioStream("waterSwim_0"),1);
         break;
 
       case slide:
-        soundeffect.playAudio(SoundEffect.getAudioStream("slide_0"));
+        soundeffect.playAudio(SoundEffect.getAudioStream("slide_0"),2);
         break;
 
       case pickup_item:
-        soundeffect.playAudio(SoundEffect.getAudioStream("pickup_item"));
+        soundeffect.playAudio(SoundEffect.getAudioStream("pickup_item"),2);
         break;
 
       case finish_level:
-        soundeffect.playAudio(SoundEffect.getAudioStream("finish_level"));
+        soundeffect.playAudio(SoundEffect.getAudioStream("finish_level"),3);
         break;
 
       case death:
-        soundeffect.playAudio(SoundEffect.getAudioStream("death"));
+        soundeffect.playAudio(SoundEffect.getAudioStream("OOF"),3);
         break;
 
       case openDoor:
-        soundeffect.playAudio(SoundEffect.getAudioStream("airLock"));
+        soundeffect.playAudio(SoundEffect.getAudioStream("airLock_0"),2);
         break;
 
       default:
