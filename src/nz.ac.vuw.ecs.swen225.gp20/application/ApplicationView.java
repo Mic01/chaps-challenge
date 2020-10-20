@@ -32,6 +32,7 @@ public class ApplicationView {
     private boolean isPaused;
     private JLabel scoreCount = new JLabel("0");
     private JPanel lowerWindow = new JPanel();
+    private JPanel mainWindow = new JPanel();
     private String replayPath = "";
     private Timer countdownTimer = null;
     private Timer npcMovementTimer = null;
@@ -44,7 +45,7 @@ public class ApplicationView {
         this.log = new Replay(this);
         this.isReplay = isReplay;
         this.makeWindow();
-        this.window.requestFocus();
+        this.mainWindow.requestFocus();
     }
 
     public ApplicationView(Main game, boolean isReplay, String replayPath) {
@@ -55,7 +56,7 @@ public class ApplicationView {
         this.isReplay = isReplay;
         this.replayPath = replayPath;
         this.makeWindow();
-        this.window.requestFocus();
+        this.mainWindow.requestFocus();
     }
 
     /**
@@ -141,10 +142,10 @@ public class ApplicationView {
         GridBagConstraints constraints = new GridBagConstraints();
         GridBagConstraints sideConstraints = new GridBagConstraints();
 
-        JPanel mainWindow = viewport;
-        mainWindow.setMinimumSize(new Dimension(630, 630));
-        mainWindow.setPreferredSize(new Dimension(630, 630));
-        mainWindow.setBackground(Color.BLACK);
+        this.mainWindow = viewport;
+        this.mainWindow.setMinimumSize(new Dimension(630, 630));
+        this.mainWindow.setPreferredSize(new Dimension(630, 630));
+        this.mainWindow.setBackground(Color.BLACK);
 
         JPanel sideWindow = new JPanel(new GridBagLayout());
         sideWindow.setMinimumSize(new Dimension(150, 100));
@@ -352,7 +353,7 @@ public class ApplicationView {
         constraints.fill = GridBagConstraints.BOTH;
         constraints.weightx = 1;
         constraints.weighty = 1;
-        windowContents.add(mainWindow, constraints);
+        windowContents.add(this.mainWindow, constraints);
 
         constraints.gridx = 0;
         constraints.gridy = 1;
@@ -361,7 +362,7 @@ public class ApplicationView {
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.weightx = 0;
         constraints.weighty = 1;
-        windowContents.add(lowerWindow, constraints);
+        windowContents.add(this.lowerWindow, constraints);
 
         if(isReplay){
             constraints.gridy = 2;
@@ -436,7 +437,7 @@ public class ApplicationView {
                 countdownTimer.stop();
                 new LevelWonView(this.window, this);
             }
-            this.window.requestFocus();
+            this.mainWindow.requestFocus();
         }
     }
 
