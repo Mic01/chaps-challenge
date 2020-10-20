@@ -18,6 +18,7 @@ public class Maze {
   private String displayText = "";
   private boolean finished = false;
   private int treasuresLeft = 0;
+  private int maxTreasures = 0;
   private int timeLimit;
 
   /**
@@ -26,9 +27,15 @@ public class Maze {
    * @param levelFile the file of the level to load for this maze
    */
   public Maze(String levelFile) {
+    Preconditions.checkNotNull(levelFile, "Maze passed a null levelFile name");
     tiles = Persistence.loadLevel(levelFile, this);
+
     width = tiles.length;
+    assert width > 0;
+
     height = tiles[0].length;
+    assert height > 0;
+
     for (Actor actor : actors) {
       actor.setup();
     }
@@ -52,13 +59,23 @@ public class Maze {
    */
   public Tile getTile(int x, int y) {
     Preconditions.checkElementIndex(x, getWidth(),
-            x + " is larger than the width of the Maze - " + getWidth());
+            x + " is not within the width of the Maze - " + getWidth() + ": getTile() in Maze");
     Preconditions.checkElementIndex(y, getHeight(),
-            y + " is larger than the height of the Maze - " + getHeight());
+            y + " is not within the height of the Maze - " + getHeight() + ": getTile() in Maze");
 
     assert tiles[x][y] != null;
 
     return tiles[x][y];
+  }
+
+  /**
+   * Set the player for this maze.
+   *
+   * @param player the new player for this maze
+   */
+  public void setPlayer(Player player) {
+    Preconditions.checkNotNull(player, "Maze Player is being set to null");
+    this.player = player;
   }
 
   /**
@@ -71,13 +88,13 @@ public class Maze {
   }
 
   /**
-   * Set the player for this maze.
+   * Add an actor to this maze.
    *
-   * @param player the new player for this maze
+   * @param actor the actor to add to this maze
    */
-  public void setPlayer(Player player) {
-    Preconditions.checkNotNull(player, "Player is being set as null in Maze");
-    this.player = player;
+  public void addActor(Actor actor) {
+    Preconditions.checkNotNull(actor, "A null Actor is being added to Maze");
+    actors.add(actor);
   }
 
   /**
@@ -90,30 +107,22 @@ public class Maze {
   }
 
   /**
+   * Add an actor to this maze.
+   *
+   * @param actor the actor to add to this maze
+   */
+  public void addAutoActor(AutoActor actor) {
+    Preconditions.checkNotNull(actor, "A null AutoActor is being added to Maze");
+    autoActors.add(actor);
+  }
+
+  /**
    * Get the list of automatic actors in this maze.
    *
    * @return list of non player actors
    */
   public ArrayList<AutoActor> getAutoActors() {
     return autoActors;
-  }
-
-  /**
-   * Add an actor to this maze.
-   *
-   * @param actor the actor to add to this maze
-   */
-  public void addActor(Actor actor) {
-    actors.add(actor);
-  }
-
-  /**
-   * Add an actor to this maze.
-   *
-   * @param actor the actor to add to this maze
-   */
-  public void addAutoActor(AutoActor actor) {
-    autoActors.add(actor);
   }
 
   /**
@@ -135,6 +144,17 @@ public class Maze {
   }
 
   /**
+   * Set the text that should be displayed,
+   * used for specific events and Info tiles.
+   *
+   * @param displayText String to be displayed
+   */
+  public void setDisplayText(String displayText) {
+    Preconditions.checkNotNull(displayText, "Maze displayText is being set to null");
+    this.displayText = displayText;
+  }
+
+  /**
    * Get the text that should be displayed,
    * used for specific events and Info tiles.
    *
@@ -145,13 +165,10 @@ public class Maze {
   }
 
   /**
-   * Set the text that should be displayed,
-   * used for specific events and Info tiles.
-   *
-   * @param displayText String to be displayed
+   * Set this Maze as finished.
    */
-  public void setDisplayText(String displayText) {
-    this.displayText = displayText;
+  public void setFinished() {
+    this.finished = true;
   }
 
   /**
@@ -164,19 +181,18 @@ public class Maze {
   }
 
   /**
-   * Set this Maze as finished.
-   */
-  public void setFinished() {
-    this.finished = true;
-  }
-
-  /**
    * Set the number of treasures left on the level.
    *
    * @param treasuresLeft the number of treasures left on the level
    */
   public void setTreasuresLeft(int treasuresLeft) {
+    Preconditions.checkArgument(treasuresLeft >= 0,
+            "Maze TreasuresLeft is being set to a negative value");
     this.treasuresLeft = treasuresLeft;
+    if (treasuresLeft > maxTreasures) {
+      maxTreasures = treasuresLeft;
+    }
+    assert treasuresLeft + player.treasuresCollected() == maxTreasures;
   }
 
   /**
@@ -193,6 +209,8 @@ public class Maze {
    */
   public void reduceTreasuresLeft() {
     treasuresLeft--;
+    assert treasuresLeft >= 0;
+    assert treasuresLeft + player.treasuresCollected() == maxTreasures;
   }
 
   /**
@@ -201,6 +219,7 @@ public class Maze {
    * @param timeLimit the time limit for this maze (in seconds)
    */
   public void setTimeLimit(int timeLimit) {
+    Preconditions.checkArgument(timeLimit > 0, "Maze TimeLimit is being set to " + timeLimit);
     this.timeLimit = timeLimit;
   }
 

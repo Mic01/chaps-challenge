@@ -1,5 +1,6 @@
 package nz.ac.vuw.ecs.swen225.gp20.maze.actors;
 
+import com.google.common.base.Preconditions;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -33,6 +34,13 @@ public abstract class Actor {
    * @param maze the maze this actor is being made on
    */
   public Actor(int xpos, int ypos, Maze maze) {
+    Preconditions.checkNotNull(maze, "Null Maze passed to Actor");
+    Preconditions.checkElementIndex(xpos, maze.getWidth(),
+            xpos + " is not within the width of the Maze - " + maze.getWidth()
+                    + ": Actor constructor");
+    Preconditions.checkElementIndex(ypos, maze.getHeight(),
+            ypos + " is not within the height of the Maze - " + maze.getHeight()
+                    + ": Actor constructor");
     this.xpos = xpos;
     this.ypos = ypos;
     this.xposPrev = xpos;
@@ -232,6 +240,10 @@ public abstract class Actor {
 
   public Maze getMaze() {
     return maze;
+  }
+
+  public Tile getCurrentTile() {
+    return currentTile;
   }
 
   /**
