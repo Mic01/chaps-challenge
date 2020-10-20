@@ -72,7 +72,6 @@ public class Persistence {
                                     JsonArray inventory = obj.getJsonArray("inventory");
                                     if(!inventory.isEmpty()){
                                         for(JsonValue items: inventory){
-                                            System.out.println("Magic");
                                             JsonObject item = (JsonObject) items;
                                             player.pickup(loadItem(item));
                                         }
@@ -137,7 +136,6 @@ public class Persistence {
     }
 
     public static Item loadItem(JsonObject obj){
-        System.out.println(obj.getString("type"));
         final String type = obj.getString("type");
 
         switch (type) {
@@ -208,8 +206,8 @@ public class Persistence {
                             object.add("inventory", array);
                         }else{
                             object.add("slot", "Enemy");
-                            //object.add("direction", ((AutoActor)actor.getCurrentDirection()));
-                            object.add("direction", "left");
+                            object.add("direction", (((AutoActor)actor).getCurrentDirection()).toString());
+
                             if(actor instanceof EnemyOne){
                                 object.add("type", "One");
                             }else if(actor instanceof EnemyTwo){
@@ -232,8 +230,8 @@ public class Persistence {
                     object.add("y1", ((Vent)currentTile).getTargetY());
 
                 }else if (currentTile instanceof Conveyor){
-                    //object.add("direction", ((Conveyor)currentTile).getDirection);
-                    object.add("direction", "up");
+                    object.add("direction", ((Conveyor)currentTile).getDirection().toString());
+                   // object.add("direction", "up");
                 }
 
                 object.add("x", i);
