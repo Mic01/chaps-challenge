@@ -117,9 +117,9 @@ public class ApplicationView {
         sideWindow.setPreferredSize(new Dimension(150, 100));
         sideWindow.setBackground(Color.BLACK);
 
-        JLabel score = new JLabel("Treasures Collected:");
+        JLabel score = new JLabel("Treasures Remaining:");
         score.setForeground(Color.LIGHT_GRAY);
-        this.scoreCount = new JLabel("0");
+        this.scoreCount = new JLabel("" + maze.getTreasuresLeft());
         this.scoreCount.setForeground(Color.LIGHT_GRAY);
         JLabel time = new JLabel("Time Remaining:");
         time.setForeground(Color.LIGHT_GRAY);
@@ -382,7 +382,7 @@ public class ApplicationView {
                 break;
             default:
         }
-        this.scoreCount.setText("" + maze.getPlayer().treasuresCollected());
+        this.scoreCount.setText("" + maze.getTreasuresLeft());
         this.lowerWindow.repaint();
         if(maze.isFinished()){
             gameOver = true;
