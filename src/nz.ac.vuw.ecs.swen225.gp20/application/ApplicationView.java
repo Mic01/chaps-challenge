@@ -144,8 +144,8 @@ public class ApplicationView {
                 maze.setTimeLimit(timeLeft);
             }
         };
-        countdownTimer = new javax.swing.Timer(1000, countdown);
-        countdownTimer.start();
+        this.countdownTimer = new javax.swing.Timer(1000, countdown);
+        this.countdownTimer.start();
 
         ActionListener npcMovement = actionEvent -> {
             if (gameOver) {
@@ -394,6 +394,7 @@ public class ApplicationView {
     }
 
     private void showLoadReplayDialogue() {
+        this.countdownTimer.stop();
         JFileChooser c = new JFileChooser();
         int rVal = c.showOpenDialog(window);
         Label filename = new Label(), dir = new Label();
@@ -405,10 +406,12 @@ public class ApplicationView {
         if (rVal == JFileChooser.CANCEL_OPTION) {
             filename.setText("");
             dir.setText("");
+            this.countdownTimer.start();
         }
     }
 
     private void showSaveReplayDialogue() {
+        this.countdownTimer.stop();
         JFileChooser c = new JFileChooser();
         int rVal = c.showSaveDialog(window);
         Label filename = new Label();
@@ -422,6 +425,7 @@ public class ApplicationView {
             filename.setText("");
             dir.setText("");
         }
+        this.countdownTimer.start();
     }
 
     public void restartLevel(){
@@ -435,6 +439,7 @@ public class ApplicationView {
     }
 
     private void saveGame(){
+        this.countdownTimer.stop();
         JFileChooser c = new JFileChooser();
         int rVal = c.showSaveDialog(window);
         Label filename = new Label();
@@ -448,9 +453,11 @@ public class ApplicationView {
             filename.setText("");
             dir.setText("");
         }
+        this.countdownTimer.start();
     }
 
     private void loadSave(){
+        this.countdownTimer.stop();
         JFileChooser c = new JFileChooser();
         int rVal = c.showOpenDialog(window);
         Label filename = new Label(), dir = new Label();
@@ -462,6 +469,7 @@ public class ApplicationView {
         if (rVal == JFileChooser.CANCEL_OPTION) {
             filename.setText("");
             dir.setText("");
+            this.countdownTimer.start();
         }
     }
 
