@@ -132,7 +132,6 @@ public class Persistence {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        saveLevel(maze, "levels/SaveFile.json");
         return maze;
     }
 
