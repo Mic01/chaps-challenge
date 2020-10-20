@@ -17,6 +17,13 @@ public class Player extends Actor {
   private int treasures = 0;
   private boolean isSliding = false;
 
+  /**
+   * The Actor that is being controlled by the user.
+   *
+   * @param xpos the starting x position of the player
+   * @param ypos the starting y position of the player
+   * @param maze the maze the player is in
+   */
   public Player(int xpos, int ypos, Maze maze) {
     super(xpos, ypos, maze);
 

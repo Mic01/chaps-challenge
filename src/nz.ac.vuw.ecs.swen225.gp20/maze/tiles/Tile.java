@@ -1,11 +1,11 @@
 package nz.ac.vuw.ecs.swen225.gp20.maze.tiles;
 
+import com.google.common.base.Preconditions;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import javax.imageio.ImageIO;
-import com.google.common.base.Preconditions;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 
 public abstract class Tile {
@@ -25,7 +25,8 @@ public abstract class Tile {
    */
   public void addActor(Actor actor) {
     // Players should only be added to tiles if they are traversable
-    Preconditions.checkArgument(isTraversable(actor));
+    Preconditions.checkArgument(isTraversable(actor),
+            "An actor is trying to walk onto a non-traversable tile");
 
     // If a Player walks onto a tile with another Actor already on it, kill the player
     if (hasActor() && (actor.isPlayer() || this.actor.isPlayer())) {
@@ -47,7 +48,8 @@ public abstract class Tile {
   }
 
   /**
-   * Does this tile have an actor
+   * Does this tile have an actor.
+   *
    * @return whether this tile has an actor
    */
   public boolean hasActor() {
@@ -55,14 +57,15 @@ public abstract class Tile {
   }
 
   /**
-   * Are Actors allowed to move across this tile?
+   * Are Actors allowed to move across this tile?.
+   *
    * @param actor the actor trying to move across this tile
    * @return whether the actor is allowed to move across this tile
    */
   public abstract boolean isTraversable(Actor actor);
 
   /**
-   * Trigger any events as a result of moving onto this tile
+   * Trigger any events as a result of moving onto this tile.
    */
   public abstract void moveEvent(Actor actor, Actor.Direction direction);
 
@@ -76,7 +79,7 @@ public abstract class Tile {
 
   /**
    * Load image from file and act as a virtual proxy -
-   * storing images loaded for first time in map so they can be loaded faster
+   * storing images loaded for first time in map so they can be loaded faster.
    *
    * @param imageName name of the png file inside "assets/tiles/"
    * @return the loaded image
