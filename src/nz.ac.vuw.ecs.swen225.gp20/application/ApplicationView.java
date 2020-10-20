@@ -256,10 +256,10 @@ public class ApplicationView {
     this.npcMovementTimer = new Timer(250, npcMovement);
     this.npcMovementTimer.start();
 
-    JButton left = new JButton("🡒");
+    JButton left = new JButton("🡐");
     JButton up = new JButton("🡑");
     JButton down = new JButton("🡓");
-    JButton right = new JButton("🡐");
+    JButton right = new JButton("🡒");
 
     if (!isReplay) {
       down.addActionListener(actionEvent -> playerMovement(2, false));
