@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
@@ -40,13 +41,14 @@ public class Board extends JPanel implements ActionListener {
 
   //Animation Variables
   private boolean playerMoved;
-  private final SoundEffect soundeffect;
+  public static HashMap<String, SoundEffect> loadedSounds = new HashMap<>();
   private int inventorySize;
   private int taskSize;
+  public AudioPlayer audioPlayer = new AudioPlayer();
 
   //Method Enums
   private enum SoundEffects {
-    metalWalk, waterSwim, slide, conveyor_slide, pickup_item, finish_level, death, openDoor
+    metalWalk_0, metalWalk_1, waterSwim_0, waterSwim_1, slide, conveyor_slide, pickup_item, finish_level, death, airlock
   }
 
   /**
@@ -64,11 +66,18 @@ public class Board extends JPanel implements ActionListener {
 
     //Setting Variables
     this.maze = maze;
-    soundeffect = new SoundEffect();
     inventorySize = 0;
     vision = new Tile[visionRange][visionRange];
     lastVision = new Tile[visionRange][visionRange];
     updateLevel(maze);
+
+    //Preloading all Sound files
+    try {
+      for (SoundEffects s : SoundEffects.values()) {
+        System.out.println(s.toString());
+        loadedSounds.put(s.toString(), new SoundEffect(s.toString()));
+      }
+    }catch(Exception e){ e.printStackTrace();}
   }
 
   /**
@@ -205,26 +214,26 @@ public class Board extends JPanel implements ActionListener {
     //Play Sound Effects
     try {
       if(player.isDead()){
-        playSound("death");
+        playSound("death",3);
       } else if(playerMoved) {
         if(player.isOn(Exit.class)){
-          playSound("finish_level");
+          playSound("finish_level",3);
         } else if(player.isOn(LockedDoor.class) || player.isOn(ExitLock.class)){
-          playSound("openDoor");
+          playSound("airlock",2);
         }else if (player.isOn(Conveyor.class)) {
-          playSound("conveyor_slide");
+          playSound("conveyor_slide",2);
         }else if (player.isOn(Ice.class)) {
-          playSound("slide");
+          playSound("slide",2);
         } else if (player.getInventory().size() > inventorySize) {
           inventorySize++;
-          playSound("pickup_item");
+          playSound("pickup_item",2);
         } else if(player.treasuresCollected() > taskSize){
           taskSize++;
-          playSound("pickup_item");
+          playSound("pickup_item",2);
         } else if (player.isOn(Water.class)) {
-          playSound("waterSwim");
+          playSound("waterSwim_0",1);
         } else {
-          playSound("metalWalk");
+          playSound("metalWalk_0",1);
         }
      }
     }catch(Exception e){ e.printStackTrace(); }
@@ -235,43 +244,8 @@ public class Board extends JPanel implements ActionListener {
    *
    * @param sound name of animation.
    */
-  private void playSound(String sound) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-    switch (SoundEffects.valueOf(sound)) {
-      case metalWalk:
-        soundeffect.playAudio(SoundEffect.getAudioStream("metalWalk_0"),1);
-        break;
-
-      case waterSwim:
-        soundeffect.playAudio(SoundEffect.getAudioStream("waterSwim_0"),1);
-        break;
-
-      case slide:
-        soundeffect.playAudio(SoundEffect.getAudioStream("slide_0"),2);
-        break;
-
-      case conveyor_slide:
-        soundeffect.playAudio(SoundEffect.getAudioStream("OUI"),2);
-        break;
-
-      case pickup_item:
-        soundeffect.playAudio(SoundEffect.getAudioStream("pickup_item"),2);
-        break;
-
-      case finish_level:
-        soundeffect.playAudio(SoundEffect.getAudioStream("finish_level"),3);
-        break;
-
-      case death:
-        soundeffect.playAudio(SoundEffect.getAudioStream("OOF"),3);
-        break;
-
-      case openDoor:
-        soundeffect.playAudio(SoundEffect.getAudioStream("airlock_0"),2);
-        break;
-
-      default:
-        throw new IllegalStateException("Unexpected value: " + SoundEffects.valueOf(sound));
-    }
+  private void playSound(String sound, int priority) {
+    audioPlayer.playAudio(priority, loadedSounds.get(sound));
   }
 
   /**
