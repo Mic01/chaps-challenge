@@ -2,13 +2,29 @@ package nz.ac.vuw.ecs.swen225.gp20.recnplay.Threads;
 
 import nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView;
 
-public class ActionThread extends Dispatch{
+/**
+ * This class handles calling the move method in application.
+ *
+ * @author Luke Hawinkels: hawinkluke
+ */
+public class ActionThread extends Dispatch {
   int move;
-  public ActionThread(ApplicationView application, int move) {
+
+   /**
+    * Create a new action thread.
+    *
+    * @param application the current application.
+    *
+    * @param move the type of move to perform.
+    */
+ ActionThread(ApplicationView application, int move) {
     this.move = move;
     this.application = application;
   }
 
+  /**
+   * Make the move.
+   */
   @Override
   public synchronized void start() {
     application.playerMovement(move, true);
