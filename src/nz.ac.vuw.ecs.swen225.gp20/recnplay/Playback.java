@@ -2,18 +2,19 @@ package nz.ac.vuw.ecs.swen225.gp20.recnplay;
 
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView;
 import nz.ac.vuw.ecs.swen225.gp20.recnplay.Elements.Node;
 import nz.ac.vuw.ecs.swen225.gp20.recnplay.Threads.Dispatch;
 import nz.ac.vuw.ecs.swen225.gp20.recnplay.Threads.ReplayThread;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-
 /**
- * Load a replay file and dispatch the actions
+ * Load a replay file and dispatch the actions.
+ *
+ * @author Luke Hawinkels: hawinkluke
  */
 public class Playback {
   Node baseNode;
@@ -23,7 +24,6 @@ public class Playback {
    * Load the replay from a json file.
    *
    * @param filePath the file to load.
-   * @return the playback object
    */
   public void load(String filePath) {
     parseJson(filePath);
@@ -55,13 +55,14 @@ public class Playback {
 
   /**
    * Send the actions back and load levels when required.
-   * @param timeScale
+   *
+   * @param timeScale the replay speed
    */
   public void play(ApplicationView application, double timeScale) {
     //create the dispatch thread
     dispatchThread = new ReplayThread(application, baseNode, timeScale);
     dispatchThread.start();
-    while (!dispatchThread.isComplete()); //Wait until the thread is done
+    while (!dispatchThread.isComplete()){} //Wait until the thread is done
     System.out.println("Thread done");
   }
 }
