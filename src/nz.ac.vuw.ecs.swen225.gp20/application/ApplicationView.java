@@ -285,8 +285,16 @@ public class ApplicationView {
             JButton play = new JButton("⯈");
             JButton step = new JButton("\uD83E\uDC7A");
 
-            play.addActionListener(actionEvent -> replay.play(currAppli, 1.0));
+            play.addActionListener(actionEvent -> {
+                if(replay.isPaused()){
+                    replay.resume();
+                }
+                else{
+                    replay.play(currAppli, 1.0);
+                }
+            });
             pause.addActionListener(actionEvent -> replay.pause());
+
 
             replayConstraints.gridx = 0;
             replayConstraints.gridy = 0;
