@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.locks.Lock;
 
 import javax.swing.*;
 import javax.swing.Timer;
@@ -48,7 +47,7 @@ public class Board extends JPanel implements ActionListener {
 
   //Animation Variables
   private boolean playerMoved;
-  public static HashMap<String, SoundEffect> loadedSounds = new HashMap<>();
+  public final HashMap<String, SoundEffect> loadedSounds = new HashMap<>();
   private int inventorySize;
   private int taskSize;
   public AudioPlayer audioPlayer = new AudioPlayer();
@@ -232,24 +231,24 @@ public class Board extends JPanel implements ActionListener {
     //Play sound effect based on players position and variables
     try {
       if(player.isDead()){
-        playSound("death",3);
+        playSound("death",4);
       } else if(playerMoved) {
         if(player.isOn(Exit.class)){
-          playSound("finish_level",3);
+          playSound("finish_level",4);
         } else if((player.isOn(LockedDoor.class) || player.isOn(ExitLock.class))
                 && !walkedOnDoors.contains(maze.getTile(player.getX(), player.getY()))){
           walkedOnDoors.add(maze.getTile(player.getX(), player.getY()));
-          playSound("airlock",2);
+          playSound("airlock",3);
         }else if (player.isOn(Conveyor.class)) {
           playSound("conveyor_slide",2);
         }else if (player.isOn(Ice.class)) {
           playSound("slide",2);
         } else if (player.getInventory().size() > inventorySize) {
           inventorySize++;
-          playSound("pickup_item",2);
+          playSound("pickup_item",3);
         } else if(player.treasuresCollected() > taskSize){
           taskSize++;
-          playSound("pickup_item",2);
+          playSound("pickup_item",3);
         } else if (player.isOn(Water.class)) {
           playSound("waterSwim_"+new Random().nextInt(2),1);
         } else {

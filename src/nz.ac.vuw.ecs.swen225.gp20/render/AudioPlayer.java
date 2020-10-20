@@ -5,9 +5,9 @@ import javax.sound.sampled.LineEvent;
 import javax.sound.sampled.LineListener;
 
 public class AudioPlayer implements LineListener {
-  public static Clip currentClip;
-  private static boolean finishedPlay = true;
-  private static int currentPriority;
+  private Clip currentClip;
+  private boolean finishedPlay = true;
+  private int currentPriority;
 
   public void playAudio(int priority, SoundEffect soundEffect) {
     if(priority > currentPriority){
@@ -21,6 +21,11 @@ public class AudioPlayer implements LineListener {
       currentClip.addLineListener(this);
       currentClip.setFramePosition(0);
       currentClip.start();
+    }
+
+    //Allows pickup item to override other pickup items
+    if(soundEffect.getName().equals("pickup_item")) {
+      currentPriority = 2;
     }
   }
 

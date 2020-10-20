@@ -6,8 +6,10 @@ import javax.sound.sampled.*;
 
 public class SoundEffect {
   private Clip clip;
+  private String name;
 
   public SoundEffect(String fileName){
+    name = fileName;
     try {
       AudioInputStream audioStream = AudioSystem.getAudioInputStream(
               new File("assets/soundeffects/" + fileName + ".wav"));
@@ -21,4 +23,6 @@ public class SoundEffect {
   public Clip getClip(){
     return clip;
   }
+
+  public String getName(){ return name; }
 }
