@@ -129,7 +129,7 @@ public class ApplicationView {
             .put("startGameAtUnfinishedLevel", new AbstractAction() {
               @Override
               public void actionPerformed(ActionEvent actionEvent) {
-
+                game.restartLevel(game.currLevel);
               }
             });
     this.window.getRootPane().getActionMap().put("startGameAtLevel1", new AbstractAction() {
