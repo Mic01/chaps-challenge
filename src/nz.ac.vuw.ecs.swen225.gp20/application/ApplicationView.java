@@ -47,6 +47,7 @@ public class ApplicationView {
   private final boolean isReplay;
   private boolean isPaused;
   private JLabel scoreCount = new JLabel("0");
+  private JLabel helpWindow = new JLabel("");
   private JPanel lowerWindow = new JPanel();
   private JPanel mainWindow = new JPanel();
   private String replayPath = "";
@@ -214,6 +215,8 @@ public class ApplicationView {
     timeCount = new JLabel(this.maze.getTimeLimit() + " seconds");
     timeCount.setFont(this.game.deface);
     timeCount.setForeground(Color.LIGHT_GRAY);
+    this.helpWindow.setFont(this.game.deface);
+    this.helpWindow.setForeground(Color.LIGHT_GRAY);
 
     ApplicationView currentGame = this;
     ActionListener countdown;
@@ -315,43 +318,44 @@ public class ApplicationView {
     sideConstraints.insets = new Insets(0, -125, 0, 0);
     sideWindow.add(score, sideConstraints);
 
-    sideConstraints.gridx = 3;
     sideConstraints.gridy = 1;
     sideConstraints.insets = new Insets(0, -125, 50, 0);
     sideWindow.add(scoreCount, sideConstraints);
 
-    sideConstraints.gridx = 3;
     sideConstraints.gridy = 2;
     sideConstraints.insets = new Insets(0, -125, 0, 0);
     sideWindow.add(time, sideConstraints);
 
-    sideConstraints.gridx = 3;
     sideConstraints.gridy = 3;
-    sideConstraints.insets = new Insets(0, -125, 300, 0);
+    sideConstraints.insets = new Insets(0, -125, 50, 0);
     sideWindow.add(timeCount, sideConstraints);
 
+    sideConstraints.gridy = 3;
+    sideConstraints.insets = new Insets(50, -125, 0, 0);
+    sideWindow.add(helpWindow, sideConstraints);
+
     sideConstraints.gridx = 1;
-    sideConstraints.gridy = 4;
+    sideConstraints.gridy = 5;
     sideConstraints.fill = GridBagConstraints.NONE;
-    sideConstraints.insets = new Insets(0, 0, 0, 0);
+    sideConstraints.insets = new Insets(250, 0, 0, 0);
     sideWindow.add(up, sideConstraints);
 
     sideConstraints.gridx = 0;
-    sideConstraints.gridy = 5;
+    sideConstraints.gridy = 6;
     sideConstraints.insets = new Insets(0, 4, 0, 0);
     sideWindow.add(left, sideConstraints);
 
     sideConstraints.gridx = 1;
-    sideConstraints.gridy = 5;
+    sideConstraints.gridy = 6;
     sideConstraints.insets = new Insets(0, 0, 0, 0);
     sideWindow.add(down, sideConstraints);
 
     sideConstraints.gridx = 2;
-    sideConstraints.gridy = 5;
+    sideConstraints.gridy = 6;
     sideWindow.add(right, sideConstraints);
 
     sideConstraints.gridx = 3;
-    sideConstraints.gridy = 6;
+    sideConstraints.gridy = 7;
     sideConstraints.fill = GridBagConstraints.HORIZONTAL;
     sideConstraints.insets = new Insets(100, -127, 0, 0);
     sideWindow.add(quitGame, sideConstraints);
@@ -488,11 +492,12 @@ public class ApplicationView {
           break;
         default:
       }
-      this.scoreCount.setText("" + maze.getTreasuresLeft());
+      this.scoreCount.setText("" + this.maze.getTreasuresLeft());
+      this.helpWindow.setText("" + this.maze.getDisplayText());
       this.lowerWindow.repaint();
-      if (maze.isFinished()) {
-        gameOver = true;
-        countdownTimer.stop();
+      if (this.maze.isFinished()) {
+        this.gameOver = true;
+        this.countdownTimer.stop();
         new LevelWonView(this.window, this);
       }
       this.mainWindow.requestFocus();
