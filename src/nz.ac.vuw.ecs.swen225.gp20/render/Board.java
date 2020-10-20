@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Random;
 
 import javax.swing.*;
 
@@ -248,9 +249,9 @@ public class Board extends JPanel implements ActionListener {
           taskSize++;
           playSound("pickup_item",2);
         } else if (player.isOn(Water.class)) {
-          playSound("waterSwim_0",1);
+          playSound("waterSwim_"+new Random().nextInt(2),1);
         } else {
-          playSound("metalWalk_0",1);
+          playSound("metalWalk_"+new Random().nextInt(2),1);
         }
      }
     }catch(Exception e){ e.printStackTrace(); }
