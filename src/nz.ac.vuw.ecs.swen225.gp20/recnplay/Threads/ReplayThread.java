@@ -33,7 +33,8 @@ public class ReplayThread extends Dispatch {
    * Run the replay.
    */
   @Override
-  public synchronized void start() {
+  public synchronized void run() {
+    System.out.println("Started a new replay thread.");
     baseNode.play(application, timeScale, playback);
     complete = true;
   }

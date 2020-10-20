@@ -26,7 +26,7 @@ public class ActionThread extends Dispatch {
    * Make the move.
    */
   @Override
-  public synchronized void start() {
+  public synchronized void run() {
     application.playerMovement(move, true);
   }
 }

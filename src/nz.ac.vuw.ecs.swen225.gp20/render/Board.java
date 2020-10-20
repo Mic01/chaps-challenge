@@ -7,15 +7,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
-import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.AutoActor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.FreeTile;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Ice;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.NullTile;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
+import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Water;
 
 /**
  * Renderer class for displaying the board.
@@ -29,7 +31,6 @@ public class Board extends JPanel implements ActionListener {
   private static final int sleepTime = 300; //Time in ms before each draw
 
   //Static Rendering Variables
-  private Tile[][] level;
   private Tile[][] lastVision;
   private Tile[][] vision;
   private Player player;
@@ -37,18 +38,17 @@ public class Board extends JPanel implements ActionListener {
   private ArrayList<AutoActor> autoActors = new ArrayList<>();
 
   //Dynamic Rendering Variables
-  private ArrayList<Actor> moving = new ArrayList<>();
   private boolean halfFrame;
   private boolean inAnimation;
   private Timer timer = new Timer(sleepTime, this); //Redraws from timer in ActionListener
+
+  //Animation Variables
   private boolean playerMoved;
+  private final SoundEffect soundeffect;
 
   //Method Enums
-  private enum Soundeffects {
-    metalWalk, waterSwim, iceWalk, lavaSwim, slide, pickup_item, finish_level, death, openDoor
-  }
-  private enum Animations {
-    doorOpen, death
+  private enum SoundEffects {
+    metalWalk, waterSwim, iceWalk, slide, pickup_item, finish_level, death, openDoor
   }
 
   /**
@@ -66,6 +66,7 @@ public class Board extends JPanel implements ActionListener {
 
     //Setting Variables
     this.maze = maze;
+    soundeffect = new SoundEffect();
     vision = new Tile[visionRange][visionRange];
     lastVision = new Tile[visionRange][visionRange];
     updateLevel(maze);
@@ -201,87 +202,60 @@ public class Board extends JPanel implements ActionListener {
                 (getVisionY(actor.getY()) * tileSize) + yOffset, this);
       }
     }
-      /*if(actor.equals(player)) {
-        playerMoved = true;
-        if (actor.getCurrentTile() instanceof Ice) {
+    if(playerMoved) {
+      try {
+        if (player.getCurrentTile() instanceof Ice) {
           playSound("slide");
-        } else if (actor.getCurrentTile() instanceof Water) {
+        } else if (player.getCurrentTile() instanceof Water) {
           playSound("waterSwim");
         } else {
           playSound("metalWalk");
         }
-      }*/
-  }
-
-  /**
-   * Third step of draw method,
-   * Loops through unique (non-walk) animations and draws them.
-   */
-  private void drawAnimations(Graphics g, String animation) {
-    playAnimations(animation, g);
-  }
-
-  /**
-   * Switch statement to draw a frame of an animation
-   * or create a new animation.
-   *
-   * @param animation enum value of animation
-   * @param g         passed canvas to draw on
-   */
-  private void playAnimations(String animation, Graphics g) {
-    //todo create doorOpen and death myself
-    switch (Animations.valueOf(animation)) {
-      case doorOpen:
-        playSound("openDoor");
-        break;
-
-      case death:
-        playSound("death");
-        break;
-
-      default:
-        throw new IllegalStateException("Unexpected value: " + Animations.valueOf(animation));
+      }catch(Exception e){ e.printStackTrace(); }
     }
   }
 
   /**
    * Plays a sound from assets folder.
    *
-   * @param sound of animation.
+   * @param sound name of animation.
    */
-  private void playSound(String sound) {
-    //todo make sound files
-    //todo play them from here
-    switch (Soundeffects.valueOf(sound)) {
+  private void playSound(String sound) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
+    switch (SoundEffects.valueOf(sound)) {
       case metalWalk:
+        soundeffect.playAudio(SoundEffect.getAudioStream("metalWalk_0"));
         break;
 
       case waterSwim:
+        soundeffect.playAudio(SoundEffect.getAudioStream("waterSwim_0"));
         break;
 
       case iceWalk:
-        break;
-
-      case lavaSwim:
+        soundeffect.playAudio(SoundEffect.getAudioStream("iceWalk_0"));
         break;
 
       case slide:
+        soundeffect.playAudio(SoundEffect.getAudioStream("slide_0"));
         break;
 
       case pickup_item:
+        soundeffect.playAudio(SoundEffect.getAudioStream("pickup_item"));
         break;
 
       case finish_level:
+        soundeffect.playAudio(SoundEffect.getAudioStream("finish_level"));
         break;
 
       case death:
+        soundeffect.playAudio(SoundEffect.getAudioStream("death"));
         break;
 
       case openDoor:
+        soundeffect.playAudio(SoundEffect.getAudioStream("airLock"));
         break;
 
       default:
-        throw new IllegalStateException("Unexpected value: " + Soundeffects.valueOf(sound));
+        throw new IllegalStateException("Unexpected value: " + SoundEffects.valueOf(sound));
     }
   }
 
@@ -363,12 +337,10 @@ public class Board extends JPanel implements ActionListener {
             "visionRange=" + visionRange +
             ", tileSize=" + tileSize +
             ", sleepTime=" + sleepTime +
-            ", level=" + Arrays.toString(level) +
             ", lastVision=" + Arrays.toString(lastVision) +
             ", vision=" + Arrays.toString(vision) +
             ", player=" + player +
             ", maze=" + maze +
-            ", moving=" + moving +
             ", actors=" + autoActors +
             '}';
   }
