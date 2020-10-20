@@ -1,15 +1,12 @@
 package nz.ac.vuw.ecs.swen225.gp20.recnplay;
 
-import nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView;
-import nz.ac.vuw.ecs.swen225.gp20.recnplay.Elements.Level;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
+import nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.Elements.Level;
 
 /**
  * This class is responsible for creating, loading and saving replays.
@@ -17,23 +14,30 @@ import java.util.ArrayList;
  * @author Luke Hawinkels: hawinkluke
  */
 public class Replay {
-  ApplicationView application;
   String levelName;
   Level currentLevel;
   long startTime = System.nanoTime();
   long endTime = System.nanoTime();
   ArrayList<Level> levelHistory = new ArrayList<>();
 
+  /**
+   * Create a new replay object.
+   *
+   * @param application the current application.
+   */
   public Replay(ApplicationView application) {
-    this.application = application;
-
     //Extract the level name
     String[] path = application.getLevelPath().split("/");
     this.levelName = path[path.length - 1].replace(".json", "");
     currentLevel = new Level(levelName);
   }
 
-  //NOTE this is primarily here for testing purposes
+  /**
+   * Constructor to create a replay.
+   * Primarily used for static testing.
+   *
+   * @param levelPath the path to the current level
+   */
   public Replay(String levelPath) {
     //Extract the level name
     String[] path = levelPath.split("/");
@@ -52,11 +56,16 @@ public class Replay {
       startTime = System.currentTimeMillis();
     } else {
       endTime = System.currentTimeMillis();
-      currentLevel.addAction(character, action, endTime-startTime);
+      currentLevel.addAction(character, action, endTime - startTime);
       startTime = System.currentTimeMillis();
     }
   }
-  
+
+  /**
+   * Add a new level to the json file.
+   *
+   * @param levelName the name of the new level.
+   */
   public void levelUp(String levelName) {
     this.levelName = levelName;
     levelHistory.add(currentLevel);
@@ -65,6 +74,8 @@ public class Replay {
 
   /**
    * Save the current history into a json file.
+   *
+   * @param replay return the file to be used to save the replay.
    */
   public void saveReplay(File replay) {
     if (!levelHistory.contains(currentLevel)) {
@@ -85,8 +96,11 @@ public class Replay {
 
       for (int i = 0; i < levelHistory.size(); i++) {
         writer.write(levelHistory.get(i).writeHistory());
-        if (i < levelHistory.size() - 1) writer.write(",\n");
-        else writer.write("\n");
+        if (i < levelHistory.size() - 1) {
+          writer.write(",\n");
+        } else {
+          writer.write("\n");
+        }
       }
 
       //Add the closing }
