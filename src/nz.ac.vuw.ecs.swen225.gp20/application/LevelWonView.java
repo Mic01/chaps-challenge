@@ -1,12 +1,16 @@
 package nz.ac.vuw.ecs.swen225.gp20.application;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dialog;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -52,7 +56,8 @@ public class LevelWonView {
   }
 
   private void addToDialog(Container pane) {
-    JPanel panel = new JPanel(new GridBagLayout());
+    Image background = Toolkit.getDefaultToolkit().createImage("assets/backgrounds/background.png");
+    JPanel panel = new BackgroundPanel(background, new GridBagLayout(), true);
 
     GridBagConstraints winConstraints = new GridBagConstraints();
 
@@ -62,6 +67,8 @@ public class LevelWonView {
     winConstraints.gridy = 0;
     winConstraints.insets = new Insets(5, 0, 5, 0);
     JLabel titleText = new JLabel("Level Complete! Congratulations!");
+    titleText.setFont(this.game.getMain().deface.deriveFont(20f));
+    titleText.setForeground(Color.LIGHT_GRAY);
     titleText.setHorizontalAlignment(SwingConstants.CENTER);
     panel.add(titleText, winConstraints);
 
@@ -70,21 +77,25 @@ public class LevelWonView {
     winConstraints.gridx = 0;
     winConstraints.gridy = 2;
     winConstraints.insets = new Insets(20, 20, 10, 0);
-    JButton startGame = new JButton("Next Level");
-    startGame.addActionListener(actionEvent -> game.changeLevel());
-    panel.add(startGame, winConstraints);
+    JButton nextLevel = new JButton();
+    nextLevel.setBorder(null);
+    Image nextLevelIcon = Toolkit.getDefaultToolkit().createImage("assets/buttons/next_level.png");
+    nextLevel.setIcon(new ImageIcon(nextLevelIcon));
+    nextLevel.addActionListener(actionEvent -> game.changeLevel());
+    panel.add(nextLevel, winConstraints);
 
     winConstraints.anchor = GridBagConstraints.LINE_END;
     winConstraints.fill = GridBagConstraints.NONE;
     winConstraints.gridx = 2;
     winConstraints.gridy = 2;
     winConstraints.insets = new Insets(20, 0, 10, 20);
-    winConstraints.ipadx = 20;
-    JButton exit = new JButton("Exit Game");
+    JButton exit = new JButton();
+    exit.setBorder(null);
+    Image exitIcon = Toolkit.getDefaultToolkit().createImage("assets/buttons/quit_game.png");
+    exit.setIcon(new ImageIcon(exitIcon));
     exit.addActionListener(actionEvent -> System.exit(0));
     panel.add(exit, winConstraints);
-
-
+    panel.setBackground(Color.BLACK);
     pane.add(panel);
   }
 }

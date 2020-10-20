@@ -5,13 +5,16 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Label;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import javax.swing.AbstractAction;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
@@ -93,7 +96,7 @@ public class ApplicationView {
    * Constructs a JFrame within which the main game will be displayed.
    */
   private void makeWindow() {
-    this.window = new JFrame("Chap's Challenge");
+    this.window = new JFrame("Ship's Challenge");
     this.window.setLayout(new BorderLayout());
     this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.window.setResizable(false);
@@ -196,27 +199,39 @@ public class ApplicationView {
     this.mainWindow.setMinimumSize(new Dimension(630, 630));
     this.mainWindow.setPreferredSize(new Dimension(630, 630));
     this.mainWindow.setBackground(Color.BLACK);
-
-    JPanel sideWindow = new JPanel(new GridBagLayout());
+    Image sideBackground = Toolkit.getDefaultToolkit().createImage("assets/backgrounds/sideBackground.png");
+    JPanel sideWindow = new BackgroundPanel(sideBackground, new GridBagLayout(), true);
     sideWindow.setMinimumSize(new Dimension(150, 100));
     sideWindow.setPreferredSize(new Dimension(150, 100));
     sideWindow.setBackground(Color.BLACK);
 
-    JLabel score = new JLabel("Electronics Remaining:");
+    JLabel score = new JLabel("Boards Remaining:");
     score.setForeground(Color.LIGHT_GRAY);
-    score.setFont(this.game.deface);
+    score.setFont(this.game.deface.deriveFont(14f));
+    score.setOpaque(true);
+    score.setBackground(Color.BLACK);
     this.scoreCount = new JLabel("" + maze.getTreasuresLeft());
-    this.scoreCount.setFont(this.game.deface);
+    this.scoreCount.setFont(this.game.deface.deriveFont(14f));
     this.scoreCount.setForeground(Color.LIGHT_GRAY);
+    this.scoreCount.setOpaque(true);
+    this.scoreCount.setBackground(Color.BLACK);
+
     JLabel time = new JLabel("Time Remaining:");
-    time.setFont(this.game.deface);
+    time.setFont(this.game.deface.deriveFont(14f));
     time.setForeground(Color.LIGHT_GRAY);
+    time.setOpaque(true);
+    time.setBackground(Color.BLACK);
     JLabel timeCount;
     timeCount = new JLabel(this.maze.getTimeLimit() + " seconds");
-    timeCount.setFont(this.game.deface);
+    timeCount.setFont(this.game.deface.deriveFont(14f));
     timeCount.setForeground(Color.LIGHT_GRAY);
-    this.helpWindow.setFont(this.game.deface);
+    timeCount.setOpaque(true);
+    timeCount.setBackground(Color.BLACK);
+
+    this.helpWindow.setFont(this.game.deface.deriveFont(14f));
     this.helpWindow.setForeground(Color.LIGHT_GRAY);
+    this.helpWindow.setOpaque(true);
+    this.helpWindow.setBackground(Color.BLACK);
 
     ApplicationView currentGame = this;
     ActionListener countdown;
@@ -259,10 +274,25 @@ public class ApplicationView {
     this.npcMovementTimer = new Timer(250, npcMovement);
     this.npcMovementTimer.start();
 
-    JButton left = new JButton("🡐");
-    JButton up = new JButton("🡑");
-    JButton down = new JButton("🡓");
-    JButton right = new JButton("🡒");
+    JButton left = new JButton();
+    left.setBorder(null);
+    Image leftIcon = Toolkit.getDefaultToolkit().createImage("assets/buttons/left.png");
+    left.setIcon(new ImageIcon(leftIcon));
+
+    JButton up = new JButton();
+    up.setBorder(null);
+    Image upIcon = Toolkit.getDefaultToolkit().createImage("assets/buttons/up.png");
+    up.setIcon(new ImageIcon(upIcon));
+
+    JButton down = new JButton();
+    down.setBorder(null);
+    Image downIcon = Toolkit.getDefaultToolkit().createImage("assets/buttons/down.png");
+    down.setIcon(new ImageIcon(downIcon));
+
+    JButton right = new JButton();
+    right.setBorder(null);
+    Image rightIcon = Toolkit.getDefaultToolkit().createImage("assets/buttons/right.png");
+    right.setIcon(new ImageIcon(rightIcon));
 
     if (!isReplay) {
       down.addActionListener(actionEvent -> playerMovement(2, false));
@@ -306,32 +336,34 @@ public class ApplicationView {
       });
     }
 
-    JButton quitGame = new JButton("Quit Game");
+    JButton quitGame = new JButton();
+    quitGame.setBorder(null);
+    Image quitGameIcon = Toolkit.getDefaultToolkit().createImage("assets/buttons/quit_game.png");
+    quitGame.setIcon(new ImageIcon(quitGameIcon));
     quitGame.addActionListener(actionEvent -> System.exit(0));
-    quitGame.setPreferredSize(new Dimension(125, 25));
 
     GridBagConstraints sideConstraints = new GridBagConstraints();
     sideConstraints.gridx = 3;
     sideConstraints.gridy = 0;
     sideConstraints.fill = GridBagConstraints.HORIZONTAL;
     sideConstraints.anchor = GridBagConstraints.CENTER;
-    sideConstraints.insets = new Insets(0, -125, 0, 0);
+    sideConstraints.insets = new Insets(0, -110, 0, 0);
     sideWindow.add(score, sideConstraints);
 
     sideConstraints.gridy = 1;
-    sideConstraints.insets = new Insets(0, -125, 50, 0);
+    sideConstraints.insets = new Insets(0, -110, 50, 0);
     sideWindow.add(scoreCount, sideConstraints);
 
     sideConstraints.gridy = 2;
-    sideConstraints.insets = new Insets(0, -125, 0, 0);
+    sideConstraints.insets = new Insets(0, -110, 0, 0);
     sideWindow.add(time, sideConstraints);
 
     sideConstraints.gridy = 3;
-    sideConstraints.insets = new Insets(0, -125, 50, 0);
+    sideConstraints.insets = new Insets(0, -110, 50, 0);
     sideWindow.add(timeCount, sideConstraints);
 
     sideConstraints.gridy = 3;
-    sideConstraints.insets = new Insets(50, -125, 0, 0);
+    sideConstraints.insets = new Insets(50, -110, 0, 0);
     sideWindow.add(helpWindow, sideConstraints);
 
     sideConstraints.gridx = 1;
@@ -342,7 +374,7 @@ public class ApplicationView {
 
     sideConstraints.gridx = 0;
     sideConstraints.gridy = 6;
-    sideConstraints.insets = new Insets(0, 4, 0, 0);
+    sideConstraints.insets = new Insets(0, 15, 0, 0);
     sideWindow.add(left, sideConstraints);
 
     sideConstraints.gridx = 1;
@@ -357,10 +389,11 @@ public class ApplicationView {
     sideConstraints.gridx = 3;
     sideConstraints.gridy = 7;
     sideConstraints.fill = GridBagConstraints.HORIZONTAL;
-    sideConstraints.insets = new Insets(100, -127, 0, 0);
+    sideConstraints.insets = new Insets(130, -113, 0, 0);
     sideWindow.add(quitGame, sideConstraints);
 
-    this.lowerWindow = new InventoryPanel(this.maze);
+    Image invBackground = Toolkit.getDefaultToolkit().createImage("assets/backgrounds/invBackground.png");
+    this.lowerWindow = new InventoryPanel(this.maze, invBackground);
     this.lowerWindow.setMinimumSize(new Dimension(100, 150));
     this.lowerWindow.setPreferredSize(new Dimension(100, 150));
     this.lowerWindow.setBackground(Color.BLACK);
@@ -588,5 +621,9 @@ public class ApplicationView {
 
   public void disposeWindow() {
     this.window.dispose();
+  }
+
+  public Main getMain(){
+    return this.game;
   }
 }
