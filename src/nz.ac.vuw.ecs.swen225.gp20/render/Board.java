@@ -260,7 +260,7 @@ public class Board extends JPanel implements ActionListener {
         break;
 
       case openDoor:
-        soundeffect.playAudio(SoundEffect.getAudioStream("airLock_0"),2);
+        soundeffect.playAudio(SoundEffect.getAudioStream("airlock_0"),2);
         break;
 
       default:
