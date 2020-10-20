@@ -240,8 +240,7 @@ public class ApplicationView {
     this.helpWindow.setBackground(Color.BLACK);
 
     ApplicationView currentGame = this;
-    ActionListener countdown;
-    countdown = new ActionListener() {
+    ActionListener countdown = new ActionListener() {
       int timeLeft = maze.getTimeLimit() - 1;
 
       @Override
@@ -261,6 +260,7 @@ public class ApplicationView {
 
     ActionListener npcMovement = actionEvent -> {
       if (gameOver) {
+        viewport.draw(false);
         ((Timer) actionEvent.getSource()).stop();
       } else if (this.maze.getPlayer().isDead()) {
         viewport.draw(false);
