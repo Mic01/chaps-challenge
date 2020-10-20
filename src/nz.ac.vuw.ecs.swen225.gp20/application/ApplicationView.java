@@ -175,6 +175,10 @@ public class ApplicationView {
             if (gameOver) {
                 ((Timer) actionEvent.getSource()).stop();
             }
+            else if(this.maze.getPlayer().isDead()){
+                gameOver = true;
+                new LevelLostView(window, currentGame, false);
+            }
             else {
                 for (AutoActor a : maze.getAutoActors()) {
                     a.autoMove();
@@ -461,7 +465,7 @@ public class ApplicationView {
         if (rVal == JFileChooser.APPROVE_OPTION) {
             filename.setText(c.getSelectedFile().getName());
             dir.setText(c.getCurrentDirectory().toString());
-            this.maze.save(dir.getText() + "/" + filename.getText());
+            this.maze.save(dir.getText() + "/" + filename.getText() + ".json");
         }
         if (rVal == JFileChooser.CANCEL_OPTION) {
             filename.setText("");
