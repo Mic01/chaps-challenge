@@ -7,7 +7,7 @@ import java.io.IOException;
 import javax.swing.JPanel;
 
 public class BackgroundPanel extends JPanel {
-  private Image background;
+  private final Image background;
 
   public BackgroundPanel(Image image, LayoutManager layout, boolean buffered) {
     super(layout, buffered);

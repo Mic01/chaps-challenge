@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.IOException;
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -96,6 +97,11 @@ public class ApplicationView {
    * Constructs a JFrame within which the main game will be displayed.
    */
   private void makeWindow() {
+    try {
+      SmallSave.saveFile(this.game.currLevel);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
     this.window = new JFrame("Ship's Challenge");
     this.window.setLayout(new BorderLayout());
     this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -336,6 +342,12 @@ public class ApplicationView {
       });
     }
 
+    JButton removeSave = new JButton();
+    removeSave.setBorder(null);
+    Image removeSaveIcon = Toolkit.getDefaultToolkit().createImage("assets/buttons/remove_save.png");
+    removeSave.setIcon(new ImageIcon(removeSaveIcon));
+    removeSave.addActionListener(actionEvent -> SmallSave.removeFile());
+
     JButton quitGame = new JButton();
     quitGame.setBorder(null);
     Image quitGameIcon = Toolkit.getDefaultToolkit().createImage("assets/buttons/quit_game.png");
@@ -390,6 +402,10 @@ public class ApplicationView {
     sideConstraints.gridy = 7;
     sideConstraints.fill = GridBagConstraints.HORIZONTAL;
     sideConstraints.insets = new Insets(130, -113, 0, 0);
+    sideWindow.add(removeSave, sideConstraints);
+
+    sideConstraints.gridy = 8;
+    sideConstraints.insets = new Insets(10, -113, 0, 0);
     sideWindow.add(quitGame, sideConstraints);
 
     Image invBackground = Toolkit.getDefaultToolkit().createImage("assets/backgrounds/invBackground.png");
