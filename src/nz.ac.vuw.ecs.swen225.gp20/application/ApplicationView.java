@@ -5,8 +5,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Label;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -360,7 +362,8 @@ public class ApplicationView {
     sideConstraints.insets = new Insets(100, -127, 0, 0);
     sideWindow.add(quitGame, sideConstraints);
 
-    this.lowerWindow = new InventoryPanel(this.maze);
+    Image invBackground = Toolkit.getDefaultToolkit().createImage("assets/backgrounds/invBackground.png");
+    this.lowerWindow = new InventoryPanel(this.maze, invBackground);
     this.lowerWindow.setMinimumSize(new Dimension(100, 150));
     this.lowerWindow.setPreferredSize(new Dimension(100, 150));
     this.lowerWindow.setBackground(Color.BLACK);
@@ -588,5 +591,9 @@ public class ApplicationView {
 
   public void disposeWindow() {
     this.window.dispose();
+  }
+
+  public Main getMain(){
+    return this.game;
   }
 }

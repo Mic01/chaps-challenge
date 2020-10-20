@@ -1,10 +1,13 @@
 package nz.ac.vuw.ecs.swen225.gp20.application;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dialog;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JButton;
@@ -52,7 +55,8 @@ public class LevelWonView {
   }
 
   private void addToDialog(Container pane) {
-    JPanel panel = new JPanel(new GridBagLayout());
+    Image background = Toolkit.getDefaultToolkit().createImage("assets/backgrounds/background.png");
+    JPanel panel = new BackgroundPanel(background, new GridBagLayout(), true);
 
     GridBagConstraints winConstraints = new GridBagConstraints();
 
@@ -62,6 +66,8 @@ public class LevelWonView {
     winConstraints.gridy = 0;
     winConstraints.insets = new Insets(5, 0, 5, 0);
     JLabel titleText = new JLabel("Level Complete! Congratulations!");
+    titleText.setFont(this.game.getMain().deface.deriveFont(20f));
+    titleText.setForeground(Color.LIGHT_GRAY);
     titleText.setHorizontalAlignment(SwingConstants.CENTER);
     panel.add(titleText, winConstraints);
 
@@ -83,8 +89,7 @@ public class LevelWonView {
     JButton exit = new JButton("Exit Game");
     exit.addActionListener(actionEvent -> System.exit(0));
     panel.add(exit, winConstraints);
-
-
+    panel.setBackground(Color.BLACK);
     pane.add(panel);
   }
 }
