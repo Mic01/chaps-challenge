@@ -1,5 +1,6 @@
 package nz.ac.vuw.ecs.swen225.gp20.maze.tiles;
 
+import com.google.common.base.Preconditions;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
@@ -28,7 +29,9 @@ public class Vent extends Tile {
 
   @Override
   public void moveEvent(Actor actor, Actor.Direction direction) {
+    Preconditions.checkNotNull(actor, "Vent moveEvent is being given a null actor");
     actor.moveTo(xtarget, ytarget);
+    actor.getMaze().setDisplayText("Travelled through a vent");
   }
 
   @Override

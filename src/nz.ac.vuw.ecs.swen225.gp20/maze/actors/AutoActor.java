@@ -1,5 +1,6 @@
 package nz.ac.vuw.ecs.swen225.gp20.maze.actors;
 
+import com.google.common.base.Preconditions;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
@@ -55,6 +56,9 @@ public abstract class AutoActor extends Actor {
    * @return the Tile next to this AutoActor
    */
   protected Tile getAdjacentTile(Direction direction) {
+    Preconditions.checkNotNull(direction,
+            "AutoActor getAdjacentTile is being given a null direction");
+
     switch (direction) {
       case up:
         return maze.getTile(xpos, ypos - 1);

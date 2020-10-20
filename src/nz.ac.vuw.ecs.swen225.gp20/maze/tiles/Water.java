@@ -1,5 +1,6 @@
 package nz.ac.vuw.ecs.swen225.gp20.maze.tiles;
 
+import com.google.common.base.Preconditions;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
@@ -14,6 +15,7 @@ public class Water extends Tile {
 
   @Override
   public void moveEvent(Actor actor, Actor.Direction direction) {
+    Preconditions.checkNotNull(actor, "Water moveEvent is being given a null actor");
     if (actor.isPlayer() && !((Player) actor).isHolding(new WaterPotion())) {
       actor.die();
     }

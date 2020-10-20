@@ -1,5 +1,6 @@
 package nz.ac.vuw.ecs.swen225.gp20.maze.tiles;
 
+import com.google.common.base.Preconditions;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
@@ -10,6 +11,7 @@ public class Conveyor extends Tile {
   private Thread animate;
 
   public Conveyor(Actor.Direction direction) {
+    Preconditions.checkNotNull(direction, "Conveyor is being created with null direction");
     this.moveDirection = direction;
   }
 
@@ -24,17 +26,20 @@ public class Conveyor extends Tile {
 
   @Override
   public void moveEvent(Actor actor, Actor.Direction direction) {
+    Preconditions.checkNotNull(actor, "Conveyor moveEvent is being given a null actor");
+    Preconditions.checkNotNull(direction, "Conveyor moveEvent is being given a null direction");
     drawn = false;
 
+    // Wait for image to update, so animation can be displayed
     animate = new Thread() {
       @Override
       public void run() {
-        // Wait for image to update, so animation can be displayed
         synchronized (this) {
           while (!drawn) {
             try {
               this.wait();
             } catch (InterruptedException ignored) {
+              // Do nothing
             }
           }
         }
@@ -48,8 +53,11 @@ public class Conveyor extends Tile {
 
   @Override
   public BufferedImage getImage() throws IOException {
+    // Unfreeze movement as image as been updated
     if (hasActor() && animate != null && drawn) {
-      synchronized (animate) { animate.notifyAll(); }
+      synchronized (animate) {
+        animate.notifyAll();
+      }
     }
     drawn = true;
     return getImageProxy("turbo_" + moveDirection);

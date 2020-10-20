@@ -192,7 +192,7 @@ public class Maze {
     if (treasuresLeft > maxTreasures) {
       maxTreasures = treasuresLeft;
     }
-    //assert treasuresLeft + player.treasuresCollected() == maxTreasures;
+    assert player == null || treasuresLeft + player.treasuresCollected() == maxTreasures;
   }
 
   /**
