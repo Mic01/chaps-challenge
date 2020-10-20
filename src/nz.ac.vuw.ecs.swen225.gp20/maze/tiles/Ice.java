@@ -7,6 +7,9 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
 import nz.ac.vuw.ecs.swen225.gp20.maze.items.IcePotion;
 
 public class Ice extends Tile {
+  private Thread animate;
+  private boolean drawn = false;
+
   @Override
   public boolean isTraversable(Actor actor) {
     return true;
@@ -15,13 +18,35 @@ public class Ice extends Tile {
   @Override
   public void moveEvent(Actor actor, Actor.Direction direction) {
     if (actor.isPlayer() && !((Player) actor).isHolding(new IcePotion())) {
-      actor.move(direction);
+      drawn = false;
+
+      animate = new Thread() {
+        @Override
+        public void run() {
+          // Wait for image to update, so animation can be displayed
+          synchronized (this) {
+            while (!drawn) {
+              try {
+                this.wait();
+              } catch (InterruptedException ignored) {
+              }
+            }
+          }
+          actor.move(direction);
+        }
+      };
+
+      animate.start();
     }
     actor.getMaze().setDisplayText("");
   }
 
   @Override
   public BufferedImage getImage() throws IOException {
+    if (hasActor() && animate != null && drawn) {
+      synchronized (animate) { animate.notifyAll(); }
+    }
+    drawn = true;
     return getImageProxy("ice");
   }
 

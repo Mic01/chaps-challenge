@@ -127,6 +127,10 @@ public class Player extends Actor {
     return getImageProxy(path);
   }
 
+  public boolean isSliding() {
+    return isSliding;
+  }
+
   @Override
   public String toString() {
     return "Player";

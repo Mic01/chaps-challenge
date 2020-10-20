@@ -6,6 +6,8 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor;
 
 public class Conveyor extends Tile {
   private final Actor.Direction moveDirection;
+  private boolean drawn = false;
+  private Thread animate;
 
   public Conveyor(Actor.Direction direction) {
     this.moveDirection = direction;
@@ -22,12 +24,34 @@ public class Conveyor extends Tile {
 
   @Override
   public void moveEvent(Actor actor, Actor.Direction direction) {
-    actor.move(moveDirection);
+    drawn = false;
+
+    animate = new Thread() {
+      @Override
+      public void run() {
+        // Wait for image to update, so animation can be displayed
+        synchronized (this) {
+          while (!drawn) {
+            try {
+              this.wait();
+            } catch (InterruptedException ignored) {
+            }
+          }
+        }
+        actor.move(moveDirection);
+      }
+    };
+
+    animate.start();
     actor.getMaze().setDisplayText("");
   }
 
   @Override
   public BufferedImage getImage() throws IOException {
+    if (hasActor() && animate != null && drawn) {
+      synchronized (animate) { animate.notifyAll(); }
+    }
+    drawn = true;
     return getImageProxy("turbo_" + moveDirection);
   }
 

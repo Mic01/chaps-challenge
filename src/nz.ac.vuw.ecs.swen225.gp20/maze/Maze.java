@@ -192,7 +192,7 @@ public class Maze {
     if (treasuresLeft > maxTreasures) {
       maxTreasures = treasuresLeft;
     }
-    assert treasuresLeft + player.treasuresCollected() == maxTreasures;
+    //assert treasuresLeft + player.treasuresCollected() == maxTreasures;
   }
 
   /**
@@ -219,7 +219,8 @@ public class Maze {
    * @param timeLimit the time limit for this maze (in seconds)
    */
   public void setTimeLimit(int timeLimit) {
-    Preconditions.checkArgument(timeLimit > 0, "Maze TimeLimit is being set to " + timeLimit);
+    Preconditions.checkArgument(timeLimit >= 0,
+            "Maze TimeLimit is being set to a negative value");
     this.timeLimit = timeLimit;
   }
 

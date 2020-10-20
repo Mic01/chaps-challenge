@@ -35,12 +35,14 @@ public abstract class Actor {
    */
   public Actor(int xpos, int ypos, Maze maze) {
     Preconditions.checkNotNull(maze, "Null Maze passed to Actor");
+    /*
     Preconditions.checkElementIndex(xpos, maze.getWidth(),
             xpos + " is not within the width of the Maze - " + maze.getWidth()
                     + ": Actor constructor");
     Preconditions.checkElementIndex(ypos, maze.getHeight(),
             ypos + " is not within the height of the Maze - " + maze.getHeight()
                     + ": Actor constructor");
+    */
     this.xpos = xpos;
     this.ypos = ypos;
     this.xposPrev = xpos;
@@ -64,7 +66,11 @@ public abstract class Actor {
    * @return whether this actor successfully moved up or not
    */
   public boolean moveUp() {
-    if (dead) {
+    // Prevent movement if the actor is dead
+    /* Also prevent manual movement commands from the user if
+    the Player is being moved automatically by Ice or Conveyors */
+    if (dead || isPlayer() && ((Player)this).isSliding()
+            && !Thread.currentThread().getStackTrace()[3].getMethodName().equals("run")) {
       return false;
     }
     currentDirection = Direction.up;
@@ -81,7 +87,11 @@ public abstract class Actor {
    * @return whether this actor successfully moved down or not
    */
   public boolean moveDown() {
-    if (dead) {
+    // Prevent movement if the actor is dead
+    /* Also prevent manual movement commands from the user if
+    the Player is being moved automatically by Ice or Conveyors */
+    if (dead || isPlayer() && ((Player)this).isSliding()
+            && !Thread.currentThread().getStackTrace()[3].getMethodName().equals("run")) {
       return false;
     }
     currentDirection = Direction.down;
@@ -98,7 +108,11 @@ public abstract class Actor {
    * @return whether this actor successfully moved left or not
    */
   public boolean moveLeft() {
-    if (dead) {
+    // Prevent movement if the actor is dead
+    /* Also prevent manual movement commands from the user if
+    the Player is being moved automatically by Ice or Conveyors */
+    if (dead || isPlayer() && ((Player)this).isSliding()
+            && !Thread.currentThread().getStackTrace()[3].getMethodName().equals("run")) {
       return false;
     }
     currentDirection = Direction.left;
@@ -115,7 +129,11 @@ public abstract class Actor {
    * @return whether this actor successfully moved right or not
    */
   public boolean moveRight() {
-    if (dead) {
+    // Prevent movement if the actor is dead
+    /* Also prevent manual movement commands from the user if
+    the Player is being moved automatically by Ice or Conveyors */
+    if (dead || isPlayer() && ((Player)this).isSliding()
+            && !Thread.currentThread().getStackTrace()[3].getMethodName().equals("run")) {
       return false;
     }
     currentDirection = Direction.right;
