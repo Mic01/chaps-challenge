@@ -111,12 +111,9 @@ public class Level implements Play, Save {
   public void play(ApplicationView application, double timeScale, Playback playback) {
     System.out.println("Next level: " + levelName);
     for (Action action : actions) {
-      //Check to see if the game is currently paused
-      if (playback.isPaused()) {
-        //Wait until the game is resumed
-        while (playback.isPaused()){}
-      }
       action.play(application, timeScale, playback);
     }
+
+    System.out.println("Replay complete");
   }
 }

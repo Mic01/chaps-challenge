@@ -76,6 +76,7 @@ public class Playback {
   public void pause() {
     System.out.println("Attempting to pause the replay.");
     this.pause = true;
+    dispatchThread.suspend();
   }
 
   /**
@@ -84,6 +85,7 @@ public class Playback {
   public void resume() {
     System.out.println("Resuming replay");
     this.pause = false;
+    dispatchThread.resume();
   }
 
   /**
