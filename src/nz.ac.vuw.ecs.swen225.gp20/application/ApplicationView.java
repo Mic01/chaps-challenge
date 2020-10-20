@@ -117,7 +117,7 @@ public class ApplicationView {
         sideWindow.setPreferredSize(new Dimension(150, 100));
         sideWindow.setBackground(Color.BLACK);
 
-        JLabel score = new JLabel("Treasures Remaining:");
+        JLabel score = new JLabel("Electronics Remaining:");
         score.setForeground(Color.LIGHT_GRAY);
         this.scoreCount = new JLabel("" + maze.getTreasuresLeft());
         this.scoreCount.setForeground(Color.LIGHT_GRAY);
