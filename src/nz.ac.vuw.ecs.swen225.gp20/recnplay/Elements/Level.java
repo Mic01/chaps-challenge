@@ -112,6 +112,11 @@ public class Level implements Play, Save {
     System.out.println("Next level: " + levelName);
     for (Action action : actions) {
       action.play(application, timeScale, playback);
+
+      if (playback.isStep()) {
+        playback.step(false);
+        playback.pause();
+      }
     }
 
     System.out.println("Replay complete");
