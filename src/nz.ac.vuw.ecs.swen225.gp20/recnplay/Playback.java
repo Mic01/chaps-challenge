@@ -61,7 +61,7 @@ public class Playback {
    */
   public void play(ApplicationView application, double timeScale) {
     //create the dispatch thread
-    dispatchThread = new ReplayThread(application, baseNode, timeScale);
+    dispatchThread = new ReplayThread(application, baseNode, timeScale, this);
     dispatchThread.start();
     while (!dispatchThread.isComplete()){} //Wait until the thread is done
     System.out.println("Thread done");

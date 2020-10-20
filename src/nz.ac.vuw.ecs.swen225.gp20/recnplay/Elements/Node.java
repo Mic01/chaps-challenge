@@ -4,6 +4,7 @@ import com.google.gson.internal.LinkedTreeMap;
 import java.util.ArrayList;
 import nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView;
 import nz.ac.vuw.ecs.swen225.gp20.recnplay.Interfaces.Play;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.Playback;
 
 /**
  * This class handles all of the nodes that will be used to run replays.
@@ -77,9 +78,9 @@ public class Node implements Play {
    * @param timeScale how fast should the replay be.
    */
   @Override
-  public void play(ApplicationView application, double timeScale) {
+  public void play(ApplicationView application, double timeScale, Playback playback) {
     for (Level level : levels) {
-      level.play(application, timeScale);
+      level.play(application, timeScale, playback);
     }
   }
 }
