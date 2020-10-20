@@ -154,6 +154,7 @@ public class ApplicationView {
             else if(this.maze.getPlayer().isDead()){
                 gameOver = true;
                 ((Timer) actionEvent.getSource()).stop();
+                countdownTimer.stop();
                 new LevelLostView(window, currentGame, false);
             }
             else {
