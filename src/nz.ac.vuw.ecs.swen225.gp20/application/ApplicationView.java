@@ -239,6 +239,7 @@ public class ApplicationView {
       if (gameOver) {
         ((Timer) actionEvent.getSource()).stop();
       } else if (this.maze.getPlayer().isDead()) {
+        viewport.draw(false);
         gameOver = true;
         ((Timer) actionEvent.getSource()).stop();
         countdownTimer.stop();
