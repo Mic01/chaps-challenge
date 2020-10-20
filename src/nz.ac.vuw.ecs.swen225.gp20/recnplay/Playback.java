@@ -21,6 +21,7 @@ public class Playback {
   Node baseNode;
   Dispatch dispatchThread;
   boolean pause = false;
+  boolean step = false;
 
   /**
    * Load the replay from a json file.
@@ -95,5 +96,23 @@ public class Playback {
    */
   public boolean isPaused() {
     return this.pause;
+  }
+
+  /**
+   * Step through the replay.
+   */
+  public void step(Boolean step) {
+    this.step = step;
+
+    if (step) {
+      resume();
+    }
+  }
+
+  /**
+   * check if stepping
+   */
+  public boolean isStep() {
+    return step;
   }
 }
