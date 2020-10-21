@@ -100,6 +100,8 @@ public class Board extends JPanel implements ActionListener {
   /**
    * Reconstructs values for a new level,
    * done with a new Maze objection with level info.
+   *
+   * @param maze object for getting variables
    */
   public void updateLevel(Maze maze) {
     player = maze.getPlayer();
@@ -199,6 +201,12 @@ public class Board extends JPanel implements ActionListener {
   /**
    * First step of draw method,
    * draws all tiles in players current vision.
+   *
+   * @param g graphics object to allow drawing images together
+   * @param offsetX offset in x direction
+   * @param offsetY offset in y direction
+   * @param drawArray array of tiles to draw
+   * @throws IOException if file not found
    */
   private void drawTiles(Graphics g, int offsetX, int offsetY, Tile[][] drawArray)
           throws IOException {
@@ -219,6 +227,11 @@ public class Board extends JPanel implements ActionListener {
   /**
    * Second step of draw method,
    * draws a new frame of every actor that has moved this round.
+   *
+   * @param g graphics object to allow drawing images together
+   * @param offsetX offset in x direction
+   * @param offsetY offset in y direction
+   * @throws IOException if file not found
    */
   private void drawEntities(Graphics g, int offsetX, int offsetY) throws IOException {
     //Draw Player
@@ -272,7 +285,8 @@ public class Board extends JPanel implements ActionListener {
   /**
    * Plays a sound from assets folder.
    *
-   * @param sound name of animation.
+   * @param sound name of sound
+   * @param priority of sound, to prioritize certain sounds over others
    */
   private void playSound(String sound, int priority) {
     if (deathTick == 0) {
