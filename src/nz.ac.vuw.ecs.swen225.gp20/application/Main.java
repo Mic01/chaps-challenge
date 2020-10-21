@@ -37,10 +37,9 @@ public class Main {
     env.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("assets/fonts/deface.otf")));
     Main gameInstance = new Main();
     File f = new File("./tmp_save.txt");
-    if(!f.isFile()) {
+    if (!f.isFile()) {
       gameInstance.setup();
-    }
-    else{
+    } else {
       gameInstance.currLevel = SmallSave.loadFile(f);
       gameInstance.levelPath = "src/levels/Level" + gameInstance.currLevel + ".json";
       gameInstance.quickLoad();
@@ -52,7 +51,7 @@ public class Main {
     this.game = new ApplicationView(this, false);
   }
 
-  private void quickLoad(){
+  private void quickLoad() {
     this.game = new ApplicationView(this, false);
   }
 

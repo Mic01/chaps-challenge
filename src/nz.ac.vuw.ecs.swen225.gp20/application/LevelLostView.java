@@ -54,14 +54,12 @@ public class LevelLostView {
     dialog.pack();
     dialog.setLocationRelativeTo(this.owner);
     dialog.setLocation((this.owner.getLocationOnScreen().x) + (this.owner.getWidth() / 7),
-            (this.owner.getLocationOnScreen().y)+ ((this.owner.getHeight()) / 2));
+            (this.owner.getLocationOnScreen().y) + ((this.owner.getHeight()) / 2));
     dialog.setVisible(true);
     dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
   }
 
   private void addToDialog(Container pane) {
-    Image background = Toolkit.getDefaultToolkit().createImage("assets/backgrounds/background.png");
-    JPanel panel = new BackgroundPanel(background, new GridBagLayout(), true);
     GridBagConstraints winConstraints = new GridBagConstraints();
 
     winConstraints.anchor = GridBagConstraints.CENTER;
@@ -78,6 +76,9 @@ public class LevelLostView {
     titleText.setFont(this.game.getMain().deface.deriveFont(20f));
     titleText.setForeground(Color.LIGHT_GRAY);
     titleText.setHorizontalAlignment(SwingConstants.CENTER);
+
+    Image background = Toolkit.getDefaultToolkit().createImage("assets/backgrounds/background.png");
+    JPanel panel = new BackgroundPanel(background, new GridBagLayout(), true);
     panel.add(titleText, winConstraints);
 
     winConstraints.anchor = GridBagConstraints.LINE_START;
@@ -87,7 +88,8 @@ public class LevelLostView {
     winConstraints.insets = new Insets(20, 20, 10, 0);
     JButton restartGame = new JButton();
     restartGame.setBorder(null);
-    Image restartGameIcon = Toolkit.getDefaultToolkit().createImage("assets/buttons/restart_level.png");
+    Image restartGameIcon = Toolkit.getDefaultToolkit()
+            .createImage("assets/buttons/restart_level.png");
     restartGame.setIcon(new ImageIcon(restartGameIcon));
     restartGame.addActionListener(actionEvent -> game.restartLevel());
     panel.add(restartGame, winConstraints);

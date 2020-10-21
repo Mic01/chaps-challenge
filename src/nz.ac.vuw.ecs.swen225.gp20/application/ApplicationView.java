@@ -444,11 +444,8 @@ public class ApplicationView {
       replayWindow.setPreferredSize(new Dimension(150, 40));
       replayWindow.setBackground(Color.BLACK);
 
-
       Playback replay = new Playback();
       replay.load(this.replayPath);
-
-      ApplicationView currAppli = this;
 
       JButton pause = new JButton();
       pause.setBorder(null);
@@ -465,6 +462,7 @@ public class ApplicationView {
       Image stepIcon = Toolkit.getDefaultToolkit().createImage("assets/buttons/step.png");
       step.setIcon(new ImageIcon(stepIcon));
 
+      ApplicationView currAppli = this;
       play.addActionListener(actionEvent -> {
         if (replay.isPaused()) {
           replay.resume(currAppli);
@@ -659,7 +657,8 @@ public class ApplicationView {
     if (windowDialog == JFileChooser.APPROVE_OPTION) {
       filename.setText(c.getSelectedFile().getName());
       dir.setText(c.getCurrentDirectory().toString());
-      this.log.saveReplay(new File(dir.getText() + "/" + filename.getText() + this.game.currLevel + ".json"));
+      this.log.saveReplay(new File(dir.getText() + "/"
+              + filename.getText() + this.game.currLevel + ".json"));
     }
     if (windowDialog == JFileChooser.CANCEL_OPTION) {
       filename.setText("");
@@ -714,11 +713,11 @@ public class ApplicationView {
     }
   }
 
-  public void loadReplay(){
+  public void loadReplay() {
     showLoadReplayDialogue();
   }
 
-  public void makeReplayDialog(){
+  public void makeReplayDialog() {
     new ReplayDoneView(this.window, this);
   }
 
@@ -750,7 +749,7 @@ public class ApplicationView {
     npcMovementTimer.start();
   }
 
-  private void showHelpView(){
+  private void showHelpView() {
     stopTimers();
     this.isPaused = true;
     helpView = new HelpView(this.window);

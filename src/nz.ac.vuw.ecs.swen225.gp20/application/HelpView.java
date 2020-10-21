@@ -12,7 +12,13 @@ import javax.swing.JScrollPane;
 
 public class HelpView extends JDialog {
 
-  public HelpView(JFrame owner){
+
+  /**
+   * Displays the help HTML file for Chips Among Us.
+   *
+   * @param owner - The JFrame this viewer is linked to.
+   */
+  public HelpView(JFrame owner) {
     super(owner);
     this.setTitle("Help - Chips Among Us");
     this.setSize(640, 480);
@@ -32,9 +38,9 @@ public class HelpView extends JDialog {
       e.printStackTrace();
     }
     helpViewer.setEditable(false);
-    JScrollPane helpViewer_scrollable = new JScrollPane(helpViewer);
+    JScrollPane helpViewerScrollable = new JScrollPane(helpViewer);
     helpViewer.setCaretPosition(0);
-    helpViewer_scrollable.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-    this.add(helpViewer_scrollable);
+    helpViewerScrollable.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+    this.add(helpViewerScrollable);
   }
 }

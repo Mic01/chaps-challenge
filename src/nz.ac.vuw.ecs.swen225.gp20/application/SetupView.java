@@ -69,7 +69,8 @@ public class SetupView {
     titleText.setOpaque(true);
     titleText.setBackground(Color.BLACK);
     titleText.setHorizontalAlignment(SwingConstants.CENTER);
-    Image background = Toolkit.getDefaultToolkit().createImage("assets/backgrounds/startBackground.png");
+    Image background = Toolkit.getDefaultToolkit()
+            .createImage("assets/backgrounds/startBackground.png");
     JPanel titleScreen = new BackgroundPanel(background, new GridBagLayout(), true);
     titleScreen.add(titleText, titleConstraints);
 
@@ -113,16 +114,17 @@ public class SetupView {
     constraints2.gridx = 0;
     constraints2.gridy = 0;
     constraints2.insets = new Insets(10, 25, 20, 20);
-    Image levelSelBackground = Toolkit.getDefaultToolkit().createImage("assets/backgrounds/levelselBackground.png");
-    JPanel panel2 = new BackgroundPanel(levelSelBackground, new GridBagLayout(), true);
     JLabel levelSelect = new JLabel("Please select a level.");
     levelSelect.setFont(this.game.deface.deriveFont(20f));
     levelSelect.setForeground(Color.LIGHT_GRAY);
     levelSelect.setOpaque(true);
     levelSelect.setBackground(Color.BLACK);
     levelSelect.setHorizontalAlignment(SwingConstants.CENTER);
-    panel2.add(levelSelect, constraints2);
 
+    Image levelSelBackground = Toolkit.getDefaultToolkit()
+            .createImage("assets/backgrounds/levelselBackground.png");
+    JPanel panel2 = new BackgroundPanel(levelSelBackground, new GridBagLayout(), true);
+    panel2.add(levelSelect, constraints2);
 
     JRadioButton l1 = new JRadioButton("Level 1");
     l1.setActionCommand("1");
