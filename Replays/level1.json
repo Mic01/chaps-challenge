@@ -8,47 +8,67 @@
 		"1": {
 			"Character": "player",
 			"Action": "moveUp",
-			"Time": 320
+			"Time": 710
 		},
 		"2": {
 			"Character": "player",
 			"Action": "moveUp",
-			"Time": 431
+			"Time": 240
 		},
 		"3": {
 			"Character": "player",
 			"Action": "moveUp",
-			"Time": 456
+			"Time": 216
 		},
 		"4": {
 			"Character": "player",
-			"Action": "moveDown",
-			"Time": 423
+			"Action": "moveUp",
+			"Time": 232
 		},
 		"5": {
 			"Character": "player",
-			"Action": "moveDown",
-			"Time": 344
+			"Action": "moveUp",
+			"Time": 248
 		},
 		"6": {
 			"Character": "player",
-			"Action": "moveDown",
-			"Time": 312
+			"Action": "moveUp",
+			"Time": 240
 		},
 		"7": {
 			"Character": "player",
-			"Action": "moveDown",
-			"Time": 264
+			"Action": "moveLeft",
+			"Time": 592
 		},
 		"8": {
 			"Character": "player",
 			"Action": "moveDown",
-			"Time": 280
+			"Time": 536
 		},
 		"9": {
 			"Character": "player",
 			"Action": "moveDown",
-			"Time": 248
+			"Time": 200
+		},
+		"10": {
+			"Character": "player",
+			"Action": "moveDown",
+			"Time": 184
+		},
+		"11": {
+			"Character": "player",
+			"Action": "moveDown",
+			"Time": 192
+		},
+		"12": {
+			"Character": "player",
+			"Action": "moveDown",
+			"Time": 184
+		},
+		"13": {
+			"Character": "player",
+			"Action": "moveDown",
+			"Time": 200
 		}
 	}
 
