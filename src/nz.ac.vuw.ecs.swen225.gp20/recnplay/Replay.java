@@ -49,6 +49,8 @@ public class Replay {
    * Add an action to the history.
    *
    * @param action the thing that we want to add to the stack.
+   *
+   * @param character the current character
    */
   public void addAction(String action, String character) {
     if (currentLevel.actionCount() == 0) {

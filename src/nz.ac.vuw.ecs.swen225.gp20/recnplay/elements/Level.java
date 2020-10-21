@@ -29,7 +29,11 @@ public class Level implements Play, Save {
   /**
    * Add an action to this level.
    *
+   * @param character the character to move
+   *
    * @param action action to add.
+   *
+   * @param time the time between this move and the last one
    */
   public void addAction(String character, String action, long time) {
     actions.add(new Action(character, action, time));

@@ -93,6 +93,8 @@ public class Playback {
 
   /**
    * Resume the replay.
+   *
+   * @param application the application.
    */
   public void resume(ApplicationView application) {
     //System.out.println("Resuming replay");
@@ -119,6 +121,10 @@ public class Playback {
 
   /**
    * Step through the replay.
+   *
+   * @param step boolean to indicate if program is single stepping.
+   *
+   * @param application the current application
    */
   public void step(Boolean step, ApplicationView application) {
     this.step = step;
@@ -130,6 +136,8 @@ public class Playback {
 
   /**
    * check if stepping.
+   *
+   * @return boolean indicating if the program is stepping.
    */
   public boolean isStep() {
     return step;
@@ -171,6 +179,8 @@ public class Playback {
 
   /**
    * check if the replay is complete.
+   *
+   * @return boolean to indicate if the replay is complete.
    */
   public boolean isDone() {
     return isDone;
