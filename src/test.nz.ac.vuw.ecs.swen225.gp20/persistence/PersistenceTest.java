@@ -536,11 +536,10 @@ public class PersistenceTest {
   }
 
 
-
-
   /**
+   * saves string json as json file.
    *
-   * @param output
+   * @param output = string json
    */
   public static void saveFile(String output) {
     File file = new File("src/levels/PersistenceTest");
