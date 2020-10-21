@@ -393,39 +393,40 @@ public class ApplicationView {
     sideConstraints.insets = new Insets(0, -110, 50, 0);
     sideWindow.add(timeCount, sideConstraints);
 
-    sideConstraints.gridy = 3;
-    sideConstraints.insets = new Insets(50, -110, 0, 0);
-    sideWindow.add(helpWindow, sideConstraints);
 
     sideConstraints.gridx = 1;
-    sideConstraints.gridy = 5;
+    sideConstraints.gridy = 4;
     sideConstraints.fill = GridBagConstraints.NONE;
     sideConstraints.insets = new Insets(250, 0, 0, 0);
     sideWindow.add(up, sideConstraints);
 
     sideConstraints.gridx = 0;
-    sideConstraints.gridy = 6;
+    sideConstraints.gridy = 5;
     sideConstraints.insets = new Insets(0, 15, 0, 0);
     sideWindow.add(left, sideConstraints);
 
     sideConstraints.gridx = 1;
-    sideConstraints.gridy = 6;
+    sideConstraints.gridy = 5;
     sideConstraints.insets = new Insets(0, 0, 0, 0);
     sideWindow.add(down, sideConstraints);
 
     sideConstraints.gridx = 2;
-    sideConstraints.gridy = 6;
+    sideConstraints.gridy = 5;
     sideWindow.add(right, sideConstraints);
 
     sideConstraints.gridx = 3;
-    sideConstraints.gridy = 7;
+    sideConstraints.gridy = 6;
     sideConstraints.fill = GridBagConstraints.HORIZONTAL;
     sideConstraints.insets = new Insets(130, -113, 0, 0);
     sideWindow.add(removeSave, sideConstraints);
 
-    sideConstraints.gridy = 8;
+    sideConstraints.gridy = 7;
     sideConstraints.insets = new Insets(10, -113, 0, 0);
     sideWindow.add(quitGame, sideConstraints);
+
+    sideConstraints.gridy = 8;
+    sideConstraints.insets = new Insets(-1000, -110, 0, 0);
+    sideWindow.add(helpWindow, sideConstraints);
 
     Image invBackground = Toolkit.getDefaultToolkit()
             .createImage("assets/backgrounds/invBackground.png");
