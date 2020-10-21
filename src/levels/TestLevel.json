@@ -14,14 +14,14 @@
   }, {
     "tile": "Floor",
     "x": 11,
-    "y": 10,
+    "y": 9,
     "slot": "Item",
     "type": "Key",
     "colour": "Green"
   }, {
     "tile": "Door",
     "x": 10,
-    "y": 10,
+    "y": 9,
     "colour": "Green",
     "vertical": false,
     "open": false
@@ -85,15 +85,15 @@
     "x": 6,
     "y": 8,
     "slot": "Enemy",
-    "type": "Three",
+    "type": "one",
     "direction": "left"
 
   }, {
     "tile": "Floor",
-    "x": 10,
-    "y": 8,
+    "x": 11,
+    "y": 5,
     "slot": "Enemy",
-    "type": "Three",
+    "type": "Two",
     "direction": "right"
 
   }, {
@@ -131,5 +131,25 @@
     "colour": "Yellow",
     "vertical": false,
     "open": false
+  },{
+    "tile": "Wall",
+    "x": 10,
+    "y": 7
+  },{
+    "tile": "Wall",
+    "x": 9,
+    "y": 7
+  },{
+    "tile": "Wall",
+    "x": 10,
+    "y": 6
+  },{
+    "tile": "Wall",
+    "x": 10,
+    "y": 5
+  },{
+    "tile": "Wall",
+    "x": 10,
+    "y": 4
   }]
 ]
