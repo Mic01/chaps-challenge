@@ -42,7 +42,7 @@ public class Main {
     }
     else{
       gameInstance.currLevel = SmallSave.loadFile(f);
-      gameInstance.levelPath = "levels/Level" + gameInstance.currLevel + ".json";
+      gameInstance.levelPath = "src/levels/Level" + gameInstance.currLevel + ".json";
       gameInstance.quickLoad();
     }
   }
@@ -63,7 +63,7 @@ public class Main {
    */
   public void nextLevel(int currLevel) {
     if (currLevel < 2) {
-      this.levelPath = "levels/Level" + (currLevel + 1) + ".json";
+      this.levelPath = "src/levels/Level" + (currLevel + 1) + ".json";
       this.currLevel = currLevel + 1;
     } else {
       this.currLevel = currLevel;
@@ -79,7 +79,7 @@ public class Main {
    */
   public void restartLevel(int currLevel) {
     this.currLevel = currLevel;
-    this.levelPath = "levels/Level" + this.currLevel + ".json";
+    this.levelPath = "src/levels/Level" + this.currLevel + ".json";
     this.game.disposeWindow();
     this.game = new ApplicationView(this, false);
   }

@@ -162,11 +162,11 @@ public class SetupView {
       }
       switch (model.getActionCommand()) {
         case "1":
-          this.game.levelPath = "levels/Level1.json";
+          this.game.levelPath = "src/levels/Level1.json";
           this.game.currLevel = 1;
           break;
         case "2":
-          this.game.levelPath = "levels/Level2.json";
+          this.game.levelPath = "src/levels/Level2.json";
           this.game.currLevel = 2;
           break;
         //etc

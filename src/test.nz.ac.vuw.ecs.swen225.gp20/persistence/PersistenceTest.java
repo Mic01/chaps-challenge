@@ -20,27 +20,19 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Vent;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Wall;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Water;
-import nz.ac.vuw.ecs.swen225.gp20.persistence.EnemyOne;
-import nz.ac.vuw.ecs.swen225.gp20.persistence.EnemyThree;
-import nz.ac.vuw.ecs.swen225.gp20.persistence.EnemyTwo;
-import nz.ac.vuw.ecs.swen225.gp20.persistence.Persistence;
-import nz.ac.vuw.ecs.swen225.gp20.recnplay.Replay;
+import levels.EnemyOne;
+import levels.EnemyThree;
+import levels.EnemyTwo;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.Scanner;
 
 public class PersistenceTest {
-  private final String fileName = "levels/PersistenceTest";
+  private final String fileName = "src/levels/PersistenceTest";
   // =================================================================
   // Tests
   // =================================================================
@@ -551,7 +543,7 @@ public class PersistenceTest {
    * @param output
    */
   public static void saveFile(String output) {
-    File file = new File("levels/PersistenceTest");
+    File file = new File("src/levels/PersistenceTest");
     OutputStreamWriter writer;
     try {
       writer = new OutputStreamWriter(new FileOutputStream(file), "UTF-8");
