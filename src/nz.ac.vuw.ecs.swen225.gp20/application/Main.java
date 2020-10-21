@@ -88,10 +88,12 @@ public class Main {
    * Loads a replay of a level.
    *
    * @param replayDir - Location of the replay file.
-   * @param currLevel - The ID of the currently active level.
    */
-  public void loadReplayLevel(String replayDir, int currLevel) {
-    this.currLevel = currLevel;
+  public void loadReplayLevel(String replayDir) {
+    String[] splitFileName = replayDir.split("\\.(?=[^.]+$)");
+    char levelId = splitFileName[0].charAt(splitFileName[0].length() - 1);
+    this.currLevel = Character.getNumericValue(levelId);
+    this.levelPath = "src/levels/Level" + this.currLevel + ".json";
     this.game.disposeWindow();
     this.game = new ApplicationView(this, true, replayDir);
   }
