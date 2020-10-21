@@ -428,19 +428,33 @@ public class ApplicationView {
 
     JPanel replayWindow = new JPanel();
     if (isReplay) {
-      replayWindow = new JPanel(new GridBagLayout());
+      Image replayBackground = Toolkit.getDefaultToolkit()
+              .createImage("assets/backgrounds/replayBackground.png");
+      replayWindow = new BackgroundPanel(replayBackground, new GridBagLayout(), true);
       replayWindow.setMinimumSize(new Dimension(150, 40));
       replayWindow.setPreferredSize(new Dimension(150, 40));
-      replayWindow.setBackground(Color.WHITE);
+      replayWindow.setBackground(Color.BLACK);
+
 
       Playback replay = new Playback();
       replay.load(this.replayPath);
 
       ApplicationView currAppli = this;
 
-      JButton pause = new JButton("‖");
-      JButton play = new JButton("⯈");
-      JButton step = new JButton("🡺");
+      JButton pause = new JButton();
+      pause.setBorder(null);
+      Image pauseIcon = Toolkit.getDefaultToolkit().createImage("assets/buttons/pause.png");
+      pause.setIcon(new ImageIcon(pauseIcon));
+
+      JButton play = new JButton();
+      play.setBorder(null);
+      Image playIcon = Toolkit.getDefaultToolkit().createImage("assets/buttons/play.png");
+      play.setIcon(new ImageIcon(playIcon));
+
+      JButton step = new JButton();
+      step.setBorder(null);
+      Image stepIcon = Toolkit.getDefaultToolkit().createImage("assets/buttons/step.png");
+      step.setIcon(new ImageIcon(stepIcon));
 
       play.addActionListener(actionEvent -> {
         if (replay.isPaused()) {
@@ -460,7 +474,10 @@ public class ApplicationView {
         stopTimers();
       });
 
-      JButton speedChange = new JButton("s");
+      JButton speedChange = new JButton();
+      speedChange.setBorder(null);
+      Image speedIcon = Toolkit.getDefaultToolkit().createImage("assets/buttons/speed.png");
+      speedChange.setIcon(new ImageIcon(speedIcon));
       speedChange.addActionListener(actionEvent -> {
         if (replay.isPaused() || !replay.isRunning()) {
           currSpeed = changeReplaySpeed(currSpeed);
@@ -470,11 +487,15 @@ public class ApplicationView {
           countdownTimer.setDelay((int) countTimerValue);
           double actorTimerValue = (250 * currSpeed);
           countdownTimer.setDelay((int) actorTimerValue);
-          this.replaySpeed.setText("Current speed: " + this.currSpeed);
+          this.replaySpeed.setText("Current speed: " + this.currSpeed + "x");
         }
       });
 
-      this.replaySpeed = new JLabel("Current speed: " + this.currSpeed);
+      this.replaySpeed = new JLabel("Current speed: " + this.currSpeed + "x");
+      this.replaySpeed.setForeground(Color.LIGHT_GRAY);
+      this.replaySpeed.setFont(this.game.deface.deriveFont(14f));
+      this.replaySpeed.setOpaque(true);
+      this.replaySpeed.setBackground(Color.BLACK);
 
       GridBagConstraints replayConstraints = new GridBagConstraints();
       replayConstraints.gridx = 0;
@@ -519,6 +540,14 @@ public class ApplicationView {
     if (isReplay) {
       constraints.gridy = 2;
       windowContents.add(replayWindow, constraints);
+      Image fillerBackground = Toolkit.getDefaultToolkit()
+              .createImage("assets/backgrounds/fillerBackground.png");
+      JPanel fillSpace = new BackgroundPanel(fillerBackground, new GridBagLayout(), true);
+      fillSpace.setMinimumSize(new Dimension(150, 40));
+      fillSpace.setPreferredSize(new Dimension(150, 40));
+      fillSpace.setBackground(Color.BLACK);
+      constraints.gridx = 1;
+      windowContents.add(fillSpace, constraints);
     }
 
     constraints.gridx = 1;
@@ -621,7 +650,7 @@ public class ApplicationView {
     if (windowDialog == JFileChooser.APPROVE_OPTION) {
       filename.setText(c.getSelectedFile().getName());
       dir.setText(c.getCurrentDirectory().toString());
-      this.log.saveReplay(new File(dir.getText() + "/" + filename.getText()));
+      this.log.saveReplay(new File(dir.getText() + "/" + filename.getText() + this.game.currLevel + ".json"));
     }
     if (windowDialog == JFileChooser.CANCEL_OPTION) {
       filename.setText("");
