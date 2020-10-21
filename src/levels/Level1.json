@@ -393,7 +393,7 @@
 		"tile": "Info",
 		"x": 35,
 		"y": 28,
-		"text": "howdy"
+		"text": "<html><br/>Hint: Collect the<br/>yellow outlined<br/>boards to open the<br/>black door. Use<br/>keycards to open<br/>other doors.</html>"
 	}, {
 		"tile": "Floor",
 		"x": 35,

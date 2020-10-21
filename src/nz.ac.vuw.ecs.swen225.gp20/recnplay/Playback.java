@@ -23,6 +23,8 @@ public class Playback {
   boolean pause = false;
   boolean step = false;
   boolean running = false;
+  boolean isDone;
+  private double speed = 1.0;
 
   /**
    * Load the replay from a json file.
@@ -60,15 +62,15 @@ public class Playback {
   /**
    * Send the actions back and load levels when required.
    *
-   * @param timeScale the replay speed
+   * @param application the current application
    */
-  public void play(ApplicationView application, double timeScale) {
+  public void play(ApplicationView application) {
     //Check if the replay is already running.
     if (!running) {
       running = true;
 
       //create the dispatch thread
-      dispatchThread = new ReplayThread(application, baseNode, timeScale, this);
+      dispatchThread = new ReplayThread(application, baseNode, this);
       dispatchThread.start();
 
       //Create a thread that is used to wait for the replay to finish
@@ -92,7 +94,7 @@ public class Playback {
   /**
    * Resume the replay.
    */
-  public void resume(ApplicationView application, double timeScale) {
+  public void resume(ApplicationView application) {
     System.out.println("Resuming replay");
     this.pause = false;
 
@@ -102,7 +104,7 @@ public class Playback {
       dispatchThread.resume();
     } else {
       this.running = false;
-      play(application, timeScale);
+      play(application);
     }
   }
 
@@ -118,16 +120,16 @@ public class Playback {
   /**
    * Step through the replay.
    */
-  public void step(Boolean step, ApplicationView application, double timeScale) {
+  public void step(Boolean step, ApplicationView application) {
     this.step = step;
 
     if (step) {
-      resume(application, timeScale);
+      resume(application);
     }
   }
 
   /**
-   * check if stepping
+   * check if stepping.
    */
   public boolean isStep() {
     return step;
@@ -140,5 +142,23 @@ public class Playback {
    */
   public boolean isRunning() {
     return this.running;
+  }
+
+  /**
+   * Get the current replay speed.
+   *
+   * @return the replay speed;
+   */
+  public double getCurrentSpeed() {
+    return speed;
+  }
+
+  /**
+   * Set the replay speed.
+   *
+   * @param speed the new speed
+   */
+  public void setReplaySpeed(double speed) {
+    this.speed = speed;
   }
 }

@@ -103,21 +103,21 @@ public class Level implements Play, Save {
    *
    * @param application the current application.
    *
-   * @param timeScale how fast should the replay be.
-   *
    * @param playback used to control the playback speed.
    */
   @Override
-  public void play(ApplicationView application, double timeScale, Playback playback) {
+  public void play(ApplicationView application, Playback playback) {
     System.out.println("Next level: " + levelName);
     for (Action action : actions) {
-      action.play(application, timeScale, playback);
+      action.play(application, playback);
 
       if (playback.isStep()) {
-        playback.step(false, application, timeScale);
+        playback.step(false, application);
         playback.pause();
       }
     }
+
+    application.stopTimers();
 
     System.out.println("Replay complete");
   }

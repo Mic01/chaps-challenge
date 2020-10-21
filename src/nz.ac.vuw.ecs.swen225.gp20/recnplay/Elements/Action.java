@@ -51,19 +51,20 @@ public class Action implements Play, Save {
    *
    * @param application the current application object
    *
-   * @param timeScale the speed of the replay
+   * @param playback the current playback object
    */
   @Override
-  public void play(ApplicationView application, double timeScale, Playback playback) {
+  public void play(ApplicationView application, Playback playback) {
     try {
       //Wait until the required time has elapsed
-      Thread.sleep(calcWaitTime(timeSinceLastMove, timeScale));
-//      System.out.println("Time Scale: " + timeScale);
-//      System.out.println("Waited: " + calcWaitTime(timeSinceLastMove, timeScale));
-//      System.out.println("Original wait time: " + timeSinceLastMove);
-//      System.out.println("Character: " + character);
-//      System.out.println("Action: " + action);
-//      System.out.println();
+      System.out.println("Waited: " + timeSinceLastMove / playback.getCurrentSpeed());
+      System.out.println("Time Scale: " + playback.getCurrentSpeed());
+      System.out.println("Original wait time: " + timeSinceLastMove);
+      System.out.println("Character: " + character);
+      System.out.println("Action: " + action);
+      System.out.println();
+
+      Thread.sleep((long) (timeSinceLastMove / playback.getCurrentSpeed()));
 
       if (character.equals("player")) {
         //Create a new thread and execute the move
@@ -74,24 +75,6 @@ public class Action implements Play, Save {
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-  }
-
-  /**
-   * Calculate how long to wait.
-   *
-   * @param timeSinceLastMove how long to wait in real time
-   *
-   * @param timeScale how much to speed up by
-   *
-   * @return the modified waiting time
-   */
-  private long calcWaitTime(long timeSinceLastMove, double timeScale) {
-    if (timeScale <= 1) {
-      return timeSinceLastMove;
-    } else if (timeScale > 5) {
-      return (long) (timeSinceLastMove / (2 * 5));
-    }
-    return (long) (timeSinceLastMove / (2 * timeScale));
   }
 
   /**
