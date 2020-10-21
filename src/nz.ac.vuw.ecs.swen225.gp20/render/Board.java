@@ -349,7 +349,7 @@ public class Board extends JPanel implements ActionListener {
    * @param speed multiplier to delay time (ie 2x or 0.5x)
    */
   public void setAnimateSpeed(double speed) {
-    timer = new Timer(Integer.parseInt(String.valueOf(sleepTime * speed)), this);
+    timer = new Timer((int)(sleepTime / speed), this);
   }
 
   @Override
