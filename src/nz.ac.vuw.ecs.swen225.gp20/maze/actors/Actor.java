@@ -225,6 +225,7 @@ public abstract class Actor {
   /**
    * Get this actor's image.
    *
+   * @param moving is this actor currently moving
    * @return a BufferedImage of this actor
    * @throws IOException thrown if the file cannot be found for the actor
    */
@@ -263,6 +264,10 @@ public abstract class Actor {
     frame = 0;
   }
 
+  /**
+   * Is this actor dead
+   * @return whether the actor is dead
+   */
   public boolean isDead() {
     return dead;
   }
@@ -283,10 +288,18 @@ public abstract class Actor {
     return yposPrev;
   }
 
+  /**
+   * The maze that this player is in
+   * @return the maze that this player is in
+   */
   public Maze getMaze() {
     return maze;
   }
 
+  /**
+   * Is this actor a player
+   * @return whether this actor is a player
+   */
   public boolean isPlayer() {
     return this instanceof Player;
   }
