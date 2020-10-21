@@ -52,7 +52,7 @@ public class LevelWonView {
     addToDialog(dialog.getContentPane());
     dialog.pack();
     dialog.setLocationRelativeTo(this.owner);
-    dialog.setLocation((this.owner.getLocationOnScreen().x) + (this.owner.getWidth() / 5),
+    dialog.setLocation((this.owner.getLocationOnScreen().x) + (this.owner.getWidth() / 8),
             (this.owner.getLocationOnScreen().y)+ ((this.owner.getHeight()) / 2));
     dialog.setVisible(true);
     dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
