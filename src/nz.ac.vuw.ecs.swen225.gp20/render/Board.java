@@ -1,14 +1,20 @@
 package nz.ac.vuw.ecs.swen225.gp20.render;
 
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.*;
-
-import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
+import javax.swing.JPanel;
 import javax.swing.Timer;
-
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.AutoActor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
@@ -34,10 +40,10 @@ public class Board extends JPanel implements ActionListener {
   private static final int sleepTime = 300; //Time in ms before each draw
 
   //Static Rendering Variables
-  private Tile[][] lastVision;
-  private Tile[][] vision;
+  private final Tile[][] lastVision;
+  private final Tile[][] vision;
   private Player player;
-  private Maze maze;
+  private final Maze maze;
   private ArrayList<AutoActor> autoActors = new ArrayList<>();
 
   //Dynamic Rendering Variables
@@ -52,11 +58,12 @@ public class Board extends JPanel implements ActionListener {
   private int taskSize;
   public AudioPlayer audioPlayer = new AudioPlayer();
   private int deathTick;
-  private Set<Tile> walkedOnDoors = new HashSet<>();
+  private final Set<Tile> walkedOnDoors = new HashSet<>();
 
   //Method Enums
   private enum SoundEffects {
-    metalWalk_0, metalWalk_1, waterSwim_0, waterSwim_1, slide, conveyor_slide, pickup_item, finish_level, death, airlock
+    metalWalk_0, metalWalk_1, waterSwim_0, waterSwim_1, slide,
+    conveyor_slide, pickup_item, finish_level, death, airlock
   }
 
   /**
@@ -68,8 +75,6 @@ public class Board extends JPanel implements ActionListener {
     //JPanel Variables
     Dimension dimension = new Dimension(tileSize * visionRange, tileSize * visionRange);
     setPreferredSize(dimension);
-
-    setBackground(new Color(255, 0, 255)); //for debugging
     setLayout(new FlowLayout(FlowLayout.LEFT));
 
     //Setting Variables
@@ -85,7 +90,9 @@ public class Board extends JPanel implements ActionListener {
       for (SoundEffects s : SoundEffects.values()) {
         loadedSounds.put(s.toString(), new SoundEffect(s.toString()));
       }
-    }catch(Exception e){ e.printStackTrace();}
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   /**
@@ -100,8 +107,7 @@ public class Board extends JPanel implements ActionListener {
 
   /**
    * Based on Players position, return a new 2D Array
-   * of all tiles visible on board to draw.
-   *
+   * of all tiles visible on board to draw,
    * Also updating the last visible tiles for transitions.
    */
   private void setVision() {
@@ -111,7 +117,7 @@ public class Board extends JPanel implements ActionListener {
 
         //Adding tiles only if they in range
         if ((x > 0 && y > 0) && (x < maze.getWidth() && y < maze.getHeight())) {
-          vision[xcount][ycount] = maze.getTile(x,y);
+          vision[xcount][ycount] = maze.getTile(x, y);
         } else {
           vision[xcount][ycount] = new NullTile();
         }
@@ -122,7 +128,7 @@ public class Board extends JPanel implements ActionListener {
   @Override
   public void actionPerformed(ActionEvent e) {
     //Player not dead
-    if(!player.isDead()) {
+    if (!player.isDead()) {
       if (halfFrame) {
         halfFrame = false;
       } else {
@@ -131,9 +137,9 @@ public class Board extends JPanel implements ActionListener {
         timer.stop();
       }
       //Draw all death animation frames
-    }else if(deathTick < 3){
+    } else if (deathTick < 3) {
       deathTick++;
-    }else{
+    } else {
       timer.stop();
     }
     repaint();
@@ -151,7 +157,7 @@ public class Board extends JPanel implements ActionListener {
     playerMoved = playerMove;
 
     //If player is currently moving, draw a half frame
-    if(playerMove){
+    if (playerMove) {
       halfFrame = true;
       inAnimation = true;
     }
@@ -164,22 +170,22 @@ public class Board extends JPanel implements ActionListener {
     try {
       super.paintComponent(g);
       Graphics2D g2d = (Graphics2D) g.create();
-      int xOffset = 0;
-      int yOffset = 0;
+      int offsetX = 0;
+      int offsetY = 0;
 
       //Get offsets if currently drawing halfFrame
-      if(halfFrame){
-        xOffset = getOffsetX();
-        yOffset = getOffsetY();
-        drawTiles(g2d, -xOffset, -yOffset, lastVision);
+      if (halfFrame) {
+        offsetX = getOffsetX();
+        offsetY = getOffsetY();
+        drawTiles(g2d, -offsetX, -offsetY, lastVision);
       }
 
       //Draw full frame
-      drawTiles(g2d, xOffset, yOffset, vision);
-      drawEntities(g2d, xOffset, yOffset);
+      drawTiles(g2d, offsetX, offsetY, vision);
+      drawEntities(g2d, offsetX, offsetY);
       g2d.dispose();
       
-      if(halfFrame || player.isDead()){
+      if (halfFrame || player.isDead()) {
         timer.start();
       }
 
@@ -192,16 +198,17 @@ public class Board extends JPanel implements ActionListener {
    * First step of draw method,
    * draws all tiles in players current vision.
    */
-  private void drawTiles(Graphics g, int xOffset, int yOffset, Tile[][] drawArray) throws IOException {
+  private void drawTiles(Graphics g, int offsetX, int offsetY, Tile[][] drawArray)
+          throws IOException {
     for (int x = 0; x <= visionRange - 1; x++) {
       for (int y = 0; y <= visionRange - 1; y++) {
         g.drawImage(drawArray[x][y].getImage(),
-                (x * tileSize) + xOffset, (y * tileSize) + yOffset, this);
+                (x * tileSize) + offsetX, (y * tileSize) + offsetY, this);
 
         //Check if tile has item, draw tile with item
         if (drawArray[x][y] instanceof FreeTile && ((FreeTile) drawArray[x][y]).hasItem()) {
           g.drawImage(((FreeTile) drawArray[x][y]).getItem().getImage(),
-                  (x * tileSize) + xOffset, (y * tileSize) + yOffset, this);
+                  (x * tileSize) + offsetX, (y * tileSize) + offsetY, this);
         }
       }
     }
@@ -230,31 +237,31 @@ public class Board extends JPanel implements ActionListener {
 
     //Play sound effect based on players position and variables
     try {
-      if(player.isDead()){
-        playSound("death",4);
-      } else if(playerMoved) {
-        if(player.isOn(Exit.class)){
-          playSound("finish_level",4);
-        } else if((player.isOn(LockedDoor.class) || player.isOn(ExitLock.class))
-                && !walkedOnDoors.contains(maze.getTile(player.getX(), player.getY()))){
+      if (player.isDead()) {
+        playSound("death", 4);
+      } else if (playerMoved) {
+        if (player.isOn(Exit.class)) {
+          playSound("finish_level", 4);
+        } else if ((player.isOn(LockedDoor.class) || player.isOn(ExitLock.class))
+                && !walkedOnDoors.contains(maze.getTile(player.getX(), player.getY()))) {
           walkedOnDoors.add(maze.getTile(player.getX(), player.getY()));
-          playSound("airlock",3);
-        }else if (player.isOn(Conveyor.class)) {
-          playSound("conveyor_slide",2);
-        }else if (player.isOn(Ice.class)) {
-          playSound("slide",2);
+          playSound("airlock", 3);
+        } else if (player.isOn(Conveyor.class)) {
+          playSound("conveyor_slide", 2);
+        } else if (player.isOn(Ice.class)) {
+          playSound("slide", 2);
         } else if (player.getInventory().size() > inventorySize) {
           inventorySize++;
-          playSound("pickup_item",3);
-        } else if(player.treasuresCollected() > taskSize){
+          playSound("pickup_item", 3);
+        } else if (player.treasuresCollected() > taskSize) {
           taskSize++;
-          playSound("pickup_item",3);
+          playSound("pickup_item", 3);
         } else if (player.isOn(Water.class)) {
-          playSound("waterSwim_"+new Random().nextInt(2),1);
+          playSound("waterSwim_" + new Random().nextInt(2), 1);
         } else {
-          playSound("metalWalk_"+new Random().nextInt(2),1);
+          playSound("metalWalk_" + new Random().nextInt(2), 1);
         }
-     }
+      }
     }catch(Exception e){ e.printStackTrace(); }
   }
 
@@ -337,8 +344,8 @@ public class Board extends JPanel implements ActionListener {
    *
    * @param speed multiplier to delay time (ie 2x or 0.5x)
    */
-  public void setAnimateSpeed(int speed){
-    timer = new Timer(sleepTime*speed, this);
+  public void setAnimateSpeed(double speed){
+    timer = new Timer(Integer.parseInt(String.valueOf(sleepTime*speed)), this);
   }
 
   @Override
