@@ -120,6 +120,9 @@ public class Level implements Play, Save {
     playback.markDone();
     application.stopTimers();
 
+    //display popup
+    application.makeReplayDialog();
+
     System.out.println("Replay complete");
   }
 }
