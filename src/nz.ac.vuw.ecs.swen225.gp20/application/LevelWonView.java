@@ -19,6 +19,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+/**
+ * The panel that should appear when a level is won.
+ *
+ * @author Nicholas Woolf-Ben-Avraham
+ */
 public class LevelWonView {
   private final JFrame owner;
   private final ApplicationView game;
