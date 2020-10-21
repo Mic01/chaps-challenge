@@ -74,13 +74,11 @@ public class Node implements Play {
    * Go through the array of levels and play them.
    *
    * @param application the current application.
-   *
-   * @param timeScale how fast should the replay be.
    */
   @Override
-  public void play(ApplicationView application, double timeScale, Playback playback) {
+  public void play(ApplicationView application, Playback playback) {
     for (Level level : levels) {
-      level.play(application, timeScale, playback);
+      level.play(application, playback);
     }
   }
 }
