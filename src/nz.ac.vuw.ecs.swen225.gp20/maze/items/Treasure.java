@@ -14,7 +14,7 @@ public class Treasure extends Item {
 
   @Override
   public String toString() {
-    return "Treasure";
+    return "Chip";
   }
 
   @Override

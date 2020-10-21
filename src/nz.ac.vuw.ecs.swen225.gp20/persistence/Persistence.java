@@ -4,12 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.Writer;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
@@ -60,17 +56,22 @@ public class Persistence {
         maze[j][i] = new NullTile();
       }
     }
+
+    //adds tiles from file
     try {
       final JsonParser parser = Json.createParser(new FileInputStream(fileName));
-      // final JsonParser parser = Json.createParser(new FileReader(fileName));
+      //repeats until it has gone through every tile object in the json file
       while (parser.hasNext()) {
         final Event event = parser.next();
-        if (event == Event.START_OBJECT) {
 
+        //each tile is an object in the json file
+        if (event == Event.START_OBJECT) {
           JsonObject obj = parser.getObject();
           final String tile = obj.getString("tile");
           int x;
           int y;
+
+          //tile switch
           switch (tile) {
             case "Inside":
               for (int i = obj.getInt("y1"); i < obj.getInt("y2"); i++) {
@@ -85,6 +86,7 @@ public class Persistence {
             case "Floor":
 
               final String slot = obj.getString("slot");
+              //Floor tile can have items and actors on it
               switch (slot) {
                 case "Item":
                   maze[obj.getInt("x")][obj.getInt("y")] = new FreeTile(loadItem(obj));
@@ -108,6 +110,7 @@ public class Persistence {
                   y = obj.getInt("y");
                   String direction = obj.getString("direction");
                   final String type = obj.getString("type");
+                  //currently three different enemy movement types
                   switch (type) {
                     case "One":
                       maze[x][y] = new FreeTile(new EnemyOne(
@@ -146,7 +149,6 @@ public class Persistence {
               mazeObject.setTreasuresLeft(obj.getInt("chips"));
               break;
             case "Info":
-              System.out.println(obj.getString("text"));
               maze[obj.getInt("x")][obj.getInt("y")] = new InfoTile(obj.getString("text"));
               break;
             case "Conveyor":
@@ -183,6 +185,7 @@ public class Persistence {
   public static Item loadItem(JsonObject obj) {
     final String type = obj.getString("type");
 
+    //finds correct item
     switch (type) {
       case "Key":
         return new Key(obj.getString("colour"));
@@ -218,14 +221,18 @@ public class Persistence {
 
     StringBuilder output = new StringBuilder("[");
 
+    //iterate through array
     for (int i = 0; i < maze.length; i++) {
       for (int j = 0; j < maze[0].length; j++) {
         Tile currentTile = maze[i][j];
         JsonObjectBuilder object = Json.createObjectBuilder();
 
+        //dont save NullTiles (empty untraversable space tiles)
         if (currentTile instanceof NullTile) {
           continue;
         }
+
+        //all tile objects in json level file have a tile name
         object.add("tile", currentTile.toString());
 
         if (currentTile instanceof ExitLock) {
@@ -237,11 +244,11 @@ public class Persistence {
           object.add("vertical", ((LockedDoor) currentTile).isVertical());
           object.add("open", ((LockedDoor) currentTile).isOpen());
         } else if (currentTile instanceof FreeTile) {
-
-          if (((FreeTile) currentTile).hasActor()) {
+          //free tiles could have items and actors that need saving
+          if ((currentTile).hasActor()) {
             Actor actor = ((FreeTile) currentTile).getActor();
+            object.add("slot", actor.toString());
             if (actor instanceof Player) {
-              object.add("slot", "Player");
               JsonArrayBuilder array = Json.createArrayBuilder();
               for (Item item : ((Player) actor).getInventory()) {
                 JsonObjectBuilder itemObject = Json.createObjectBuilder();
@@ -250,7 +257,6 @@ public class Persistence {
               }
               object.add("inventory", array);
             } else {
-              object.add("slot", "Enemy");
               object.add("direction", (((AutoActor) actor).getCurrentDirection()).toString());
 
               if (actor instanceof EnemyOne) {
@@ -280,6 +286,7 @@ public class Persistence {
           object.add("time", mazeObject.getTimeLimit());
         }
 
+        //add tiles saved have and x and a y
         object.add("x", i);
         object.add("y", j);
         JsonObject builtObject = object.build();
@@ -311,17 +318,14 @@ public class Persistence {
    * @param item = item to be added into json object.
    */
   public static void saveItem(JsonObjectBuilder object, Item item) {
+
     object.add("slot", "Item");
+    object.add("type", item.toString());
     if (item instanceof Key) {
-      object.add("type", "Key");
       object.add("colour", ((Key) item).getColour());
-    } else if (item instanceof Treasure) {
-      object.add("type", "Chip");
     } else if (item instanceof IcePotion) {
-      object.add("type", "Shoe");
       object.add("element", "Ice");
     } else if (item instanceof WaterPotion) {
-      object.add("type", "Shoe");
       object.add("element", "Water");
     }
   }

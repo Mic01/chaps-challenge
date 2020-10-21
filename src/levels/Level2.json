@@ -93,6 +93,10 @@
 		"tile": "Wall",
 		"x": 13,
 		"y": 29
+	},{
+		"tile": "Wall",
+		"x": 13,
+		"y": 30
 	}],
 	[{
 		"tile": "Wall",
@@ -452,6 +456,11 @@
 		"tile": "Wall",
 		"x": 23,
 		"y": 27
+	},{
+		"tile": "Info",
+		"x": 23,
+		"y": 32,
+		"text": "<html><br/>Hint: you need the<br/>water potion.</html>"
 	}, {
 		"tile": "Water",
 		"x": 23,
@@ -554,6 +563,11 @@
 		"tile": "Ice",
 		"x": 25,
 		"y": 24
+	},{
+		"tile": "Info",
+		"x": 25,
+		"y": 26,
+		"text": "<html><br/>Hint: you need the<br/>ice potion.</html>"
 	}, {
 		"tile": "Floor",
 		"x": 25,
@@ -566,6 +580,11 @@
 		"y": 31,
 		"slot": "Player",
 		"inventory": []
+	},{
+		"tile": "Info",
+		"x": 25,
+		"y": 34,
+		"text": "<html><br/>Hint: Look closely.</html>"
 	}, {
 		"tile": "Conveyor",
 		"x": 25,
@@ -1011,6 +1030,10 @@
 		"tile": "Ice",
 		"x": 33,
 		"y": 28
+	},{
+		"tile": "Ice",
+		"x": 33,
+		"y": 29
 	}, {
 		"tile": "Ice",
 		"x": 33,
@@ -1078,6 +1101,10 @@
 		"tile": "Ice",
 		"x": 34,
 		"y": 28
+	},{
+		"tile": "Ice",
+		"x": 34,
+		"y": 29
 	}, {
 		"tile": "Ice",
 		"x": 34,
@@ -1129,6 +1156,10 @@
 		"tile": "Ice",
 		"x": 35,
 		"y": 28
+	},{
+		"tile": "Ice",
+		"x": 35,
+		"y": 29
 	}, {
 		"tile": "Ice",
 		"x": 35,
@@ -1562,6 +1593,10 @@
 		"tile": "Wall",
 		"x": 44,
 		"y": 23
+	},{
+		"tile": "Wall",
+		"x": 44,
+		"y": 27
 	}, {
 		"tile": "Floor",
 		"x": 44,
