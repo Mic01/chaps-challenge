@@ -22,6 +22,7 @@ public class Playback {
   Dispatch dispatchThread;
   boolean pause = false;
   boolean step = false;
+  boolean running = false;
 
   /**
    * Load the replay from a json file.
@@ -62,13 +63,20 @@ public class Playback {
    * @param timeScale the replay speed
    */
   public void play(ApplicationView application, double timeScale) {
-    //create the dispatch thread
-    dispatchThread = new ReplayThread(application, baseNode, timeScale, this);
-    dispatchThread.start();
+    //Check if the replay is already running.
+    if (!running) {
+      running = true;
 
-    //Create a thread that is used to wait for the replay to finish
-    WaitThread wait = new WaitThread(dispatchThread);
-    wait.start();
+      //create the dispatch thread
+      dispatchThread = new ReplayThread(application, baseNode, timeScale, this);
+      dispatchThread.start();
+
+      //Create a thread that is used to wait for the replay to finish
+      WaitThread wait = new WaitThread(dispatchThread);
+      wait.start();
+    } else {
+      System.out.println("Replay is already active");
+    }
   }
 
   /**
@@ -77,6 +85,7 @@ public class Playback {
   public void pause() {
     System.out.println("Attempting to pause the replay.");
     this.pause = true;
+    this.running = false;
     dispatchThread.suspend();
   }
 
@@ -86,6 +95,7 @@ public class Playback {
   public void resume() {
     System.out.println("Resuming replay");
     this.pause = false;
+    this.running = true;
     dispatchThread.resume();
   }
 

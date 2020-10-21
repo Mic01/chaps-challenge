@@ -1,11 +1,14 @@
 package nz.ac.vuw.ecs.swen225.gp20.application;
 
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dialog;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.ButtonGroup;
@@ -56,13 +59,18 @@ public class SetupView {
     GridBagConstraints titleConstraints = new GridBagConstraints();
 
     titleConstraints.anchor = GridBagConstraints.CENTER;
-    titleConstraints.fill = GridBagConstraints.HORIZONTAL;
+    titleConstraints.fill = GridBagConstraints.NONE;
     titleConstraints.gridx = 0;
     titleConstraints.gridy = 0;
     titleConstraints.insets = new Insets(5, 0, 5, 0);
     JLabel titleText = new JLabel("The Indecisive Lads present:");
+    titleText.setFont(this.game.deface.deriveFont(20f));
+    titleText.setForeground(Color.LIGHT_GRAY);
+    titleText.setOpaque(true);
+    titleText.setBackground(Color.BLACK);
     titleText.setHorizontalAlignment(SwingConstants.CENTER);
-    JPanel titleScreen = new JPanel(new GridBagLayout());
+    Image background = Toolkit.getDefaultToolkit().createImage("assets/backgrounds/startBackground.png");
+    JPanel titleScreen = new BackgroundPanel(background, new GridBagLayout(), true);
     titleScreen.add(titleText, titleConstraints);
 
     titleConstraints.anchor = GridBagConstraints.CENTER;
@@ -78,7 +86,10 @@ public class SetupView {
     titleConstraints.gridx = 0;
     titleConstraints.gridy = 2;
     titleConstraints.insets = new Insets(20, 20, 10, 0);
-    JButton startGame = new JButton("Begin Game");
+    JButton startGame = new JButton();
+    startGame.setBorder(null);
+    Image startGameIcon = Toolkit.getDefaultToolkit().createImage("assets/buttons/begin_game.png");
+    startGame.setIcon(new ImageIcon(startGameIcon));
     startGame.addActionListener(actionEvent -> panes.next(mainPanel));
     titleScreen.add(startGame, titleConstraints);
 
@@ -87,8 +98,10 @@ public class SetupView {
     titleConstraints.gridx = 0;
     titleConstraints.gridy = 2;
     titleConstraints.insets = new Insets(20, 0, 10, 20);
-    titleConstraints.ipadx = 55;
-    JButton exit = new JButton("Exit");
+    JButton exit = new JButton();
+    exit.setBorder(null);
+    Image exitIcon = Toolkit.getDefaultToolkit().createImage("assets/buttons/quit_game.png");
+    exit.setIcon(new ImageIcon(exitIcon));
     exit.addActionListener(actionEvent -> System.exit(0));
     titleScreen.add(exit, titleConstraints);
 
@@ -99,16 +112,29 @@ public class SetupView {
     constraints2.fill = GridBagConstraints.HORIZONTAL;
     constraints2.gridx = 0;
     constraints2.gridy = 0;
-    constraints2.insets = new Insets(10, 0, 20, 20);
-    JPanel panel2 = new JPanel(new GridBagLayout());
-    panel2.add(new JLabel("Please select a level."), constraints2);
+    constraints2.insets = new Insets(10, 25, 20, 20);
+    Image levelSelBackground = Toolkit.getDefaultToolkit().createImage("assets/backgrounds/levelselBackground.png");
+    JPanel panel2 = new BackgroundPanel(levelSelBackground, new GridBagLayout(), true);
+    JLabel levelSelect = new JLabel("Please select a level.");
+    levelSelect.setFont(this.game.deface.deriveFont(20f));
+    levelSelect.setForeground(Color.LIGHT_GRAY);
+    levelSelect.setOpaque(true);
+    levelSelect.setBackground(Color.BLACK);
+    levelSelect.setHorizontalAlignment(SwingConstants.CENTER);
+    panel2.add(levelSelect, constraints2);
 
-    JRadioButton l1;
-    JRadioButton l2;
-    l1 = new JRadioButton("Level 1");
+
+    JRadioButton l1 = new JRadioButton("Level 1");
     l1.setActionCommand("1");
-    l2 = new JRadioButton("Level 2");
+    l1.setFont(this.game.deface.deriveFont(16f));
+    l1.setForeground(Color.LIGHT_GRAY);
+    l1.setBackground(Color.BLACK);
+
+    JRadioButton l2 = new JRadioButton("Level 2");
     l2.setActionCommand("2");
+    l2.setFont(this.game.deface.deriveFont(16f));
+    l2.setForeground(Color.LIGHT_GRAY);
+    l2.setBackground(Color.BLACK);
 
     ButtonGroup levels = new ButtonGroup();
     levels.add(l1);
@@ -125,8 +151,11 @@ public class SetupView {
     panel2.add(l2, constraints2);
 
 
-    JButton next2 = new JButton("Next");
-    next2.addActionListener(actionEvent -> {
+    JButton next = new JButton();
+    next.setBorder(null);
+    Image nextIcon = Toolkit.getDefaultToolkit().createImage("assets/buttons/next.png");
+    next.setIcon(new ImageIcon(nextIcon));
+    next.addActionListener(actionEvent -> {
       ButtonModel model = levels.getSelection();
       if (model == null) {
         return;
@@ -150,7 +179,7 @@ public class SetupView {
     constraints2.fill = GridBagConstraints.NONE;
     constraints2.anchor = GridBagConstraints.LINE_END;
     constraints2.insets = new Insets(0, 0, 10, 30);
-    panel2.add(next2, constraints2);
+    panel2.add(next, constraints2);
 
     mainPanel.add(titleScreen);
     mainPanel.add(panel2);

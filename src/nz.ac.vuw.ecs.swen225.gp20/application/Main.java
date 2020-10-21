@@ -36,11 +36,23 @@ public class Main {
     GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
     env.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("assets/fonts/deface.otf")));
     Main gameInstance = new Main();
-    gameInstance.setup();
+    File f = new File("./tmp_save.txt");
+    if(!f.isFile()) {
+      gameInstance.setup();
+    }
+    else{
+      gameInstance.currLevel = SmallSave.loadFile(f);
+      gameInstance.levelPath = "levels/Level" + gameInstance.currLevel + ".json";
+      gameInstance.quickLoad();
+    }
   }
 
   private void setup() {
     new SetupView(this);
+    this.game = new ApplicationView(this, false);
+  }
+
+  private void quickLoad(){
     this.game = new ApplicationView(this, false);
   }
 

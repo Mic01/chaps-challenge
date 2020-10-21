@@ -15,7 +15,7 @@ public class Exit extends Tile {
   public void moveEvent(Actor actor, Actor.Direction direction) {
     Preconditions.checkNotNull(actor, "Exit moveEvent is being given a null actor");
     actor.getMaze().setFinished();
-    actor.getMaze().setDisplayText("You have reached the Exit!");
+    actor.getMaze().setDisplayText("Maze Completed!");
   }
 
   @Override
