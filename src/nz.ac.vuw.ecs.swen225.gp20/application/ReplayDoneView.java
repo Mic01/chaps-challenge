@@ -57,18 +57,6 @@ public class ReplayDoneView {
   }
 
   private void addToDialog(Container pane) {
-    int toSave;
-    if (game.getMain().currLevel > 2) {
-      toSave = 2;
-    }
-    else{
-      toSave = game.getMain().currLevel + 1;
-    }
-    try {
-      SmallSave.saveFile(toSave);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
     Image background = Toolkit.getDefaultToolkit().createImage("assets/backgrounds/background.png");
     JPanel panel = new BackgroundPanel(background, new GridBagLayout(), true);
 
