@@ -1,0 +1,310 @@
+{
+	"Level1" : {
+		"0": {
+			"Character": "player",
+			"Action": "moveUp",
+			"Time": 0
+		},
+		"1": {
+			"Character": "player",
+			"Action": "moveUp",
+			"Time": 766
+		},
+		"2": {
+			"Character": "player",
+			"Action": "moveUp",
+			"Time": 535
+		},
+		"3": {
+			"Character": "player",
+			"Action": "moveUp",
+			"Time": 1024
+		},
+		"4": {
+			"Character": "player",
+			"Action": "moveUp",
+			"Time": 896
+		},
+		"5": {
+			"Character": "player",
+			"Action": "moveUp",
+			"Time": 208
+		},
+		"6": {
+			"Character": "player",
+			"Action": "moveUp",
+			"Time": 784
+		},
+		"7": {
+			"Character": "player",
+			"Action": "moveRight",
+			"Time": 240
+		},
+		"8": {
+			"Character": "player",
+			"Action": "moveRight",
+			"Time": 216
+		},
+		"9": {
+			"Character": "player",
+			"Action": "moveUp",
+			"Time": 288
+		},
+		"10": {
+			"Character": "player",
+			"Action": "moveLeft",
+			"Time": 408
+		},
+		"11": {
+			"Character": "player",
+			"Action": "moveDown",
+			"Time": 328
+		},
+		"12": {
+			"Character": "player",
+			"Action": "moveDown",
+			"Time": 224
+		},
+		"13": {
+			"Character": "player",
+			"Action": "moveLeft",
+			"Time": 216
+		},
+		"14": {
+			"Character": "player",
+			"Action": "moveUp",
+			"Time": 120
+		},
+		"15": {
+			"Character": "player",
+			"Action": "moveLeft",
+			"Time": 208
+		},
+		"16": {
+			"Character": "player",
+			"Action": "moveUp",
+			"Time": 192
+		},
+		"17": {
+			"Character": "player",
+			"Action": "moveLeft",
+			"Time": 176
+		},
+		"18": {
+			"Character": "player",
+			"Action": "moveUp",
+			"Time": 224
+		},
+		"19": {
+			"Character": "player",
+			"Action": "moveLeft",
+			"Time": 120
+		},
+		"20": {
+			"Character": "player",
+			"Action": "moveDown",
+			"Time": 240
+		},
+		"21": {
+			"Character": "player",
+			"Action": "moveDown",
+			"Time": 200
+		},
+		"22": {
+			"Character": "player",
+			"Action": "moveDown",
+			"Time": 200
+		},
+		"23": {
+			"Character": "player",
+			"Action": "moveDown",
+			"Time": 176
+		},
+		"24": {
+			"Character": "player",
+			"Action": "moveDown",
+			"Time": 184
+		},
+		"25": {
+			"Character": "player",
+			"Action": "moveDown",
+			"Time": 200
+		},
+		"26": {
+			"Character": "player",
+			"Action": "moveRight",
+			"Time": 384
+		},
+		"27": {
+			"Character": "player",
+			"Action": "moveRight",
+			"Time": 224
+		},
+		"28": {
+			"Character": "player",
+			"Action": "moveDown",
+			"Time": 240
+		},
+		"29": {
+			"Character": "player",
+			"Action": "moveLeft",
+			"Time": 272
+		},
+		"30": {
+			"Character": "player",
+			"Action": "moveLeft",
+			"Time": 288
+		},
+		"31": {
+			"Character": "player",
+			"Action": "moveDown",
+			"Time": 336
+		},
+		"32": {
+			"Character": "player",
+			"Action": "moveLeft",
+			"Time": 224
+		},
+		"33": {
+			"Character": "player",
+			"Action": "moveLeft",
+			"Time": 176
+		},
+		"34": {
+			"Character": "player",
+			"Action": "moveLeft",
+			"Time": 184
+		},
+		"35": {
+			"Character": "player",
+			"Action": "moveLeft",
+			"Time": 184
+		},
+		"36": {
+			"Character": "player",
+			"Action": "moveLeft",
+			"Time": 192
+		},
+		"37": {
+			"Character": "player",
+			"Action": "moveLeft",
+			"Time": 208
+		},
+		"38": {
+			"Character": "player",
+			"Action": "moveLeft",
+			"Time": 208
+		},
+		"39": {
+			"Character": "player",
+			"Action": "moveLeft",
+			"Time": 208
+		},
+		"40": {
+			"Character": "player",
+			"Action": "moveLeft",
+			"Time": 208
+		},
+		"41": {
+			"Character": "player",
+			"Action": "moveLeft",
+			"Time": 224
+		},
+		"42": {
+			"Character": "player",
+			"Action": "moveUp",
+			"Time": 416
+		},
+		"43": {
+			"Character": "player",
+			"Action": "moveUp",
+			"Time": 240
+		},
+		"44": {
+			"Character": "player",
+			"Action": "moveUp",
+			"Time": 208
+		},
+		"45": {
+			"Character": "player",
+			"Action": "moveUp",
+			"Time": 296
+		},
+		"46": {
+			"Character": "player",
+			"Action": "moveUp",
+			"Time": 288
+		},
+		"47": {
+			"Character": "player",
+			"Action": "moveLeft",
+			"Time": 272
+		},
+		"48": {
+			"Character": "player",
+			"Action": "moveLeft",
+			"Time": 232
+		},
+		"49": {
+			"Character": "player",
+			"Action": "moveDown",
+			"Time": 224
+		},
+		"50": {
+			"Character": "player",
+			"Action": "moveLeft",
+			"Time": 192
+		},
+		"51": {
+			"Character": "player",
+			"Action": "moveRight",
+			"Time": 304
+		},
+		"52": {
+			"Character": "player",
+			"Action": "moveRight",
+			"Time": 192
+		},
+		"53": {
+			"Character": "player",
+			"Action": "moveRight",
+			"Time": 224
+		},
+		"54": {
+			"Character": "player",
+			"Action": "moveRight",
+			"Time": 232
+		},
+		"55": {
+			"Character": "player",
+			"Action": "moveUp",
+			"Time": 1719
+		},
+		"56": {
+			"Character": "player",
+			"Action": "moveUp",
+			"Time": 0
+		},
+		"57": {
+			"Character": "player",
+			"Action": "moveUp",
+			"Time": 625
+		},
+		"58": {
+			"Character": "player",
+			"Action": "moveLeft",
+			"Time": 232
+		},
+		"59": {
+			"Character": "player",
+			"Action": "moveLeft",
+			"Time": 264
+		},
+		"60": {
+			"Character": "player",
+			"Action": "moveUp",
+			"Time": 480
+		}
+	}
+
+}

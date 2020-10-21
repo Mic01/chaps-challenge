@@ -36,6 +36,6 @@ public class TestCases {
   public void testParse() {
     Playback playback = new Playback();
     playback.load("src/nz.ac.vuw.ecs.swen225.gp20/recnplay/Replays/save.json");
-    System.out.println("Completed parsing");
+    //System.out.println("Completed parsing");
   }
 }

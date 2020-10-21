@@ -56,12 +56,12 @@ public class Action implements Play, Save {
   public void play(ApplicationView application, Playback playback) {
     try {
       //Wait until the required time has elapsed
-      System.out.println("Waited: " + timeSinceLastMove / playback.getCurrentSpeed());
-      System.out.println("Time Scale: " + playback.getCurrentSpeed());
-      System.out.println("Original wait time: " + timeSinceLastMove);
-      System.out.println("Character: " + character);
-      System.out.println("Action: " + action);
-      System.out.println();
+      //System.out.println("Waited: " + timeSinceLastMove / playback.getCurrentSpeed());
+      //System.out.println("Time Scale: " + playback.getCurrentSpeed());
+      //System.out.println("Original wait time: " + timeSinceLastMove);
+      //System.out.println("Character: " + character);
+      //System.out.println("Action: " + action);
+      //System.out.println();
 
       Thread.sleep((long) (timeSinceLastMove / playback.getCurrentSpeed()));
 
