@@ -442,37 +442,19 @@ public class ApplicationView {
       play.addActionListener(actionEvent -> {
         if (replay.isPaused()) {
           replay.resume(currAppli);
-          countdownTimer.start();
-          npcMovementTimer.start();
         } else {
-          Thread repCheck = new Thread(() -> {
-            while (!replay.isDone()){
-            }
-            countdownTimer.stop();
-            npcMovementTimer.stop();
-            System.out.println("Replay done.");
-          });
-          if (!replay.isRunning()){
-            repCheck.start();
-          }
-
-          countdownTimer.start();
-          npcMovementTimer.start();
           replay.play(currAppli);
         }
-
+        startTimers();
       });
       pause.addActionListener(actionEvent -> {
         replay.pause();
-        countdownTimer.stop();
-        npcMovementTimer.stop();
+        stopTimers();
       });
       step.addActionListener(actionEvent -> {
-        countdownTimer.start();
-        npcMovementTimer.start();
+        startTimers();
         replay.step(true, currAppli);
-        countdownTimer.stop();
-        npcMovementTimer.stop();
+        stopTimers();
       });
       speedChange.addActionListener(actionEvent -> {
         if(replay.isPaused() || !replay.isRunning()) {
@@ -701,5 +683,15 @@ public class ApplicationView {
 
   public Main getMain(){
     return this.game;
+  }
+
+  public void stopTimers(){
+    countdownTimer.stop();
+    npcMovementTimer.stop();
+  }
+
+  public void startTimers(){
+    countdownTimer.start();
+    npcMovementTimer.start();
   }
 }
