@@ -1,0 +1,55 @@
+{
+	"Level1" : {
+		"0": {
+			"Character": "player",
+			"Action": "moveUp",
+			"Time": 0
+		},
+		"1": {
+			"Character": "player",
+			"Action": "moveUp",
+			"Time": 320
+		},
+		"2": {
+			"Character": "player",
+			"Action": "moveUp",
+			"Time": 431
+		},
+		"3": {
+			"Character": "player",
+			"Action": "moveUp",
+			"Time": 456
+		},
+		"4": {
+			"Character": "player",
+			"Action": "moveDown",
+			"Time": 423
+		},
+		"5": {
+			"Character": "player",
+			"Action": "moveDown",
+			"Time": 344
+		},
+		"6": {
+			"Character": "player",
+			"Action": "moveDown",
+			"Time": 312
+		},
+		"7": {
+			"Character": "player",
+			"Action": "moveDown",
+			"Time": 264
+		},
+		"8": {
+			"Character": "player",
+			"Action": "moveDown",
+			"Time": 280
+		},
+		"9": {
+			"Character": "player",
+			"Action": "moveDown",
+			"Time": 248
+		}
+	}
+
+}
