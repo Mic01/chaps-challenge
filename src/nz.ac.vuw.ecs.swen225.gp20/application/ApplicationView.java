@@ -443,7 +443,7 @@ public class ApplicationView {
         if (replay.isPaused()) {
           replay.resume();
         } else {
-          replay.play(currAppli, 1.0);
+          replay.play(currAppli, currSpeed);
         }
         countdownTimer.start();
         npcMovementTimer.start();
