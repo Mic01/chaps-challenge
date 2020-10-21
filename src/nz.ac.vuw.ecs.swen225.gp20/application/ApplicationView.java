@@ -580,6 +580,7 @@ public class ApplicationView {
    *            2: move down
    *            3: move left
    *            4: move right
+   * @param isFromLog - True if the command is coming from a replay.
    */
   public void playerMovement(int dir, boolean isFromLog) {
     if (!isPaused) {
