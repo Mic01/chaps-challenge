@@ -1,4 +1,4 @@
-package nz.ac.vuw.ecs.swen225.gp20.persistence;
+package levels;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;

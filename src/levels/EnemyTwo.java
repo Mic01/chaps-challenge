@@ -1,4 +1,4 @@
-package nz.ac.vuw.ecs.swen225.gp20.persistence;
+package levels;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -6,7 +6,7 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.AutoActor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Wall;
 
-public class EnemyThree extends AutoActor {
+public class EnemyTwo extends AutoActor {
   /**
    * A creature that is moving automatically, typically an enemy creature.
    *
@@ -15,14 +15,14 @@ public class EnemyThree extends AutoActor {
    * @param maze      the maze this actor is being made on
    * @param direction the direction of this actor
    */
-  public EnemyThree(int xpos, int ypos, Maze maze, Direction direction) {
+  public EnemyTwo(int xpos, int ypos, Maze maze, Direction direction) {
     super(xpos, ypos, maze, direction);
   }
 
   @Override
   public void autoMove() {
     if (getAdjacentTile(currentDirection) instanceof Wall) {
-      turnAround();
+      turnRight();
     }
     moveForward();
   }
@@ -37,6 +37,6 @@ public class EnemyThree extends AutoActor {
 
   @Override
   public String toString() {
-    return "Enemy1";
+    return "Enemy2";
   }
 }
