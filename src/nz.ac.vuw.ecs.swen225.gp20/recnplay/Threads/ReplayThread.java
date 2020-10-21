@@ -21,12 +21,10 @@ public class ReplayThread extends Dispatch {
    *
    * @param baseNode the node that holds all of the levels and actions
    *
-   * @param timeScale hoe fast should the replay be
-   *
    * @param playback used to control play-pause functionality.
    */
-  public ReplayThread(ApplicationView application, Node baseNode, double timeScale, Playback playback) {
-    super(application, baseNode, timeScale, playback);
+  public ReplayThread(ApplicationView application, Node baseNode, Playback playback) {
+    super(application, baseNode, playback);
   }
 
   /**
@@ -35,7 +33,7 @@ public class ReplayThread extends Dispatch {
   @Override
   public synchronized void run() {
     System.out.println("Started a new replay thread.");
-    baseNode.play(application, timeScale, playback);
+    baseNode.play(application, playback);
     complete = true;
   }
 }
