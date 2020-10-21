@@ -64,7 +64,7 @@ public class ApplicationView {
   /**
    * Initializer for the Gameplay version of ApplicationView.
    *
-   * @param game - Main program
+   * @param game     - Main program
    * @param isReplay - True if the loaded file is a replay, false if it is not.
    */
   public ApplicationView(Main game, boolean isReplay) {
@@ -80,8 +80,8 @@ public class ApplicationView {
   /**
    * Initializer for the Replay version of ApplicationView.
    *
-   * @param game - Main program
-   * @param isReplay - True if the loaded file is a replay, false if it is not.
+   * @param game       - Main program
+   * @param isReplay   - True if the loaded file is a replay, false if it is not.
    * @param replayPath - Filepath for the replay.
    */
   public ApplicationView(Main game, boolean isReplay, String replayPath) {
@@ -674,6 +674,14 @@ public class ApplicationView {
       dir.setText("");
       this.countdownTimer.start();
     }
+  }
+
+  public void loadReplay(){
+    showLoadReplayDialogue();
+  }
+
+  public void makeReplayDialog(){
+    new ReplayDoneView(this.window, this);
   }
 
   private double changeReplaySpeed(double toChange) {
