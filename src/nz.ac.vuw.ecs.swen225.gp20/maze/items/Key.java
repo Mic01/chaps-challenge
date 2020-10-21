@@ -7,6 +7,11 @@ import java.io.IOException;
 public class Key extends Item {
   private final String colour;
 
+  /**
+   * Key used to open locked doors.
+   *
+   * @param colour colour of key
+   */
   public Key(String colour) {
     Preconditions.checkNotNull(colour, "A Key is being provided with a null colour string");
     Preconditions.checkArgument(colour.length() > 0,

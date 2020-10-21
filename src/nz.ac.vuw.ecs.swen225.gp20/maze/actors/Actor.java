@@ -265,7 +265,8 @@ public abstract class Actor {
   }
 
   /**
-   * Is this actor dead
+   * Is this actor dead.
+   *
    * @return whether the actor is dead
    */
   public boolean isDead() {
@@ -289,7 +290,8 @@ public abstract class Actor {
   }
 
   /**
-   * The maze that this player is in
+   * The maze that this player is in.
+   *
    * @return the maze that this player is in
    */
   public Maze getMaze() {
@@ -297,7 +299,8 @@ public abstract class Actor {
   }
 
   /**
-   * Is this actor a player
+   * Is this actor a player.
+   *
    * @return whether this actor is a player
    */
   public boolean isPlayer() {
