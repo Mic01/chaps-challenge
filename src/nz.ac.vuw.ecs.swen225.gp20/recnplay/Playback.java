@@ -161,4 +161,18 @@ public class Playback {
   public void setReplaySpeed(double speed) {
     this.speed = speed;
   }
+
+  /**
+   * Mark the replay as complete.
+   */
+  public void markDone() {
+    isDone = true;
+  }
+
+  /**
+   * check if the replay is complete.
+   */
+  public boolean isDone() {
+    return isDone;
+  }
 }
