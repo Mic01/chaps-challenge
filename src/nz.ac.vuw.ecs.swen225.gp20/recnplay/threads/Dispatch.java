@@ -1,8 +1,8 @@
-package nz.ac.vuw.ecs.swen225.gp20.recnplay.Threads;
+package nz.ac.vuw.ecs.swen225.gp20.recnplay.threads;
 
 import nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView;
-import nz.ac.vuw.ecs.swen225.gp20.recnplay.Elements.Node;
 import nz.ac.vuw.ecs.swen225.gp20.recnplay.Playback;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.elements.Node;
 
 /**
  * This class is used to dispatch the replays on a separate thread
@@ -12,7 +12,6 @@ import nz.ac.vuw.ecs.swen225.gp20.recnplay.Playback;
  */
 public abstract class Dispatch extends Thread {
   Node baseNode;
-  double timeScale;
   boolean complete;
   ApplicationView application;
   Playback playback;
@@ -28,13 +27,12 @@ public abstract class Dispatch extends Thread {
    */
   public Dispatch(ApplicationView application, Node baseNode, Playback playback) {
     this.baseNode = baseNode;
-    this.timeScale = timeScale;
     this.application = application;
     this.playback = playback;
   }
 
   /**
-   * Default constructor
+   * Default constructor.
    */
   protected Dispatch() {
   }

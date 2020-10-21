@@ -1,10 +1,7 @@
 package nz.ac.vuw.ecs.swen225.gp20.recnplay;
 
-import nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView;
-import nz.ac.vuw.ecs.swen225.gp20.application.Main;
-import org.junit.jupiter.api.Test;
-
 import java.io.File;
+import org.junit.jupiter.api.Test;
 
 public class TestCases {
   @Test

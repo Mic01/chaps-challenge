@@ -1,8 +1,8 @@
-package nz.ac.vuw.ecs.swen225.gp20.recnplay.Threads;
+package nz.ac.vuw.ecs.swen225.gp20.recnplay.threads;
 
 import nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView;
-import nz.ac.vuw.ecs.swen225.gp20.recnplay.Elements.Node;
 import nz.ac.vuw.ecs.swen225.gp20.recnplay.Playback;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.elements.Node;
 
 /**
  * This class handles the the replay.
