@@ -1,0 +1,446 @@
+@startuml
+
+title __CHAPS-CHALLENGE's Class Diagram__\n
+
+  namespace levels {
+    class levels.EnemyOne {
+    }
+  }
+  
+
+  namespace levels {
+    class levels.EnemyThree {
+    }
+  }
+  
+
+  namespace levels {
+    class levels.EnemyTwo {
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.application {
+    class nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView {
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.application {
+    class nz.ac.vuw.ecs.swen225.gp20.application.BackgroundPanel {
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.application {
+    class nz.ac.vuw.ecs.swen225.gp20.application.HelpView {
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.application {
+    class nz.ac.vuw.ecs.swen225.gp20.application.InventoryPanel {
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.application {
+    class nz.ac.vuw.ecs.swen225.gp20.application.LevelLostView {
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.application {
+    class nz.ac.vuw.ecs.swen225.gp20.application.LevelWonView {
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.application {
+    class nz.ac.vuw.ecs.swen225.gp20.application.Main {
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.application {
+    class nz.ac.vuw.ecs.swen225.gp20.application.ReplayDoneView {
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.application {
+    class nz.ac.vuw.ecs.swen225.gp20.application.SetupView {
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.application {
+    class nz.ac.vuw.ecs.swen225.gp20.application.SmallSave {
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.maze {
+    class nz.ac.vuw.ecs.swen225.gp20.maze.Maze {
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.maze {
+    namespace actors {
+      abstract class nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor {
+      }
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.maze {
+    namespace actors {
+      abstract class nz.ac.vuw.ecs.swen225.gp20.maze.actors.AutoActor {
+      }
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.maze {
+    namespace actors {
+      class nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player {
+      }
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.maze {
+    namespace items {
+      class nz.ac.vuw.ecs.swen225.gp20.maze.items.IcePotion {
+      }
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.maze {
+    namespace items {
+      abstract class nz.ac.vuw.ecs.swen225.gp20.maze.items.Item {
+      }
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.maze {
+    namespace items {
+      class nz.ac.vuw.ecs.swen225.gp20.maze.items.Key {
+      }
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.maze {
+    namespace items {
+      class nz.ac.vuw.ecs.swen225.gp20.maze.items.Treasure {
+      }
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.maze {
+    namespace items {
+      class nz.ac.vuw.ecs.swen225.gp20.maze.items.WaterPotion {
+      }
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.maze {
+    namespace tiles {
+      class nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Conveyor {
+      }
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.maze {
+    namespace tiles {
+      class nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Exit {
+      }
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.maze {
+    namespace tiles {
+      class nz.ac.vuw.ecs.swen225.gp20.maze.tiles.ExitLock {
+      }
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.maze {
+    namespace tiles {
+      class nz.ac.vuw.ecs.swen225.gp20.maze.tiles.FreeTile {
+      }
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.maze {
+    namespace tiles {
+      class nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Ice {
+      }
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.maze {
+    namespace tiles {
+      class nz.ac.vuw.ecs.swen225.gp20.maze.tiles.InfoTile {
+      }
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.maze {
+    namespace tiles {
+      class nz.ac.vuw.ecs.swen225.gp20.maze.tiles.LockedDoor {
+      }
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.maze {
+    namespace tiles {
+      class nz.ac.vuw.ecs.swen225.gp20.maze.tiles.NullTile {
+      }
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.maze {
+    namespace tiles {
+      abstract class nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile {
+      }
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.maze {
+    namespace tiles {
+      class nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Vent {
+      }
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.maze {
+    namespace tiles {
+      class nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Wall {
+      }
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.maze {
+    namespace tiles {
+      class nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Water {
+      }
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.persistence {
+    class nz.ac.vuw.ecs.swen225.gp20.persistence.Persistence {
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.recnplay {
+    class nz.ac.vuw.ecs.swen225.gp20.recnplay.Playback {
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.recnplay {
+    class nz.ac.vuw.ecs.swen225.gp20.recnplay.Replay {
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.recnplay {
+    class nz.ac.vuw.ecs.swen225.gp20.recnplay.TestCases {
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.recnplay {
+    namespace elements {
+      class nz.ac.vuw.ecs.swen225.gp20.recnplay.elements.Action {
+      }
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.recnplay {
+    namespace elements {
+      class nz.ac.vuw.ecs.swen225.gp20.recnplay.elements.Level {
+      }
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.recnplay {
+    namespace elements {
+      class nz.ac.vuw.ecs.swen225.gp20.recnplay.elements.Node {
+      }
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.recnplay {
+    namespace interfaces {
+      interface nz.ac.vuw.ecs.swen225.gp20.recnplay.interfaces.Play {
+      }
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.recnplay {
+    namespace interfaces {
+      interface nz.ac.vuw.ecs.swen225.gp20.recnplay.interfaces.Save {
+      }
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.recnplay {
+    namespace threads {
+      class nz.ac.vuw.ecs.swen225.gp20.recnplay.threads.ActionThread {
+      }
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.recnplay {
+    namespace threads {
+      abstract class nz.ac.vuw.ecs.swen225.gp20.recnplay.threads.Dispatch {
+      }
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.recnplay {
+    namespace threads {
+      class nz.ac.vuw.ecs.swen225.gp20.recnplay.threads.ReplayThread {
+      }
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.recnplay {
+    namespace threads {
+      class nz.ac.vuw.ecs.swen225.gp20.recnplay.threads.WaitThread {
+      }
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.render {
+    class nz.ac.vuw.ecs.swen225.gp20.render.AudioPlayer {
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.render {
+    class nz.ac.vuw.ecs.swen225.gp20.render.Board {
+    }
+  }
+  
+
+  namespace nz.ac.vuw.ecs.swen225.gp20.render {
+    class nz.ac.vuw.ecs.swen225.gp20.render.SoundEffect {
+    }
+  }
+  
+
+  namespace test.nz.ac.vuw.ecs.swen225.gp20.maze {
+    class test.nz.ac.vuw.ecs.swen225.gp20.maze.MazeTest {
+    }
+  }
+  
+
+  namespace test.nz.ac.vuw.ecs.swen225.gp20.persistence {
+    class test.nz.ac.vuw.ecs.swen225.gp20.persistence.PersistenceTest {
+    }
+  }
+  
+
+  levels.EnemyOne -up-|> nz.ac.vuw.ecs.swen225.gp20.maze.actors.AutoActor
+  levels.EnemyThree -up-|> nz.ac.vuw.ecs.swen225.gp20.maze.actors.AutoActor
+  levels.EnemyTwo -up-|> nz.ac.vuw.ecs.swen225.gp20.maze.actors.AutoActor
+  nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView o-- nz.ac.vuw.ecs.swen225.gp20.application.Main : game
+  nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView o-- nz.ac.vuw.ecs.swen225.gp20.application.HelpView : helpView
+  nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView o-- nz.ac.vuw.ecs.swen225.gp20.recnplay.Replay : log
+  nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView o-- nz.ac.vuw.ecs.swen225.gp20.maze.Maze : maze
+  nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView o-- nz.ac.vuw.ecs.swen225.gp20.render.Board : viewport
+  nz.ac.vuw.ecs.swen225.gp20.application.BackgroundPanel -up-|> javax.swing.JPanel
+  nz.ac.vuw.ecs.swen225.gp20.application.HelpView -up-|> javax.swing.JDialog
+  nz.ac.vuw.ecs.swen225.gp20.application.InventoryPanel -up-|> javax.swing.JPanel
+  nz.ac.vuw.ecs.swen225.gp20.application.InventoryPanel o-- nz.ac.vuw.ecs.swen225.gp20.maze.Maze : maze
+  nz.ac.vuw.ecs.swen225.gp20.application.LevelLostView o-- nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView : game
+  nz.ac.vuw.ecs.swen225.gp20.application.LevelWonView o-- nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView : game
+  nz.ac.vuw.ecs.swen225.gp20.application.Main o-- nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView : game
+  nz.ac.vuw.ecs.swen225.gp20.application.ReplayDoneView o-- nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView : game
+  nz.ac.vuw.ecs.swen225.gp20.application.SetupView o-- nz.ac.vuw.ecs.swen225.gp20.application.Main : game
+  nz.ac.vuw.ecs.swen225.gp20.maze.Maze o-- nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player : player
+  nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor o-- nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor.Direction : currentDirection
+  nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor o-- nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile : currentTile
+  nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor o-- nz.ac.vuw.ecs.swen225.gp20.maze.Maze : maze
+  nz.ac.vuw.ecs.swen225.gp20.maze.actors.AutoActor -up-|> nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor
+  nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player -up-|> nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor
+  nz.ac.vuw.ecs.swen225.gp20.maze.items.IcePotion -up-|> nz.ac.vuw.ecs.swen225.gp20.maze.items.Item
+  nz.ac.vuw.ecs.swen225.gp20.maze.items.Key -up-|> nz.ac.vuw.ecs.swen225.gp20.maze.items.Item
+  nz.ac.vuw.ecs.swen225.gp20.maze.items.Treasure -up-|> nz.ac.vuw.ecs.swen225.gp20.maze.items.Item
+  nz.ac.vuw.ecs.swen225.gp20.maze.items.WaterPotion -up-|> nz.ac.vuw.ecs.swen225.gp20.maze.items.Item
+  nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Conveyor -up-|> nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile
+  nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Conveyor o-- nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor.Direction : moveDirection
+  nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Exit -up-|> nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile
+  nz.ac.vuw.ecs.swen225.gp20.maze.tiles.ExitLock -up-|> nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile
+  nz.ac.vuw.ecs.swen225.gp20.maze.tiles.FreeTile -up-|> nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile
+  nz.ac.vuw.ecs.swen225.gp20.maze.tiles.FreeTile o-- nz.ac.vuw.ecs.swen225.gp20.maze.items.Item : item
+  nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Ice -up-|> nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile
+  nz.ac.vuw.ecs.swen225.gp20.maze.tiles.InfoTile -up-|> nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile
+  nz.ac.vuw.ecs.swen225.gp20.maze.tiles.LockedDoor -up-|> nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile
+  nz.ac.vuw.ecs.swen225.gp20.maze.tiles.NullTile -up-|> nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile
+  nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile o-- nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor : actor
+  nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Vent -up-|> nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile
+  nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Wall -up-|> nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile
+  nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Water -up-|> nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile
+  nz.ac.vuw.ecs.swen225.gp20.recnplay.Playback o-- nz.ac.vuw.ecs.swen225.gp20.recnplay.elements.Node : baseNode
+  nz.ac.vuw.ecs.swen225.gp20.recnplay.Playback o-- nz.ac.vuw.ecs.swen225.gp20.recnplay.threads.Dispatch : dispatchThread
+  nz.ac.vuw.ecs.swen225.gp20.recnplay.Replay o-- nz.ac.vuw.ecs.swen225.gp20.recnplay.elements.Level : currentLevel
+  nz.ac.vuw.ecs.swen225.gp20.recnplay.elements.Action .up.|> nz.ac.vuw.ecs.swen225.gp20.recnplay.interfaces.Play
+  nz.ac.vuw.ecs.swen225.gp20.recnplay.elements.Action .up.|> nz.ac.vuw.ecs.swen225.gp20.recnplay.interfaces.Save
+  nz.ac.vuw.ecs.swen225.gp20.recnplay.elements.Level .up.|> nz.ac.vuw.ecs.swen225.gp20.recnplay.interfaces.Play
+  nz.ac.vuw.ecs.swen225.gp20.recnplay.elements.Level .up.|> nz.ac.vuw.ecs.swen225.gp20.recnplay.interfaces.Save
+  nz.ac.vuw.ecs.swen225.gp20.recnplay.elements.Node .up.|> nz.ac.vuw.ecs.swen225.gp20.recnplay.interfaces.Play
+  nz.ac.vuw.ecs.swen225.gp20.recnplay.threads.ActionThread -up-|> nz.ac.vuw.ecs.swen225.gp20.recnplay.threads.Dispatch
+  nz.ac.vuw.ecs.swen225.gp20.recnplay.threads.Dispatch o-- nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView : application
+  nz.ac.vuw.ecs.swen225.gp20.recnplay.threads.Dispatch o-- nz.ac.vuw.ecs.swen225.gp20.recnplay.elements.Node : baseNode
+  nz.ac.vuw.ecs.swen225.gp20.recnplay.threads.Dispatch o-- nz.ac.vuw.ecs.swen225.gp20.recnplay.Playback : playback
+  nz.ac.vuw.ecs.swen225.gp20.recnplay.threads.ReplayThread -up-|> nz.ac.vuw.ecs.swen225.gp20.recnplay.threads.Dispatch
+  nz.ac.vuw.ecs.swen225.gp20.recnplay.threads.WaitThread -up-|> nz.ac.vuw.ecs.swen225.gp20.recnplay.threads.Dispatch
+  nz.ac.vuw.ecs.swen225.gp20.recnplay.threads.WaitThread o-- nz.ac.vuw.ecs.swen225.gp20.recnplay.threads.Dispatch : dispatchThread
+  nz.ac.vuw.ecs.swen225.gp20.render.AudioPlayer .up.|> javax.sound.sampled.LineListener
+  nz.ac.vuw.ecs.swen225.gp20.render.Board .up.|> java.awt.event.ActionListener
+  nz.ac.vuw.ecs.swen225.gp20.render.Board -up-|> javax.swing.JPanel
+  nz.ac.vuw.ecs.swen225.gp20.render.Board o-- nz.ac.vuw.ecs.swen225.gp20.render.AudioPlayer : audioPlayer
+  nz.ac.vuw.ecs.swen225.gp20.render.Board o-- nz.ac.vuw.ecs.swen225.gp20.maze.Maze : maze
+  nz.ac.vuw.ecs.swen225.gp20.render.Board o-- nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player : player
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml
