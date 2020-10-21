@@ -3,9 +3,10 @@ package nz.ac.vuw.ecs.swen225.gp20.recnplay.elements;
 import java.util.ArrayList;
 import java.util.Objects;
 import nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.Playback;
 import nz.ac.vuw.ecs.swen225.gp20.recnplay.interfaces.Play;
 import nz.ac.vuw.ecs.swen225.gp20.recnplay.interfaces.Save;
-import nz.ac.vuw.ecs.swen225.gp20.recnplay.Playback;
+
 
 /**
  * This class holds the levels as they are saved.
@@ -28,7 +29,11 @@ public class Level implements Play, Save {
   /**
    * Add an action to this level.
    *
+   * @param character the character to move
+   *
    * @param action action to add.
+   *
+   * @param time the time between this move and the last one
    */
   public void addAction(String character, String action, long time) {
     actions.add(new Action(character, action, time));
