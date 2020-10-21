@@ -125,4 +125,13 @@ public class Playback {
   public boolean isStep() {
     return step;
   }
+
+  /**
+   * Check if the replay is running.
+   *
+   * @return the running status.
+   */
+  public boolean isRunning() {
+    return this.running;
+  }
 }

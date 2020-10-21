@@ -57,6 +57,7 @@ public class ApplicationView {
   private String replayPath = "";
   private Timer countdownTimer = null;
   private Timer npcMovementTimer = null;
+  private double currSpeed;
 
 
   /**
@@ -129,7 +130,7 @@ public class ApplicationView {
             .put("startGameAtUnfinishedLevel", new AbstractAction() {
               @Override
               public void actionPerformed(ActionEvent actionEvent) {
-
+                game.restartLevel(game.currLevel);
               }
             });
     this.window.getRootPane().getActionMap().put("startGameAtLevel1", new AbstractAction() {
@@ -252,11 +253,16 @@ public class ApplicationView {
           new LevelLostView(window, currentGame, true);
         }
         timeLeft--;
+        if(timeLeft < 0){
+          timeLeft = 0;
+        }
         maze.setTimeLimit(timeLeft);
       }
     };
     this.countdownTimer = new javax.swing.Timer(1000, countdown);
-    this.countdownTimer.start();
+    if(!isReplay) {
+      this.countdownTimer.start();
+    }
 
     ActionListener npcMovement = actionEvent -> {
       if (gameOver) {
@@ -278,7 +284,9 @@ public class ApplicationView {
       }
     };
     this.npcMovementTimer = new Timer(250, npcMovement);
-    this.npcMovementTimer.start();
+    if(!isReplay) {
+      this.npcMovementTimer.start();
+    }
 
     JButton left = new JButton();
     left.setBorder(null);
@@ -429,6 +437,7 @@ public class ApplicationView {
       JButton pause = new JButton("‖");
       JButton play = new JButton("⯈");
       JButton step = new JButton("🡺");
+      JButton speedChange = new JButton("s");
 
       play.addActionListener(actionEvent -> {
         if (replay.isPaused()) {
@@ -436,9 +445,31 @@ public class ApplicationView {
         } else {
           replay.play(currAppli, 1.0);
         }
+        countdownTimer.start();
+        npcMovementTimer.start();
       });
-      pause.addActionListener(actionEvent -> replay.pause());
-      step.addActionListener(actionEvent -> replay.step(true));
+      pause.addActionListener(actionEvent -> {
+        replay.pause();
+        countdownTimer.stop();
+        npcMovementTimer.stop();
+      });
+      step.addActionListener(actionEvent -> {
+        countdownTimer.start();
+        npcMovementTimer.start();
+        replay.step(true);
+        countdownTimer.stop();
+        npcMovementTimer.stop();
+      });
+      speedChange.addActionListener(actionEvent -> {
+        if(replay.isPaused() || !replay.isRunning()) {
+          currSpeed = changeReplaySpeed(currSpeed);
+          viewport.setAnimateSpeed(currSpeed);
+          double countTimerValue = (1000 * currSpeed);
+          countdownTimer.setDelay((int)countTimerValue);
+          double actorTimerValue = (250 * currSpeed);
+          countdownTimer.setDelay((int)actorTimerValue);
+        }
+      });
 
       GridBagConstraints replayConstraints = new GridBagConstraints();
       replayConstraints.gridx = 0;
@@ -454,6 +485,9 @@ public class ApplicationView {
 
       replayConstraints.gridx = 2;
       replayWindow.add(step, replayConstraints);
+
+      replayConstraints.gridx = 3;
+      replayWindow.add(speedChange, replayConstraints);
     }
 
 
@@ -633,6 +667,17 @@ public class ApplicationView {
       dir.setText("");
       this.countdownTimer.start();
     }
+  }
+
+  private double changeReplaySpeed(double toChange){
+    double newSpeed;
+    if(toChange < 2.0){
+      newSpeed = toChange + 0.5;
+    }
+    else{
+      newSpeed = 0.5;
+    }
+    return newSpeed;
   }
 
   public void disposeWindow() {
