@@ -82,12 +82,12 @@ public class Replay {
       levelHistory.add(currentLevel);
     }
 
-    System.out.println("Attempting to save the level.");
+    //System.out.println("Attempting to save the level.");
 
     //Write the data to the file
     FileWriter writer = null;
     try {
-      System.out.println("Last level name is: " + levelName);
+      //System.out.println("Last level name is: " + levelName);
 
       writer = new FileWriter(replay, StandardCharsets.UTF_8);
 

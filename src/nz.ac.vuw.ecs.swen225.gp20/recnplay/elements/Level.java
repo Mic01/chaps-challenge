@@ -107,7 +107,7 @@ public class Level implements Play, Save {
    */
   @Override
   public void play(ApplicationView application, Playback playback) {
-    System.out.println("Next level: " + levelName);
+    //System.out.println("Next level: " + levelName);
     for (Action action : actions) {
       action.play(application, playback);
 
@@ -123,6 +123,6 @@ public class Level implements Play, Save {
     //display popup
     application.makeReplayDialog();
 
-    System.out.println("Replay complete");
+    //System.out.println("Replay complete");
   }
 }

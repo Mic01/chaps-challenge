@@ -32,7 +32,7 @@ public class ReplayThread extends Dispatch {
    */
   @Override
   public synchronized void run() {
-    System.out.println("Started a new replay thread.");
+    //System.out.println("Started a new replay thread.");
     baseNode.play(application, playback);
     complete = true;
   }

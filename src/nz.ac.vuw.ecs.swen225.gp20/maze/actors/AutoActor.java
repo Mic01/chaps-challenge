@@ -14,6 +14,7 @@ public abstract class AutoActor extends Actor {
    * @param xpos the xpos to start this actor at
    * @param ypos the ypos to start this actor at
    * @param maze the maze this actor is being made on
+   * @param direction the direction that this AutoActor is facing to start with
    */
   public AutoActor(int xpos, int ypos, Maze maze, Direction direction) {
     super(xpos, ypos, maze);
@@ -53,6 +54,7 @@ public abstract class AutoActor extends Actor {
   /**
    * Get the tile adjacent this AutoActor, in the provided direction.
    *
+   * @param direction the direction to fetch the adjacent tile from
    * @return the Tile next to this AutoActor
    */
   protected Tile getAdjacentTile(Direction direction) {

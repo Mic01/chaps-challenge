@@ -334,9 +334,9 @@ public class MazeTest {
 
     // Walk into wall
     assert !player.moveLeft();
-    assert player.moveTo(7,7);
+    assert player.moveTo(7, 7);
     assert !player.moveDown();
-    assert player.moveTo(7,9);
+    assert player.moveTo(7, 9);
     assert !player.moveUp();
   }
 
@@ -370,7 +370,7 @@ public class MazeTest {
     Player player = maze.getPlayer();
 
     // Vent
-    assert player.moveTo(8,7);
+    assert player.moveTo(8, 7);
     assert player.moveUp();
     assert !player.isOn(Vent.class);
   }
@@ -381,7 +381,7 @@ public class MazeTest {
     Player player = maze.getPlayer();
 
     // Conveyor
-    assert player.moveTo(9,9);
+    assert player.moveTo(9, 9);
     assert player.moveDown();
     assert player.isOn(Conveyor.class);
     // Animation pause test
@@ -399,7 +399,7 @@ public class MazeTest {
     Player player = maze.getPlayer();
 
     // Ice
-    assert player.moveTo(8,9);
+    assert player.moveTo(8, 9);
     assert player.moveDown();
     assert player.isOn(Ice.class);
     // Animation pause test
@@ -411,7 +411,7 @@ public class MazeTest {
     }
 
     // Ice with potion
-    assert player.moveTo(7,9);
+    assert player.moveTo(7, 9);
     assert player.moveDown();
     assert player.moveRight();
   }

@@ -16,6 +16,6 @@ public class WaitThread extends Dispatch {
     //This thread will run until the replay is complete.
     while (!dispatchThread.isComplete()){}
 
-    System.out.println("Dispatch thread complete.");
+    //System.out.println("Dispatch thread complete.");
   }
 }
