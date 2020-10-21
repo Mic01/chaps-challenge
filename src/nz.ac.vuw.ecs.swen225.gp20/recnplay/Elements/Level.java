@@ -114,7 +114,7 @@ public class Level implements Play, Save {
       action.play(application, timeScale, playback);
 
       if (playback.isStep()) {
-        playback.step(false);
+        playback.step(false, application, timeScale);
         playback.pause();
       }
     }
