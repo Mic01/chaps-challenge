@@ -18,7 +18,6 @@ import javax.json.JsonObjectBuilder;
 import javax.json.JsonValue;
 import javax.json.stream.JsonParser;
 import javax.json.stream.JsonParser.Event;
-
 import levels.EnemyOne;
 import levels.EnemyThree;
 import levels.EnemyTwo;
@@ -147,6 +146,7 @@ public class Persistence {
               mazeObject.setTreasuresLeft(obj.getInt("chips"));
               break;
             case "Info":
+              System.out.println(obj.getString("text"));
               maze[obj.getInt("x")][obj.getInt("y")] = new InfoTile(obj.getString("text"));
               break;
             case "Conveyor":

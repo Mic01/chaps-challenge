@@ -21,7 +21,7 @@ public class EnemyOne extends AutoActor {
 
   @Override
   public void autoMove() {
-    if (getAdjacentTile(currentDirection) instanceof Wall) {
+    if (!getAdjacentTile(currentDirection).isTraversable(this)) {
       turnLeft();
     }
     moveForward();
