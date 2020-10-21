@@ -57,7 +57,8 @@ public class ApplicationView {
   private String replayPath = "";
   private Timer countdownTimer = null;
   private Timer npcMovementTimer = null;
-  private double currSpeed;
+  private double currSpeed = 1.0;
+  private JLabel replaySpeed;
 
 
   /**
@@ -206,7 +207,8 @@ public class ApplicationView {
     this.mainWindow.setMinimumSize(new Dimension(630, 630));
     this.mainWindow.setPreferredSize(new Dimension(630, 630));
     this.mainWindow.setBackground(Color.BLACK);
-    Image sideBackground = Toolkit.getDefaultToolkit().createImage("assets/backgrounds/sideBackground.png");
+    Image sideBackground = Toolkit.getDefaultToolkit()
+            .createImage("assets/backgrounds/sideBackground.png");
     JPanel sideWindow = new BackgroundPanel(sideBackground, new GridBagLayout(), true);
     sideWindow.setMinimumSize(new Dimension(150, 100));
     sideWindow.setPreferredSize(new Dimension(150, 100));
@@ -253,14 +255,14 @@ public class ApplicationView {
           new LevelLostView(window, currentGame, true);
         }
         timeLeft--;
-        if(timeLeft < 0){
+        if (timeLeft < 0) {
           timeLeft = 0;
         }
         maze.setTimeLimit(timeLeft);
       }
     };
     this.countdownTimer = new javax.swing.Timer(1000, countdown);
-    if(!isReplay) {
+    if (!isReplay) {
       this.countdownTimer.start();
     }
 
@@ -284,7 +286,7 @@ public class ApplicationView {
       }
     };
     this.npcMovementTimer = new Timer(250, npcMovement);
-    if(!isReplay) {
+    if (!isReplay) {
       this.npcMovementTimer.start();
     }
 
@@ -352,7 +354,8 @@ public class ApplicationView {
 
     JButton removeSave = new JButton();
     removeSave.setBorder(null);
-    Image removeSaveIcon = Toolkit.getDefaultToolkit().createImage("assets/buttons/remove_save.png");
+    Image removeSaveIcon = Toolkit.getDefaultToolkit()
+            .createImage("assets/buttons/remove_save.png");
     removeSave.setIcon(new ImageIcon(removeSaveIcon));
     removeSave.addActionListener(actionEvent -> SmallSave.removeFile());
 
@@ -416,7 +419,8 @@ public class ApplicationView {
     sideConstraints.insets = new Insets(10, -113, 0, 0);
     sideWindow.add(quitGame, sideConstraints);
 
-    Image invBackground = Toolkit.getDefaultToolkit().createImage("assets/backgrounds/invBackground.png");
+    Image invBackground = Toolkit.getDefaultToolkit()
+            .createImage("assets/backgrounds/invBackground.png");
     this.lowerWindow = new InventoryPanel(this.maze, invBackground);
     this.lowerWindow.setMinimumSize(new Dimension(100, 150));
     this.lowerWindow.setPreferredSize(new Dimension(100, 150));
@@ -437,7 +441,6 @@ public class ApplicationView {
       JButton pause = new JButton("‖");
       JButton play = new JButton("⯈");
       JButton step = new JButton("🡺");
-      JButton speedChange = new JButton("s");
 
       play.addActionListener(actionEvent -> {
         if (replay.isPaused()) {
@@ -456,17 +459,22 @@ public class ApplicationView {
         replay.step(true, currAppli);
         stopTimers();
       });
+
+      JButton speedChange = new JButton("s");
       speedChange.addActionListener(actionEvent -> {
-        if(replay.isPaused() || !replay.isRunning()) {
+        if (replay.isPaused() || !replay.isRunning()) {
           currSpeed = changeReplaySpeed(currSpeed);
           viewport.setAnimateSpeed(currSpeed);
           replay.setReplaySpeed(currSpeed);
           double countTimerValue = (1000 * currSpeed);
-          countdownTimer.setDelay((int)countTimerValue);
+          countdownTimer.setDelay((int) countTimerValue);
           double actorTimerValue = (250 * currSpeed);
-          countdownTimer.setDelay((int)actorTimerValue);
+          countdownTimer.setDelay((int) actorTimerValue);
+          this.replaySpeed.setText("Current speed: " + this.currSpeed);
         }
       });
+
+      this.replaySpeed = new JLabel("Current speed: " + this.currSpeed);
 
       GridBagConstraints replayConstraints = new GridBagConstraints();
       replayConstraints.gridx = 0;
@@ -485,8 +493,10 @@ public class ApplicationView {
 
       replayConstraints.gridx = 3;
       replayWindow.add(speedChange, replayConstraints);
-    }
 
+      replayConstraints.gridx = 4;
+      replayWindow.add(this.replaySpeed, replayConstraints);
+    }
 
     GridBagConstraints constraints = new GridBagConstraints();
     constraints.gridx = 0;
@@ -666,12 +676,11 @@ public class ApplicationView {
     }
   }
 
-  private double changeReplaySpeed(double toChange){
+  private double changeReplaySpeed(double toChange) {
     double newSpeed;
-    if(toChange < 2.0){
+    if (toChange < 2.0) {
       newSpeed = toChange + 0.5;
-    }
-    else{
+    } else {
       newSpeed = 0.5;
     }
     return newSpeed;
@@ -681,16 +690,16 @@ public class ApplicationView {
     this.window.dispose();
   }
 
-  public Main getMain(){
+  public Main getMain() {
     return this.game;
   }
 
-  public void stopTimers(){
+  public void stopTimers() {
     countdownTimer.stop();
     npcMovementTimer.stop();
   }
 
-  public void startTimers(){
+  public void startTimers() {
     countdownTimer.start();
     npcMovementTimer.start();
   }
