@@ -27,7 +27,7 @@ public class LevelLostView {
    * Creates the borderless dialog informing the player that they have lost.
    *
    * @param owner - The main game frame.
-   * @param game - The main game state.
+   * @param game  - The main game state.
    */
   public LevelLostView(JFrame owner, ApplicationView game, boolean timeOut) {
     this.owner = owner;
