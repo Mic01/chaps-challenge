@@ -29,7 +29,8 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Water;
 
 /**
- * Renderer class for displaying the board.
+ * Renderer class for displaying the board,
+ * Draws the visible tiles, performs animations.
  */
 public class Board extends JPanel implements ActionListener {
 
@@ -349,7 +350,7 @@ public class Board extends JPanel implements ActionListener {
    * @param speed multiplier to delay time (ie 2x or 0.5x)
    */
   public void setAnimateSpeed(double speed) {
-    timer = new Timer((int)(sleepTime / speed), this);
+    timer = new Timer((int) (sleepTime / speed), this);
   }
 
   @Override
