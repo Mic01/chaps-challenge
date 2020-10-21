@@ -79,6 +79,7 @@ public class Main {
    */
   public void restartLevel(int currLevel) {
     this.currLevel = currLevel;
+    this.levelPath = "levels/Level" + this.currLevel + ".json";
     this.game.disposeWindow();
     this.game = new ApplicationView(this, false);
   }
