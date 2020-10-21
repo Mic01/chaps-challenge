@@ -37,6 +37,6 @@ public class EnemyTwo extends AutoActor {
 
   @Override
   public String toString() {
-    return "Enemy2";
+    return "Enemy";
   }
 }

@@ -247,8 +247,8 @@ public class Persistence {
           //free tiles could have items and actors that need saving
           if ((currentTile).hasActor()) {
             Actor actor = ((FreeTile) currentTile).getActor();
+            object.add("slot", actor.toString());
             if (actor instanceof Player) {
-              object.add("slot", "Player");
               JsonArrayBuilder array = Json.createArrayBuilder();
               for (Item item : ((Player) actor).getInventory()) {
                 JsonObjectBuilder itemObject = Json.createObjectBuilder();
@@ -257,7 +257,6 @@ public class Persistence {
               }
               object.add("inventory", array);
             } else {
-              object.add("slot", "Enemy");
               object.add("direction", (((AutoActor) actor).getCurrentDirection()).toString());
 
               if (actor instanceof EnemyOne) {
@@ -319,17 +318,14 @@ public class Persistence {
    * @param item = item to be added into json object.
    */
   public static void saveItem(JsonObjectBuilder object, Item item) {
+
     object.add("slot", "Item");
+    object.add("type", item.toString());
     if (item instanceof Key) {
-      object.add("type", "Key");
       object.add("colour", ((Key) item).getColour());
-    } else if (item instanceof Treasure) {
-      object.add("type", "Chip");
     } else if (item instanceof IcePotion) {
-      object.add("type", "Shoe");
       object.add("element", "Ice");
     } else if (item instanceof WaterPotion) {
-      object.add("type", "Shoe");
       object.add("element", "Water");
     }
   }
