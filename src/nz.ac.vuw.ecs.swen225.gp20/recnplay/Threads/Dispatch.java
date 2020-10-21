@@ -24,11 +24,9 @@ public abstract class Dispatch extends Thread {
    *
    * @param baseNode the node containing all of the replay actions.
    *
-   * @param timeScale the speed of the replay.
-   *
    * @param playback used to control playback functionality.
    */
-  public Dispatch(ApplicationView application, Node baseNode, double timeScale, Playback playback) {
+  public Dispatch(ApplicationView application, Node baseNode, Playback playback) {
     this.baseNode = baseNode;
     this.timeScale = timeScale;
     this.application = application;
