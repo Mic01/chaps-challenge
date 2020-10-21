@@ -39,9 +39,9 @@ public class Action implements Play, Save {
    * @return a String representation of the action that was taken
    */
   public String writeHistory() {
-    String toReturn = "\t\t\t\"Character\": " + "\"" + character + "\",\n" +
-            "\t\t\t\"Action\": " + "\"" + action + "\",\n" +
-            "\t\t\t\"Time\": " + timeSinceLastMove + "\n";
+    String toReturn = "\t\t\t\"Character\": " + "\"" + character + "\",\n"
+            + "\t\t\t\"Action\": " + "\"" + action + "\",\n"
+            + "\t\t\t\"Time\": " + timeSinceLastMove + "\n";
     return toReturn;
   }
 
