@@ -1,10 +1,10 @@
-package nz.ac.vuw.ecs.swen225.gp20.recnplay.Elements;
+package nz.ac.vuw.ecs.swen225.gp20.recnplay.elements;
 
 import java.util.ArrayList;
 import java.util.Objects;
 import nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView;
-import nz.ac.vuw.ecs.swen225.gp20.recnplay.Interfaces.Play;
-import nz.ac.vuw.ecs.swen225.gp20.recnplay.Interfaces.Save;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.interfaces.Play;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.interfaces.Save;
 import nz.ac.vuw.ecs.swen225.gp20.recnplay.Playback;
 
 /**
@@ -107,7 +107,7 @@ public class Level implements Play, Save {
    */
   @Override
   public void play(ApplicationView application, Playback playback) {
-    System.out.println("Next level: " + levelName);
+    //System.out.println("Next level: " + levelName);
     for (Action action : actions) {
       action.play(application, playback);
 
@@ -123,6 +123,6 @@ public class Level implements Play, Save {
     //display popup
     application.makeReplayDialog();
 
-    System.out.println("Replay complete");
+    //System.out.println("Replay complete");
   }
 }

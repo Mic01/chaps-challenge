@@ -7,10 +7,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView;
-import nz.ac.vuw.ecs.swen225.gp20.recnplay.Elements.Node;
-import nz.ac.vuw.ecs.swen225.gp20.recnplay.Threads.Dispatch;
-import nz.ac.vuw.ecs.swen225.gp20.recnplay.Threads.ReplayThread;
-import nz.ac.vuw.ecs.swen225.gp20.recnplay.Threads.WaitThread;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.elements.Node;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.threads.Dispatch;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.threads.ReplayThread;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.threads.WaitThread;
 
 /**
  * Load a replay file and dispatch the actions.
@@ -50,12 +50,12 @@ public class Playback {
     }
     LinkedTreeMap map = new Gson().fromJson(toRead, LinkedTreeMap.class);
 
-    System.out.println("Built map");
+    //System.out.println("Built map");
 
     //Make the required objects
     baseNode = new Node(map);
 
-    System.out.println("Built nodes");
+    //System.out.println("Built nodes");
   }
 
 
@@ -77,7 +77,7 @@ public class Playback {
       WaitThread wait = new WaitThread(dispatchThread);
       wait.start();
     } else {
-      System.out.println("Replay is already active");
+      //System.out.println("Replay is already active");
     }
   }
 
@@ -85,7 +85,7 @@ public class Playback {
    * Pause the replay.
    */
   public void pause() {
-    System.out.println("Attempting to pause the replay.");
+    //System.out.println("Attempting to pause the replay.");
     this.pause = true;
     this.running = false;
     dispatchThread.suspend();
@@ -95,7 +95,7 @@ public class Playback {
    * Resume the replay.
    */
   public void resume(ApplicationView application) {
-    System.out.println("Resuming replay");
+    //System.out.println("Resuming replay");
     this.pause = false;
 
     //Check to see if the thread has been started before

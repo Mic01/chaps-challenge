@@ -1,10 +1,7 @@
 package nz.ac.vuw.ecs.swen225.gp20.recnplay;
 
-import nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView;
-import nz.ac.vuw.ecs.swen225.gp20.application.Main;
-import org.junit.jupiter.api.Test;
-
 import java.io.File;
+import org.junit.jupiter.api.Test;
 
 public class TestCases {
   @Test
@@ -39,6 +36,6 @@ public class TestCases {
   public void testParse() {
     Playback playback = new Playback();
     playback.load("src/nz.ac.vuw.ecs.swen225.gp20/recnplay/Replays/save.json");
-    System.out.println("Completed parsing");
+    //System.out.println("Completed parsing");
   }
 }

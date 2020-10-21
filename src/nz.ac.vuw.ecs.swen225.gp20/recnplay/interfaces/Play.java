@@ -1,4 +1,4 @@
-package nz.ac.vuw.ecs.swen225.gp20.recnplay.Interfaces;
+package nz.ac.vuw.ecs.swen225.gp20.recnplay.interfaces;
 
 import nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView;
 import nz.ac.vuw.ecs.swen225.gp20.recnplay.Playback;
@@ -9,5 +9,5 @@ import nz.ac.vuw.ecs.swen225.gp20.recnplay.Playback;
  * @author Luke Hawinkels: hawinkluke
  */
 public interface Play {
-  public void play(ApplicationView application, Playback playback);
+  void play(ApplicationView application, Playback playback);
 }

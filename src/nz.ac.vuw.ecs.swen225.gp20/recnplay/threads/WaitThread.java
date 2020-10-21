@@ -1,4 +1,4 @@
-package nz.ac.vuw.ecs.swen225.gp20.recnplay.Threads;
+package nz.ac.vuw.ecs.swen225.gp20.recnplay.threads;
 
 /**
  * This class is used to wait until other threads have finished
@@ -13,8 +13,9 @@ public class WaitThread extends Dispatch {
 
   @Override
   public void run() {
+    //This thread will run until the replay is complete.
     while (!dispatchThread.isComplete()){}
 
-    System.out.println("Dispatch thread complete.");
+    //System.out.println("Dispatch thread complete.");
   }
 }

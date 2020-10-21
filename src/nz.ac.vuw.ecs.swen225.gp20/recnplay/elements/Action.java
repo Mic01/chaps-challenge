@@ -1,11 +1,11 @@
-package nz.ac.vuw.ecs.swen225.gp20.recnplay.Elements;
+package nz.ac.vuw.ecs.swen225.gp20.recnplay.elements;
 
 import nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView;
-import nz.ac.vuw.ecs.swen225.gp20.recnplay.Interfaces.Play;
-import nz.ac.vuw.ecs.swen225.gp20.recnplay.Interfaces.Save;
 import nz.ac.vuw.ecs.swen225.gp20.recnplay.Playback;
-import nz.ac.vuw.ecs.swen225.gp20.recnplay.Threads.ActionThread;
-import nz.ac.vuw.ecs.swen225.gp20.recnplay.Threads.Dispatch;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.interfaces.Play;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.interfaces.Save;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.threads.ActionThread;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.threads.Dispatch;
 
 /**
  * This class controls the characters that are used for replays and the time between moves.
@@ -14,9 +14,9 @@ import nz.ac.vuw.ecs.swen225.gp20.recnplay.Threads.Dispatch;
  */
 
 public class Action implements Play, Save {
-  long timeSinceLastMove;
-  String character;
-  String action;
+  final long timeSinceLastMove;
+  final String character;
+  final String action;
 
   /**
    * This class handles the processing of actions.
@@ -39,11 +39,10 @@ public class Action implements Play, Save {
    * @return a String representation of the action that was taken
    */
   public String writeHistory() {
-    StringBuilder toReturn = new StringBuilder();
-    toReturn.append("\t\t\t\"Character\": " + "\"" + character + "\",\n");
-    toReturn.append("\t\t\t\"Action\": " + "\"" + action + "\",\n");
-    toReturn.append("\t\t\t\"Time\": " + timeSinceLastMove + "\n");
-    return toReturn.toString();
+    String toReturn = "\t\t\t\"Character\": " + "\"" + character + "\",\n" +
+            "\t\t\t\"Action\": " + "\"" + action + "\",\n" +
+            "\t\t\t\"Time\": " + timeSinceLastMove + "\n";
+    return toReturn;
   }
 
   /**
@@ -57,12 +56,12 @@ public class Action implements Play, Save {
   public void play(ApplicationView application, Playback playback) {
     try {
       //Wait until the required time has elapsed
-      System.out.println("Waited: " + timeSinceLastMove / playback.getCurrentSpeed());
-      System.out.println("Time Scale: " + playback.getCurrentSpeed());
-      System.out.println("Original wait time: " + timeSinceLastMove);
-      System.out.println("Character: " + character);
-      System.out.println("Action: " + action);
-      System.out.println();
+      //System.out.println("Waited: " + timeSinceLastMove / playback.getCurrentSpeed());
+      //System.out.println("Time Scale: " + playback.getCurrentSpeed());
+      //System.out.println("Original wait time: " + timeSinceLastMove);
+      //System.out.println("Character: " + character);
+      //System.out.println("Action: " + action);
+      //System.out.println();
 
       Thread.sleep((long) (timeSinceLastMove / playback.getCurrentSpeed()));
 

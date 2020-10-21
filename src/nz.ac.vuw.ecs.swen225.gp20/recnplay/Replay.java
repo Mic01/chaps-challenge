@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView;
-import nz.ac.vuw.ecs.swen225.gp20.recnplay.Elements.Level;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.elements.Level;
 
 /**
  * This class is responsible for creating, loading and saving replays.
@@ -18,7 +18,7 @@ public class Replay {
   Level currentLevel;
   long startTime = System.nanoTime();
   long endTime = System.nanoTime();
-  ArrayList<Level> levelHistory = new ArrayList<>();
+  final ArrayList<Level> levelHistory = new ArrayList<>();
 
   /**
    * Create a new replay object.
@@ -82,12 +82,12 @@ public class Replay {
       levelHistory.add(currentLevel);
     }
 
-    System.out.println("Attempting to save the level.");
+    //System.out.println("Attempting to save the level.");
 
     //Write the data to the file
     FileWriter writer = null;
     try {
-      System.out.println("Last level name is: " + levelName);
+      //System.out.println("Last level name is: " + levelName);
 
       writer = new FileWriter(replay, StandardCharsets.UTF_8);
 
