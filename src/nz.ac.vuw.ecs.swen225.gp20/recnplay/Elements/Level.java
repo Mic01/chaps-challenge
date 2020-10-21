@@ -114,10 +114,13 @@ public class Level implements Play, Save {
       action.play(application, timeScale, playback);
 
       if (playback.isStep()) {
-        playback.step(false);
+        playback.step(false, application, timeScale);
         playback.pause();
       }
     }
+
+    //Mark the replay as complete
+    playback.done();
 
     System.out.println("Replay complete");
   }
