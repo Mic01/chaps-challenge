@@ -441,7 +441,7 @@ public class ApplicationView {
 
       play.addActionListener(actionEvent -> {
         if (replay.isPaused()) {
-          replay.resume();
+          replay.resume(currAppli, currSpeed);
         } else {
           replay.play(currAppli, currSpeed);
         }
@@ -456,7 +456,7 @@ public class ApplicationView {
       step.addActionListener(actionEvent -> {
         countdownTimer.start();
         npcMovementTimer.start();
-        replay.step(true);
+        replay.step(true, currAppli, currSpeed);
         countdownTimer.stop();
         npcMovementTimer.stop();
       });
