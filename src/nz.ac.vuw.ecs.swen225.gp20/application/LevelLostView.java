@@ -28,6 +28,7 @@ public class LevelLostView {
    *
    * @param owner - The main game frame.
    * @param game  - The main game state.
+   * @param timeOut - True if the level was lost due to running out of time.
    */
   public LevelLostView(JFrame owner, ApplicationView game, boolean timeOut) {
     this.owner = owner;
