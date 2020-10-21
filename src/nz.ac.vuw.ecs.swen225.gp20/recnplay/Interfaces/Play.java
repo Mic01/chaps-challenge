@@ -9,5 +9,5 @@ import nz.ac.vuw.ecs.swen225.gp20.recnplay.Playback;
  * @author Luke Hawinkels: hawinkluke
  */
 public interface Play {
-  public void play(ApplicationView application, double timeScale, Playback playback);
+  public void play(ApplicationView application, Playback playback);
 }

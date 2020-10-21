@@ -441,29 +441,26 @@ public class ApplicationView {
 
       play.addActionListener(actionEvent -> {
         if (replay.isPaused()) {
-          replay.resume(currAppli, currSpeed);
+          replay.resume(currAppli);
         } else {
-          replay.play(currAppli, currSpeed);
+          replay.play(currAppli);
         }
-        countdownTimer.start();
-        npcMovementTimer.start();
+        startTimers();
       });
       pause.addActionListener(actionEvent -> {
         replay.pause();
-        countdownTimer.stop();
-        npcMovementTimer.stop();
+        stopTimers();
       });
       step.addActionListener(actionEvent -> {
-        countdownTimer.start();
-        npcMovementTimer.start();
-        replay.step(true, currAppli, currSpeed);
-        countdownTimer.stop();
-        npcMovementTimer.stop();
+        startTimers();
+        replay.step(true, currAppli);
+        stopTimers();
       });
       speedChange.addActionListener(actionEvent -> {
         if(replay.isPaused() || !replay.isRunning()) {
           currSpeed = changeReplaySpeed(currSpeed);
           viewport.setAnimateSpeed(currSpeed);
+          replay.setReplaySpeed(currSpeed);
           double countTimerValue = (1000 * currSpeed);
           countdownTimer.setDelay((int)countTimerValue);
           double actorTimerValue = (250 * currSpeed);
@@ -596,7 +593,7 @@ public class ApplicationView {
     if (windowDialog == JFileChooser.APPROVE_OPTION) {
       filename.setText(c.getSelectedFile().getName());
       dir.setText(c.getCurrentDirectory().toString());
-      game.loadReplayLevel(dir.getText() + "/" + filename.getText(), this.game.currLevel);
+      game.loadReplayLevel(dir.getText() + "/" + filename.getText());
     }
     if (windowDialog == JFileChooser.CANCEL_OPTION) {
       filename.setText("");
@@ -686,5 +683,15 @@ public class ApplicationView {
 
   public Main getMain(){
     return this.game;
+  }
+
+  public void stopTimers(){
+    countdownTimer.stop();
+    npcMovementTimer.stop();
+  }
+
+  public void startTimers(){
+    countdownTimer.start();
+    npcMovementTimer.start();
   }
 }
