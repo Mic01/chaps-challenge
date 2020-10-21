@@ -11,7 +11,7 @@ public class IcePotion extends Item {
 
   @Override
   public String toString() {
-    return "IceShoe";
+    return "Shoe";
   }
 
   @Override
