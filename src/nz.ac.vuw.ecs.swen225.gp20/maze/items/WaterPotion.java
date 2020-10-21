@@ -11,7 +11,7 @@ public class WaterPotion extends Item {
 
   @Override
   public String toString() {
-    return "WaterShoe";
+    return "Shoe";
   }
 
   @Override
