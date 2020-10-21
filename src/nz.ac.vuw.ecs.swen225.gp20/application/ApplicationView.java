@@ -12,6 +12,8 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.AbstractAction;
@@ -43,10 +45,12 @@ public class ApplicationView {
   private final JMenu save = new JMenu("Save");
   private final JMenu load = new JMenu("Load");
   private final JMenu replays = new JMenu("Replays");
+  private final JMenu help = new JMenu("Help");
   private final JMenuItem saveGame = new JMenuItem("Save Game");
   private final JMenuItem loadGame = new JMenuItem("Load Game");
   private final JMenuItem saveReplay = new JMenuItem("Save Replay");
   private final JMenuItem loadReplay = new JMenuItem("Load Replay");
+  private final JMenuItem viewHelp = new JMenuItem("View Help");
   private boolean gameOver = false;
   private final boolean isReplay;
   private boolean isPaused;
@@ -59,6 +63,7 @@ public class ApplicationView {
   private Timer npcMovementTimer = null;
   private double currSpeed = 1.0;
   private JLabel replaySpeed;
+  private HelpView helpView;
 
 
   /**
@@ -104,7 +109,7 @@ public class ApplicationView {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    this.window = new JFrame("Ship's Challenge");
+    this.window = new JFrame("Chips Among Us");
     this.window.setLayout(new BorderLayout());
     this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.window.setResizable(false);
@@ -197,10 +202,13 @@ public class ApplicationView {
     this.loadReplay.addActionListener(actionEvent -> showLoadReplayDialogue());
     this.replays.add(saveReplay);
     this.replays.add(loadReplay);
+    this.viewHelp.addActionListener(actionEvent -> showHelpView());
+    this.help.add(viewHelp);
     JMenuBar saveLoad = new JMenuBar();
     saveLoad.add(this.save);
     saveLoad.add(this.load);
     saveLoad.add(this.replays);
+    saveLoad.add(help);
     this.window.setJMenuBar(saveLoad);
 
     this.mainWindow = viewport;
@@ -385,39 +393,40 @@ public class ApplicationView {
     sideConstraints.insets = new Insets(0, -110, 50, 0);
     sideWindow.add(timeCount, sideConstraints);
 
-    sideConstraints.gridy = 3;
-    sideConstraints.insets = new Insets(50, -110, 0, 0);
-    sideWindow.add(helpWindow, sideConstraints);
 
     sideConstraints.gridx = 1;
-    sideConstraints.gridy = 5;
+    sideConstraints.gridy = 4;
     sideConstraints.fill = GridBagConstraints.NONE;
     sideConstraints.insets = new Insets(250, 0, 0, 0);
     sideWindow.add(up, sideConstraints);
 
     sideConstraints.gridx = 0;
-    sideConstraints.gridy = 6;
+    sideConstraints.gridy = 5;
     sideConstraints.insets = new Insets(0, 15, 0, 0);
     sideWindow.add(left, sideConstraints);
 
     sideConstraints.gridx = 1;
-    sideConstraints.gridy = 6;
+    sideConstraints.gridy = 5;
     sideConstraints.insets = new Insets(0, 0, 0, 0);
     sideWindow.add(down, sideConstraints);
 
     sideConstraints.gridx = 2;
-    sideConstraints.gridy = 6;
+    sideConstraints.gridy = 5;
     sideWindow.add(right, sideConstraints);
 
     sideConstraints.gridx = 3;
-    sideConstraints.gridy = 7;
+    sideConstraints.gridy = 6;
     sideConstraints.fill = GridBagConstraints.HORIZONTAL;
     sideConstraints.insets = new Insets(130, -113, 0, 0);
     sideWindow.add(removeSave, sideConstraints);
 
-    sideConstraints.gridy = 8;
+    sideConstraints.gridy = 7;
     sideConstraints.insets = new Insets(10, -113, 0, 0);
     sideWindow.add(quitGame, sideConstraints);
+
+    sideConstraints.gridy = 8;
+    sideConstraints.insets = new Insets(-1000, -110, 0, 0);
+    sideWindow.add(helpWindow, sideConstraints);
 
     Image invBackground = Toolkit.getDefaultToolkit()
             .createImage("assets/backgrounds/invBackground.png");
@@ -435,11 +444,8 @@ public class ApplicationView {
       replayWindow.setPreferredSize(new Dimension(150, 40));
       replayWindow.setBackground(Color.BLACK);
 
-
       Playback replay = new Playback();
       replay.load(this.replayPath);
-
-      ApplicationView currAppli = this;
 
       JButton pause = new JButton();
       pause.setBorder(null);
@@ -456,6 +462,7 @@ public class ApplicationView {
       Image stepIcon = Toolkit.getDefaultToolkit().createImage("assets/buttons/step.png");
       step.setIcon(new ImageIcon(stepIcon));
 
+      ApplicationView currAppli = this;
       play.addActionListener(actionEvent -> {
         if (replay.isPaused()) {
           replay.resume(currAppli);
@@ -573,6 +580,7 @@ public class ApplicationView {
    *            2: move down
    *            3: move left
    *            4: move right
+   * @param isFromLog - True if the command is coming from a replay.
    */
   public void playerMovement(int dir, boolean isFromLog) {
     if (!isPaused) {
@@ -650,7 +658,8 @@ public class ApplicationView {
     if (windowDialog == JFileChooser.APPROVE_OPTION) {
       filename.setText(c.getSelectedFile().getName());
       dir.setText(c.getCurrentDirectory().toString());
-      this.log.saveReplay(new File(dir.getText() + "/" + filename.getText() + this.game.currLevel + ".json"));
+      this.log.saveReplay(new File(dir.getText() + "/"
+              + filename.getText() + this.game.currLevel + ".json"));
     }
     if (windowDialog == JFileChooser.CANCEL_OPTION) {
       filename.setText("");
@@ -705,11 +714,11 @@ public class ApplicationView {
     }
   }
 
-  public void loadReplay(){
+  public void loadReplay() {
     showLoadReplayDialogue();
   }
 
-  public void makeReplayDialog(){
+  public void makeReplayDialog() {
     new ReplayDoneView(this.window, this);
   }
 
@@ -739,5 +748,20 @@ public class ApplicationView {
   public void startTimers() {
     countdownTimer.start();
     npcMovementTimer.start();
+  }
+
+  private void showHelpView() {
+    stopTimers();
+    this.isPaused = true;
+    helpView = new HelpView(this.window);
+    helpView.addWindowListener(new WindowAdapter() {
+      @Override
+      public void windowClosed(WindowEvent e) {
+        super.windowClosed(e);
+        isPaused = false;
+        startTimers();
+      }
+    });
+    this.helpView.setVisible(true);
   }
 }

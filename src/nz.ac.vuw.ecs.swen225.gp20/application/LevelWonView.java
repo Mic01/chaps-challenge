@@ -19,6 +19,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+/**
+ * The panel that should appear when a level is won.
+ *
+ * @author Nicholas Woolf-Ben-Avraham
+ */
 public class LevelWonView {
   private final JFrame owner;
   private final ApplicationView game;
@@ -53,7 +58,7 @@ public class LevelWonView {
     dialog.pack();
     dialog.setLocationRelativeTo(this.owner);
     dialog.setLocation((this.owner.getLocationOnScreen().x) + (this.owner.getWidth() / 8),
-            (this.owner.getLocationOnScreen().y)+ ((this.owner.getHeight()) / 2));
+            (this.owner.getLocationOnScreen().y) + ((this.owner.getHeight()) / 2));
     dialog.setVisible(true);
     dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
   }
@@ -62,8 +67,7 @@ public class LevelWonView {
     int toSave;
     if (game.getMain().currLevel > 2) {
       toSave = 2;
-    }
-    else{
+    } else {
       toSave = game.getMain().currLevel + 1;
     }
     try {
@@ -71,8 +75,6 @@ public class LevelWonView {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    Image background = Toolkit.getDefaultToolkit().createImage("assets/backgrounds/background.png");
-    JPanel panel = new BackgroundPanel(background, new GridBagLayout(), true);
 
     GridBagConstraints winConstraints = new GridBagConstraints();
 
@@ -85,6 +87,9 @@ public class LevelWonView {
     titleText.setFont(this.game.getMain().deface.deriveFont(20f));
     titleText.setForeground(Color.LIGHT_GRAY);
     titleText.setHorizontalAlignment(SwingConstants.CENTER);
+
+    Image background = Toolkit.getDefaultToolkit().createImage("assets/backgrounds/background.png");
+    JPanel panel = new BackgroundPanel(background, new GridBagLayout(), true);
     panel.add(titleText, winConstraints);
 
     winConstraints.anchor = GridBagConstraints.LINE_START;

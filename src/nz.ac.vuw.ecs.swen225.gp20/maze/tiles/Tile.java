@@ -68,6 +68,9 @@ public abstract class Tile {
 
   /**
    * Trigger any events as a result of moving onto this tile.
+   *
+   * @param actor the actor that triggered the move event
+   * @param direction the direction the actor entered this tile from
    */
   public abstract void moveEvent(Actor actor, Actor.Direction direction);
 
