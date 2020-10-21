@@ -441,12 +441,26 @@ public class ApplicationView {
 
       play.addActionListener(actionEvent -> {
         if (replay.isPaused()) {
-          replay.resume(currAppli, currSpeed);
+          replay.resume(currAppli);
+          countdownTimer.start();
+          npcMovementTimer.start();
         } else {
-          replay.play(currAppli, currSpeed);
+          Thread repCheck = new Thread(() -> {
+            while (!replay.isDone()){
+            }
+            countdownTimer.stop();
+            npcMovementTimer.stop();
+            System.out.println("Replay done.");
+          });
+          if (!replay.isRunning()){
+            repCheck.start();
+          }
+
+          countdownTimer.start();
+          npcMovementTimer.start();
+          replay.play(currAppli);
         }
-        countdownTimer.start();
-        npcMovementTimer.start();
+
       });
       pause.addActionListener(actionEvent -> {
         replay.pause();
@@ -456,7 +470,7 @@ public class ApplicationView {
       step.addActionListener(actionEvent -> {
         countdownTimer.start();
         npcMovementTimer.start();
-        replay.step(true, currAppli, currSpeed);
+        replay.step(true, currAppli);
         countdownTimer.stop();
         npcMovementTimer.stop();
       });
@@ -464,6 +478,7 @@ public class ApplicationView {
         if(replay.isPaused() || !replay.isRunning()) {
           currSpeed = changeReplaySpeed(currSpeed);
           viewport.setAnimateSpeed(currSpeed);
+          replay.setReplaySpeed(currSpeed);
           double countTimerValue = (1000 * currSpeed);
           countdownTimer.setDelay((int)countTimerValue);
           double actorTimerValue = (250 * currSpeed);
@@ -596,7 +611,7 @@ public class ApplicationView {
     if (windowDialog == JFileChooser.APPROVE_OPTION) {
       filename.setText(c.getSelectedFile().getName());
       dir.setText(c.getCurrentDirectory().toString());
-      game.loadReplayLevel(dir.getText() + "/" + filename.getText(), this.game.currLevel);
+      game.loadReplayLevel(dir.getText() + "/" + filename.getText());
     }
     if (windowDialog == JFileChooser.CANCEL_OPTION) {
       filename.setText("");
