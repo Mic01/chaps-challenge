@@ -43,7 +43,7 @@ import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Water;
 public class Persistence {
 
   /**
-   * reads json level file, makes maze array.
+   * reads json file, makes maze array.
    *
    * @param fileName = json file name String.
    * @param mazeObject = current level maze.
@@ -57,10 +57,9 @@ public class Persistence {
         maze[j][i] = new NullTile();
       }
     }
-
     try {
       final JsonParser parser = Json.createParser(new FileInputStream(fileName));
-     // final JsonParser parser = Json.createParser(new FileReader(fileName));
+      // final JsonParser parser = Json.createParser(new FileReader(fileName));
       while (parser.hasNext()) {
         final Event event = parser.next();
         if (event == Event.START_OBJECT) {
@@ -203,6 +202,7 @@ public class Persistence {
   }
 
 
+
   /**
    *  coverts a 2D of Tiles into json and saves it.
    *
@@ -297,6 +297,8 @@ public class Persistence {
       e.printStackTrace();
     }
   }
+
+
 
   /**
    * adds item on floor tile into a json object.
