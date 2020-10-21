@@ -218,7 +218,7 @@ public class Board extends JPanel implements ActionListener {
    * Second step of draw method,
    * draws a new frame of every actor that has moved this round.
    */
-  private void drawEntities(Graphics g, int xOffset, int yOffset) throws IOException {
+  private void drawEntities(Graphics g, int offsetX, int offsetY) throws IOException {
     //Draw Player
     g.drawImage(player.getImage(playerMoved),
             (getVisionX(player.getX()) * tileSize),
@@ -229,8 +229,8 @@ public class Board extends JPanel implements ActionListener {
       for (AutoActor actor : autoActors) {
         if (actorInVision(actor)) {
           g.drawImage(actor.getImage(true),
-                  (getVisionX(actor.getX()) * tileSize) + xOffset,
-                  (getVisionY(actor.getY()) * tileSize) + yOffset, this);
+                  (getVisionX(actor.getX()) * tileSize) + offsetX,
+                  (getVisionY(actor.getY()) * tileSize) + offsetY, this);
         }
       }
     }
@@ -262,7 +262,9 @@ public class Board extends JPanel implements ActionListener {
           playSound("metalWalk_" + new Random().nextInt(2), 1);
         }
       }
-    }catch(Exception e){ e.printStackTrace(); }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   /**
@@ -271,7 +273,7 @@ public class Board extends JPanel implements ActionListener {
    * @param sound name of animation.
    */
   private void playSound(String sound, int priority) {
-    if(deathTick == 0) {
+    if (deathTick == 0) {
       audioPlayer.playAudio(priority, loadedSounds.get(sound));
     }
   }
@@ -299,19 +301,21 @@ public class Board extends JPanel implements ActionListener {
   /**
    * Find offset for drawing half frames,
    * by checking direction they moved from.
+   *
    * @return x offset
    */
-  public int getOffsetX(){
-    return (player.getX()-player.getPrevX())*35;
+  public int getOffsetX() {
+    return (player.getX() - player.getPrevX()) * (tileSize / 2);
   }
 
   /**
    * Find offset for drawing half frames,
    * by checking direction they moved from.
+   *
    * @return y offset
    */
-  public int getOffsetY(){
-    return (player.getY()-player.getPrevY())*35;
+  public int getOffsetY() {
+    return (player.getY() - player.getPrevY()) * (tileSize / 2);
   }
 
   /**
@@ -321,11 +325,11 @@ public class Board extends JPanel implements ActionListener {
    * @param actor to check if in frame
    * @return true if in frame, else false
    */
-  public boolean actorInVision(AutoActor actor){
-    return (getVisionX(actor.getX()) >= 0 &&
-            getVisionX(actor.getX()) < visionRange &&
-            getVisionY(actor.getY()) >= 0 &&
-            getVisionY(actor.getY()) < visionRange);
+  public boolean actorInVision(AutoActor actor) {
+    return (getVisionX(actor.getX()) >= 0
+            && getVisionX(actor.getX()) < visionRange
+            && getVisionY(actor.getY()) >= 0
+            && getVisionY(actor.getY()) < visionRange);
   }
 
   /**
@@ -334,7 +338,7 @@ public class Board extends JPanel implements ActionListener {
    *
    * @return true if in animation, false otherwise
    */
-  public boolean isAnimating(){
+  public boolean isAnimating() {
     return inAnimation;
   }
 
@@ -344,21 +348,28 @@ public class Board extends JPanel implements ActionListener {
    *
    * @param speed multiplier to delay time (ie 2x or 0.5x)
    */
-  public void setAnimateSpeed(double speed){
-    timer = new Timer(Integer.parseInt(String.valueOf(sleepTime*speed)), this);
+  public void setAnimateSpeed(double speed) {
+    timer = new Timer(Integer.parseInt(String.valueOf(sleepTime * speed)), this);
   }
 
   @Override
   public String toString() {
-    return "Board{" +
-            "visionRange=" + visionRange +
-            ", tileSize=" + tileSize +
-            ", sleepTime=" + sleepTime +
-            ", lastVision=" + Arrays.toString(lastVision) +
-            ", vision=" + Arrays.toString(vision) +
-            ", player=" + player +
-            ", maze=" + maze +
-            ", actors=" + autoActors +
-            '}';
+    return "Board{"
+            + "lastVision=" + Arrays.toString(lastVision)
+            + ", vision=" + Arrays.toString(vision)
+            + ", player=" + player
+            + ", maze=" + maze
+            + ", autoActors=" + autoActors
+            + ", halfFrame=" + halfFrame
+            + ", inAnimation=" + inAnimation
+            + ", timer=" + timer
+            + ", playerMoved=" + playerMoved
+            + ", loadedSounds=" + loadedSounds
+            + ", inventorySize=" + inventorySize
+            + ", taskSize=" + taskSize
+            + ", audioPlayer=" + audioPlayer
+            + ", deathTick=" + deathTick
+            + ", walkedOnDoors=" + walkedOnDoors
+            + '}';
   }
 }
