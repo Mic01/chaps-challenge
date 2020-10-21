@@ -18,6 +18,7 @@ import javax.swing.Timer;
 import nz.ac.vuw.ecs.swen225.gp20.maze.Maze;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.AutoActor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player;
+import nz.ac.vuw.ecs.swen225.gp20.maze.items.IcePotion;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Conveyor;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Exit;
 import nz.ac.vuw.ecs.swen225.gp20.maze.tiles.ExitLock;
@@ -249,7 +250,7 @@ public class Board extends JPanel implements ActionListener {
           playSound("airlock", 3);
         } else if (player.isOn(Conveyor.class)) {
           playSound("conveyor_slide", 2);
-        } else if (player.isOn(Ice.class)) {
+        } else if (player.isOn(Ice.class) && !player.isHolding(new IcePotion())) {
           playSound("slide", 2);
         } else if (player.getInventory().size() > inventorySize) {
           inventorySize++;
@@ -260,7 +261,7 @@ public class Board extends JPanel implements ActionListener {
         } else if (player.isOn(Water.class)) {
           playSound("waterSwim_" + new Random().nextInt(2), 1);
         } else {
-          playSound("metalWalk_" + new Random().nextInt(2), 1);
+          playSound("metalWalk_" + new Random().nextInt(2), 0);
         }
       }
     } catch (Exception e) {

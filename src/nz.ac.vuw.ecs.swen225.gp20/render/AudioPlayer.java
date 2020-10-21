@@ -53,7 +53,7 @@ public class AudioPlayer implements LineListener {
       finishedPlay = false;
     } else if (type == LineEvent.Type.STOP) {
       finishedPlay = true;
-      currentPriority = 1;
+      currentPriority = 0;
       currentClip.stop();
     }
   }
