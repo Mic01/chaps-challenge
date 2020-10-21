@@ -92,11 +92,18 @@ public class Playback {
   /**
    * Resume the replay.
    */
-  public void resume() {
+  public void resume(ApplicationView application, double timeScale) {
     System.out.println("Resuming replay");
     this.pause = false;
-    this.running = true;
-    dispatchThread.resume();
+
+    //Check to see if the thread has been started before
+    if (dispatchThread != null) {
+      this.running = true;
+      dispatchThread.resume();
+    } else {
+      this.running = false;
+      play(application, timeScale);
+    }
   }
 
   /**
@@ -111,11 +118,11 @@ public class Playback {
   /**
    * Step through the replay.
    */
-  public void step(Boolean step) {
+  public void step(Boolean step, ApplicationView application, double timeScale) {
     this.step = step;
 
     if (step) {
-      resume();
+      resume(application, timeScale);
     }
   }
 
