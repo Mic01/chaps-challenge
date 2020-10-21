@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView;
-import nz.ac.vuw.ecs.swen225.gp20.recnplay.Elements.Level;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.elements.Level;
 
 /**
  * This class is responsible for creating, loading and saving replays.
@@ -18,7 +18,7 @@ public class Replay {
   Level currentLevel;
   long startTime = System.nanoTime();
   long endTime = System.nanoTime();
-  ArrayList<Level> levelHistory = new ArrayList<>();
+  final ArrayList<Level> levelHistory = new ArrayList<>();
 
   /**
    * Create a new replay object.

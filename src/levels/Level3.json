@@ -1,9 +1,9 @@
 [{
   "tile": "Inside",
-  "x1": 5,
+  "x1": 4,
   "y1": 1,
-  "x2": 15,
-  "y2": 12
+  "x2": 30,
+  "y2": 30
 },
   [{
     "tile": "Floor",
@@ -14,14 +14,14 @@
   }, {
     "tile": "Floor",
     "x": 11,
-    "y": 9,
+    "y": 10,
     "slot": "Item",
     "type": "Key",
     "colour": "Green"
   }, {
     "tile": "Door",
     "x": 10,
-    "y": 9,
+    "y": 10,
     "colour": "Green",
     "vertical": false,
     "open": false
@@ -85,29 +85,27 @@
     "x": 6,
     "y": 8,
     "slot": "Enemy",
-    "type": "one",
+    "type": "Three",
     "direction": "left"
-
   }, {
     "tile": "Floor",
-    "x": 11,
-    "y": 5,
+    "x": 9,
+    "y": 2,
     "slot": "Enemy",
     "type": "Two",
     "direction": "right"
-
   }, {
     "tile": "Floor",
     "x": 10,
     "y": 7,
     "slot": "Enemy",
-    "type": "Three",
+    "type": "One",
     "direction": "right"
 
   }, {
     "tile": "Floor",
     "x": 9,
-    "y": 8,
+    "y": 7,
     "slot": "Item",
     "type": "Chip"
   }, {
@@ -120,36 +118,80 @@
   }, {
     "tile": "Door",
     "x": 9,
-    "y": 7,
+    "y": 8,
     "colour": "Blue",
     "vertical": false,
     "open": false
   }, {
     "tile": "Door",
-    "x": 12,
+    "x": 13,
     "y": 7,
     "colour": "Yellow",
     "vertical": false,
     "open": false
   },{
     "tile": "Wall",
-    "x": 10,
-    "y": 7
+    "x": 8,
+    "y": 1
+  },{
+    "tile": "Wall",
+    "x": 8,
+    "y": 2
+  },{
+    "tile": "Wall",
+    "x": 8,
+    "y": 3
   },{
     "tile": "Wall",
     "x": 9,
-    "y": 7
-  },{
-    "tile": "Wall",
-    "x": 10,
-    "y": 6
-  },{
-    "tile": "Wall",
-    "x": 10,
-    "y": 5
+    "y": 4
   },{
     "tile": "Wall",
     "x": 10,
     "y": 4
+  },{
+    "tile": "Wall",
+    "x": 11,
+    "y": 4
+  },{
+    "tile": "Wall",
+    "x": 11,
+    "y": 3
+  },{
+    "tile": "Wall",
+    "x": 11,
+    "y": 2
+  },{
+    "tile": "Wall",
+    "x": 11,
+    "y": 1
+  },{
+    "tile": "Wall",
+    "x": 10,
+    "y": 8
+  },{
+    "tile": "Wall",
+    "x": 11,
+    "y": 8
+  },{
+    "tile": "Wall",
+    "x": 12,
+    "y": 6
+  },{
+    "tile": "Wall",
+    "x": 12,
+    "y": 7
+  },{
+    "tile": "Wall",
+    "x": 12,
+    "y": 5
+  },{
+    "tile": "Wall",
+    "x": 9,
+    "y": 6
+  },{
+    "tile": "Wall",
+    "x": 9,
+    "y": 5
   }]
 ]

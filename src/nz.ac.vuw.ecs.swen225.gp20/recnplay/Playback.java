@@ -7,10 +7,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView;
-import nz.ac.vuw.ecs.swen225.gp20.recnplay.Elements.Node;
-import nz.ac.vuw.ecs.swen225.gp20.recnplay.Threads.Dispatch;
-import nz.ac.vuw.ecs.swen225.gp20.recnplay.Threads.ReplayThread;
-import nz.ac.vuw.ecs.swen225.gp20.recnplay.Threads.WaitThread;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.elements.Node;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.threads.Dispatch;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.threads.ReplayThread;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.threads.WaitThread;
 
 /**
  * Load a replay file and dispatch the actions.

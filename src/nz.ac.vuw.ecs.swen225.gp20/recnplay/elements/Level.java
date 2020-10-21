@@ -1,10 +1,10 @@
-package nz.ac.vuw.ecs.swen225.gp20.recnplay.Elements;
+package nz.ac.vuw.ecs.swen225.gp20.recnplay.elements;
 
 import java.util.ArrayList;
 import java.util.Objects;
 import nz.ac.vuw.ecs.swen225.gp20.application.ApplicationView;
-import nz.ac.vuw.ecs.swen225.gp20.recnplay.Interfaces.Play;
-import nz.ac.vuw.ecs.swen225.gp20.recnplay.Interfaces.Save;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.interfaces.Play;
+import nz.ac.vuw.ecs.swen225.gp20.recnplay.interfaces.Save;
 import nz.ac.vuw.ecs.swen225.gp20.recnplay.Playback;
 
 /**
