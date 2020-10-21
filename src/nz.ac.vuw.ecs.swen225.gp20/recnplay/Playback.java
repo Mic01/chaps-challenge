@@ -145,22 +145,6 @@ public class Playback {
   }
 
   /**
-   * Mark the replay as done.
-   */
-  public void done() {
-    isDone = true;
-  }
-
-  /**
-   * Check if the replay is done.
-   *
-   * @return if the replay is done
-   */
-  public boolean isDone() {
-    return isDone;
-  }
-
-  /**
    * Get the current replay speed.
    *
    * @return the replay speed;

@@ -117,8 +117,7 @@ public class Level implements Play, Save {
       }
     }
 
-    //Mark the replay as complete
-    playback.done();
+    application.stopTimers();
 
     System.out.println("Replay complete");
   }
