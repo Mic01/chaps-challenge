@@ -19,99 +19,17 @@
       <point x="150.45299145299145" y="55.0" />
       <point x="43.25" y="15.0" />
     </edge>
-    <edge source="nz.ac.vuw.ecs.swen225.gp20.recnplay.threads" target="nz.ac.vuw.ecs.swen225.gp20.recnplay.elements">
-      <point x="-56.25" y="-15.0" />
-      <point x="71.96428571428572" y="180.0" />
-      <point x="171.2565628815629" y="180.0" />
-      <point x="-28.035714285714278" y="15.0" />
-    </edge>
-    <edge source="nz.ac.vuw.ecs.swen225.gp20.recnplay.Playback" target="nz.ac.vuw.ecs.swen225.gp20.recnplay.threads">
-      <point x="-92.33333333333326" y="-182.0" />
-      <point x="52.03769841269849" y="504.0" />
-      <point x="106.78571428571428" y="504.0" />
-      <point x="-21.428571428571445" y="15.0" />
-    </edge>
-    <edge source="nz.ac.vuw.ecs.swen225.gp20.recnplay.Replay" target="nz.ac.vuw.ecs.swen225.gp20.recnplay.elements">
-      <point x="-79.33333333333331" y="-127.0" />
-      <point x="288.3875152625153" y="210.0" />
-      <point x="249.75656288156284" y="210.0" />
-      <point x="50.464285714285666" y="15.0" />
-    </edge>
-    <edge source="nz.ac.vuw.ecs.swen225.gp20.recnplay.elements" target="nz.ac.vuw.ecs.swen225.gp20.recnplay.Playback">
-      <point x="39.24999999999997" y="15.0" />
-      <point x="238.54227716727715" y="210.0" />
-      <point x="235.71428571428572" y="210.0" />
-      <point x="235.71428571428572" y="534.0" />
-      <point x="267.48214285714283" y="534.0" />
-      <point x="123.11111111111109" y="-182.0" />
-    </edge>
-    <edge source="nz.ac.vuw.ecs.swen225.gp20.recnplay.elements" target="nz.ac.vuw.ecs.swen225.gp20.recnplay.elements">
-      <point x="-39.24999999999999" y="15.0" />
-      <point x="160.04227716727718" y="160.0" />
-      <point x="70.79227716727718" y="160.0" />
-      <point x="70.79227716727718" y="83.75" />
-      <point x="-78.5" y="-11.25" />
-    </edge>
-    <edge source="nz.ac.vuw.ecs.swen225.gp20.recnplay.TestCases" target="nz.ac.vuw.ecs.swen225.gp20.recnplay.Playback">
-      <point x="-60.0" y="-38.0" />
-      <point x="252.51785714285714" y="958.0" />
-      <point x="75.12103174603175" y="958.0" />
-      <point x="-69.25" y="182.0" />
-    </edge>
-    <edge source="nz.ac.vuw.ecs.swen225.gp20.recnplay.threads" target="nz.ac.vuw.ecs.swen225.gp20.recnplay.Playback">
-      <point x="42.85714285714283" y="15.0" />
-      <point x="171.07142857142856" y="534.0" />
-      <point x="144.37103174603175" y="534.0" />
-      <point x="0.0" y="-182.0" />
-    </edge>
-    <edge source="nz.ac.vuw.ecs.swen225.gp20.recnplay.elements" target="nz.ac.vuw.ecs.swen225.gp20.recnplay.threads">
-      <point x="-5.607142857142861" y="15.0" />
-      <point x="193.68513431013432" y="200.0" />
-      <point x="146.96428571428572" y="200.0" />
-      <point x="18.75" y="-15.0" />
-    </edge>
-    <edge source="nz.ac.vuw.ecs.swen225.gp20.recnplay.interfaces" target="nz.ac.vuw.ecs.swen225.gp20.recnplay.Playback">
-      <point x="-43.25" y="15.0" />
-      <point x="63.952991452991455" y="55.0" />
-      <point x="0.0" y="55.0" />
-      <point x="0.0" y="544.0" />
-      <point x="21.25992063492066" y="544.0" />
-      <point x="-123.11111111111109" y="-182.0" />
-    </edge>
-    <edge source="nz.ac.vuw.ecs.swen225.gp20.recnplay.TestCases" target="nz.ac.vuw.ecs.swen225.gp20.recnplay.Replay">
-      <point x="60.0" y="-38.0" />
-      <point x="372.5178571428571" y="958.0" />
-      <point x="366.3089133089133" y="958.0" />
-      <point x="366.3089133089133" y="544.0" />
-      <point x="427.22084859584857" y="544.0" />
-      <point x="59.5" y="127.0" />
-    </edge>
-    <edge source="nz.ac.vuw.ecs.swen225.gp20.recnplay.Playback" target="nz.ac.vuw.ecs.swen225.gp20.recnplay.elements">
-      <point x="92.33333333333337" y="-182.0" />
-      <point x="236.70436507936512" y="544.0" />
-      <point x="224.71428571428572" y="544.0" />
-      <point x="224.71428571428572" y="210.0" />
-      <point x="227.32799145299145" y="210.0" />
-      <point x="28.035714285714278" y="15.0" />
-    </edge>
-    <edge source="nz.ac.vuw.ecs.swen225.gp20.recnplay.threads" target="nz.ac.vuw.ecs.swen225.gp20.recnplay.threads">
-      <point x="-42.85714285714285" y="15.0" />
-      <point x="85.35714285714288" y="402.0" />
-      <point x="23.214285714285722" y="402.0" />
-      <point x="23.214285714285722" y="349.5" />
-      <point x="-75.0" y="-7.5" />
-    </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="1.0" x="157.0" y="167.5" />
+  <settings layout="Hierarchic Group" zoom="0.680633147113594" x="359.0" y="527.0" />
   <SelectedNodes>
     <node>nz.ac.vuw.ecs.swen225.gp20.recnplay.elements</node>
   </SelectedNodes>
   <Categories>
-    <Category>Inner Classes</Category>
-    <Category>Properties</Category>
-    <Category>Methods</Category>
-    <Category>Constructors</Category>
     <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
   </Categories>
   <SCOPE>All</SCOPE>
   <VISIBILITY>private</VISIBILITY>
