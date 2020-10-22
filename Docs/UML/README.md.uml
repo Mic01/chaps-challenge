@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>nz.ac.vuw.ecs.swen225.gp20.recnplay.threads</OriginalElement>
+  <nodes>
+    <node x="152.49999999999994" y="0.0">nz.ac.vuw.ecs.swen225.gp20.recnplay.threads.Dispatch</node>
+    <node x="0.0" y="248.0">nz.ac.vuw.ecs.swen225.gp20.recnplay.threads.WaitThread</node>
+    <node x="226.0" y="259.5">nz.ac.vuw.ecs.swen225.gp20.recnplay.threads.ReplayThread</node>
+    <node x="600.0" y="248.0">nz.ac.vuw.ecs.swen225.gp20.recnplay.threads.ActionThread</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.recnplay.threads.ActionThread" target="nz.ac.vuw.ecs.swen225.gp20.recnplay.threads.Dispatch">
+      <point x="67.5" y="-50.0" />
+      <point x="802.5" y="208.0" />
+      <point x="453.3571428571429" y="208.0" />
+      <point x="138.85714285714295" y="94.0" />
+    </edge>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.recnplay.threads.ReplayThread" target="nz.ac.vuw.ecs.swen225.gp20.recnplay.threads.Dispatch">
+      <point x="-88.5" y="-38.5" />
+      <point x="5.6843418860808015E-14" y="94.0" />
+    </edge>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.recnplay.threads.WaitThread" target="nz.ac.vuw.ecs.swen225.gp20.recnplay.threads.Dispatch">
+      <point x="68.66666666666669" y="-50.0" />
+      <point x="171.66666666666669" y="228.0" />
+      <point x="268.21428571428567" y="228.0" />
+      <point x="-46.28571428571428" y="94.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="225.0" y="55.0" />
+  <SelectedNodes>
+    <node>nz.ac.vuw.ecs.swen225.gp20.recnplay.threads.ActionThread</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

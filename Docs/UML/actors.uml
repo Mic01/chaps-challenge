@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>nz.ac.vuw.ecs.swen225.gp20.maze.actors</OriginalElement>
+  <nodes>
+    <node x="138.35648148148144" y="1177.0">nz.ac.vuw.ecs.swen225.gp20.maze.actors.AutoActor</node>
+    <node x="187.34259259259258" y="0.0">nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor.Direction</node>
+    <node x="0.0" y="215.0">nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player</node>
+    <node x="55.96759259259255" y="542.0">nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.maze.actors.AutoActor" target="nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor.Direction">
+      <point x="90.66666666666669" y="-116.0" />
+      <point x="365.02314814814815" y="1152.0" />
+      <point x="379.46759259259255" y="1152.0" />
+      <point x="379.46759259259255" y="190.0" />
+      <point x="376.3425925925926" y="190.0" />
+      <point x="84.0" y="82.5" />
+    </edge>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor.Direction" target="nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor">
+      <point x="-42.0" y="82.5" />
+      <point x="250.34259259259258" y="190.0" />
+      <point x="277.5" y="190.0" />
+      <point x="277.5" y="517.0" />
+      <point x="238.5509259259259" y="517.0" />
+      <point x="26.083333333333343" y="-292.5" />
+    </edge>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player" target="nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor.Direction">
+      <point x="0.0" y="-138.5" />
+      <point x="133.5" y="190.0" />
+      <point x="208.34259259259258" y="190.0" />
+      <point x="-84.0" y="82.5" />
+    </edge>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor" target="nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor.Direction">
+      <point x="130.41666666666669" y="-292.5" />
+      <point x="342.88425925925924" y="517.0" />
+      <point x="313.3287037037037" y="517.0" />
+      <point x="313.3287037037037" y="190.0" />
+      <point x="334.3425925925926" y="190.0" />
+      <point x="42.0" y="82.5" />
+    </edge>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor" target="nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player">
+      <point x="-130.41666666666663" y="-292.5" />
+      <point x="82.05092592592592" y="517.0" />
+      <point x="44.5" y="517.0" />
+      <point x="-89.0" y="138.5" />
+    </edge>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.maze.actors.Player" target="nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor">
+      <point x="89.0" y="138.5" />
+      <point x="222.5" y="517.0" />
+      <point x="186.38425925925924" y="517.0" />
+      <point x="-26.083333333333314" y="-292.5" />
+    </edge>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.maze.actors.AutoActor" target="nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor">
+      <point x="0.0" y="-116.0" />
+      <point x="274.3564814814814" y="1152.0" />
+      <point x="290.71759259259255" y="1152.0" />
+      <point x="78.25" y="292.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="117.0" y="55.0" />
+  <SelectedNodes>
+    <node>nz.ac.vuw.ecs.swen225.gp20.maze.actors.Actor</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

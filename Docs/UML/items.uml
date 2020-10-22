@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>nz.ac.vuw.ecs.swen225.gp20.maze.items</OriginalElement>
+  <nodes>
+    <node x="0.0" y="247.5">nz.ac.vuw.ecs.swen225.gp20.maze.items.IcePotion</node>
+    <node x="281.0" y="0.0">nz.ac.vuw.ecs.swen225.gp20.maze.items.Item</node>
+    <node x="218.0" y="247.5">nz.ac.vuw.ecs.swen225.gp20.maze.items.WaterPotion</node>
+    <node x="436.0" y="236.0">nz.ac.vuw.ecs.swen225.gp20.maze.items.Treasure</node>
+    <node x="654.0" y="214.0">nz.ac.vuw.ecs.swen225.gp20.maze.items.Key</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.maze.items.Treasure" target="nz.ac.vuw.ecs.swen225.gp20.maze.items.Item">
+      <point x="-49.5" y="-61.0" />
+      <point x="485.5" y="194.0" />
+      <point x="444.125" y="194.0" />
+      <point x="18.125" y="72.0" />
+    </edge>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.maze.items.IcePotion" target="nz.ac.vuw.ecs.swen225.gp20.maze.items.Item">
+      <point x="49.5" y="-49.5" />
+      <point x="148.5" y="174.0" />
+      <point x="335.375" y="174.0" />
+      <point x="-90.625" y="72.0" />
+    </edge>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.maze.items.WaterPotion" target="nz.ac.vuw.ecs.swen225.gp20.maze.items.Item">
+      <point x="-49.5" y="-49.5" />
+      <point x="267.5" y="184.0" />
+      <point x="371.625" y="184.0" />
+      <point x="-54.375" y="72.0" />
+    </edge>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.maze.items.Key" target="nz.ac.vuw.ecs.swen225.gp20.maze.items.Item">
+      <point x="-49.5" y="-83.0" />
+      <point x="703.5" y="174.0" />
+      <point x="516.625" y="174.0" />
+      <point x="90.625" y="72.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="248.0" y="55.0" />
+  <SelectedNodes>
+    <node>nz.ac.vuw.ecs.swen225.gp20.maze.items.Key</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

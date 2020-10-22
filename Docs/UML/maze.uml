@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>nz.ac.vuw.ecs.swen225.gp20.maze</OriginalElement>
+  <nodes>
+    <node x="0.0" y="0.0">nz.ac.vuw.ecs.swen225.gp20.maze.Maze</node>
+    <node x="284.0" y="200.5">nz.ac.vuw.ecs.swen225.gp20.maze.items</node>
+    <node x="95.375" y="521.0">nz.ac.vuw.ecs.swen225.gp20.maze.actors</node>
+    <node x="140.86309523809524" y="651.0">nz.ac.vuw.ecs.swen225.gp20.maze.tiles</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.maze.Maze" target="nz.ac.vuw.ecs.swen225.gp20.maze.tiles">
+      <point x="-104.57142857142856" y="215.5" />
+      <point x="17.428571428571445" y="501.0" />
+      <point x="43.87500000000003" y="501.0" />
+      <point x="43.87500000000003" y="631.0" />
+      <point x="148.3075396825397" y="631.0" />
+      <point x="-59.55555555555554" y="-15.0" />
+    </edge>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.maze.actors" target="nz.ac.vuw.ecs.swen225.gp20.maze.Maze">
+      <point x="-62.125" y="-15.0" />
+      <point x="104.25" y="501.0" />
+      <point x="87.14285714285717" y="501.0" />
+      <point x="-34.85714285714283" y="215.5" />
+    </edge>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.maze.actors" target="nz.ac.vuw.ecs.swen225.gp20.maze.tiles">
+      <point x="35.5" y="15.0" />
+      <point x="201.875" y="631.0" />
+      <point x="207.86309523809524" y="631.0" />
+      <point x="0.0" y="-15.0" />
+    </edge>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.maze.Maze" target="nz.ac.vuw.ecs.swen225.gp20.maze.actors">
+      <point x="34.85714285714286" y="215.5" />
+      <point x="156.85714285714286" y="451.0" />
+      <point x="139.75" y="451.0" />
+      <point x="-26.625" y="-15.0" />
+    </edge>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.maze.items" target="nz.ac.vuw.ecs.swen225.gp20.maze.items">
+      <point x="-57.42857142857143" y="15.0" />
+      <point x="293.57142857142856" y="250.5" />
+      <point x="264.0" y="250.5" />
+      <point x="264.0" y="215.5" />
+      <point x="-67.0" y="-0.0" />
+    </edge>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.maze.tiles" target="nz.ac.vuw.ecs.swen225.gp20.maze.actors">
+      <point x="-29.77777777777777" y="-15.0" />
+      <point x="178.08531746031747" y="611.0" />
+      <point x="154.54166666666669" y="611.0" />
+      <point x="-11.833333333333314" y="15.0" />
+    </edge>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.maze.tiles" target="nz.ac.vuw.ecs.swen225.gp20.maze.items">
+      <point x="44.66666666666666" y="-15.0" />
+      <point x="252.5297619047619" y="621.0" />
+      <point x="382.42846119929453" y="621.0" />
+      <point x="382.42846119929453" y="491.0" />
+      <point x="389.2857142857143" y="491.0" />
+      <point x="38.28571428571428" y="15.0" />
+    </edge>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.maze.actors" target="nz.ac.vuw.ecs.swen225.gp20.maze.items">
+      <point x="26.625" y="-15.0" />
+      <point x="193.0" y="481.0" />
+      <point x="312.7142857142857" y="481.0" />
+      <point x="-38.28571428571429" y="15.0" />
+    </edge>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.maze.tiles" target="nz.ac.vuw.ecs.swen225.gp20.maze.tiles">
+      <point x="0.0" y="15.0" />
+      <point x="207.86309523809524" y="701.0" />
+      <point x="120.86309523809524" y="701.0" />
+      <point x="120.86309523809524" y="666.0" />
+      <point x="-67.0" y="-0.0" />
+    </edge>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.maze.actors" target="nz.ac.vuw.ecs.swen225.gp20.maze.actors">
+      <point x="-35.5" y="15.0" />
+      <point x="130.875" y="581.0" />
+      <point x="65.375" y="581.0" />
+      <point x="65.375" y="528.5" />
+      <point x="-71.0" y="-7.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="129.5" y="390.5" />
+  <SelectedNodes>
+    <node>nz.ac.vuw.ecs.swen225.gp20.maze.Maze</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Inner Classes</Category>
+    <Category>Properties</Category>
+    <Category>Methods</Category>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

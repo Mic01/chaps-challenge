@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>nz.ac.vuw.ecs.swen225.gp20.maze.tiles</OriginalElement>
+  <nodes>
+    <node x="0.0" y="472.0">nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Vent</node>
+    <node x="834.0" y="483.0">nz.ac.vuw.ecs.swen225.gp20.maze.tiles.InfoTile</node>
+    <node x="2815.0" y="461.0">nz.ac.vuw.ecs.swen225.gp20.maze.tiles.ExitLock</node>
+    <node x="2259.0" y="505.5">nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Exit</node>
+    <node x="556.0" y="483.0">nz.ac.vuw.ecs.swen225.gp20.maze.tiles.NullTile</node>
+    <node x="1668.0" y="461.0">nz.ac.vuw.ecs.swen225.gp20.maze.tiles.LockedDoor</node>
+    <node x="2537.0" y="505.5">nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Water</node>
+    <node x="1112.0" y="460.5">nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Conveyor</node>
+    <node x="278.0" y="483.0">nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Ice</node>
+    <node x="1390.0" y="439.0">nz.ac.vuw.ecs.swen225.gp20.maze.tiles.FreeTile</node>
+    <node x="1362.5" y="0.0">nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile</node>
+    <node x="1981.0" y="505.5">nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Wall</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Vent" target="nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile">
+      <point x="64.5" y="-94.0" />
+      <point x="193.5" y="329.0" />
+      <point x="1383.840909090909" y="329.0" />
+      <point x="-135.159090909091" y="149.5" />
+    </edge>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Wall" target="nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile">
+      <point x="-64.5" y="-60.5" />
+      <point x="2045.5" y="389.0" />
+      <point x="1568.7954545454545" y="389.0" />
+      <point x="49.795454545454504" y="149.5" />
+    </edge>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Ice" target="nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile">
+      <point x="-64.5" y="-83.0" />
+      <point x="342.5" y="339.0" />
+      <point x="1398.068181818182" y="339.0" />
+      <point x="-120.93181818181824" y="149.5" />
+    </edge>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Exit" target="nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile">
+      <point x="-64.5" y="-60.5" />
+      <point x="2323.5" y="369.0" />
+      <point x="1597.25" y="369.0" />
+      <point x="78.25" y="149.5" />
+    </edge>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.maze.tiles.ExitLock" target="nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile">
+      <point x="64.5" y="-105.0" />
+      <point x="3008.5" y="319.0" />
+      <point x="1668.3863636363635" y="319.0" />
+      <point x="149.3863636363635" y="149.5" />
+    </edge>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.maze.tiles.LockedDoor" target="nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile">
+      <point x="-73.25" y="-105.0" />
+      <point x="1741.25" y="409.0" />
+      <point x="1540.340909090909" y="409.0" />
+      <point x="21.34090909090901" y="149.5" />
+    </edge>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Water" target="nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile">
+      <point x="64.5" y="-60.5" />
+      <point x="2730.5" y="339.0" />
+      <point x="1639.931818181818" y="339.0" />
+      <point x="120.93181818181802" y="149.5" />
+    </edge>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.maze.tiles.NullTile" target="nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile">
+      <point x="-64.5" y="-83.0" />
+      <point x="620.5" y="359.0" />
+      <point x="1426.5227272727275" y="359.0" />
+      <point x="-92.47727272727275" y="149.5" />
+    </edge>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.maze.tiles.InfoTile" target="nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile">
+      <point x="64.5" y="-83.0" />
+      <point x="1027.5" y="389.0" />
+      <point x="1469.2045454545455" y="389.0" />
+      <point x="-49.795454545454504" y="149.5" />
+    </edge>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.maze.tiles.FreeTile" target="nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile">
+      <point x="-64.5" y="-127.0" />
+      <point x="1454.5" y="419.0" />
+      <point x="1511.8863636363635" y="419.0" />
+      <point x="-7.113636363636488" y="149.5" />
+    </edge>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Conveyor" target="nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Tile">
+      <point x="-64.5" y="-105.5" />
+      <point x="1176.5" y="399.0" />
+      <point x="1483.4318181818185" y="399.0" />
+      <point x="-35.568181818181756" y="149.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.7476923076923077" x="640.0" y="70.0" />
+  <SelectedNodes>
+    <node>nz.ac.vuw.ecs.swen225.gp20.maze.tiles.Wall</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Inner Classes</Category>
+    <Category>Properties</Category>
+    <Category>Methods</Category>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

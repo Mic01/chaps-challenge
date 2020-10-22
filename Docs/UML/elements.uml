@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>nz.ac.vuw.ecs.swen225.gp20.recnplay.elements</OriginalElement>
+  <nodes>
+    <node x="14.0" y="0.0">nz.ac.vuw.ecs.swen225.gp20.recnplay.elements.Action</node>
+    <node x="14.0" y="238.0">nz.ac.vuw.ecs.swen225.gp20.recnplay.elements.Level</node>
+    <node x="0.0" y="520.0">nz.ac.vuw.ecs.swen225.gp20.recnplay.elements.Node</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.recnplay.elements.Level" target="nz.ac.vuw.ecs.swen225.gp20.recnplay.elements.Action">
+      <point x="-105.375" y="-116.0" />
+      <point x="-105.375" y="94.0" />
+    </edge>
+    <edge source="nz.ac.vuw.ecs.swen225.gp20.recnplay.elements.Node" target="nz.ac.vuw.ecs.swen225.gp20.recnplay.elements.Level">
+      <point x="-103.0" y="-72.0" />
+      <point x="51.5" y="495.0" />
+      <point x="60.83333333333333" y="495.0" />
+      <point x="-93.66666666666667" y="116.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="47.5" y="90.0" />
+  <SelectedNodes>
+    <node>nz.ac.vuw.ecs.swen225.gp20.recnplay.elements.Action</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
